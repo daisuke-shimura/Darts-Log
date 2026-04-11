@@ -1,2 +1,14 @@
-<h1>Homes#top</h1>
-<p>Find me in app/views/homes/top.html.erb</p>
+<h1>データ閲覧</h1>
+<%= link_to "データ閲覧", logs_path %>
+<h1>計測</h1>
+<h2>ユーザ選択</h2>
+<%= form_with url: login_path, method: :post do |f| %>
+  <%= f.select :user_id,
+        options_from_collection_for_select(@users, :id, :name),
+        prompt: "ユーザを選択" %>
+
+  <%= f.submit "決定" %>
+<% end %>
+
+<p>未登録の方</p>
+<%= link_to "登録", new_user_path %>

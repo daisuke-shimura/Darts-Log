@@ -1,0 +1,8 @@
+<% if user_signed_in? %>
+  ログイン中
+  <%= current_user.name %>
+
+  <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %>
+<% else %>
+  ログインしてなーい
+<% end %>
