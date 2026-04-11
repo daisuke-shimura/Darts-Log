@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   root to: 'homes#top'
-  resources :users, only: [:index, :new, :create, :update, :destroy]
+  resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :records, only: [:index]
   resources :logs, only: [:index]
 

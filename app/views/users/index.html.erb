@@ -1,5 +1,6 @@
 <h1>ユーザ一覧</h1>
 
+<turbo-frame id="modal"></turbo-frame>
 <table class="table">
   <thead>
     <tr>
@@ -14,13 +15,13 @@
   </thead>
   <tbody>
     <% @users.each do |user| %>
-      <tr>
+      <tr id="user_<%= user.id %>">
         <td><%= user.id %></td>
         <td><%= user.name %></td>
         <td><%= user.gender_i18n %></td>
         <td><%= user.age %></td>
         <td><%= user.experience %></td>
-        <td></td>
+        <td><%= link_to "編集" ,edit_user_path(user.id), data: { turbo_frame: "modal" }, class: "btn btn-primary" %></td>
         <td></td>
       </tr>
     <% end %>
