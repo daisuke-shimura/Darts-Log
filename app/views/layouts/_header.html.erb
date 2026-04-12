@@ -1,10 +1,17 @@
-<% if user_signed_in? %>
-  <%= link_to "ホーム", root_path %>
-  ログイン中
-  <%= current_user.name %>
+<nav class="navbar navbar-expand-md navbar-light bg-white border-bottom">
+  <div class="container-fluid">
+    <%= link_to "DartsLog", root_path, class: "navbar-brand" %>
 
-  <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete } %>
-<% else %>
-  <%= link_to "ホーム", root_path %>
-  ログインしてなーい
-<% end %>
+    <div class="d-flex align-items-center">
+      <% if user_signed_in? %>
+        <div class="small text-muted">ログイン中：</div>
+        <div class="fw-semibold me-2"><%= current_user.name %></div>
+        <%= link_to "ログアウト", logout_path,
+              data: { turbo_method: :delete },
+              class: "btn btn-sm btn-outline-danger" %>
+      <% else %>
+        <div class="me-3 text-muted small">ログインしていません</div>
+      <% end %>
+    </div>
+  </div>
+</nav>
