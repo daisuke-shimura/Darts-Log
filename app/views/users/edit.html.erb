@@ -1,4 +1,4 @@
-<turbo-frame id="modal">
+<turbo-frame id="edit-modal">
   <div class="modal-backdrop fade show" style="background-color: rgba(0,0,0,0.5);"></div>
   <div class="modal fade show" style="display:block;" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered" style="width:100%; max-width:420px;">
@@ -14,7 +14,7 @@
           <%= form_with model: @user, data: { turbo_frame: "_top" }, local: true, class: "needs-validation" do |f| %>
 
             <div class="mb-3">
-              <%= f.label :name, "名前", class: "form-label" %>
+              <%= f.label :name, raw("名前 <span class='text-danger'>*</span>"), class: "form-label" %>
               <%= f.text_field :name, required: true, class: "form-control", autofocus: true %>
             </div>
 
