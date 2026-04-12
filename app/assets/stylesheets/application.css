@@ -13,3 +13,215 @@
  *= require_tree .
  *= require_self
  */
+
+ .bord {
+  width: 90%;
+  aspect-ratio: 1 / 1;
+  background-color: rgb(225, 255, 252);
+  border: 1px solid black;
+  margin: 0 auto;
+}
+
+ .d-bull {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100px;
+  border-radius: 50%;
+  border: 3px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: slategray;
+}
+
+.s-bull {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 250px;
+  border-radius: 50%;
+  border: 3px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: red;
+}
+
+:root {
+  --hole-radius-1: -160%; 
+  --hole-radius-2: -300%;
+  --hole-radius-3: -480%;
+  --hole-radius-4: -610%; 
+  --hole-radius-5: -740%;
+  --hole-radius-6: -870%;
+
+  --angle-1: 51.4285714deg; /* 360 / 7 */
+  --angle-2: 25.7142857deg; /* 360 / 14 */
+  --angle-3: 16.3636363deg; /* 360 / 22 */
+  --angle-4: 12.8571429deg; /* 360 / 28 */
+  --angle-5: 10.5882352deg; /* 360 / 34 */
+  --angle-6: 9.47368421deg; /* 360 / 38 */
+}
+
+.hole {
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  width: 12.5px;
+  background-color: black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+:hover.hole {
+  background-color: rgb(78, 78, 78);
+}
+
+.hole1-1 { transform: translate(-50%, -50%) rotate(0deg)   translateY(var(--hole-radius-1)); }
+.hole1-2 { transform: translate(-50%, -50%) rotate(51.4deg) translateY(var(--hole-radius-1)); }
+.hole1-3 { transform: translate(-50%, -50%) rotate(102.8deg) translateY(var(--hole-radius-1)); }
+.hole1-4 { transform: translate(-50%, -50%) rotate(154.2deg) translateY(var(--hole-radius-1)); }
+.hole1-5 { transform: translate(-50%, -50%) rotate(205.6deg) translateY(var(--hole-radius-1)); }
+.hole1-6 { transform: translate(-50%, -50%) rotate(257deg)   translateY(var(--hole-radius-1)); }
+.hole1-7 { transform: translate(-50%, -50%) rotate(308.4deg) translateY(var(--hole-radius-1)); }
+
+.hole2-1  { transform: translate(-50%, -50%) rotate(calc(0  * var(--angle-2)))  translateY(var(--hole-radius-2)); }
+.hole2-2  { transform: translate(-50%, -50%) rotate(calc(1  * var(--angle-2)))  translateY(var(--hole-radius-2)); }
+.hole2-3  { transform: translate(-50%, -50%) rotate(calc(2  * var(--angle-2)))  translateY(var(--hole-radius-2)); }
+.hole2-4  { transform: translate(-50%, -50%) rotate(calc(3  * var(--angle-2)))  translateY(var(--hole-radius-2)); }
+.hole2-5  { transform: translate(-50%, -50%) rotate(calc(4  * var(--angle-2)))  translateY(var(--hole-radius-2)); }
+.hole2-6  { transform: translate(-50%, -50%) rotate(calc(5  * var(--angle-2)))  translateY(var(--hole-radius-2)); }
+.hole2-7  { transform: translate(-50%, -50%) rotate(calc(6  * var(--angle-2)))  translateY(var(--hole-radius-2)); }
+.hole2-8  { transform: translate(-50%, -50%) rotate(calc(7  * var(--angle-2)))  translateY(var(--hole-radius-2)); }
+.hole2-9  { transform: translate(-50%, -50%) rotate(calc(8  * var(--angle-2)))  translateY(var(--hole-radius-2)); }
+.hole2-10 { transform: translate(-50%, -50%) rotate(calc(9  * var(--angle-2)))  translateY(var(--hole-radius-2)); }
+.hole2-11 { transform: translate(-50%, -50%) rotate(calc(10 * var(--angle-2)))  translateY(var(--hole-radius-2)); }
+.hole2-12 { transform: translate(-50%, -50%) rotate(calc(11 * var(--angle-2)))  translateY(var(--hole-radius-2)); }
+.hole2-13 { transform: translate(-50%, -50%) rotate(calc(12 * var(--angle-2)))  translateY(var(--hole-radius-2)); }
+.hole2-14 { transform: translate(-50%, -50%) rotate(calc(13 * var(--angle-2)))  translateY(var(--hole-radius-2)); }
+
+.hole3-1  { transform: translate(-50%, -50%) rotate(calc(0.5  * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-2  { transform: translate(-50%, -50%) rotate(calc(1.5  * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-3  { transform: translate(-50%, -50%) rotate(calc(2.5  * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-4  { transform: translate(-50%, -50%) rotate(calc(3.5  * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-5  { transform: translate(-50%, -50%) rotate(calc(4.5  * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-6  { transform: translate(-50%, -50%) rotate(calc(5.5  * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-7  { transform: translate(-50%, -50%) rotate(calc(6.5  * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-8  { transform: translate(-50%, -50%) rotate(calc(7.5  * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-9  { transform: translate(-50%, -50%) rotate(calc(8.5  * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-10 { transform: translate(-50%, -50%) rotate(calc(9.5  * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-11 { transform: translate(-50%, -50%) rotate(calc(10.5 * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-12 { transform: translate(-50%, -50%) rotate(calc(11.5 * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-13 { transform: translate(-50%, -50%) rotate(calc(12.5 * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-14 { transform: translate(-50%, -50%) rotate(calc(13.5 * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-15 { transform: translate(-50%, -50%) rotate(calc(14.5 * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-16 { transform: translate(-50%, -50%) rotate(calc(15.5 * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-17 { transform: translate(-50%, -50%) rotate(calc(16.5 * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-18 { transform: translate(-50%, -50%) rotate(calc(17.5 * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-19 { transform: translate(-50%, -50%) rotate(calc(18.5 * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-20 { transform: translate(-50%, -50%) rotate(calc(19.5 * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-21 { transform: translate(-50%, -50%) rotate(calc(20.5 * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+.hole3-22 { transform: translate(-50%, -50%) rotate(calc(21.5 * var(--angle-3)))  translateY(var(--hole-radius-3)); }
+
+.hole4-1  { transform: translate(-50%, -50%) rotate(calc(0  * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-2  { transform: translate(-50%, -50%) rotate(calc(1  * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-3  { transform: translate(-50%, -50%) rotate(calc(2  * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-4  { transform: translate(-50%, -50%) rotate(calc(3  * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-5  { transform: translate(-50%, -50%) rotate(calc(4  * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-6  { transform: translate(-50%, -50%) rotate(calc(5  * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-7  { transform: translate(-50%, -50%) rotate(calc(6  * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-8  { transform: translate(-50%, -50%) rotate(calc(7  * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-9  { transform: translate(-50%, -50%) rotate(calc(8  * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-10 { transform: translate(-50%, -50%) rotate(calc(9  * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-11 { transform: translate(-50%, -50%) rotate(calc(10 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-12 { transform: translate(-50%, -50%) rotate(calc(11 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-13 { transform: translate(-50%, -50%) rotate(calc(12 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-14 { transform: translate(-50%, -50%) rotate(calc(13 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-15 { transform: translate(-50%, -50%) rotate(calc(14 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-16 { transform: translate(-50%, -50%) rotate(calc(15 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-17 { transform: translate(-50%, -50%) rotate(calc(16 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-18 { transform: translate(-50%, -50%) rotate(calc(17 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-19 { transform: translate(-50%, -50%) rotate(calc(18 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-20 { transform: translate(-50%, -50%) rotate(calc(19 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-21 { transform: translate(-50%, -50%) rotate(calc(20 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-22 { transform: translate(-50%, -50%) rotate(calc(21 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-23 { transform: translate(-50%, -50%) rotate(calc(22 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-24 { transform: translate(-50%, -50%) rotate(calc(23 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-25 { transform: translate(-50%, -50%) rotate(calc(24 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-26 { transform: translate(-50%, -50%) rotate(calc(25 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-27 { transform: translate(-50%, -50%) rotate(calc(26 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+.hole4-28 { transform: translate(-50%, -50%) rotate(calc(27 * var(--angle-4)))  translateY(var(--hole-radius-4)); }
+
+.hole5-1  { transform: translate(-50%, -50%) rotate(calc(0.5  * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-2  { transform: translate(-50%, -50%) rotate(calc(1.5  * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-3  { transform: translate(-50%, -50%) rotate(calc(2.5  * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-4  { transform: translate(-50%, -50%) rotate(calc(3.5  * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-5  { transform: translate(-50%, -50%) rotate(calc(4.5  * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-6  { transform: translate(-50%, -50%) rotate(calc(5.5  * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-7  { transform: translate(-50%, -50%) rotate(calc(6.5  * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-8  { transform: translate(-50%, -50%) rotate(calc(7.5  * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-9  { transform: translate(-50%, -50%) rotate(calc(8.5  * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-10 { transform: translate(-50%, -50%) rotate(calc(9.5  * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-11 { transform: translate(-50%, -50%) rotate(calc(10.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-12 { transform: translate(-50%, -50%) rotate(calc(11.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-13 { transform: translate(-50%, -50%) rotate(calc(12.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-14 { transform: translate(-50%, -50%) rotate(calc(13.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-15 { transform: translate(-50%, -50%) rotate(calc(14.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-16 { transform: translate(-50%, -50%) rotate(calc(15.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-17 { transform: translate(-50%, -50%) rotate(calc(16.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-18 { transform: translate(-50%, -50%) rotate(calc(17.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-19 { transform: translate(-50%, -50%) rotate(calc(18.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-20 { transform: translate(-50%, -50%) rotate(calc(19.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-21 { transform: translate(-50%, -50%) rotate(calc(20.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-22 { transform: translate(-50%, -50%) rotate(calc(21.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-23 { transform: translate(-50%, -50%) rotate(calc(22.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-24 { transform: translate(-50%, -50%) rotate(calc(23.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-25 { transform: translate(-50%, -50%) rotate(calc(24.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-26 { transform: translate(-50%, -50%) rotate(calc(25.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-27 { transform: translate(-50%, -50%) rotate(calc(26.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-28 { transform: translate(-50%, -50%) rotate(calc(27.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-29 { transform: translate(-50%, -50%) rotate(calc(28.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-30 { transform: translate(-50%, -50%) rotate(calc(29.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-31 { transform: translate(-50%, -50%) rotate(calc(30.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-32 { transform: translate(-50%, -50%) rotate(calc(31.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-33 { transform: translate(-50%, -50%) rotate(calc(32.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+.hole5-34 { transform: translate(-50%, -50%) rotate(calc(33.5 * var(--angle-5)))  translateY(var(--hole-radius-5)); }
+
+.hole6-1  { transform: translate(-50%, -50%) rotate(calc(0.5  * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-2  { transform: translate(-50%, -50%) rotate(calc(1.5  * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-3  { transform: translate(-50%, -50%) rotate(calc(2.5  * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-4  { transform: translate(-50%, -50%) rotate(calc(3.5  * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-5  { transform: translate(-50%, -50%) rotate(calc(4.5  * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-6  { transform: translate(-50%, -50%) rotate(calc(5.5  * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-7  { transform: translate(-50%, -50%) rotate(calc(6.5  * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-8  { transform: translate(-50%, -50%) rotate(calc(7.5  * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-9  { transform: translate(-50%, -50%) rotate(calc(8.5  * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-10 { transform: translate(-50%, -50%) rotate(calc(9.5  * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-11 { transform: translate(-50%, -50%) rotate(calc(10.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-12 { transform: translate(-50%, -50%) rotate(calc(11.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-13 { transform: translate(-50%, -50%) rotate(calc(12.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-14 { transform: translate(-50%, -50%) rotate(calc(13.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-15 { transform: translate(-50%, -50%) rotate(calc(14.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-16 { transform: translate(-50%, -50%) rotate(calc(15.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-17 { transform: translate(-50%, -50%) rotate(calc(16.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-18 { transform: translate(-50%, -50%) rotate(calc(17.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-19 { transform: translate(-50%, -50%) rotate(calc(18.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-20 { transform: translate(-50%, -50%) rotate(calc(19.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-21 { transform: translate(-50%, -50%) rotate(calc(20.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-22 { transform: translate(-50%, -50%) rotate(calc(21.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-23 { transform: translate(-50%, -50%) rotate(calc(22.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-24 { transform: translate(-50%, -50%) rotate(calc(23.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-25 { transform: translate(-50%, -50%) rotate(calc(24.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-26 { transform: translate(-50%, -50%) rotate(calc(25.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-27 { transform: translate(-50%, -50%) rotate(calc(26.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-28 { transform: translate(-50%, -50%) rotate(calc(27.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-29 { transform: translate(-50%, -50%) rotate(calc(28.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-30 { transform: translate(-50%, -50%) rotate(calc(29.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-31 { transform: translate(-50%, -50%) rotate(calc(30.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-32 { transform: translate(-50%, -50%) rotate(calc(31.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-33 { transform: translate(-50%, -50%) rotate(calc(32.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-34 { transform: translate(-50%, -50%) rotate(calc(33.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-35 { transform: translate(-50%, -50%) rotate(calc(34.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-36 { transform: translate(-50%, -50%) rotate(calc(35.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-37 { transform: translate(-50%, -50%) rotate(calc(36.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+.hole6-38 { transform: translate(-50%, -50%) rotate(calc(37.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
