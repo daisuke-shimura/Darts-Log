@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   helper_method :current_user, :user_signed_in?
+  before_action :clear_session
 
   private
   def current_user
@@ -12,5 +13,11 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     redirect_to root_path, alert: "ログインしてください" unless user_signed_in?
+  end
+
+  def clear_session
+    unless controller_name == "records"
+      session.delete(:user_id)
+    end
   end
 end
