@@ -15,6 +15,7 @@
  */
 
  .bord {
+  position: relative;
   width: 90%;
   aspect-ratio: 1 / 1;
   background-color: rgb(225, 255, 252);
@@ -23,9 +24,9 @@
 }
 
  .d-bull {
-  position: relative;
+  position: absolute;
   aspect-ratio: 1 / 1;
-  width: 100px;
+  width: 50%;
   border-radius: 50%;
   border: 3px solid black;
   top: 50%;
@@ -35,9 +36,9 @@
 }
 
 .s-bull {
-  position: relative;
+  position: absolute;
   aspect-ratio: 1 / 1;
-  width: 250px;
+  width: 27.5%;
   border-radius: 50%;
   border: 3px solid black;
   top: 50%;
@@ -45,6 +46,79 @@
   transform: translate(-50%, -50%);
   background-color: red;
 }
+
+.circle-1 { 
+  position: absolute;
+  width: 85%; 
+  aspect-ratio: 1 / 1;
+  border-radius: 50%; 
+  margin: 20px auto; 
+  border: 3px solid #000;
+  overflow: hidden;
+}
+
+.circle-2 {
+  position: absolute;
+  width: 90%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 3px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.circle-3 {
+  position: absolute;
+  width: 67.5%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 3px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.circle-4 {
+  position: absolute;
+  width: 87.5%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 3px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+
+.segment {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 50%, 42% 0, 58% 0);
+}
+.segment-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.segment.black {
+  background-color: slategray;
+}
+/* .segment.black:hover {
+  background-color: rgb(167, 167, 167);
+} */
+
+.segment.white {
+  background-color: white;
+}
+/* .segment.white:hover {
+  background-color: #EDEDED;
+} */
 
 :root {
   --hole-radius-1: -160%; 
@@ -66,9 +140,9 @@
   position: absolute;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  width: 12.5px;
+  width: 1vw;
   background-color: black;
-  top: 50%;
+  top: 0;
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
@@ -76,6 +150,10 @@
 :hover.hole {
   background-color: rgb(78, 78, 78);
 }
+
+.hole-bull   { top: 50%; }
+.hole-single { top: 75%; }
+.hole-double { top: 90%; }
 
 .hole1-1 { transform: translate(-50%, -50%) rotate(0deg)   translateY(var(--hole-radius-1)); }
 .hole1-2 { transform: translate(-50%, -50%) rotate(51.4deg) translateY(var(--hole-radius-1)); }
@@ -225,3 +303,5 @@
 .hole6-36 { transform: translate(-50%, -50%) rotate(calc(35.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
 .hole6-37 { transform: translate(-50%, -50%) rotate(calc(36.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
 .hole6-38 { transform: translate(-50%, -50%) rotate(calc(37.5 * var(--angle-6)))  translateY(var(--hole-radius-6)); }
+
+.hole-Isingle { top: 35%;}
