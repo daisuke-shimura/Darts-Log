@@ -1,6 +1,6 @@
 <div class="s-bull">
   <%(1..22).each do |n| %>
-    <div class="hole hole-bull hole3-<%= n %>" data-n="<%= n %>" data-absolute_r="4" data-absolute_0="<%= ((5 - (n - 1) + 22) % 22) * (360.0 / 22) %>" data-index_r="0.5" data-index_n="<%= n %>" data-value="50" data-name="S-BULL" data-multiplier="single" data-bull-target="hole" data-action="click->hole#click"></div>
+    <div class="hole hole-bull hole3-<%= n %>" data-absolute_r="4" data-absolute_0="<%= ((5 - (n - 1) + 22) % 22) * (360.0 / 22) %>" data-index_r="4" data-index_n="<%= n %>" data-value="50" data-name="S-BULL" data-multiplier="single" data-bull-target="hole" data-action="click->hole#click"></div>
   <% end %>
   <% (1..28).each do |n| %>
     <div class="hole hole-bull hole4-<%= n %>"></div>
@@ -14,10 +14,10 @@
   <div class="d-bull">
     <div class="hole hole-bull" data-absolute_r="0" data-absolute_0="0" data-index_r="0" data-index_n="0" data-value="50" data-name="D-BULL" data-multiplier="double" data-bull-target="hole" data-action="click->hole#click"></div>
     <% (1..7).each do |n| %>
-      <div class="hole hole-bull hole1-<%= n %>" data-n="<%= n %>" data-absolute_r="2" data-absolute_0="<%= ((90 - (n - 1) * (360.0 / 7) + 360) % 360) %>" data-index_r="0" data-index_n="<%= n %>" data-value="50" data-name="D-BULL" data-multiplier="double" data-bull-target="hole" data-action="click->hole#click"></div>
+      <div class="hole hole-bull hole1-<%= n %>" data-absolute_r="2" data-absolute_0="<%= ((90 - (n - 1) * (360.0 / 7) + 360) % 360) %>" data-index_r="2" data-index_n="<%= n %>" data-value="50" data-name="D-BULL" data-multiplier="double" data-bull-target="hole" data-action="click->hole#click"></div>
     <% end %>
     <% (1..14).each do |n| %>
-      <div class="hole hole-bull hole2-<%= n %>" data-n="<%= n %>" data-absolute_r="3" data-absolute_0="<%= ((90 - (n - 1) * (360.0 / 14) + 360) % 360) %>" data-index_r="0" data-index_n="<%= n %>" data-value="50" data-name="D-BULL" data-multiplier="double" data-bull-target="hole" data-action="click->hole#click"></div>
+      <div class="hole hole-bull hole2-<%= n %>" data-absolute_r="3" data-absolute_0="<%= ((90 - (n - 1) * (360.0 / 14) + 360) % 360) %>" data-index_r="3" data-index_n="<%= n %>" data-value="50" data-name="D-BULL" data-multiplier="double" data-bull-target="hole" data-action="click->hole#click"></div>
     <% end %>
   </div>
 </div>

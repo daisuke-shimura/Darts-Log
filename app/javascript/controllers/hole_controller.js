@@ -12,7 +12,6 @@ export default class extends Controller {
     const hole = event.currentTarget;
 
     const front_data = {
-      n: Number(hole.dataset.n),
       absolute_r: Number(hole.dataset.absolute_r),
       absolute_0: Number(hole.dataset.absolute_0),
       r: Number(hole.dataset.index_r),
@@ -39,7 +38,7 @@ export default class extends Controller {
 
       this.selected.forEach((p, index) => {
         if (this.outputTargets[index]) {
-          this.outputTargets[index].textContent = `${p.name}（${p.value}点, (r, θ) = (${p.absolute_r}, ${p.absolute_0}), (r, n) = (${p.r}, ${p.n})`;
+          this.outputTargets[index].textContent = `${p.name} ${p.value}点, (r, θ) = (${p.absolute_r}, ${p.absolute_0}), (r, n) = (${p.r}, ${p.n})`;
         }
       });
   }
