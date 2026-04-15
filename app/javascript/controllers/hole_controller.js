@@ -43,4 +43,26 @@ export default class extends Controller {
       });
   }
 
+  submit() {
+    console.log("submit clicked");
+    const results = this.selected
+    fetch("/records", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify({
+        results: results
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log("送信成功", data)
+    })
+    .catch(err => {
+      console.error(err)
+    });
+  }
+
 }

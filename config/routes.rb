@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   root to: 'homes#top'
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
-  resources :records, only: [:index]
+  resources :records, only: [:index, :create]
   resources :logs, only: [:index]
 
   post 'login', to: 'sessions#create'
