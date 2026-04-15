@@ -18,8 +18,8 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_11_081206) do
     t.integer "number", null: false
     t.integer "absolute_r"
     t.integer "absolute_0"
-    t.integer "relative_x"
-    t.integer "relative_y"
+    t.integer "index_r"
+    t.integer "index_n"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["round_id"], name: "index_darts_on_round_id"

@@ -15,8 +15,8 @@ export default class extends Controller {
       n: Number(hole.dataset.n),
       absolute_r: Number(hole.dataset.absolute_r),
       absolute_0: Number(hole.dataset.absolute_0),
-      x: Number(hole.dataset.x),
-      y: Number(hole.dataset.y),
+      r: Number(hole.dataset.index_r),
+      n: Number(hole.dataset.index_n),
       value: Number(hole.dataset.value),
       name: hole.dataset.name,
       multiplier: hole.dataset.multiplier,
@@ -39,7 +39,7 @@ export default class extends Controller {
 
       this.selected.forEach((p, index) => {
         if (this.outputTargets[index]) {
-          this.outputTargets[index].textContent = `${p.name}（${p.value}点, (r, θ) = (${p.absolute_r}, ${p.absolute_0}), (x, y) = (${p.x}, ${p.y})`;
+          this.outputTargets[index].textContent = `${p.name}（${p.value}点, (r, θ) = (${p.absolute_r}, ${p.absolute_0}), (r, n) = (${p.r}, ${p.n})`;
         }
       });
   }
