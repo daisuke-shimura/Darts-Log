@@ -26,7 +26,7 @@
  .d-bull {
   position: absolute;
   aspect-ratio: 1 / 1;
-  width: 50%;
+  width: 40%;
   border-radius: 50%;
   border: 3px solid black;
   top: 50%;
@@ -123,10 +123,10 @@
 :root {
   --hole-radius-1: -160%; 
   --hole-radius-2: -300%;
-  --hole-radius-3: -480%;
-  --hole-radius-4: -610%; 
-  --hole-radius-5: -740%;
-  --hole-radius-6: -870%;
+  --hole-radius-3: -500%;
+  --hole-radius-4: -630%; 
+  --hole-radius-5: -765%;
+  --hole-radius-6: -900%;
 
   --angle-1: 51.4285714deg; /* 360 / 7 */
   --angle-2: 25.7142857deg; /* 360 / 14 */

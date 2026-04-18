@@ -17,9 +17,9 @@ ActiveRecord::Schema[7.0].define(version: 2026_04_11_081206) do
     t.integer "multiplier", null: false
     t.integer "number", null: false
     t.integer "absolute_r"
-    t.integer "absolute_0"
-    t.integer "relative_x"
-    t.integer "relative_y"
+    t.decimal "absolute_0", precision: 6, scale: 3
+    t.integer "index_r"
+    t.integer "index_n"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["round_id"], name: "index_darts_on_round_id"
