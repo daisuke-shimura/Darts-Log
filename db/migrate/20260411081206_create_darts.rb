@@ -6,7 +6,7 @@ class CreateDarts < ActiveRecord::Migration[7.0]
       t.integer :multiplier, null: false
       t.integer :number, null: false
       t.integer :absolute_r
-      t.integer :absolute_0
+      t.decimal :absolute_0, precision: 6, scale: 3
       t.integer :index_r
       t.integer :index_n
       t.timestamps
