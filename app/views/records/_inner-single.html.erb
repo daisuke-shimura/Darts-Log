@@ -1,8 +1,15 @@
 <div class="circle-4">
-  <div class="segment black" data-value="20" data-name="SINGLE 20" style="transform: rotate(0deg);">
-    <div class="segment-inner">
-      <div class="hole hole-Isingle"></div>
+  <% segment_index = [20,1,18,4,13,6,10,15,2,17,3,19,7,16,8,11,14,9,12,5] %>
+  <% segment_index.each_with_index do |segment, n| %>
+    <div class="segment <%= n.even? ? 'black' : 'white' %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" style="transform: rotate(<%= n * 18 %>deg);">
+      <div class="segment-inner">
+        <div class="hole hole7" data-absolute_r="1" data-absolute_0="<%= (90 - (n * 18) + 360) %>" data-index_r="1" data-index_n="<%= segment %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" data-multiplier="single" data-hole-target="hole" data-action="click->hole#click"></div>
+        <div class="hole hole8"></div>
+        <div class="hole hole9"></div>
+        <div class="hole hole10-1"></div>
+        <div class="hole hole10-2"></div>
+      </div>
     </div>
-  </div>
+  <% end %>
   <%= render "bull" %>
 </div>
