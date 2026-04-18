@@ -6,32 +6,29 @@ class RecordsController < ApplicationController
 
   def create
     Rails.logger.debug "-----------------------------"
-    Rails.logger.debug "-----------------------------"
-    Rails.logger.debug params[:results]
+    darts = params[:results]
+    Rails.logger.debug darts.inspect
+
+    if darts.size > 3
+      render json: { error: "3つまでです" }, status: :unprocessable_entity
+      return
+    end
+
+    user_id = current_user.id
+    Round.create!(user_id: user_id)
+
+    darts.each_with_index do |dart, index|
+      Dart.create!(
+        round_id: Round.last.id,
+        segment: dart[:value],
+        multiplier: dart[:multiplier],
+        number: index + 1,
+        absolute_r: dart[:absolute_r],
+        absolute_0: dart[:absolute_0],
+        index_r: dart[:r],
+        index_n: dart[:n],
+      )
+    end
     render json: { status: "ok" }
-    # points = params[:points] || []
-
-    # if points.size > 3
-    #   render json: { error: "3つまでです" }, status: :unprocessable_entity
-    #   return
-    # end
-
-    # user_id = current_user.id
-    # Round.create!(user_id: user_id)
-
-    # points.each_with_index do |p, index|
-    #   Dart.create!(
-    #     round_id: Round.last.id,
-    #     segment: p[:value],
-    #     multiplier: p[:multiplier],
-    #     number: index + 1,
-    #     relative_x: p[:x],
-    #     relative_y: p[:y],
-    #   )
-    # end
-
-    # console.log(points)
-  
-    # render json: { status: "ok" }
   end
 end

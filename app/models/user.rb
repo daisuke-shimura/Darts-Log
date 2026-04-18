@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :rounds
+  
   enum gender: { other: 0, male: 1, female: 2 }
 
   def age

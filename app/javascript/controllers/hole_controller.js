@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["output"];
+  static targets = ["output", "flash"];
 
   connect() {
     console.log("hole controller connected");
@@ -43,6 +43,13 @@ export default class extends Controller {
       });
   }
 
+  showMessage(message) {
+    const toastEl = document.getElementById("liveToast")
+    toastEl.querySelector(".toast-body").textContent = message
+    const toast = new bootstrap.Toast(toastEl)
+    toast.show()
+  }
+
   submit() {
     console.log("submit clicked");
     const results = this.selected
@@ -58,7 +65,11 @@ export default class extends Controller {
     })
     .then(res => res.json())
     .then(data => {
-      console.log("送信成功", data)
+      if (data.status === "ok") {
+        this.selected = [];
+        this.render();
+        this.showMessage("保存しました");
+      }
     })
     .catch(err => {
       console.error(err)
