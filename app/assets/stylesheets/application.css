@@ -138,7 +138,7 @@
   border-radius: 50%;
   width: 0.5vw;
   background-color: black;
-  top: 0;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   cursor: pointer;
@@ -147,7 +147,7 @@
   background-color: rgb(78, 78, 78);
 }
 
-.hole-bull   { top: 50%; }
+/* .hole-bull   { top: 50%; } */
 
 :root {
   --radius-1: -160%; 
@@ -162,6 +162,10 @@
   --radius-8: 35%;
   --radius-9: 33.3%;
   --radius-10: 32%;
+  --radius-11: 30%;
+  --radius-12: 27%;
+  --radius-13: 23%;
+  --radius-14: 20%;
 
   --angle-1: 51.4285714deg; /* 360 / 7 */
   --angle-2: 25.7142857deg; /* 360 / 14 */
@@ -325,11 +329,17 @@
 .hole7 { top: var(--radius-7);}
 .hole8 { top: var(--radius-8);}
 .hole9 { top: var(--radius-9);}
-.hole10-1 { 
-  transform: translate(-50%, -50%) translateX(-100%);;
-  top: var(--radius-10);}
-
-.hole10-2 {
-  transform: translate(-50%, -50%) translateX(100%);;
-  top: var(--radius-10);
-}
+.hole10-1 { transform: translate(-50%, -50%) translateX(-100%); top: var(--radius-10);}
+.hole10-2 { transform: translate(-50%, -50%) translateX(100%); top: var(--radius-10);}
+.hole11-1 { transform: translate(-50%, -50%) translateX(-150%); top: var(--radius-11);}
+.hole11-2 { transform: translate(-50%, -50%) translateX(0%); top: var(--radius-11);}
+.hole11-3 { transform: translate(-50%, -50%) translateX(150%); top: var(--radius-11);}
+.hole12-1 { transform: translate(-50%, -50%) translateX(-150%); top: var(--radius-12);}
+.hole12-2 { transform: translate(-50%, -50%) translateX(0%); top: var(--radius-12);}
+.hole12-3 { transform: translate(-50%, -50%) translateX(150%); top: var(--radius-12);}
+.hole13-1 { transform: translate(-50%, -50%) translateX(-150%); top: var(--radius-13);}
+.hole13-2 { transform: translate(-50%, -50%) translateX(0%); top: var(--radius-13);}
+.hole13-3 { transform: translate(-50%, -50%) translateX(150%); top: var(--radius-13);}
+.hole14-1 { transform: translate(-50%, -50%) translateX(-150%); top: var(--radius-14);}
+.hole14-2 { transform: translate(-50%, -50%) translateX(0%); top: var(--radius-14);}
+.hole14-3 { transform: translate(-50%, -50%) translateX(150%); top: var(--radius-14);}
