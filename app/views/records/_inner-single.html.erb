@@ -2,18 +2,51 @@
   <% segment_index = [20,1,18,4,13,6,10,15,2,17,3,19,7,16,8,11,14,9,12,5] %>
   <% segment_index.each_with_index do |segment, n| %>
     <div class="segment <%= n.even? ? 'black' : 'white' %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" style="transform: rotate(<%= n * 18 %>deg);">
-      <div class="segment-inner">
-        <div class="hole hole7" data-absolute_r="1" data-absolute_0="<%= (90 - (n * 18) + 360) %>" data-index_r="1" data-index_n="<%= segment %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" data-multiplier="single" data-hole-target="hole" data-action="click->hole#click"></div>
-        <div class="hole hole8"></div>
-        <div class="hole hole9"></div>
-        <div class="hole hole10-1"></div>
-        <div class="hole hole10-2"></div>
+      <div class="hole hole7"></div>
+      <div class="hole hole8"></div>
+      <div class="hole hole9"></div>
+      <div class="hole hole10-1"></div>
+      <div class="hole hole10-2"></div>
         <% (11..14).each do |d| %>
           <% (1..3).each do |n| %>
             <div class="hole hole<%= d %>-<%= n %>"></div>
           <% end %>
         <% end %>
-      </div>
+        <% (15..18).each do |d| %>
+          <% (1..4).each do |n| %>
+            <div class="hole hole<%= d %>-<%= n %>"></div>
+          <% end %>
+        <% end %>
+        <% (19..21).each do |d| %>
+          <% (1..5).each do |n| %>
+            <div class="hole hole<%= d %>-<%= n %>"></div>
+          <% end %>
+        <% end %>
+        <% (22..24).each do |d| %>
+          <% (1..6).each do |n| %>
+            <div class="hole hole<%= d %>-<%= n %>"></div>
+          <% end %>
+        <% end %>
+        <% (25..27).each do |d| %>
+          <% (1..7).each do |n| %>
+            <div class="hole hole<%= d %>-<%= n %>"></div>
+          <% end %>
+        <% end %>
+        <% (28..30).each do |d| %>
+          <% (1..8).each do |n| %>
+            <div class="hole hole<%= d %>-<%= n %>"></div>
+          <% end %>
+        <% end %>
+        <% (31..33).each do |d| %>
+          <% (1..9).each do |n| %>
+            <div class="hole hole<%= d %>-<%= n %>"></div>
+          <% end %>
+        <% end %>
+        <% (34..35).each do |d| %>
+          <% (1..10).each do |n| %>
+            <div class="hole hole<%= d %>-<%= n %>"></div>
+          <% end %>
+        <% end %>
     </div>
   <% end %>
   <%= render "bull" %>
