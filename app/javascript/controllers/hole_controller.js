@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["output", "flash"];
+  static targets = ["output", "flash", "submitBtn"];
 
   connect() {
     console.log("hole controller connected");
@@ -31,6 +31,7 @@ export default class extends Controller {
 
     this.selected.push(front_data);
     this.render();
+    this.updateSubmitButton();
   }
 
   render() {
@@ -51,7 +52,15 @@ export default class extends Controller {
     toast.show()
   }
 
+  updateSubmitButton() {
+    this.submitBtnTarget.disabled = this.selected.length === 0;
+  }
+
   submit() {
+    if (this.selected.length === 0) {
+      return;
+    }
+
     console.log("submit clicked");
     const results = this.selected
     fetch("/records", {
@@ -69,6 +78,7 @@ export default class extends Controller {
       if (data.status === "ok") {
         this.selected = [];
         this.render();
+        this.updateSubmitButton();
         this.showMessage("保存しました");
       }
     })
