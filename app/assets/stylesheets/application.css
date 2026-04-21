@@ -13,6 +13,68 @@
  *= require_tree .
  *= require_self
  */
+ .fixed-form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 46;
+  will-change: transform;
+  transform-origin: top left;
+
+  padding: 16px;
+}
+
+.fixed-form-inner {
+  width: 320px;
+  min-height: 300px;
+  padding: 16px;
+  border-radius: 16px;
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(30, 80, 200, 0.35),
+    rgba(0, 120, 255, 0.25)
+  );
+
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  color: #fff;
+}
+.fixed-form-inner::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+
+  background: rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+.result-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result-list li {
+  display: flex;
+  min-height: 90px;
+  padding: 6px 0;
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.submit-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+}
+.submit-btn:hover {
+  transform: scale(1.05);
+}
+
 
 .board {
   position: relative;
@@ -153,10 +215,10 @@
   --radius-1: -160%; 
   --radius-2: -295%;
   /*BULL*/
-  --radius-3: -480%;
-  --radius-4: -620%; 
-  --radius-5: -765%;
-  --radius-6: -905%;
+  --radius-3: -465%;
+  --radius-4: -605%; 
+  --radius-5: -745%;
+  --radius-6: -885%;
   /*Inner SINGLE*/
   --radius-7: 1050%;
   --radius-8: 1160%;

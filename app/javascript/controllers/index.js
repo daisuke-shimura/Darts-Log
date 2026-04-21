@@ -4,4 +4,6 @@ import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
 eagerLoadControllersFrom("controllers", application)
 
 import HoleController from "./hole_controller"
+import ResultController from "./result_controller"
 application.register("hole", HoleController)
+application.register("result", ResultController)
