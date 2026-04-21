@@ -24,9 +24,9 @@
 }
 
 .fixed-form-inner {
-  min-width: 320px;
-  min-height: 300px;
-  padding: 16px;
+  min-width: 250px;
+  min-height: 301px;
+  padding: 4px 16px;
   border-radius: 16px;
   position: relative;
   background: linear-gradient(
@@ -49,16 +49,16 @@
 
 .result-list li {
   display: flex;
-  min-height: 90px;
-  padding: 6px 0;
+  min-height: 80px;
+  padding: 4px 0;
   color: #fff;
   border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 
 .submit-btn {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
+  bottom: 10px;
+  right: 10px;
 }
 .submit-btn:hover {
   transform: scale(1.05);
