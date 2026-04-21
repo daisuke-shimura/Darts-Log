@@ -22,11 +22,12 @@ export default class extends Controller {
   }
 
   updatePosition() {
+    const TopSpace = 40;
     const vv = window.visualViewport;
     const scale = 1/vv.scale;
 
     const x = vv.offsetLeft / scale;
-    const y = vv.offsetTop / scale;
+    const y = (vv.offsetTop / scale) + TopSpace;
 
     this.form.style.transform = `
       scale(${scale})
