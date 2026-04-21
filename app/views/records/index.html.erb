@@ -1,16 +1,21 @@
 <div data-controller="hole">
-  <%= render "flash-message" %>
   <div class="board">
     <%= render "out" %>
   </div>
-  <div class="d-flex">
-    <button data-action="click->hole#submit">確定</button>
-    <ul>
-      <li>1投目：<span data-hole-target="output"></span></li>
-      <li>2投目：<span data-hole-target="output"></span></li>
-      <li>3投目：<span data-hole-target="output"></span></li>
-    </ul>
+
+  <div id="fixedForm" data-controller="result" class="fixed-form">
+    <div class="fixed-form-inner">
+      <ul class="result-list">
+        <li>1投目：<span data-hole-target="output"></span></li>
+        <li>2投目：<span data-hole-target="output"></span></li>
+        <li>3投目：<span data-hole-target="output"></span></li>
+      </ul>
+
+      <%= render "flash-message" %>
+
+      <button class="submit-btn btn btn-primary rounded-pill" data-action="click->hole#submit">
+        確定
+      </button>
+    </div>
   </div>
 </div>
-
-<div id="fixedForm" data-controller="result" class="fixed-form"></div>
