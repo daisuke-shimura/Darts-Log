@@ -33,6 +33,7 @@ class RecordsController < ApplicationController
         absolute_0: dart[:absolute_0],
         index_r: dart[:r],
         index_n: dart[:n],
+        target: dart[:target]
       )
     end
     render json: { status: "ok" }

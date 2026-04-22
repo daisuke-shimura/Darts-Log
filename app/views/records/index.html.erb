@@ -6,7 +6,7 @@
   <div id="fixedForm" data-controller="result" class="fixed-form">
     <div class="fixed-form-inner">
       <%= link_to target_path, class: "target-display" do %>
-        <input type="hidden" name="target" value="<%= @target %>">
+        <input type="hidden" name="target" value="<%= @target %>" data-hole-target="targetInput">
         <div class="target-label">TARGET</div>
         <div class="target-value"><%= @target_name %></div>
       <% end %>

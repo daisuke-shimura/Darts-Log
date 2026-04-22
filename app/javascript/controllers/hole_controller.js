@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["output", "flash", "submitBtn"];
+  static targets = ["output", "flash", "submitBtn", "targetInput"];
 
   connect() {
     console.log("hole controller connected");
@@ -10,6 +10,7 @@ export default class extends Controller {
 
   click(event) {
     const hole = event.currentTarget;
+    const target = this.targetInputTarget.value;
 
     const front_data = {
       absolute_r: Number(hole.dataset.absolute_r),
@@ -19,6 +20,7 @@ export default class extends Controller {
       value: Number(hole.dataset.value),
       name: hole.dataset.name,
       multiplier: hole.dataset.multiplier,
+      target: target
     };
 
     console.log("front_data:", front_data);
