@@ -1,6 +1,12 @@
 class RecordsController < ApplicationController
   before_action :authenticate_user!
+  layout "no-header", only: [:target]
   def index
+    @target = params[:target].presence || "bull"
+    @target_name = params[:target_name].presence || "BULL"
+  end
+
+  def target
     
   end
 

@@ -66,24 +66,24 @@
 
 .target-display {
   margin-bottom: 4px;
-  padding: 8px;
+  padding: 4px 8px;
   border-radius: 12px;
-
   background: rgba(255,255,255,0.08);
   border: 1px solid rgba(255,255,255,0.15);
-
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-decoration: none;
 }
 
 .target-label {
+  font-weight: lighter;
   font-size: 16px;
   color: rgba(255,255,255,0.7);
 }
 
 .target-value {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: bold;
   color: #fff;
   letter-spacing: 1px;

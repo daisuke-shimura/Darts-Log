@@ -5,10 +5,11 @@
 
   <div id="fixedForm" data-controller="result" class="fixed-form">
     <div class="fixed-form-inner">
-      <div class="target-display">
+      <%= link_to target_path, class: "target-display" do %>
+        <input type="hidden" name="target" value="<%= @target %>">
         <div class="target-label">TARGET</div>
-        <div class="target-value">T20</div>
-      </div>
+        <div class="target-value"><%= @target_name %></div>
+      <% end %>
       
       <ul class="result-list">
         <li>1投目：<span data-hole-target="output"></span></li>

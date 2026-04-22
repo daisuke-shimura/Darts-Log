@@ -5,5 +5,7 @@ eagerLoadControllersFrom("controllers", application)
 
 import HoleController from "./hole_controller"
 import ResultController from "./result_controller"
+import TargetController from "./target_controller"
 application.register("hole", HoleController)
 application.register("result", ResultController)
+application.register("target", TargetController)
