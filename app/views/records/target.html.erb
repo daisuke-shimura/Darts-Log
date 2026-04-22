@@ -1,20 +1,10 @@
 <div data-controller="target">
-  <div class="d-flex align-items-center justify-content-between my-3 mx-3">
-
+  <div class="d-flex align-items-center justify-content-between my-2 mx-3">
     <%= link_to "キャンセル", records_path, class: "btn btn-secondary btn-sm" %>
-
-    <h2 class="fw-semibold mb-0 border-bottom border-3 pb-1">
+    <h3 class="fw-semibold mb-0 border-bottom border-3 pb-1">
       TARGET 設定
-    </h2>
-
-    <button
-      type="button"
-      class="btn btn-light btn-sm border"
-      data-value="undefined"
-      data-name="---"
-      data-action="click->target#select">
-      未定義
-    </button>
+    </h3>
+    <button type="button" class="btn btn-light btn-sm border" data-value="undefined" data-name="---" data-action="click->target#select">未定義</button>
   </div>
 
   <div class="board">
