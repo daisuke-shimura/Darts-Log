@@ -25,8 +25,8 @@
 
 .fixed-form-inner {
   min-width: 250px;
-  min-height: 301px;
-  padding: 4px 16px;
+  min-height: 360px;
+  padding: 8px;
   border-radius: 16px;
   position: relative;
   background: linear-gradient(
@@ -64,6 +64,30 @@
   transform: scale(1.05);
 }
 
+.target-display {
+  margin-bottom: 4px;
+  padding: 8px;
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.target-label {
+  font-size: 16px;
+  color: rgba(255,255,255,0.7);
+}
+
+.target-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 1px;
+}
 
 .board {
   position: relative;
