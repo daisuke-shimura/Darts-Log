@@ -9,6 +9,7 @@ class CreateDarts < ActiveRecord::Migration[7.0]
       t.decimal :absolute_0, precision: 6, scale: 3
       t.integer :index_r
       t.integer :index_n
+      t.integer :target
       t.timestamps
     end
   end

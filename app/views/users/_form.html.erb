@@ -38,8 +38,8 @@
           </div>
 
           <div class="modal-footer">
-            <%= f.submit submit_label, class: submit_btn %>
             <%= link_to "キャンセル", close_path, class: "btn btn-secondary", data: { turbo_frame: "_top" } %>
+            <%= f.submit submit_label, class: submit_btn %>
           </div>
 
         <% end %>

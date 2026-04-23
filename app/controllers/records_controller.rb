@@ -1,7 +1,9 @@
 class RecordsController < ApplicationController
   before_action :authenticate_user!
+  layout "no-header", only: [:target]
   def index
-    
+    @defalut_target       ||= "bull"
+    @defalut_target_name  ||= "BULL"
   end
 
   def create
@@ -27,6 +29,7 @@ class RecordsController < ApplicationController
         absolute_0: dart[:absolute_0],
         index_r: dart[:r],
         index_n: dart[:n],
+        target: dart[:target]
       )
     end
     render json: { status: "ok" }
