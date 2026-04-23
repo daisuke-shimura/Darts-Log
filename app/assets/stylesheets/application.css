@@ -65,6 +65,7 @@
 }
 
 .target-display {
+  width: 100%;
   margin-bottom: 4px;
   padding: 4px 8px;
   border-radius: 12px;
@@ -82,7 +83,7 @@
   color: rgba(255,255,255,0.7);
 }
 
-.target-value {
+.target-name {
   font-size: 22px;
   font-weight: bold;
   color: #fff;
@@ -106,7 +107,7 @@
   position: absolute;
   color: lightgray;
   height: 100%;
-  font-size: 2vw;;
+  font-size: 2vw;
 }
 
 .circle-1 { 
@@ -207,20 +208,24 @@
   background-color: #1976d2; /* 鮮やかだけど目に刺さらない青 */
 }
 
-.segment.target {
+.segment.target,
+.s-bull.target,
+.d-bull.target {
   cursor: pointer;
   transition: 
     transform 0.12s ease,
     filter 0.12s ease,
     background 0.12s ease;
 }
-.segment.target:hover {
+.segment.target:hover,
+.s-bull.target:hover,
+.d-bull.target:hover {
   background: #f6e27a;
   filter: brightness(1.25) saturate(1.3);
-  transform: scale(1.06);
 }
-.segment.target:active {
-  transform: scale(0.95);
+.segment.target:active,
+.s-bull.target:active,
+.d-bull.target:active {
   filter: brightness(0.95);
 }
 
