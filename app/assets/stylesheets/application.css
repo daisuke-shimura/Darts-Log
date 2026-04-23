@@ -284,6 +284,11 @@
   --radius-33: 3875%;
   --radius-34: 3985%;
   --radius-35: 4095%;
+  --radius-36: 4250%;
+  --radius-37: 4400%;
+  --radius-38: 4550%;
+  --radius-39: 4700%;
+  --radius-40: 4850%;
 
 /* BULL用 */
   --angle-1: 51.4285714deg; /* 360 / 7 */
@@ -627,3 +632,68 @@
 .hole35-8 { transform: translate(-50%, -50%) rotate(184.5deg) translateY(var(--radius-35));}
 .hole35-9 { transform: translate(-50%, -50%) rotate(186.3deg) translateY(var(--radius-35));}
 .hole35-10{ transform: translate(-50%, -50%) rotate(188.1deg) translateY(var(--radius-35));}
+
+/* TRIPLE */
+.hole36-1 { transform: translate(-50%, -50%) rotate(172deg) translateY(var(--radius-36));}
+.hole36-2 { transform: translate(-50%, -50%) rotate(173.6deg) translateY(var(--radius-36));}
+.hole36-3 { transform: translate(-50%, -50%) rotate(175.2deg) translateY(var(--radius-36));}
+.hole36-4 { transform: translate(-50%, -50%) rotate(176.8deg) translateY(var(--radius-36));}
+.hole36-5 { transform: translate(-50%, -50%) rotate(178.4deg) translateY(var(--radius-36));}
+.hole36-6 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-36));}
+.hole36-7 { transform: translate(-50%, -50%) rotate(181.6deg) translateY(var(--radius-36));}
+.hole36-8 { transform: translate(-50%, -50%) rotate(183.2deg) translateY(var(--radius-36));}
+.hole36-9 { transform: translate(-50%, -50%) rotate(184.8deg) translateY(var(--radius-36));}
+.hole36-10{ transform: translate(-50%, -50%) rotate(186.4deg) translateY(var(--radius-36));}
+.hole36-11{ transform: translate(-50%, -50%) rotate(188deg) translateY(var(--radius-36));}
+
+.hole37-1 { transform: translate(-50%, -50%) rotate(172deg) translateY(var(--radius-37));}
+.hole37-2 { transform: translate(-50%, -50%) rotate(173.6deg) translateY(var(--radius-37));}
+.hole37-3 { transform: translate(-50%, -50%) rotate(175.2deg) translateY(var(--radius-37));}
+.hole37-4 { transform: translate(-50%, -50%) rotate(176.8deg) translateY(var(--radius-37));}
+.hole37-5 { transform: translate(-50%, -50%) rotate(178.4deg) translateY(var(--radius-37));}
+.hole37-6 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-37));}
+.hole37-7 { transform: translate(-50%, -50%) rotate(181.6deg) translateY(var(--radius-37));}
+.hole37-8 { transform: translate(-50%, -50%) rotate(183.2deg) translateY(var(--radius-37));}
+.hole37-9 { transform: translate(-50%, -50%) rotate(184.8deg) translateY(var(--radius-37));}
+.hole37-10{ transform: translate(-50%, -50%) rotate(186.4deg) translateY(var(--radius-37));}
+.hole37-11{ transform: translate(-50%, -50%) rotate(188deg) translateY(var(--radius-37));}
+
+.hole38-1 { transform: translate(-50%, -50%) rotate(171.95deg) translateY(var(--radius-38));}
+.hole38-2 { transform: translate(-50%, -50%) rotate(173.41deg) translateY(var(--radius-38));}
+.hole38-3 { transform: translate(-50%, -50%) rotate(174.88deg) translateY(var(--radius-38));}
+.hole38-4 { transform: translate(-50%, -50%) rotate(176.34deg) translateY(var(--radius-38));}
+.hole38-5 { transform: translate(-50%, -50%) rotate(177.81deg) translateY(var(--radius-38));}
+.hole38-6 { transform: translate(-50%, -50%) rotate(179.27deg) translateY(var(--radius-38));}
+.hole38-7 { transform: translate(-50%, -50%) rotate(180.73deg) translateY(var(--radius-38));}
+.hole38-8 { transform: translate(-50%, -50%) rotate(182.19deg) translateY(var(--radius-38));}
+.hole38-9 { transform: translate(-50%, -50%) rotate(183.66deg) translateY(var(--radius-38));}
+.hole38-10{ transform: translate(-50%, -50%) rotate(185.12deg) translateY(var(--radius-38));}
+.hole38-11{ transform: translate(-50%, -50%) rotate(186.59deg) translateY(var(--radius-38));}
+.hole38-12{ transform: translate(-50%, -50%) rotate(188.05deg) translateY(var(--radius-38));}
+
+.hole39-1 { transform: translate(-50%, -50%) rotate(171.9deg) translateY(var(--radius-39));}
+.hole39-2 { transform: translate(-50%, -50%) rotate(173.37deg) translateY(var(--radius-39));}
+.hole39-3 { transform: translate(-50%, -50%) rotate(174.85deg) translateY(var(--radius-39));}
+.hole39-4 { transform: translate(-50%, -50%) rotate(176.32deg) translateY(var(--radius-39));}
+.hole39-5 { transform: translate(-50%, -50%) rotate(177.79deg) translateY(var(--radius-39));}
+.hole39-6 { transform: translate(-50%, -50%) rotate(179.26deg) translateY(var(--radius-39));}
+.hole39-7 { transform: translate(-50%, -50%) rotate(180.74deg) translateY(var(--radius-39));}
+.hole39-8 { transform: translate(-50%, -50%) rotate(182.21deg) translateY(var(--radius-39));}
+.hole39-9 { transform: translate(-50%, -50%) rotate(183.68deg) translateY(var(--radius-39));}
+.hole39-10{ transform: translate(-50%, -50%) rotate(185.15deg) translateY(var(--radius-39));}
+.hole39-11{ transform: translate(-50%, -50%) rotate(186.63deg) translateY(var(--radius-39));}
+.hole39-12{ transform: translate(-50%, -50%) rotate(188.1deg) translateY(var(--radius-39));}
+
+.hole40-1 { transform: translate(-50%, -50%) rotate(171.90deg) translateY(var(--radius-40));}
+.hole40-2 { transform: translate(-50%, -50%) rotate(173.25deg) translateY(var(--radius-40));}
+.hole40-3 { transform: translate(-50%, -50%) rotate(174.60deg) translateY(var(--radius-40));}
+.hole40-4 { transform: translate(-50%, -50%) rotate(175.95deg) translateY(var(--radius-40));}
+.hole40-5 { transform: translate(-50%, -50%) rotate(177.30deg) translateY(var(--radius-40));}
+.hole40-6 { transform: translate(-50%, -50%) rotate(178.65deg) translateY(var(--radius-40));}
+.hole40-7 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-40));}
+.hole40-8 { transform: translate(-50%, -50%) rotate(181.35deg) translateY(var(--radius-40));}
+.hole40-9 { transform: translate(-50%, -50%) rotate(182.70deg) translateY(var(--radius-40));}
+.hole40-10{ transform: translate(-50%, -50%) rotate(184.05deg) translateY(var(--radius-40));}
+.hole40-11{ transform: translate(-50%, -50%) rotate(185.40deg) translateY(var(--radius-40));}
+.hole40-12{ transform: translate(-50%, -50%) rotate(186.75deg) translateY(var(--radius-40));}
+.hole40-13{ transform: translate(-50%, -50%) rotate(188.10deg) translateY(var(--radius-40));}

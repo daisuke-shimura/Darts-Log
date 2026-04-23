@@ -38,10 +38,17 @@ export default class extends Controller {
 
   render() {
     this.outputTargets.forEach(el => el.textContent = "");
-
       this.selected.forEach((p, index) => {
         if (this.outputTargets[index]) {
-          const html = `${p.name} ${p.value}点<br>(r, θ) = (${p.absolute_r}, ${p.absolute_0})<br>(r, n) = (${p.r}, ${p.n})`;
+          let rate;
+          if (p.multiplier === "triple") {
+            rate = 3;
+          } else if (p.multiplier === "double") {
+            rate = 2;
+          } else {
+            rate = 1;
+          }
+          const html = `${p.name} ${p.value * rate}点<br>(r, θ) = (${p.absolute_r}, ${p.absolute_0})<br>(r, n) = (${p.r}, ${p.n})`;
           this.outputTargets[index].innerHTML = html;
         }
       });
