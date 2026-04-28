@@ -1,6 +1,6 @@
 <div class="circle-4">
   <% @segment_index.each_with_index do |segment, number| %>
-    <div class="segment <%= number.even? ? 'black' : 'white' %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" style="transform: rotate(<%= number * 18 %>deg);">
+    <div class="segment <%= number.even? ? 'black' : 'white' %>" style="transform: rotate(<%= number * 18 %>deg);">
       <div class="hole hole7" data-absolute_r="7" data-absolute_0="<%= zero_standard(number, 20, 5) %>" data-index_r="7" data-index_n="<%= number %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" data-multiplier="single"></div>
       <div class="hole hole8" data-absolute_r="8" data-absolute_0="<%= zero_standard(number, 20, 5) %>" data-index_r="8" data-index_n="<%= number %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" data-multiplier="single"></div>
       <div class="hole hole9" data-absolute_r="9" data-absolute_0="<%= zero_standard(number, 20, 5) %>" data-index_r="9" data-index_n="<%= number %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" data-multiplier="single"></div>
