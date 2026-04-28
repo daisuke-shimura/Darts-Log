@@ -3,7 +3,7 @@
     <div class="segment <%= number.even? ? 'red' : 'blue' %>" style="transform: rotate(<%= number * 18 %>deg);">
       <% (59..63).each do |d| %>
         <% (1..20).each do |n| %>
-          <div class="hole hole<%= d %>-<%= n %>" data-absolute_r="<%= d %>" data-absolute_0="<%= zero_standard(20 * number + n, 400, 110.5) %>" data-index_r="<%= d %>" data-index_n="<%= 20 * number + n %>" data-value="<%= segment %>" data-name="DOUBLE <%= segment %>" data-multiplier="double" data-bull-target="hole" data-action="click->hole#click"></div>
+          <div class="hole hole<%= d %>-<%= n %>" data-absolute_r="<%= d %>" data-absolute_0="<%= zero_standard(20 * number + n, 400, 110.5) %>" data-index_r="<%= d %>" data-index_n="<%= 20 * number + n %>" data-value="<%= segment %>" data-name="DOUBLE <%= segment %>" data-multiplier="double"></div>
         <% end %>
       <% end %>
     </div>
