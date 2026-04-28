@@ -11,13 +11,14 @@
   <% (1..38).each do |n| %>
     <div class="hole hole-bull hole6-<%= n %>" data-absolute_r="6" data-absolute_0="<%= zero_standard(n, 38, 10) %>" data-index_r="6" data-index_n="<%= n %>" data-value="50" data-name="S BULL" data-multiplier="single" data-bull-target="hole" data-action="click->hole#click"></div>
   <% end %>
-  <div class="d-bull">
-    <div class="hole hole-bull" data-absolute_r="0" data-absolute_0="0" data-index_r="0" data-index_n="0" data-value="50" data-name="D BULL" data-multiplier="double" data-bull-target="hole" data-action="click->hole#click"></div>
-    <% (1..7).each do |n| %>
-      <div class="hole hole-bull hole1-<%= n %>" data-absolute_r="1" data-absolute_0="<%= bull_top_standard(n, 7) %>" data-index_r="1" data-index_n="<%= n %>" data-value="50" data-name="D BULL" data-multiplier="double" data-bull-target="hole" data-action="click->hole#click"></div>
-    <% end %>
-    <% (1..14).each do |n| %>
-      <div class="hole hole-bull hole2-<%= n %>" data-absolute_r="2" data-absolute_0="<%= bull_top_standard(n, 14) %>" data-index_r="2" data-index_n="<%= n %>" data-value="50" data-name="D BULL" data-multiplier="double" data-bull-target="hole" data-action="click->hole#click"></div>
-    <% end %>
-  </div>
+</div>
+
+<div class="d-bull">
+  <div class="hole hole-bull" data-absolute_r="0" data-absolute_0="0" data-index_r="0" data-index_n="0" data-value="50" data-name="D BULL" data-multiplier="double" data-bull-target="hole" data-action="click->hole#click"></div>
+  <% (1..7).each do |n| %>
+    <div class="hole hole-bull hole1-<%= n %>" data-absolute_r="1" data-absolute_0="<%= bull_top_standard(n, 7) %>" data-index_r="1" data-index_n="<%= n %>" data-value="50" data-name="D BULL" data-multiplier="double" data-bull-target="hole" data-action="click->hole#click"></div>
+  <% end %>
+  <% (1..14).each do |n| %>
+    <div class="hole hole-bull hole2-<%= n %>" data-absolute_r="2" data-absolute_0="<%= bull_top_standard(n, 14) %>" data-index_r="2" data-index_n="<%= n %>" data-value="50" data-name="D BULL" data-multiplier="double" data-bull-target="hole" data-action="click->hole#click"></div>
+  <% end %>
 </div>

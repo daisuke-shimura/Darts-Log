@@ -111,7 +111,30 @@
   pointer-events: none;
 }
 
-.circle-1 { 
+.circle-1,
+.circle-2,
+.circle-3,
+.circle-4,
+.s-bull,
+.d-bull {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  aspect-ratio: 1 / 1;
+  border: 3px solid #000;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+}
+
+.circle-1 { width: 90%; }
+.circle-2 { width: 80.5%; }
+.circle-3 { width: 56%; }
+.circle-4 { width: 47.4%; }
+.s-bull { width: 11.25%; background-color: #d32f2f;}
+.d-bull { width: 4.5%; background-color: #4a4a4a;}
+
+/* .circle-1 { 
   position: absolute;
   width: 90%; 
   aspect-ratio: 1 / 1;
@@ -179,7 +202,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #4a4a4a;
-}
+} */
 
 .segment {
   position: absolute;
