@@ -6,124 +6,40 @@
         <h5 class="modal-title border-start border-4 ps-2 d-flex align-items-center">TARGET選択</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body position-relative">
-        <button type="button" class="btn btn-light btn-sm border position-absolute top-0 start-0 m-3" data-value="undefined" data-name="---" data-action="click->target#select">未設定</button>
+      <div class="modal-body position-relative" data-action="click->target#select">
+        <button type="button" class="btn btn-light btn-sm border position-absolute top-0 start-0 m-3 target" data-value="undefined" data-name="---">未設定</button>
         <div class="board">
-          <div class="number" style="transform: rotate(0deg);"><div style="transform: rotate(0deg);">20</div></div>
-          <div class="number" style="transform: rotate(18deg);"><div style="transform: rotate(-18deg);">1</div></div>
-          <div class="number" style="transform: rotate(34deg);"><div style="transform: rotate(-34deg);">18</div></div>
-          <div class="number" style="transform: rotate(54deg);"><div style="transform: rotate(-54deg);">4</div></div>
-          <div class="number" style="transform: rotate(72deg);"><div style="transform: rotate(-72deg);">13</div></div>
-          <div class="number" style="transform: rotate(90deg);"><div style="transform: rotate(-90deg);">6</div></div>
-          <div class="number" style="transform: rotate(108deg);"><div style="transform: rotate(-108deg);">10</div></div>
-          <div class="number" style="transform: rotate(126deg);"><div style="transform: rotate(-126deg);">15</div></div>
-          <div class="number" style="transform: rotate(144deg);"><div style="transform: rotate(-144deg);">2</div></div>
-          <div class="number" style="transform: rotate(162deg);"><div style="transform: rotate(-162deg);">17</div></div>
-          <div class="number" style="transform: rotate(180deg);"><div style="transform: rotate(-180deg);">3</div></div>
-          <div class="number" style="transform: rotate(198deg);"><div style="transform: rotate(-198deg);">19</div></div>
-          <div class="number" style="transform: rotate(216deg);"><div style="transform: rotate(-216deg);">7</div></div>
-          <div class="number" style="transform: rotate(234deg);"><div style="transform: rotate(-234deg);">16</div></div>
-          <div class="number" style="transform: rotate(252deg);"><div style="transform: rotate(-252deg);">8</div></div>
-          <div class="number" style="transform: rotate(270deg);"><div style="transform: rotate(-270deg);">11</div></div>
-          <div class="number" style="transform: rotate(288deg);"><div style="transform: rotate(-288deg);">14</div></div>
-          <div class="number" style="transform: rotate(306deg);"><div style="transform: rotate(-306deg);">9</div></div>
-          <div class="number" style="transform: rotate(324deg);"><div style="transform: rotate(-324deg);">12</div></div>
-          <div class="number" style="transform: rotate(342deg);"><div style="transform: rotate(-342deg);">5</div></div>
-          <div class="circle-1">
-            <div class="segment red  target" data-value="d20" data-name="DOUBLE 20" role="button" data-action="click->target#select" style="transform: rotate(0deg);"></div>
-            <div class="segment blue target" data-value="d1"  data-name="DOUBLE 1 " role="button" data-action="click->target#select" style="transform: rotate(18deg);"></div>
-            <div class="segment red  target" data-value="d18" data-name="DOUBLE 18" role="button" data-action="click->target#select" style="transform: rotate(36deg);"></div>
-            <div class="segment blue target" data-value="d4"  data-name="DOUBLE 4 " role="button" data-action="click->target#select" style="transform: rotate(54deg);"></div>
-            <div class="segment red  target" data-value="d13" data-name="DOUBLE 13" role="button" data-action="click->target#select" style="transform: rotate(72deg);"></div>
-            <div class="segment blue target" data-value="d6"  data-name="DOUBLE 6 " role="button" data-action="click->target#select" style="transform: rotate(90deg);"></div>
-            <div class="segment red  target" data-value="d10" data-name="DOUBLE 10" role="button" data-action="click->target#select" style="transform: rotate(108deg);"></div>
-            <div class="segment blue target" data-value="d15" data-name="DOUBLE 15" role="button" data-action="click->target#select" style="transform: rotate(126deg);"></div>
-            <div class="segment red  target" data-value="d2"  data-name="DOUBLE 2 " role="button" data-action="click->target#select" style="transform: rotate(144deg);"></div>
-            <div class="segment blue target" data-value="d17" data-name="DOUBLE 17" role="button" data-action="click->target#select" style="transform: rotate(162deg);"></div>
-            <div class="segment red  target" data-value="d3"  data-name="DOUBLE 3 " role="button" data-action="click->target#select" style="transform: rotate(180deg);"></div>
-            <div class="segment blue target" data-value="d19" data-name="DOUBLE 19" role="button" data-action="click->target#select" style="transform: rotate(198deg);"></div>
-            <div class="segment red  target" data-value="d7"  data-name="DOUBLE 7 " role="button" data-action="click->target#select" style="transform: rotate(216deg);"></div>
-            <div class="segment blue target" data-value="d8"  data-name="DOUBLE 16" role="button" data-action="click->target#select" style="transform: rotate(234deg);"></div>
-            <div class="segment red  target" data-value="d4"  data-name="DOUBLE 8 " role="button" data-action="click->target#select" style="transform: rotate(252deg);"></div>
-            <div class="segment blue target" data-value="d11" data-name="DOUBLE 11" role="button" data-action="click->target#select" style="transform: rotate(270deg);"></div>
-            <div class="segment red  target" data-value="d14" data-name="DOUBLE 14" role="button" data-action="click->target#select" style="transform: rotate(288deg);"></div> 
-            <div class="segment blue target" data-value="d9"  data-name="DOUBLE 9 " role="button" data-action="click->target#select" style="transform: rotate(306deg);"></div> 
-            <div class="segment red  target" data-value="d12" data-name="DOUBLE 12" role="button" data-action="click->target#select" style="transform: rotate(324deg);"></div> 
-            <div class="segment blue target" data-value="d5"  data-name="DOUBLE 5 " role="button" data-action="click->target#select" style="transform: rotate(342deg);"></div> 
-            
-            <div class="circle-2">
-              <div class="segment black target" data-value="s20" data-name="SINGLE 20" role="button" data-action="click->target#select" style="transform: rotate(0deg);"></div>
-              <div class="segment white target" data-value="s1"  data-name="SINGLE 1"  role="button" data-action="click->target#select" style="transform: rotate(18deg);"></div>
-              <div class="segment black target" data-value="s18" data-name="SINGLE 18" role="button" data-action="click->target#select" style="transform: rotate(36deg);"></div>
-              <div class="segment white target" data-value="s4"  data-name="SINGLE 4"  role="button" data-action="click->target#select" style="transform: rotate(54deg);"></div>
-              <div class="segment black target" data-value="s13" data-name="SINGLE 13" role="button" data-action="click->target#select" style="transform: rotate(72deg);"></div>
-              <div class="segment white target" data-value="s6"  data-name="SINGLE 6"  role="button" data-action="click->target#select" style="transform: rotate(90deg);"></div>
-              <div class="segment black target" data-value="s10" data-name="SINGLE 10" role="button" data-action="click->target#select" style="transform: rotate(108deg);"></div>
-              <div class="segment white target" data-value="s15" data-name="SINGLE 15" role="button" data-action="click->target#select" style="transform: rotate(126deg);"></div>
-              <div class="segment black target" data-value="s2"  data-name="SINGLE 2"  role="button" data-action="click->target#select" style="transform: rotate(144deg);"></div>
-              <div class="segment white target" data-value="s17" data-name="SINGLE 17" role="button" data-action="click->target#select" style="transform: rotate(162deg);"></div>
-              <div class="segment black target" data-value="s3"  data-name="SINGLE 3"  role="button" data-action="click->target#select" style="transform: rotate(180deg);"></div>
-              <div class="segment white target" data-value="s19" data-name="SINGLE 19" role="button" data-action="click->target#select" style="transform: rotate(198deg);"></div>
-              <div class="segment black target" data-value="s7"  data-name="SINGLE 7"  role="button" data-action="click->target#select" style="transform: rotate(216deg);"></div>
-              <div class="segment white target" data-value="s8"  data-name="SINGLE 16" role="button" data-action="click->target#select" style="transform: rotate(234deg);"></div>
-              <div class="segment black target" data-value="s4"  data-name="SINGLE 8"  role="button" data-action="click->target#select" style="transform: rotate(252deg);"></div>
-              <div class="segment white target" data-value="s11" data-name="SINGLE 11" role="button" data-action="click->target#select" style="transform: rotate(270deg);"></div>
-              <div class="segment black target" data-value="s14" data-name="SINGLE 14" role="button" data-action="click->target#select" style="transform: rotate(288deg);"></div> 
-              <div class="segment white target" data-value="s9"  data-name="SINGLE 9"  role="button" data-action="click->target#select" style="transform: rotate(306deg);"></div> 
-              <div class="segment black target" data-value="s12" data-name="SINGLE 12" role="button" data-action="click->target#select" style="transform: rotate(324deg);"></div> 
-              <div class="segment white target" data-value="s5"  data-name="SINGLE 5"  role="button" data-action="click->target#select" style="transform: rotate(342deg);"></div>
-              
-              <div class="circle-3">
-                <div class="segment red  target" data-value="t20" data-name="TRIPLE 20" role="button" data-action="click->target#select" style="transform: rotate(0deg);"></div>
-                <div class="segment blue target" data-value="t1"  data-name="TRIPLE 1"  role="button" data-action="click->target#select" style="transform: rotate(18deg);"></div>
-                <div class="segment red  target" data-value="t18" data-name="TRIPLE 18" role="button" data-action="click->target#select" style="transform: rotate(36deg);"></div>
-                <div class="segment blue target" data-value="t4"  data-name="TRIPLE 4"  role="button" data-action="click->target#select" style="transform: rotate(54deg);"></div>
-                <div class="segment red  target" data-value="t13" data-name="TRIPLE 13" role="button" data-action="click->target#select" style="transform: rotate(72deg);"></div>
-                <div class="segment blue target" data-value="t6"  data-name="TRIPLE 6"  role="button" data-action="click->target#select" style="transform: rotate(90deg);"></div>
-                <div class="segment red  target" data-value="t10" data-name="TRIPLE 10" role="button" data-action="click->target#select" style="transform: rotate(108deg);"></div>
-                <div class="segment blue target" data-value="t15" data-name="TRIPLE 15" role="button" data-action="click->target#select" style="transform: rotate(126deg);"></div>
-                <div class="segment red  target" data-value="t2"  data-name="TRIPLE 2"  role="button" data-action="click->target#select" style="transform: rotate(144deg);"></div>
-                <div class="segment blue target" data-value="t17" data-name="TRIPLE 17" role="button" data-action="click->target#select" style="transform: rotate(162deg);"></div>
-                <div class="segment red  target" data-value="t3"  data-name="TRIPLE 3"  role="button" data-action="click->target#select" style="transform: rotate(180deg);"></div>
-                <div class="segment blue target" data-value="t19" data-name="TRIPLE 19" role="button" data-action="click->target#select" style="transform: rotate(198deg);"></div>
-                <div class="segment red  target" data-value="t7"  data-name="TRIPLE 7"  role="button" data-action="click->target#select" style="transform: rotate(216deg);"></div>
-                <div class="segment blue target" data-value="t8"  data-name="TRIPLE 16" role="button" data-action="click->target#select" style="transform: rotate(234deg);"></div>
-                <div class="segment red  target" data-value="t4"  data-name="TRIPLE 8"  role="button" data-action="click->target#select" style="transform: rotate(252deg);"></div>
-                <div class="segment blue target" data-value="t11" data-name="TRIPLE 11" role="button" data-action="click->target#select" style="transform: rotate(270deg);"></div>
-                <div class="segment red  target" data-value="t14" data-name="TRIPLE 14" role="button" data-action="click->target#select" style="transform: rotate(288deg);"></div> 
-                <div class="segment blue target" data-value="t9"  data-name="TRIPLE 9"  role="button" data-action="click->target#select" style="transform: rotate(306deg);"></div> 
-                <div class="segment red  target" data-value="t12" data-name="TRIPLE 12" role="button" data-action="click->target#select" style="transform: rotate(324deg);"></div> 
-                <div class="segment blue target" data-value="t5"  data-name="TRIPLE 5"  role="button" data-action="click->target#select" style="transform: rotate(342deg);"></div>
-                
-                <div class="circle-4">
-                  <div class="segment black target" data-value="s20" data-name="SINGLE 20" role="button" data-action="click->target#select" style="transform: rotate(0deg);"></div>
-                  <div class="segment white target" data-value="s1"  data-name="SINGLE 1"  role="button" data-action="click->target#select" style="transform: rotate(18deg);"></div>
-                  <div class="segment black target" data-value="s18" data-name="SINGLE 18" role="button" data-action="click->target#select" style="transform: rotate(36deg);"></div>
-                  <div class="segment white target" data-value="s4"  data-name="SINGLE 4"  role="button" data-action="click->target#select" style="transform: rotate(54deg);"></div>
-                  <div class="segment black target" data-value="s13" data-name="SINGLE 13" role="button" data-action="click->target#select" style="transform: rotate(72deg);"></div>
-                  <div class="segment white target" data-value="s6"  data-name="SINGLE 6"  role="button" data-action="click->target#select" style="transform: rotate(90deg);"></div>
-                  <div class="segment black target" data-value="s10" data-name="SINGLE 10" role="button" data-action="click->target#select" style="transform: rotate(108deg);"></div>
-                  <div class="segment white target" data-value="s15" data-name="SINGLE 15" role="button" data-action="click->target#select" style="transform: rotate(126deg);"></div>
-                  <div class="segment black target" data-value="s2"  data-name="SINGLE 2"  role="button" data-action="click->target#select" style="transform: rotate(144deg);"></div>
-                  <div class="segment white target" data-value="s17" data-name="SINGLE 17" role="button" data-action="click->target#select" style="transform: rotate(162deg);"></div>
-                  <div class="segment black target" data-value="s3"  data-name="SINGLE 3"  role="button" data-action="click->target#select" style="transform: rotate(180deg);"></div>
-                  <div class="segment white target" data-value="s19" data-name="SINGLE 19" role="button" data-action="click->target#select" style="transform: rotate(198deg);"></div>
-                  <div class="segment black target" data-value="s7"  data-name="SINGLE 7"  role="button" data-action="click->target#select" style="transform: rotate(216deg);"></div>
-                  <div class="segment white target" data-value="s8"  data-name="SINGLE 16" role="button" data-action="click->target#select" style="transform: rotate(234deg);"></div>
-                  <div class="segment black target" data-value="s4"  data-name="SINGLE 8"  role="button" data-action="click->target#select" style="transform: rotate(252deg);"></div>
-                  <div class="segment white target" data-value="s11" data-name="SINGLE 11" role="button" data-action="click->target#select" style="transform: rotate(270deg);"></div>
-                  <div class="segment black target" data-value="s14" data-name="SINGLE 14" role="button" data-action="click->target#select" style="transform: rotate(288deg);"></div> 
-                  <div class="segment white target" data-value="s9"  data-name="SINGLE 9"  role="button" data-action="click->target#select" style="transform: rotate(306deg);"></div> 
-                  <div class="segment black target" data-value="s12" data-name="SINGLE 12" role="button" data-action="click->target#select" style="transform: rotate(324deg);"></div> 
-                  <div class="segment white target" data-value="s5"  data-name="SINGLE 5"  role="button" data-action="click->target#select" style="transform: rotate(342deg);"></div>
-
-                  <div class="s-bull target" data-value="bull" data-name="BULL" data-action="click->target#select" role="button">
-                    <div class="d-bull target" data-value="bull" data-name="BULL" data-action="click->target#select" role="button"></div>
-                  </div>
-                </div>
-              </div>
+          <% @segment_index.each_with_index do |segment, number| %>
+            <div class="number" style="transform: rotate(<%= number * 18 %>deg);">
+              <div style="transform: rotate(<%= number * -18 %>deg);"><%= segment %></div>
             </div>
+          <% end %>
+
+          <div class="circle-1">
+            <% @segment_index.each_with_index do |segment, number| %>
+              <div class="segment <%= number.even? ? 'red' : 'blue' %> target" data-value="d<%= segment %>" data-name="DOUBLE <%= segment %>" role="button" style="transform: rotate(<%= number * 18 %>deg);"></div>
+            <% end %>
           </div>
+          
+          <div class="circle-2">
+            <% @segment_index.each_with_index do |segment, number| %>
+              <div class="segment <%= number.even? ? 'black' : 'white' %> target" data-value="s<%= segment %>" data-name="SINGLE <%= segment %>" role="button" style="transform: rotate(<%= number * 18 %>deg);"></div>
+            <% end %>
+          </div>
+              
+          <div class="circle-3">
+            <% @segment_index.each_with_index do |segment, number| %>
+              <div class="segment <%= number.even? ? 'red' : 'blue' %> target" data-value="t<%= segment %>" data-name="TRIPLE <%= segment %>" role="button" style="transform: rotate(<%= number * 18 %>deg);"></div>
+            <% end %>
+          </div>
+                
+          <div class="circle-4">
+            <% @segment_index.each_with_index do |segment, number| %>
+              <div class="segment <%= number.even? ? 'black' : 'white' %> target" data-value="s<%= segment %>" data-name="SINGLE <%= segment %>" role="button" style="transform: rotate(<%= number * 18 %>deg);"></div>
+            <% end %>
+          </div>
+          <div class="s-bull target" data-value="bull" data-name="BULL" role="button"></div>
+          <div class="d-bull target" data-value="bull" data-name="BULL" role="button"></div>
         </div>
       </div>
     </div>

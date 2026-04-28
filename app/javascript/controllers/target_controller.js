@@ -8,8 +8,15 @@ export default class extends Controller {
   }
 
   select(event) {
-    const value = event.currentTarget.dataset.value
-    const name  = event.currentTarget.dataset.name
+    // const value = event.currentTarget.dataset.value
+    const targetEl = event.target.closest(".target");
+    // segment以外クリック無視
+    if (!targetEl) return;
+
+    const value = targetEl.dataset.value;
+    const name = targetEl.dataset.name;
+
+    console.log("clicked", value, name);
 
     // hidden更新（hole_controllerと共有）
     document.querySelector('[data-hole-target="targetInput"]').value = value;
