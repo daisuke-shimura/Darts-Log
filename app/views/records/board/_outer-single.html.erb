@@ -1,0 +1,43 @@
+<div class="circle-2">
+  <% @segment_index.each_with_index do |segment, number| %>
+    <div class="segment <%= number.even? ? 'black' : 'white' %>" style="transform: rotate(<%= number * 18 %>deg);">
+      <% (1..14).each do |n| %>
+        <div class="hole hole41-<%= n %>" data-absolute_r="41" data-absolute_0="<%= zero_standard(14 * number + n, 280, 77.5) %>" data-index_r="41" data-index_n="<%= 14 * number + n %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" data-multiplier="single" data-bull-target="hole" data-action="click->hole#click"></div>
+      <% end %>
+      <% (1..13).each do |n| %>
+        <div class="hole hole42-<%= n %>" data-absolute_r="42" data-absolute_0="<%= zero_standard(13 * number + n, 260, 72) %>" data-index_r="42" data-index_n="<%= 13 * number + n %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" data-multiplier="single" data-bull-target="hole" data-action="click->hole#click"></div>
+      <% end %>
+      <% (43..45).each do |d| %>
+        <% (1..14).each do |n| %>
+          <div class="hole hole<%= d %>-<%= n %>" data-absolute_r="<%= d %>" data-absolute_0="<%= zero_standard(14 * number + n, 280, 77.5) %>" data-index_r="<%= d %>" data-index_n="<%= 14 * number + n %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" data-multiplier="single" data-bull-target="hole" data-action="click->hole#click"></div>
+        <% end %>
+      <% end %>
+      <% (46..47).each do |d| %>
+        <% (1..15).each do |n| %>
+          <div class="hole hole<%= d %>-<%= n %>" data-absolute_r="<%= d %>" data-absolute_0="<%= zero_standard(15 * number + n, 300, 83) %>" data-index_r="<%= d %>" data-index_n="<%= 15 * number + n %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" data-multiplier="single" data-bull-target="hole" data-action="click->hole#click"></div>
+        <% end %>
+      <% end %>
+      <% (48..50).each do |d| %>
+        <% (1..16).each do |n| %>
+          <div class="hole hole<%= d %>-<%= n %>" data-absolute_r="<%= d %>" data-absolute_0="<%= zero_standard(16 * number + n, 320, 88.5) %>" data-index_r="<%= d %>" data-index_n="<%= 16 * number + n %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" data-multiplier="single" data-bull-target="hole" data-action="click->hole#click"></div>
+        <% end %>
+      <% end %>
+      <% (51..53).each do |d| %>
+        <% (1..17).each do |n| %>
+          <div class="hole hole<%= d %>-<%= n %>" data-absolute_r="<%= d %>" data-absolute_0="<%= zero_standard(17 * number + n, 340, 94) %>" data-index_r="<%= d %>" data-index_n="<%= 17 * number + n %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" data-multiplier="single" data-bull-target="hole" data-action="click->hole#click"></div>
+        <% end %>
+      <% end %>
+      <% (54..56).each do |d| %>
+        <% (1..18).each do |n| %>
+          <div class="hole hole<%= d %>-<%= n %>" data-absolute_r="<%= d %>" data-absolute_0="<%= zero_standard(18 * number + n, 360, 99.5) %>" data-index_r="<%= d %>" data-index_n="<%= 18 * number + n %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" data-multiplier="single" data-bull-target="hole" data-action="click->hole#click"></div>
+        <% end %>
+      <% end %>
+      <% (57..58).each do |d| %>
+        <% (1..19).each do |n| %>
+          <div class="hole hole<%= d %>-<%= n %>" data-absolute_r="<%= d %>" data-absolute_0="<%= zero_standard(19 * number + n, 380, 105) %>" data-index_r="<%= d %>" data-index_n="<%= 19 * number + n %>" data-value="<%= segment %>" data-name="SINGLE <%= segment %>" data-multiplier="single" data-bull-target="hole" data-action="click->hole#click"></div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <%= render "records/board/triple" %>
+</div>

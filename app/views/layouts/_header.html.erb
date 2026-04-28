@@ -1,0 +1,15 @@
+<nav class="navbar navbar-expand-md navbar-light bg-white">
+  <div class="container-fluid">
+    <%= link_to "DartsLog", root_path, class: "navbar-brand" %>
+
+    <div class="d-flex align-items-center">
+      <% if user_signed_in? %>
+        <div class="small text-muted">ログイン中：</div>
+        <div class="fw-semibold me-2"><%= current_user.name %></div>
+        <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" }, class: "btn btn-outline-danger" %>
+      <% else %>
+        <div class="me-3 text-muted small">ログインしていません</div>
+      <% end %>
+    </div>
+  </div>
+</nav>

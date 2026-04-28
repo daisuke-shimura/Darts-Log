@@ -1,0 +1,30 @@
+<turbo-frame id="edit-modal"></turbo-frame>
+
+<h1>ユーザ一覧</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>名前</th>
+      <th>性別</th>
+      <th>年齢</th>
+      <th>ダーツ経験</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr id="user_<%= user.id %>">
+        <td><%= user.id %></td>
+        <td><%= user.name %></td>
+        <td><%= user.gender_i18n %></td>
+        <td><%= user.age %></td>
+        <td><%= user.experience %></td>
+        <td><%= link_to "編集", edit_user_path(user.id), data: { turbo_frame: "edit-modal" }, class: "btn btn-primary" %></td>
+        <td><%= link_to "削除", user_path(user.id), data: { turbo_method: :delete, turbo_confirm: "本当にこのユーザを削除しますか？この操作は取り消せません。"}, class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

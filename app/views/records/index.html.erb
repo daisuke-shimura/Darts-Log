@@ -1,0 +1,29 @@
+<div data-controller="hole target">
+  <div class="board">
+    <%= render "records/board/out" %>
+  </div>
+
+  <div id="fixedForm" data-controller="result" class="fixed-form">
+    <div class="fixed-form-inner">
+      <button class="target-display" data-bs-toggle="modal" data-bs-target="#targetModal">
+        <input type="hidden" value="<%= @defalut_target %>" data-hole-target="targetInput">
+        <div class="target-label">TARGET</div>
+        <div class="target-name" data-target-target="name"><%= @defalut_target_name %></div>
+      </button>
+
+      <ul class="result-list">
+        <li>1投目：<span data-hole-target="output"></span></li>
+        <li>2投目：<span data-hole-target="output"></span></li>
+        <li>3投目：<span data-hole-target="output"></span></li>
+      </ul>
+
+      <%= render "flash-message" %>
+
+      <button disabled class="submit-btn btn btn-primary rounded-pill" data-action="click->hole#submit" data-hole-target="submitBtn">
+        確定
+      </button>
+    </div>
+  </div>
+  
+  <%= render "modal-target-form" %>
+</div>

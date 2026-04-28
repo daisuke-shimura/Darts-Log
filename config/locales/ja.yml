@@ -1,0 +1,72 @@
+ja:
+  enums:
+    user:
+      gender:
+        other: その他
+        male: 男性
+        female: 女性
+    
+    dart:
+      target:
+        bull: BULL
+        t1: TRIPLE 1
+        t2: TRIPLE 2
+        t3: TRIPLE 3
+        t4: TRIPLE 4
+        t5: TRIPLE 5
+        t6: TRIPLE 6
+        t7: TRIPLE 7
+        t8: TRIPLE 8
+        t9: TRIPLE 9
+        t10: TRIPLE 10
+        t11: TRIPLE 11
+        t12: TRIPLE 12
+        t13: TRIPLE 13
+        t14: TRIPLE 14
+        t15: TRIPLE 15
+        t16: TRIPLE 16
+        t17: TRIPLE 17
+        t18: TRIPLE 18
+        t19: TRIPLE 19
+        t20: TRIPLE 20
+        d1: DOUBLE 1
+        d2: DOUBLE 2
+        d3: DOUBLE 3
+        d4: DOUBLE 4
+        d5: DOUBLE 5
+        d6: DOUBLE 6
+        d7: DOUBLE 7
+        d8: DOUBLE 8
+        d9: DOUBLE 9
+        d10: DOUBLE 10
+        d11: DOUBLE 11
+        d12: DOUBLE 12
+        d13: DOUBLE 13
+        d14: DOUBLE 14
+        d15: DOUBLE 15
+        d16: DOUBLE 16
+        d17: DOUBLE 17
+        d18: DOUBLE 18
+        d19: DOUBLE 19
+        d20: DOUBLE 20
+        s1: SINGLE 1
+        s2: SINGLE 2
+        s3: SINGLE 3
+        s4: SINGLE 4
+        s5: SINGLE 5
+        s6: SINGLE 6
+        s7: SINGLE 7
+        s8: SINGLE 8
+        s9: SINGLE 9
+        s10: SINGLE 10
+        s11: SINGLE 11
+        s12: SINGLE 12
+        s13: SINGLE 13
+        s14: SINGLE 14
+        s15: SINGLE 15
+        s16: SINGLE 16
+        s17: SINGLE 17
+        s18: SINGLE 18
+        s19: SINGLE 19
+        s20: SINGLE 20
+        undefined: 未定義

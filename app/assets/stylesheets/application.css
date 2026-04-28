@@ -1,0 +1,1157 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+ .fixed-form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 46;
+  will-change: transform;
+  transform-origin: top left;
+  padding: 16px;
+}
+
+.fixed-form-inner {
+  min-width: 250px;
+  min-height: 360px;
+  padding: 8px;
+  border-radius: 16px;
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(8, 25, 70, 0.55),
+    rgba(0, 70, 140, 0.35),
+    rgba(0, 110, 180, 0.25)
+  );
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+.result-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.result-list li {
+  display: flex;
+  min-height: 80px;
+  padding: 4px 0;
+  color: #fff;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+.submit-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+.submit-btn:hover {
+  transform: scale(1.05);
+}
+
+.target-display {
+  width: 100%;
+  margin-bottom: 4px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+}
+
+.target-label {
+  font-weight: lighter;
+  font-size: 16px;
+  color: rgba(255,255,255,0.7);
+}
+
+.target-name {
+  font-size: 22px;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 1px;
+}
+
+.board {
+  position: relative;
+  width: 90%; 
+  aspect-ratio: 1 / 1;
+  margin: 0px auto;
+  border: 3px solid black;
+  background-color: #4a4a4a;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+}
+
+.number {
+  position: absolute;
+  color: lightgray;
+  height: 100%;
+  font-size: 2vw;
+  pointer-events: none;
+}
+
+.circle-1 { 
+  position: absolute;
+  width: 90%; 
+  aspect-ratio: 1 / 1;
+  border-radius: 50%; 
+  margin: 20px auto; 
+  border: 3px solid #000;
+  overflow: hidden;
+}
+
+.circle-2 {
+  position: absolute;
+  width: 90%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 3px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.circle-3 {
+  position: absolute;
+  width: 70%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 3px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.circle-4 {
+  position: absolute;
+  width: 85%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 3px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+}
+
+.s-bull {
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  width: 24%;
+  border-radius: 50%;
+  border: 3px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #d32f2f;
+}
+
+.d-bull {
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  width: 40%;
+  border-radius: 50%;
+  border: 3px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #4a4a4a;
+}
+
+.segment {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  clip-path: polygon(50% 50%, 42% 0, 58% 0);
+}
+.segment-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.segment.black {
+  background-color: #4a4a4a; /* 真っ黒じゃなくて少しグレー */
+}
+
+.segment.white {
+  background-color: #f5f5f5; /* 真っ白より柔らかい */
+}
+
+.segment.red {
+  background-color: #d32f2f; /* しっかり赤だけど少し落ち着きあり */
+}
+
+.segment.blue {
+  background-color: #1976d2; /* 鮮やかだけど目に刺さらない青 */
+}
+
+.segment.target,
+.s-bull.target,
+.d-bull.target {
+  cursor: pointer;
+  transition: 
+    transform 0.12s ease,
+    filter 0.12s ease,
+    background 0.12s ease;
+}
+.segment.target:hover,
+.s-bull.target:hover,
+.d-bull.target:hover {
+  background: #f6e27a;
+  filter: brightness(1.25) saturate(1.3);
+}
+.segment.target:active,
+.s-bull.target:active,
+.d-bull.target:active {
+  filter: brightness(0.95);
+}
+
+.hole {
+  position: absolute;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  width: 0.5vw;
+  background-color: black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  border: none;
+}
+:hover.hole {
+  background-color: rgb(78, 78, 78);
+}
+
+/* .hole-bull   { top: 50%; } */
+
+:root {
+  --radius-1: -160%; 
+  --radius-2: -295%;
+  /*BULL*/
+  --radius-3: -465%;
+  --radius-4: -605%; 
+  --radius-5: -745%;
+  --radius-6: -885%;
+  /*Inner SINGLE*/
+  --radius-7: 1050%;
+  --radius-8: 1160%;
+  --radius-9: 1270%;
+  --radius-10: 1350%;
+  --radius-11: 1455%;
+  --radius-12: 1565%;
+  --radius-13: 1675%;
+  --radius-14: 1785%;
+  --radius-15: 1895%;
+  --radius-16: 2005%;
+  --radius-17: 2115%;
+  --radius-18: 2225%;
+  --radius-19: 2335%;
+  --radius-20: 2445%;
+  --radius-21: 2555%;
+  --radius-22: 2665%;
+  --radius-23: 2775%;
+  --radius-24: 2885%;
+  --radius-25: 2995%;
+  --radius-26: 3105%;
+  --radius-27: 3215%;
+  --radius-28: 3325%;
+  --radius-29: 3435%;
+  --radius-30: 3545%;
+  --radius-31: 3655%;
+  --radius-32: 3765%;
+  --radius-33: 3875%;
+  --radius-34: 3985%;
+  --radius-35: 4095%;
+  /*Triple*/
+  --radius-36: 4250%;
+  --radius-37: 4400%;
+  --radius-38: 4550%;
+  --radius-39: 4700%;
+  --radius-40: 4850%;
+  /*Outer Single*/
+  --radius-41: 5025%;
+  --radius-42: 5143%;
+  --radius-43: 5261%;
+  --radius-44: 5379%;
+  --radius-45: 5497%;
+  --radius-46: 5615%;
+  --radius-47: 5733%;
+  --radius-48: 5851%;
+  --radius-49: 5969%;
+  --radius-50: 6087%;
+  --radius-51: 6205%;
+  --radius-52: 6323%;
+  --radius-53: 6441%;
+  --radius-54: 6559%;
+  --radius-55: 6677%;
+  --radius-56: 6795%;
+  --radius-57: 6913%;
+  --radius-58: 7030%;
+  /* DOUBLE */
+  --radius-59: 7210%;
+  --radius-60: 7370%;
+  --radius-61: 7530%;
+  --radius-62: 7690%;
+  --radius-63: 7850%;
+  /*OUT*/
+  --radius-64: 8050%;
+  --radius-65: 8200%;
+  --radius-66: 8350%;
+  --radius-67: 8500%;
+  --radius-68: 8650%;
+  --radius-69: 8800%;
+  --radius-70: 8950%;
+
+/* BULL用 */
+  --angle-1: 51.4285714deg; /* 360 / 7 */
+  --angle-2: 25.7142857deg; /* 360 / 14 */
+  --angle-3: 16.3636363deg; /* 360 / 22 */
+  --angle-4: 12.8571429deg; /* 360 / 28 */
+  --angle-5: 10.5882352deg; /* 360 / 34 */
+  --angle-6: 9.47368421deg; /* 360 / 38 */
+}
+
+.hole1-1 { transform: translate(-50%, -50%) rotate(0deg)   translateY(var(--radius-1)); }
+.hole1-2 { transform: translate(-50%, -50%) rotate(51.4deg) translateY(var(--radius-1)); }
+.hole1-3 { transform: translate(-50%, -50%) rotate(102.8deg) translateY(var(--radius-1)); }
+.hole1-4 { transform: translate(-50%, -50%) rotate(154.2deg) translateY(var(--radius-1)); }
+.hole1-5 { transform: translate(-50%, -50%) rotate(205.6deg) translateY(var(--radius-1)); }
+.hole1-6 { transform: translate(-50%, -50%) rotate(257deg)   translateY(var(--radius-1)); }
+.hole1-7 { transform: translate(-50%, -50%) rotate(308.4deg) translateY(var(--radius-1)); }
+
+.hole2-1  { transform: translate(-50%, -50%) rotate(calc(0  * var(--angle-2)))  translateY(var(--radius-2)); }
+.hole2-2  { transform: translate(-50%, -50%) rotate(calc(1  * var(--angle-2)))  translateY(var(--radius-2)); }
+.hole2-3  { transform: translate(-50%, -50%) rotate(calc(2  * var(--angle-2)))  translateY(var(--radius-2)); }
+.hole2-4  { transform: translate(-50%, -50%) rotate(calc(3  * var(--angle-2)))  translateY(var(--radius-2)); }
+.hole2-5  { transform: translate(-50%, -50%) rotate(calc(4  * var(--angle-2)))  translateY(var(--radius-2)); }
+.hole2-6  { transform: translate(-50%, -50%) rotate(calc(5  * var(--angle-2)))  translateY(var(--radius-2)); }
+.hole2-7  { transform: translate(-50%, -50%) rotate(calc(6  * var(--angle-2)))  translateY(var(--radius-2)); }
+.hole2-8  { transform: translate(-50%, -50%) rotate(calc(7  * var(--angle-2)))  translateY(var(--radius-2)); }
+.hole2-9  { transform: translate(-50%, -50%) rotate(calc(8  * var(--angle-2)))  translateY(var(--radius-2)); }
+.hole2-10 { transform: translate(-50%, -50%) rotate(calc(9  * var(--angle-2)))  translateY(var(--radius-2)); }
+.hole2-11 { transform: translate(-50%, -50%) rotate(calc(10 * var(--angle-2)))  translateY(var(--radius-2)); }
+.hole2-12 { transform: translate(-50%, -50%) rotate(calc(11 * var(--angle-2)))  translateY(var(--radius-2)); }
+.hole2-13 { transform: translate(-50%, -50%) rotate(calc(12 * var(--angle-2)))  translateY(var(--radius-2)); }
+.hole2-14 { transform: translate(-50%, -50%) rotate(calc(13 * var(--angle-2)))  translateY(var(--radius-2)); }
+
+.hole3-1  { transform: translate(-50%, -50%) rotate(calc(0.5  * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-2  { transform: translate(-50%, -50%) rotate(calc(1.5  * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-3  { transform: translate(-50%, -50%) rotate(calc(2.5  * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-4  { transform: translate(-50%, -50%) rotate(calc(3.5  * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-5  { transform: translate(-50%, -50%) rotate(calc(4.5  * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-6  { transform: translate(-50%, -50%) rotate(calc(5.5  * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-7  { transform: translate(-50%, -50%) rotate(calc(6.5  * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-8  { transform: translate(-50%, -50%) rotate(calc(7.5  * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-9  { transform: translate(-50%, -50%) rotate(calc(8.5  * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-10 { transform: translate(-50%, -50%) rotate(calc(9.5  * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-11 { transform: translate(-50%, -50%) rotate(calc(10.5 * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-12 { transform: translate(-50%, -50%) rotate(calc(11.5 * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-13 { transform: translate(-50%, -50%) rotate(calc(12.5 * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-14 { transform: translate(-50%, -50%) rotate(calc(13.5 * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-15 { transform: translate(-50%, -50%) rotate(calc(14.5 * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-16 { transform: translate(-50%, -50%) rotate(calc(15.5 * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-17 { transform: translate(-50%, -50%) rotate(calc(16.5 * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-18 { transform: translate(-50%, -50%) rotate(calc(17.5 * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-19 { transform: translate(-50%, -50%) rotate(calc(18.5 * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-20 { transform: translate(-50%, -50%) rotate(calc(19.5 * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-21 { transform: translate(-50%, -50%) rotate(calc(20.5 * var(--angle-3)))  translateY(var(--radius-3)); }
+.hole3-22 { transform: translate(-50%, -50%) rotate(calc(21.5 * var(--angle-3)))  translateY(var(--radius-3)); }
+
+.hole4-1  { transform: translate(-50%, -50%) rotate(calc(0  * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-2  { transform: translate(-50%, -50%) rotate(calc(1  * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-3  { transform: translate(-50%, -50%) rotate(calc(2  * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-4  { transform: translate(-50%, -50%) rotate(calc(3  * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-5  { transform: translate(-50%, -50%) rotate(calc(4  * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-6  { transform: translate(-50%, -50%) rotate(calc(5  * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-7  { transform: translate(-50%, -50%) rotate(calc(6  * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-8  { transform: translate(-50%, -50%) rotate(calc(7  * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-9  { transform: translate(-50%, -50%) rotate(calc(8  * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-10 { transform: translate(-50%, -50%) rotate(calc(9  * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-11 { transform: translate(-50%, -50%) rotate(calc(10 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-12 { transform: translate(-50%, -50%) rotate(calc(11 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-13 { transform: translate(-50%, -50%) rotate(calc(12 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-14 { transform: translate(-50%, -50%) rotate(calc(13 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-15 { transform: translate(-50%, -50%) rotate(calc(14 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-16 { transform: translate(-50%, -50%) rotate(calc(15 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-17 { transform: translate(-50%, -50%) rotate(calc(16 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-18 { transform: translate(-50%, -50%) rotate(calc(17 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-19 { transform: translate(-50%, -50%) rotate(calc(18 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-20 { transform: translate(-50%, -50%) rotate(calc(19 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-21 { transform: translate(-50%, -50%) rotate(calc(20 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-22 { transform: translate(-50%, -50%) rotate(calc(21 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-23 { transform: translate(-50%, -50%) rotate(calc(22 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-24 { transform: translate(-50%, -50%) rotate(calc(23 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-25 { transform: translate(-50%, -50%) rotate(calc(24 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-26 { transform: translate(-50%, -50%) rotate(calc(25 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-27 { transform: translate(-50%, -50%) rotate(calc(26 * var(--angle-4)))  translateY(var(--radius-4)); }
+.hole4-28 { transform: translate(-50%, -50%) rotate(calc(27 * var(--angle-4)))  translateY(var(--radius-4)); }
+
+.hole5-1  { transform: translate(-50%, -50%) rotate(calc(0.5  * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-2  { transform: translate(-50%, -50%) rotate(calc(1.5  * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-3  { transform: translate(-50%, -50%) rotate(calc(2.5  * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-4  { transform: translate(-50%, -50%) rotate(calc(3.5  * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-5  { transform: translate(-50%, -50%) rotate(calc(4.5  * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-6  { transform: translate(-50%, -50%) rotate(calc(5.5  * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-7  { transform: translate(-50%, -50%) rotate(calc(6.5  * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-8  { transform: translate(-50%, -50%) rotate(calc(7.5  * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-9  { transform: translate(-50%, -50%) rotate(calc(8.5  * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-10 { transform: translate(-50%, -50%) rotate(calc(9.5  * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-11 { transform: translate(-50%, -50%) rotate(calc(10.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-12 { transform: translate(-50%, -50%) rotate(calc(11.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-13 { transform: translate(-50%, -50%) rotate(calc(12.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-14 { transform: translate(-50%, -50%) rotate(calc(13.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-15 { transform: translate(-50%, -50%) rotate(calc(14.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-16 { transform: translate(-50%, -50%) rotate(calc(15.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-17 { transform: translate(-50%, -50%) rotate(calc(16.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-18 { transform: translate(-50%, -50%) rotate(calc(17.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-19 { transform: translate(-50%, -50%) rotate(calc(18.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-20 { transform: translate(-50%, -50%) rotate(calc(19.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-21 { transform: translate(-50%, -50%) rotate(calc(20.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-22 { transform: translate(-50%, -50%) rotate(calc(21.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-23 { transform: translate(-50%, -50%) rotate(calc(22.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-24 { transform: translate(-50%, -50%) rotate(calc(23.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-25 { transform: translate(-50%, -50%) rotate(calc(24.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-26 { transform: translate(-50%, -50%) rotate(calc(25.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-27 { transform: translate(-50%, -50%) rotate(calc(26.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-28 { transform: translate(-50%, -50%) rotate(calc(27.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-29 { transform: translate(-50%, -50%) rotate(calc(28.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-30 { transform: translate(-50%, -50%) rotate(calc(29.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-31 { transform: translate(-50%, -50%) rotate(calc(30.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-32 { transform: translate(-50%, -50%) rotate(calc(31.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-33 { transform: translate(-50%, -50%) rotate(calc(32.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+.hole5-34 { transform: translate(-50%, -50%) rotate(calc(33.5 * var(--angle-5)))  translateY(var(--radius-5)); }
+
+.hole6-1  { transform: translate(-50%, -50%) rotate(calc(0.5  * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-2  { transform: translate(-50%, -50%) rotate(calc(1.5  * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-3  { transform: translate(-50%, -50%) rotate(calc(2.5  * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-4  { transform: translate(-50%, -50%) rotate(calc(3.5  * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-5  { transform: translate(-50%, -50%) rotate(calc(4.5  * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-6  { transform: translate(-50%, -50%) rotate(calc(5.5  * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-7  { transform: translate(-50%, -50%) rotate(calc(6.5  * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-8  { transform: translate(-50%, -50%) rotate(calc(7.5  * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-9  { transform: translate(-50%, -50%) rotate(calc(8.5  * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-10 { transform: translate(-50%, -50%) rotate(calc(9.5  * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-11 { transform: translate(-50%, -50%) rotate(calc(10.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-12 { transform: translate(-50%, -50%) rotate(calc(11.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-13 { transform: translate(-50%, -50%) rotate(calc(12.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-14 { transform: translate(-50%, -50%) rotate(calc(13.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-15 { transform: translate(-50%, -50%) rotate(calc(14.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-16 { transform: translate(-50%, -50%) rotate(calc(15.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-17 { transform: translate(-50%, -50%) rotate(calc(16.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-18 { transform: translate(-50%, -50%) rotate(calc(17.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-19 { transform: translate(-50%, -50%) rotate(calc(18.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-20 { transform: translate(-50%, -50%) rotate(calc(19.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-21 { transform: translate(-50%, -50%) rotate(calc(20.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-22 { transform: translate(-50%, -50%) rotate(calc(21.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-23 { transform: translate(-50%, -50%) rotate(calc(22.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-24 { transform: translate(-50%, -50%) rotate(calc(23.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-25 { transform: translate(-50%, -50%) rotate(calc(24.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-26 { transform: translate(-50%, -50%) rotate(calc(25.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-27 { transform: translate(-50%, -50%) rotate(calc(26.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-28 { transform: translate(-50%, -50%) rotate(calc(27.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-29 { transform: translate(-50%, -50%) rotate(calc(28.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-30 { transform: translate(-50%, -50%) rotate(calc(29.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-31 { transform: translate(-50%, -50%) rotate(calc(30.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-32 { transform: translate(-50%, -50%) rotate(calc(31.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-33 { transform: translate(-50%, -50%) rotate(calc(32.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-34 { transform: translate(-50%, -50%) rotate(calc(33.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-35 { transform: translate(-50%, -50%) rotate(calc(34.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-36 { transform: translate(-50%, -50%) rotate(calc(35.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-37 { transform: translate(-50%, -50%) rotate(calc(36.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+.hole6-38 { transform: translate(-50%, -50%) rotate(calc(37.5 * var(--angle-6)))  translateY(var(--radius-6)); }
+
+.hole7 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-7));}
+.hole8 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-8));}
+.hole9 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-9));}
+
+.hole10-1 { transform: translate(-50%, -50%) rotate(175.5deg) translateY(var(--radius-10));}
+.hole10-2 { transform: translate(-50%, -50%) rotate(184.5deg) translateY(var(--radius-10));}
+
+.hole11-1 { transform: translate(-50%, -50%) rotate(174deg) translateY(var(--radius-11));}
+.hole11-2 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-11));}
+.hole11-3 { transform: translate(-50%, -50%) rotate(186deg) translateY(var(--radius-11));}
+
+.hole12-1 { transform: translate(-50%, -50%) rotate(173.7deg) translateY(var(--radius-12));}
+.hole12-2 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-12));}
+.hole12-3 { transform: translate(-50%, -50%) rotate(186.3deg) translateY(var(--radius-12));}
+
+.hole13-1 { transform: translate(-50%, -50%) rotate(173.6deg) translateY(var(--radius-13));}
+.hole13-2 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-13));}
+.hole13-3 { transform: translate(-50%, -50%) rotate(186.4deg) translateY(var(--radius-13));}
+
+.hole14-1 { transform: translate(-50%, -50%) rotate(173.5deg) translateY(var(--radius-14));}
+.hole14-2 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-14));}
+.hole14-3 { transform: translate(-50%, -50%) rotate(186.5deg) translateY(var(--radius-14));}
+
+.hole15-1 { transform: translate(-50%, -50%) rotate(173.2deg) translateY(var(--radius-15));}
+.hole15-2 { transform: translate(-50%, -50%) rotate(177.7deg) translateY(var(--radius-15));}
+.hole15-3 { transform: translate(-50%, -50%) rotate(182.3deg) translateY(var(--radius-15));}
+.hole15-4 { transform: translate(-50%, -50%) rotate(186.8deg) translateY(var(--radius-15));}
+
+.hole16-1 { transform: translate(-50%, -50%) rotate(173deg) translateY(var(--radius-16));}
+.hole16-2 { transform: translate(-50%, -50%) rotate(177.6deg) translateY(var(--radius-16));}
+.hole16-3 { transform: translate(-50%, -50%) rotate(182.4deg) translateY(var(--radius-16));}
+.hole16-4 { transform: translate(-50%, -50%) rotate(187deg) translateY(var(--radius-16));}
+
+.hole17-1 { transform: translate(-50%, -50%) rotate(172.9deg) translateY(var(--radius-17));}
+.hole17-2 { transform: translate(-50%, -50%) rotate(177.6deg) translateY(var(--radius-17));}
+.hole17-3 { transform: translate(-50%, -50%) rotate(182.4deg) translateY(var(--radius-17));}
+.hole17-4 { transform: translate(-50%, -50%) rotate(187.1deg) translateY(var(--radius-17));}
+
+.hole18-1 { transform: translate(-50%, -50%) rotate(172.8deg) translateY(var(--radius-18));}
+.hole18-2 { transform: translate(-50%, -50%) rotate(177.6deg) translateY(var(--radius-18));}
+.hole18-3 { transform: translate(-50%, -50%) rotate(182.6deg) translateY(var(--radius-18));}
+.hole18-4 { transform: translate(-50%, -50%) rotate(187.2deg) translateY(var(--radius-18));}
+
+.hole19-1 { transform: translate(-50%, -50%) rotate(172.6deg) translateY(var(--radius-19));}
+.hole19-2 { transform: translate(-50%, -50%) rotate(176.3deg) translateY(var(--radius-19));}
+.hole19-3 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-19));}
+.hole19-4 { transform: translate(-50%, -50%) rotate(183.7deg) translateY(var(--radius-19));}
+.hole19-5 { transform: translate(-50%, -50%) rotate(187.4deg) translateY(var(--radius-19));}
+
+.hole20-1 { transform: translate(-50%, -50%) rotate(172.5deg) translateY(var(--radius-20));}
+.hole20-2 { transform: translate(-50%, -50%) rotate(176.25deg) translateY(var(--radius-20));}
+.hole20-3 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-20));}
+.hole20-4 { transform: translate(-50%, -50%) rotate(183.75deg) translateY(var(--radius-20));}
+.hole20-5 { transform: translate(-50%, -50%) rotate(187.5deg) translateY(var(--radius-20));}
+
+.hole21-1 { transform: translate(-50%, -50%) rotate(172.4deg) translateY(var(--radius-21));}
+.hole21-2 { transform: translate(-50%, -50%) rotate(176.2deg) translateY(var(--radius-21));}
+.hole21-3 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-21));}
+.hole21-4 { transform: translate(-50%, -50%) rotate(183.8deg) translateY(var(--radius-21));}
+.hole21-5 { transform: translate(-50%, -50%) rotate(187.6deg) translateY(var(--radius-21));}
+
+.hole22-1 { transform: translate(-50%, -50%) rotate(172.4deg) translateY(var(--radius-22));}
+.hole22-2 { transform: translate(-50%, -50%) rotate(175.4deg) translateY(var(--radius-22));}
+.hole22-3 { transform: translate(-50%, -50%) rotate(178.4deg) translateY(var(--radius-22));}
+.hole22-4 { transform: translate(-50%, -50%) rotate(181.6deg) translateY(var(--radius-22));}
+.hole22-5 { transform: translate(-50%, -50%) rotate(184.6deg) translateY(var(--radius-22));}
+.hole22-6 { transform: translate(-50%, -50%) rotate(187.6deg) translateY(var(--radius-22));}
+
+.hole23-1 { transform: translate(-50%, -50%) rotate(172.3deg) translateY(var(--radius-23));}
+.hole23-2 { transform: translate(-50%, -50%) rotate(175.4deg) translateY(var(--radius-23));}
+.hole23-3 { transform: translate(-50%, -50%) rotate(178.5deg) translateY(var(--radius-23));}
+.hole23-4 { transform: translate(-50%, -50%) rotate(181.5deg) translateY(var(--radius-23));}
+.hole23-5 { transform: translate(-50%, -50%) rotate(184.6deg) translateY(var(--radius-23));}
+.hole23-6 { transform: translate(-50%, -50%) rotate(187.7deg) translateY(var(--radius-23));}
+
+.hole24-1 { transform: translate(-50%, -50%) rotate(172.3deg) translateY(var(--radius-24));}
+.hole24-2 { transform: translate(-50%, -50%) rotate(175.4deg) translateY(var(--radius-24));}
+.hole24-3 { transform: translate(-50%, -50%) rotate(178.5deg) translateY(var(--radius-24));}
+.hole24-4 { transform: translate(-50%, -50%) rotate(181.5deg) translateY(var(--radius-24));}
+.hole24-5 { transform: translate(-50%, -50%) rotate(184.6deg) translateY(var(--radius-24));}
+.hole24-6 { transform: translate(-50%, -50%) rotate(187.7deg) translateY(var(--radius-24));}
+
+.hole25-1 { transform: translate(-50%, -50%) rotate(172.2deg) translateY(var(--radius-25));}
+.hole25-2 { transform: translate(-50%, -50%) rotate(174.8deg) translateY(var(--radius-25));}
+.hole25-3 { transform: translate(-50%, -50%) rotate(177.4deg) translateY(var(--radius-25));}
+.hole25-4 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-25));}
+.hole25-5 { transform: translate(-50%, -50%) rotate(182.6deg) translateY(var(--radius-25));}
+.hole25-6 { transform: translate(-50%, -50%) rotate(185.2deg) translateY(var(--radius-25));}
+.hole25-7 { transform: translate(-50%, -50%) rotate(187.8deg) translateY(var(--radius-25));}
+
+.hole26-1 { transform: translate(-50%, -50%) rotate(172.2deg) translateY(var(--radius-26));}
+.hole26-2 { transform: translate(-50%, -50%) rotate(174.8deg) translateY(var(--radius-26));}
+.hole26-3 { transform: translate(-50%, -50%) rotate(177.4deg) translateY(var(--radius-26));}
+.hole26-4 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-26));}
+.hole26-5 { transform: translate(-50%, -50%) rotate(182.6deg) translateY(var(--radius-26));}
+.hole26-6 { transform: translate(-50%, -50%) rotate(185.2deg) translateY(var(--radius-26));}
+.hole26-7 { transform: translate(-50%, -50%) rotate(187.8deg) translateY(var(--radius-26));}
+
+.hole27-1 { transform: translate(-50%, -50%) rotate(172.2deg) translateY(var(--radius-27));}
+.hole27-2 { transform: translate(-50%, -50%) rotate(174.8deg) translateY(var(--radius-27));}
+.hole27-3 { transform: translate(-50%, -50%) rotate(177.4deg) translateY(var(--radius-27));}
+.hole27-4 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-27));}
+.hole27-5 { transform: translate(-50%, -50%) rotate(182.6deg) translateY(var(--radius-27));}
+.hole27-6 { transform: translate(-50%, -50%) rotate(185.2deg) translateY(var(--radius-27));}
+.hole27-7 { transform: translate(-50%, -50%) rotate(187.8deg) translateY(var(--radius-27));}
+
+.hole28-1 { transform: translate(-50%, -50%) rotate(172.1deg) translateY(var(--radius-28));}
+.hole28-2 { transform: translate(-50%, -50%) rotate(174.3deg) translateY(var(--radius-28));}
+.hole28-3 { transform: translate(-50%, -50%) rotate(176.5deg) translateY(var(--radius-28));}
+.hole28-4 { transform: translate(-50%, -50%) rotate(178.8deg) translateY(var(--radius-28));}
+.hole28-5 { transform: translate(-50%, -50%) rotate(181.1deg) translateY(var(--radius-28));}
+.hole28-6 { transform: translate(-50%, -50%) rotate(183.4deg) translateY(var(--radius-28));}
+.hole28-7 { transform: translate(-50%, -50%) rotate(185.6deg) translateY(var(--radius-28));}
+.hole28-8 { transform: translate(-50%, -50%) rotate(187.9deg) translateY(var(--radius-28));}
+
+.hole29-1 { transform: translate(-50%, -50%) rotate(172.1deg) translateY(var(--radius-29));}
+.hole29-2 { transform: translate(-50%, -50%) rotate(174.3deg) translateY(var(--radius-29));}
+.hole29-3 { transform: translate(-50%, -50%) rotate(176.5deg) translateY(var(--radius-29));}
+.hole29-4 { transform: translate(-50%, -50%) rotate(178.8deg) translateY(var(--radius-29));}
+.hole29-5 { transform: translate(-50%, -50%) rotate(181.1deg) translateY(var(--radius-29));}
+.hole29-6 { transform: translate(-50%, -50%) rotate(183.4deg) translateY(var(--radius-29));}
+.hole29-7 { transform: translate(-50%, -50%) rotate(185.6deg) translateY(var(--radius-29));}
+.hole29-8 { transform: translate(-50%, -50%) rotate(187.9deg) translateY(var(--radius-29));}
+
+.hole30-1 { transform: translate(-50%, -50%) rotate(172.1deg) translateY(var(--radius-30));}
+.hole30-2 { transform: translate(-50%, -50%) rotate(174.3deg) translateY(var(--radius-30));}
+.hole30-3 { transform: translate(-50%, -50%) rotate(176.5deg) translateY(var(--radius-30));}
+.hole30-4 { transform: translate(-50%, -50%) rotate(178.8deg) translateY(var(--radius-30));}
+.hole30-5 { transform: translate(-50%, -50%) rotate(181.1deg) translateY(var(--radius-30));}
+.hole30-6 { transform: translate(-50%, -50%) rotate(183.4deg) translateY(var(--radius-30));}
+.hole30-7 { transform: translate(-50%, -50%) rotate(185.6deg) translateY(var(--radius-30));}
+.hole30-8 { transform: translate(-50%, -50%) rotate(187.9deg) translateY(var(--radius-30));}
+
+.hole31-1 { transform: translate(-50%, -50%) rotate(172deg) translateY(var(--radius-31));}
+.hole31-2 { transform: translate(-50%, -50%) rotate(174deg) translateY(var(--radius-31));}
+.hole31-3 { transform: translate(-50%, -50%) rotate(176deg) translateY(var(--radius-31));}
+.hole31-4 { transform: translate(-50%, -50%) rotate(178deg) translateY(var(--radius-31));}
+.hole31-5 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-31));}
+.hole31-6 { transform: translate(-50%, -50%) rotate(182deg) translateY(var(--radius-31));}
+.hole31-7 { transform: translate(-50%, -50%) rotate(184deg) translateY(var(--radius-31));}
+.hole31-8 { transform: translate(-50%, -50%) rotate(186deg) translateY(var(--radius-31));}
+.hole31-9 { transform: translate(-50%, -50%) rotate(188deg) translateY(var(--radius-31));}
+
+.hole32-1 { transform: translate(-50%, -50%) rotate(172deg) translateY(var(--radius-32));}
+.hole32-2 { transform: translate(-50%, -50%) rotate(174deg) translateY(var(--radius-32));}
+.hole32-3 { transform: translate(-50%, -50%) rotate(176deg) translateY(var(--radius-32));}
+.hole32-4 { transform: translate(-50%, -50%) rotate(178deg) translateY(var(--radius-32));}
+.hole32-5 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-32));}
+.hole32-6 { transform: translate(-50%, -50%) rotate(182deg) translateY(var(--radius-32));}
+.hole32-7 { transform: translate(-50%, -50%) rotate(184deg) translateY(var(--radius-32));}
+.hole32-8 { transform: translate(-50%, -50%) rotate(186deg) translateY(var(--radius-32));}
+.hole32-9 { transform: translate(-50%, -50%) rotate(188deg) translateY(var(--radius-32));}
+
+.hole33-1 { transform: translate(-50%, -50%) rotate(172deg) translateY(var(--radius-33));}
+.hole33-2 { transform: translate(-50%, -50%) rotate(174deg) translateY(var(--radius-33));}
+.hole33-3 { transform: translate(-50%, -50%) rotate(176deg) translateY(var(--radius-33));}
+.hole33-4 { transform: translate(-50%, -50%) rotate(178deg) translateY(var(--radius-33));}
+.hole33-5 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-33));}
+.hole33-6 { transform: translate(-50%, -50%) rotate(182deg) translateY(var(--radius-33));}
+.hole33-7 { transform: translate(-50%, -50%) rotate(184deg) translateY(var(--radius-33));}
+.hole33-8 { transform: translate(-50%, -50%) rotate(186deg) translateY(var(--radius-33));}
+.hole33-9 { transform: translate(-50%, -50%) rotate(188deg) translateY(var(--radius-33));}
+
+.hole34-1 { transform: translate(-50%, -50%) rotate(171.9deg) translateY(var(--radius-34));}
+.hole34-2 { transform: translate(-50%, -50%) rotate(173.7deg) translateY(var(--radius-34));}
+.hole34-3 { transform: translate(-50%, -50%) rotate(175.5deg) translateY(var(--radius-34));}
+.hole34-4 { transform: translate(-50%, -50%) rotate(177.3deg) translateY(var(--radius-34));}
+.hole34-5 { transform: translate(-50%, -50%) rotate(179.1deg) translateY(var(--radius-34));}
+.hole34-6 { transform: translate(-50%, -50%) rotate(180.9deg) translateY(var(--radius-34));}
+.hole34-7 { transform: translate(-50%, -50%) rotate(182.7deg) translateY(var(--radius-34));}
+.hole34-8 { transform: translate(-50%, -50%) rotate(184.5deg) translateY(var(--radius-34));}
+.hole34-9 { transform: translate(-50%, -50%) rotate(186.3deg) translateY(var(--radius-34));}
+.hole34-10{ transform: translate(-50%, -50%) rotate(188.1deg) translateY(var(--radius-34));}
+
+.hole35-1 { transform: translate(-50%, -50%) rotate(171.9deg) translateY(var(--radius-35));}
+.hole35-2 { transform: translate(-50%, -50%) rotate(173.7deg) translateY(var(--radius-35));}
+.hole35-3 { transform: translate(-50%, -50%) rotate(175.5deg) translateY(var(--radius-35));}
+.hole35-4 { transform: translate(-50%, -50%) rotate(177.3deg) translateY(var(--radius-35));}
+.hole35-5 { transform: translate(-50%, -50%) rotate(179.1deg) translateY(var(--radius-35));}
+.hole35-6 { transform: translate(-50%, -50%) rotate(180.9deg) translateY(var(--radius-35));}
+.hole35-7 { transform: translate(-50%, -50%) rotate(182.7deg) translateY(var(--radius-35));}
+.hole35-8 { transform: translate(-50%, -50%) rotate(184.5deg) translateY(var(--radius-35));}
+.hole35-9 { transform: translate(-50%, -50%) rotate(186.3deg) translateY(var(--radius-35));}
+.hole35-10{ transform: translate(-50%, -50%) rotate(188.1deg) translateY(var(--radius-35));}
+
+/* TRIPLE */
+.hole36-1 { transform: translate(-50%, -50%) rotate(172deg) translateY(var(--radius-36));}
+.hole36-2 { transform: translate(-50%, -50%) rotate(173.6deg) translateY(var(--radius-36));}
+.hole36-3 { transform: translate(-50%, -50%) rotate(175.2deg) translateY(var(--radius-36));}
+.hole36-4 { transform: translate(-50%, -50%) rotate(176.8deg) translateY(var(--radius-36));}
+.hole36-5 { transform: translate(-50%, -50%) rotate(178.4deg) translateY(var(--radius-36));}
+.hole36-6 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-36));}
+.hole36-7 { transform: translate(-50%, -50%) rotate(181.6deg) translateY(var(--radius-36));}
+.hole36-8 { transform: translate(-50%, -50%) rotate(183.2deg) translateY(var(--radius-36));}
+.hole36-9 { transform: translate(-50%, -50%) rotate(184.8deg) translateY(var(--radius-36));}
+.hole36-10{ transform: translate(-50%, -50%) rotate(186.4deg) translateY(var(--radius-36));}
+.hole36-11{ transform: translate(-50%, -50%) rotate(188deg) translateY(var(--radius-36));}
+
+.hole37-1 { transform: translate(-50%, -50%) rotate(172deg) translateY(var(--radius-37));}
+.hole37-2 { transform: translate(-50%, -50%) rotate(173.6deg) translateY(var(--radius-37));}
+.hole37-3 { transform: translate(-50%, -50%) rotate(175.2deg) translateY(var(--radius-37));}
+.hole37-4 { transform: translate(-50%, -50%) rotate(176.8deg) translateY(var(--radius-37));}
+.hole37-5 { transform: translate(-50%, -50%) rotate(178.4deg) translateY(var(--radius-37));}
+.hole37-6 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-37));}
+.hole37-7 { transform: translate(-50%, -50%) rotate(181.6deg) translateY(var(--radius-37));}
+.hole37-8 { transform: translate(-50%, -50%) rotate(183.2deg) translateY(var(--radius-37));}
+.hole37-9 { transform: translate(-50%, -50%) rotate(184.8deg) translateY(var(--radius-37));}
+.hole37-10{ transform: translate(-50%, -50%) rotate(186.4deg) translateY(var(--radius-37));}
+.hole37-11{ transform: translate(-50%, -50%) rotate(188deg) translateY(var(--radius-37));}
+
+.hole38-1 { transform: translate(-50%, -50%) rotate(171.95deg) translateY(var(--radius-38));}
+.hole38-2 { transform: translate(-50%, -50%) rotate(173.41deg) translateY(var(--radius-38));}
+.hole38-3 { transform: translate(-50%, -50%) rotate(174.88deg) translateY(var(--radius-38));}
+.hole38-4 { transform: translate(-50%, -50%) rotate(176.34deg) translateY(var(--radius-38));}
+.hole38-5 { transform: translate(-50%, -50%) rotate(177.81deg) translateY(var(--radius-38));}
+.hole38-6 { transform: translate(-50%, -50%) rotate(179.27deg) translateY(var(--radius-38));}
+.hole38-7 { transform: translate(-50%, -50%) rotate(180.73deg) translateY(var(--radius-38));}
+.hole38-8 { transform: translate(-50%, -50%) rotate(182.19deg) translateY(var(--radius-38));}
+.hole38-9 { transform: translate(-50%, -50%) rotate(183.66deg) translateY(var(--radius-38));}
+.hole38-10{ transform: translate(-50%, -50%) rotate(185.12deg) translateY(var(--radius-38));}
+.hole38-11{ transform: translate(-50%, -50%) rotate(186.59deg) translateY(var(--radius-38));}
+.hole38-12{ transform: translate(-50%, -50%) rotate(188.05deg) translateY(var(--radius-38));}
+
+.hole39-1 { transform: translate(-50%, -50%) rotate(171.9deg) translateY(var(--radius-39));}
+.hole39-2 { transform: translate(-50%, -50%) rotate(173.37deg) translateY(var(--radius-39));}
+.hole39-3 { transform: translate(-50%, -50%) rotate(174.85deg) translateY(var(--radius-39));}
+.hole39-4 { transform: translate(-50%, -50%) rotate(176.32deg) translateY(var(--radius-39));}
+.hole39-5 { transform: translate(-50%, -50%) rotate(177.79deg) translateY(var(--radius-39));}
+.hole39-6 { transform: translate(-50%, -50%) rotate(179.26deg) translateY(var(--radius-39));}
+.hole39-7 { transform: translate(-50%, -50%) rotate(180.74deg) translateY(var(--radius-39));}
+.hole39-8 { transform: translate(-50%, -50%) rotate(182.21deg) translateY(var(--radius-39));}
+.hole39-9 { transform: translate(-50%, -50%) rotate(183.68deg) translateY(var(--radius-39));}
+.hole39-10{ transform: translate(-50%, -50%) rotate(185.15deg) translateY(var(--radius-39));}
+.hole39-11{ transform: translate(-50%, -50%) rotate(186.63deg) translateY(var(--radius-39));}
+.hole39-12{ transform: translate(-50%, -50%) rotate(188.1deg) translateY(var(--radius-39));}
+
+.hole40-1 { transform: translate(-50%, -50%) rotate(171.90deg) translateY(var(--radius-40));}
+.hole40-2 { transform: translate(-50%, -50%) rotate(173.25deg) translateY(var(--radius-40));}
+.hole40-3 { transform: translate(-50%, -50%) rotate(174.60deg) translateY(var(--radius-40));}
+.hole40-4 { transform: translate(-50%, -50%) rotate(175.95deg) translateY(var(--radius-40));}
+.hole40-5 { transform: translate(-50%, -50%) rotate(177.30deg) translateY(var(--radius-40));}
+.hole40-6 { transform: translate(-50%, -50%) rotate(178.65deg) translateY(var(--radius-40));}
+.hole40-7 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-40));}
+.hole40-8 { transform: translate(-50%, -50%) rotate(181.35deg) translateY(var(--radius-40));}
+.hole40-9 { transform: translate(-50%, -50%) rotate(182.70deg) translateY(var(--radius-40));}
+.hole40-10{ transform: translate(-50%, -50%) rotate(184.05deg) translateY(var(--radius-40));}
+.hole40-11{ transform: translate(-50%, -50%) rotate(185.40deg) translateY(var(--radius-40));}
+.hole40-12{ transform: translate(-50%, -50%) rotate(186.75deg) translateY(var(--radius-40));}
+.hole40-13{ transform: translate(-50%, -50%) rotate(188.10deg) translateY(var(--radius-40));}
+
+.hole41-1 { transform: translate(-50%, -50%) rotate(171.6deg) translateY(var(--radius-41));}
+.hole41-2 { transform: translate(-50%, -50%) rotate(172.89deg) translateY(var(--radius-41));}
+.hole41-3 { transform: translate(-50%, -50%) rotate(174.18deg) translateY(var(--radius-41));}
+.hole41-4 { transform: translate(-50%, -50%) rotate(175.48deg) translateY(var(--radius-41));}
+.hole41-5 { transform: translate(-50%, -50%) rotate(176.77deg) translateY(var(--radius-41));}
+.hole41-6 { transform: translate(-50%, -50%) rotate(178.06deg) translateY(var(--radius-41));}
+.hole41-7 { transform: translate(-50%, -50%) rotate(179.35deg) translateY(var(--radius-41));}
+.hole41-8 { transform: translate(-50%, -50%) rotate(180.65deg) translateY(var(--radius-41));}
+.hole41-9 { transform: translate(-50%, -50%) rotate(181.94deg) translateY(var(--radius-41));}
+.hole41-10{ transform: translate(-50%, -50%) rotate(183.23deg) translateY(var(--radius-41));}
+.hole41-11{ transform: translate(-50%, -50%) rotate(184.52deg) translateY(var(--radius-41));}
+.hole41-12{ transform: translate(-50%, -50%) rotate(185.82deg) translateY(var(--radius-41));}
+.hole41-13{ transform: translate(-50%, -50%) rotate(187.11deg) translateY(var(--radius-41));}
+.hole41-14{ transform: translate(-50%, -50%) rotate(188.4deg) translateY(var(--radius-41));}
+
+.hole42-1 { transform: translate(-50%, -50%) rotate(171.90deg) translateY(var(--radius-42));}
+.hole42-2 { transform: translate(-50%, -50%) rotate(173.25deg) translateY(var(--radius-42));}
+.hole42-3 { transform: translate(-50%, -50%) rotate(174.60deg) translateY(var(--radius-42));}
+.hole42-4 { transform: translate(-50%, -50%) rotate(175.95deg) translateY(var(--radius-42));}
+.hole42-5 { transform: translate(-50%, -50%) rotate(177.30deg) translateY(var(--radius-42));}
+.hole42-6 { transform: translate(-50%, -50%) rotate(178.65deg) translateY(var(--radius-42));}
+.hole42-7 { transform: translate(-50%, -50%) rotate(180deg) translateY(var(--radius-42));}
+.hole42-8 { transform: translate(-50%, -50%) rotate(181.35deg) translateY(var(--radius-42));}
+.hole42-9 { transform: translate(-50%, -50%) rotate(182.70deg) translateY(var(--radius-42));}
+.hole42-10{ transform: translate(-50%, -50%) rotate(184.05deg) translateY(var(--radius-42));}
+.hole42-11{ transform: translate(-50%, -50%) rotate(185.40deg) translateY(var(--radius-42));}
+.hole42-12{ transform: translate(-50%, -50%) rotate(186.75deg) translateY(var(--radius-42));}
+.hole42-13{ transform: translate(-50%, -50%) rotate(188.10deg) translateY(var(--radius-42));}
+
+.hole43-1 { transform: translate(-50%, -50%) rotate(171.6deg) translateY(var(--radius-43));}
+.hole43-2 { transform: translate(-50%, -50%) rotate(172.89deg) translateY(var(--radius-43));}
+.hole43-3 { transform: translate(-50%, -50%) rotate(174.18deg) translateY(var(--radius-43));}
+.hole43-4 { transform: translate(-50%, -50%) rotate(175.48deg) translateY(var(--radius-43));}
+.hole43-5 { transform: translate(-50%, -50%) rotate(176.77deg) translateY(var(--radius-43));}
+.hole43-6 { transform: translate(-50%, -50%) rotate(178.06deg) translateY(var(--radius-43));}
+.hole43-7 { transform: translate(-50%, -50%) rotate(179.35deg) translateY(var(--radius-43));}
+.hole43-8 { transform: translate(-50%, -50%) rotate(180.65deg) translateY(var(--radius-43));}
+.hole43-9 { transform: translate(-50%, -50%) rotate(181.94deg) translateY(var(--radius-43));}
+.hole43-10{ transform: translate(-50%, -50%) rotate(183.23deg) translateY(var(--radius-43));}
+.hole43-11{ transform: translate(-50%, -50%) rotate(184.52deg) translateY(var(--radius-43));}
+.hole43-12{ transform: translate(-50%, -50%) rotate(185.82deg) translateY(var(--radius-43));}
+.hole43-13{ transform: translate(-50%, -50%) rotate(187.11deg) translateY(var(--radius-43));}
+.hole43-14{ transform: translate(-50%, -50%) rotate(188.4deg) translateY(var(--radius-43));}
+
+.hole44-1 { transform: translate(-50%, -50%) rotate(171.6deg) translateY(var(--radius-44));}
+.hole44-2 { transform: translate(-50%, -50%) rotate(172.89deg) translateY(var(--radius-44));}
+.hole44-3 { transform: translate(-50%, -50%) rotate(174.18deg) translateY(var(--radius-44));}
+.hole44-4 { transform: translate(-50%, -50%) rotate(175.48deg) translateY(var(--radius-44));}
+.hole44-5 { transform: translate(-50%, -50%) rotate(176.77deg) translateY(var(--radius-44));}
+.hole44-6 { transform: translate(-50%, -50%) rotate(178.06deg) translateY(var(--radius-44));}
+.hole44-7 { transform: translate(-50%, -50%) rotate(179.35deg) translateY(var(--radius-44));}
+.hole44-8 { transform: translate(-50%, -50%) rotate(180.65deg) translateY(var(--radius-44));}
+.hole44-9 { transform: translate(-50%, -50%) rotate(181.94deg) translateY(var(--radius-44));}
+.hole44-10{ transform: translate(-50%, -50%) rotate(183.23deg) translateY(var(--radius-44));}
+.hole44-11{ transform: translate(-50%, -50%) rotate(184.52deg) translateY(var(--radius-44));}
+.hole44-12{ transform: translate(-50%, -50%) rotate(185.82deg) translateY(var(--radius-44));}
+.hole44-13{ transform: translate(-50%, -50%) rotate(187.11deg) translateY(var(--radius-44));}
+.hole44-14{ transform: translate(-50%, -50%) rotate(188.4deg) translateY(var(--radius-44));}
+
+.hole45-1 { transform: translate(-50%, -50%) rotate(171.6deg) translateY(var(--radius-45));}
+.hole45-2 { transform: translate(-50%, -50%) rotate(172.89deg) translateY(var(--radius-45));}
+.hole45-3 { transform: translate(-50%, -50%) rotate(174.18deg) translateY(var(--radius-45));}
+.hole45-4 { transform: translate(-50%, -50%) rotate(175.48deg) translateY(var(--radius-45));}
+.hole45-5 { transform: translate(-50%, -50%) rotate(176.77deg) translateY(var(--radius-45));}
+.hole45-6 { transform: translate(-50%, -50%) rotate(178.06deg) translateY(var(--radius-45));}
+.hole45-7 { transform: translate(-50%, -50%) rotate(179.35deg) translateY(var(--radius-45));}
+.hole45-8 { transform: translate(-50%, -50%) rotate(180.65deg) translateY(var(--radius-45));}
+.hole45-9 { transform: translate(-50%, -50%) rotate(181.94deg) translateY(var(--radius-45));}
+.hole45-10{ transform: translate(-50%, -50%) rotate(183.23deg) translateY(var(--radius-45));}
+.hole45-11{ transform: translate(-50%, -50%) rotate(184.52deg) translateY(var(--radius-45));}
+.hole45-12{ transform: translate(-50%, -50%) rotate(185.82deg) translateY(var(--radius-45));}
+.hole45-13{ transform: translate(-50%, -50%) rotate(187.11deg) translateY(var(--radius-45));}
+.hole45-14{ transform: translate(-50%, -50%) rotate(188.4deg) translateY(var(--radius-45));}
+
+.hole46-1 { transform: translate(-50%, -50%) rotate(171.75deg) translateY(var(--radius-46));}
+.hole46-2 { transform: translate(-50%, -50%) rotate(172.93deg) translateY(var(--radius-46));}
+.hole46-3 { transform: translate(-50%, -50%) rotate(174.11deg) translateY(var(--radius-46));}
+.hole46-4 { transform: translate(-50%, -50%) rotate(175.29deg) translateY(var(--radius-46));}
+.hole46-5 { transform: translate(-50%, -50%) rotate(176.46deg) translateY(var(--radius-46));}
+.hole46-6 { transform: translate(-50%, -50%) rotate(177.64deg) translateY(var(--radius-46));}
+.hole46-7 { transform: translate(-50%, -50%) rotate(178.82deg) translateY(var(--radius-46));}
+.hole46-8 { transform: translate(-50%, -50%) rotate(180.00deg) translateY(var(--radius-46));}
+.hole46-9 { transform: translate(-50%, -50%) rotate(181.18deg) translateY(var(--radius-46));}
+.hole46-10{ transform: translate(-50%, -50%) rotate(182.36deg) translateY(var(--radius-46));}
+.hole46-11{ transform: translate(-50%, -50%) rotate(183.54deg) translateY(var(--radius-46));}
+.hole46-12{ transform: translate(-50%, -50%) rotate(184.71deg) translateY(var(--radius-46));}
+.hole46-13{ transform: translate(-50%, -50%) rotate(185.89deg) translateY(var(--radius-46));}
+.hole46-14{ transform: translate(-50%, -50%) rotate(187.07deg) translateY(var(--radius-46));}
+.hole46-15{ transform: translate(-50%, -50%) rotate(188.25deg) translateY(var(--radius-46));}
+
+.hole47-1 { transform: translate(-50%, -50%) rotate(171.75deg) translateY(var(--radius-47));}
+.hole47-2 { transform: translate(-50%, -50%) rotate(172.93deg) translateY(var(--radius-47));}
+.hole47-3 { transform: translate(-50%, -50%) rotate(174.11deg) translateY(var(--radius-47));}
+.hole47-4 { transform: translate(-50%, -50%) rotate(175.29deg) translateY(var(--radius-47));}
+.hole47-5 { transform: translate(-50%, -50%) rotate(176.47deg) translateY(var(--radius-47));}
+.hole47-6 { transform: translate(-50%, -50%) rotate(177.64deg) translateY(var(--radius-47));}
+.hole47-7 { transform: translate(-50%, -50%) rotate(178.82deg) translateY(var(--radius-47));}
+.hole47-8 { transform: translate(-50%, -50%) rotate(180.00deg) translateY(var(--radius-47));}
+.hole47-9 { transform: translate(-50%, -50%) rotate(181.18deg) translateY(var(--radius-47));}
+.hole47-10{ transform: translate(-50%, -50%) rotate(182.36deg) translateY(var(--radius-47));}
+.hole47-11{ transform: translate(-50%, -50%) rotate(183.54deg) translateY(var(--radius-47));}
+.hole47-12{ transform: translate(-50%, -50%) rotate(184.71deg) translateY(var(--radius-47));}
+.hole47-13{ transform: translate(-50%, -50%) rotate(185.89deg) translateY(var(--radius-47));}
+.hole47-14{ transform: translate(-50%, -50%) rotate(187.07deg) translateY(var(--radius-47));}
+.hole47-15{ transform: translate(-50%, -50%) rotate(188.25deg) translateY(var(--radius-47));}
+
+.hole48-1 { transform: translate(-50%, -50%) rotate(171.70deg) translateY(var(--radius-48));}
+.hole48-2 { transform: translate(-50%, -50%) rotate(172.81deg) translateY(var(--radius-48));}
+.hole48-3 { transform: translate(-50%, -50%) rotate(173.91deg) translateY(var(--radius-48));}
+.hole48-4 { transform: translate(-50%, -50%) rotate(175.02deg) translateY(var(--radius-48));}
+.hole48-5 { transform: translate(-50%, -50%) rotate(176.13deg) translateY(var(--radius-48));}
+.hole48-6 { transform: translate(-50%, -50%) rotate(177.23deg) translateY(var(--radius-48));}
+.hole48-7 { transform: translate(-50%, -50%) rotate(178.34deg) translateY(var(--radius-48));}
+.hole48-8 { transform: translate(-50%, -50%) rotate(179.45deg) translateY(var(--radius-48));}
+.hole48-9 { transform: translate(-50%, -50%) rotate(180.55deg) translateY(var(--radius-48));}
+.hole48-10{ transform: translate(-50%, -50%) rotate(181.66deg) translateY(var(--radius-48));}
+.hole48-11{ transform: translate(-50%, -50%) rotate(182.77deg) translateY(var(--radius-48));}
+.hole48-12{ transform: translate(-50%, -50%) rotate(183.87deg) translateY(var(--radius-48));}
+.hole48-13{ transform: translate(-50%, -50%) rotate(184.98deg) translateY(var(--radius-48));}
+.hole48-14{ transform: translate(-50%, -50%) rotate(186.09deg) translateY(var(--radius-48));}
+.hole48-15{ transform: translate(-50%, -50%) rotate(187.19deg) translateY(var(--radius-48));}
+.hole48-16{ transform: translate(-50%, -50%) rotate(188.30deg) translateY(var(--radius-48));}
+
+.hole49-1 { transform: translate(-50%, -50%) rotate(171.70deg) translateY(var(--radius-49));}
+.hole49-2 { transform: translate(-50%, -50%) rotate(172.81deg) translateY(var(--radius-49));}
+.hole49-3 { transform: translate(-50%, -50%) rotate(173.91deg) translateY(var(--radius-49));}
+.hole49-4 { transform: translate(-50%, -50%) rotate(175.02deg) translateY(var(--radius-49));}
+.hole49-5 { transform: translate(-50%, -50%) rotate(176.13deg) translateY(var(--radius-49));}
+.hole49-6 { transform: translate(-50%, -50%) rotate(177.23deg) translateY(var(--radius-49));}
+.hole49-7 { transform: translate(-50%, -50%) rotate(178.34deg) translateY(var(--radius-49));}
+.hole49-8 { transform: translate(-50%, -50%) rotate(179.45deg) translateY(var(--radius-49));}
+.hole49-9 { transform: translate(-50%, -50%) rotate(180.55deg) translateY(var(--radius-49));}
+.hole49-10{ transform: translate(-50%, -50%) rotate(181.66deg) translateY(var(--radius-49));}
+.hole49-11{ transform: translate(-50%, -50%) rotate(182.77deg) translateY(var(--radius-49));}
+.hole49-12{ transform: translate(-50%, -50%) rotate(183.87deg) translateY(var(--radius-49));}
+.hole49-13{ transform: translate(-50%, -50%) rotate(184.98deg) translateY(var(--radius-49));}
+.hole49-14{ transform: translate(-50%, -50%) rotate(186.09deg) translateY(var(--radius-49));}
+.hole49-15{ transform: translate(-50%, -50%) rotate(187.19deg) translateY(var(--radius-49));}
+.hole49-16{ transform: translate(-50%, -50%) rotate(188.30deg) translateY(var(--radius-49));}
+
+.hole50-1 { transform: translate(-50%, -50%) rotate(171.70deg) translateY(var(--radius-50));}
+.hole50-2 { transform: translate(-50%, -50%) rotate(172.81deg) translateY(var(--radius-50));}
+.hole50-3 { transform: translate(-50%, -50%) rotate(173.91deg) translateY(var(--radius-50));}
+.hole50-4 { transform: translate(-50%, -50%) rotate(175.02deg) translateY(var(--radius-50));}
+.hole50-5 { transform: translate(-50%, -50%) rotate(176.13deg) translateY(var(--radius-50));}
+.hole50-6 { transform: translate(-50%, -50%) rotate(177.23deg) translateY(var(--radius-50));}
+.hole50-7 { transform: translate(-50%, -50%) rotate(178.34deg) translateY(var(--radius-50));}
+.hole50-8 { transform: translate(-50%, -50%) rotate(179.45deg) translateY(var(--radius-50));}
+.hole50-9 { transform: translate(-50%, -50%) rotate(180.55deg) translateY(var(--radius-50));}
+.hole50-10{ transform: translate(-50%, -50%) rotate(181.66deg) translateY(var(--radius-50));}
+.hole50-11{ transform: translate(-50%, -50%) rotate(182.77deg) translateY(var(--radius-50));}
+.hole50-12{ transform: translate(-50%, -50%) rotate(183.87deg) translateY(var(--radius-50));}
+.hole50-13{ transform: translate(-50%, -50%) rotate(184.98deg) translateY(var(--radius-50));}
+.hole50-14{ transform: translate(-50%, -50%) rotate(186.09deg) translateY(var(--radius-50));}
+.hole50-15{ transform: translate(-50%, -50%) rotate(187.19deg) translateY(var(--radius-50));}
+.hole50-16{ transform: translate(-50%, -50%) rotate(188.30deg) translateY(var(--radius-50));}
+
+.hole51-1 { transform: translate(-50%, -50%) rotate(171.65deg) translateY(var(--radius-51));}
+.hole51-2 { transform: translate(-50%, -50%) rotate(172.69deg) translateY(var(--radius-51));}
+.hole51-3 { transform: translate(-50%, -50%) rotate(173.74deg) translateY(var(--radius-51));}
+.hole51-4 { transform: translate(-50%, -50%) rotate(174.78deg) translateY(var(--radius-51));}
+.hole51-5 { transform: translate(-50%, -50%) rotate(175.83deg) translateY(var(--radius-51));}
+.hole51-6 { transform: translate(-50%, -50%) rotate(176.87deg) translateY(var(--radius-51));}
+.hole51-7 { transform: translate(-50%, -50%) rotate(177.91deg) translateY(var(--radius-51));}
+.hole51-8 { transform: translate(-50%, -50%) rotate(178.96deg) translateY(var(--radius-51));}
+.hole51-9 { transform: translate(-50%, -50%) rotate(180.00deg) translateY(var(--radius-51));}
+.hole51-10{ transform: translate(-50%, -50%) rotate(181.04deg) translateY(var(--radius-51));}
+.hole51-11{ transform: translate(-50%, -50%) rotate(182.09deg) translateY(var(--radius-51));}
+.hole51-12{ transform: translate(-50%, -50%) rotate(183.13deg) translateY(var(--radius-51));}
+.hole51-13{ transform: translate(-50%, -50%) rotate(184.18deg) translateY(var(--radius-51));}
+.hole51-14{ transform: translate(-50%, -50%) rotate(185.22deg) translateY(var(--radius-51));}
+.hole51-15{ transform: translate(-50%, -50%) rotate(186.26deg) translateY(var(--radius-51));}
+.hole51-16{ transform: translate(-50%, -50%) rotate(187.31deg) translateY(var(--radius-51));}
+.hole51-17{ transform: translate(-50%, -50%) rotate(188.35deg) translateY(var(--radius-51));}
+
+.hole52-1 { transform: translate(-50%, -50%) rotate(171.65deg) translateY(var(--radius-52));}
+.hole52-2 { transform: translate(-50%, -50%) rotate(172.69deg) translateY(var(--radius-52));}
+.hole52-3 { transform: translate(-50%, -50%) rotate(173.74deg) translateY(var(--radius-52));}
+.hole52-4 { transform: translate(-50%, -50%) rotate(174.78deg) translateY(var(--radius-52));}
+.hole52-5 { transform: translate(-50%, -50%) rotate(175.83deg) translateY(var(--radius-52));}
+.hole52-6 { transform: translate(-50%, -50%) rotate(176.87deg) translateY(var(--radius-52));}
+.hole52-7 { transform: translate(-50%, -50%) rotate(177.91deg) translateY(var(--radius-52));}
+.hole52-8 { transform: translate(-50%, -50%) rotate(178.96deg) translateY(var(--radius-52));}
+.hole52-9 { transform: translate(-50%, -50%) rotate(180.00deg) translateY(var(--radius-52));}
+.hole52-10{ transform: translate(-50%, -50%) rotate(181.04deg) translateY(var(--radius-52));}
+.hole52-11{ transform: translate(-50%, -50%) rotate(182.09deg) translateY(var(--radius-52));}
+.hole52-12{ transform: translate(-50%, -50%) rotate(183.13deg) translateY(var(--radius-52));}
+.hole52-13{ transform: translate(-50%, -50%) rotate(184.18deg) translateY(var(--radius-52));}
+.hole52-14{ transform: translate(-50%, -50%) rotate(185.22deg) translateY(var(--radius-52));}
+.hole52-15{ transform: translate(-50%, -50%) rotate(186.26deg) translateY(var(--radius-52));}
+.hole52-16{ transform: translate(-50%, -50%) rotate(187.31deg) translateY(var(--radius-52));}
+.hole52-17{ transform: translate(-50%, -50%) rotate(188.35deg) translateY(var(--radius-52));}
+
+.hole53-1 { transform: translate(-50%, -50%) rotate(171.65deg) translateY(var(--radius-53));}
+.hole53-2 { transform: translate(-50%, -50%) rotate(172.69deg) translateY(var(--radius-53));}
+.hole53-3 { transform: translate(-50%, -50%) rotate(173.74deg) translateY(var(--radius-53));}
+.hole53-4 { transform: translate(-50%, -50%) rotate(174.78deg) translateY(var(--radius-53));}
+.hole53-5 { transform: translate(-50%, -50%) rotate(175.83deg) translateY(var(--radius-53));}
+.hole53-6 { transform: translate(-50%, -50%) rotate(176.87deg) translateY(var(--radius-53));}
+.hole53-7 { transform: translate(-50%, -50%) rotate(177.91deg) translateY(var(--radius-53));}
+.hole53-8 { transform: translate(-50%, -50%) rotate(178.96deg) translateY(var(--radius-53));}
+.hole53-9 { transform: translate(-50%, -50%) rotate(180.00deg) translateY(var(--radius-53));}
+.hole53-10{ transform: translate(-50%, -50%) rotate(181.04deg) translateY(var(--radius-53));}
+.hole53-11{ transform: translate(-50%, -50%) rotate(182.09deg) translateY(var(--radius-53));}
+.hole53-12{ transform: translate(-50%, -50%) rotate(183.13deg) translateY(var(--radius-53));}
+.hole53-13{ transform: translate(-50%, -50%) rotate(184.18deg) translateY(var(--radius-53));}
+.hole53-14{ transform: translate(-50%, -50%) rotate(185.22deg) translateY(var(--radius-53));}
+.hole53-15{ transform: translate(-50%, -50%) rotate(186.26deg) translateY(var(--radius-53));}
+.hole53-16{ transform: translate(-50%, -50%) rotate(187.31deg) translateY(var(--radius-53));}
+.hole53-17{ transform: translate(-50%, -50%) rotate(188.35deg) translateY(var(--radius-53));}
+
+.hole54-1 { transform: translate(-50%, -50%) rotate(171.60deg) translateY(var(--radius-54));}
+.hole54-2 { transform: translate(-50%, -50%) rotate(172.59deg) translateY(var(--radius-54));}
+.hole54-3 { transform: translate(-50%, -50%) rotate(173.58deg) translateY(var(--radius-54));}
+.hole54-4 { transform: translate(-50%, -50%) rotate(174.56deg) translateY(var(--radius-54));}
+.hole54-5 { transform: translate(-50%, -50%) rotate(175.55deg) translateY(var(--radius-54));}
+.hole54-6 { transform: translate(-50%, -50%) rotate(176.54deg) translateY(var(--radius-54));}
+.hole54-7 { transform: translate(-50%, -50%) rotate(177.53deg) translateY(var(--radius-54));}
+.hole54-8 { transform: translate(-50%, -50%) rotate(178.51deg) translateY(var(--radius-54));}
+.hole54-9 { transform: translate(-50%, -50%) rotate(179.50deg) translateY(var(--radius-54));}
+.hole54-10{ transform: translate(-50%, -50%) rotate(180.50deg) translateY(var(--radius-54));}
+.hole54-11{ transform: translate(-50%, -50%) rotate(181.49deg) translateY(var(--radius-54));}
+.hole54-12{ transform: translate(-50%, -50%) rotate(182.47deg) translateY(var(--radius-54));}
+.hole54-13{ transform: translate(-50%, -50%) rotate(183.46deg) translateY(var(--radius-54));}
+.hole54-14{ transform: translate(-50%, -50%) rotate(184.45deg) translateY(var(--radius-54));}
+.hole54-15{ transform: translate(-50%, -50%) rotate(185.44deg) translateY(var(--radius-54));}
+.hole54-16{ transform: translate(-50%, -50%) rotate(186.42deg) translateY(var(--radius-54));}
+.hole54-17{ transform: translate(-50%, -50%) rotate(187.41deg) translateY(var(--radius-54));}
+.hole54-18{ transform: translate(-50%, -50%) rotate(188.40deg) translateY(var(--radius-54));}
+
+.hole55-1 { transform: translate(-50%, -50%) rotate(171.60deg) translateY(var(--radius-55));}
+.hole55-2 { transform: translate(-50%, -50%) rotate(172.59deg) translateY(var(--radius-55));}
+.hole55-3 { transform: translate(-50%, -50%) rotate(173.58deg) translateY(var(--radius-55));}
+.hole55-4 { transform: translate(-50%, -50%) rotate(174.56deg) translateY(var(--radius-55));}
+.hole55-5 { transform: translate(-50%, -50%) rotate(175.55deg) translateY(var(--radius-55));}
+.hole55-6 { transform: translate(-50%, -50%) rotate(176.54deg) translateY(var(--radius-55));}
+.hole55-7 { transform: translate(-50%, -50%) rotate(177.53deg) translateY(var(--radius-55));}
+.hole55-8 { transform: translate(-50%, -50%) rotate(178.51deg) translateY(var(--radius-55));}
+.hole55-9 { transform: translate(-50%, -50%) rotate(179.50deg) translateY(var(--radius-55));}
+.hole55-10{ transform: translate(-50%, -50%) rotate(180.50deg) translateY(var(--radius-55));}
+.hole55-11{ transform: translate(-50%, -50%) rotate(181.49deg) translateY(var(--radius-55));}
+.hole55-12{ transform: translate(-50%, -50%) rotate(182.47deg) translateY(var(--radius-55));}
+.hole55-13{ transform: translate(-50%, -50%) rotate(183.46deg) translateY(var(--radius-55));}
+.hole55-14{ transform: translate(-50%, -50%) rotate(184.45deg) translateY(var(--radius-55));}
+.hole55-15{ transform: translate(-50%, -50%) rotate(185.44deg) translateY(var(--radius-55));}
+.hole55-16{ transform: translate(-50%, -50%) rotate(186.42deg) translateY(var(--radius-55));}
+.hole55-17{ transform: translate(-50%, -50%) rotate(187.41deg) translateY(var(--radius-55));}
+.hole55-18{ transform: translate(-50%, -50%) rotate(188.40deg) translateY(var(--radius-55));}
+
+.hole56-1 { transform: translate(-50%, -50%) rotate(171.60deg) translateY(var(--radius-56));}
+.hole56-2 { transform: translate(-50%, -50%) rotate(172.59deg) translateY(var(--radius-56));}
+.hole56-3 { transform: translate(-50%, -50%) rotate(173.58deg) translateY(var(--radius-56));}
+.hole56-4 { transform: translate(-50%, -50%) rotate(174.56deg) translateY(var(--radius-56));}
+.hole56-5 { transform: translate(-50%, -50%) rotate(175.55deg) translateY(var(--radius-56));}
+.hole56-6 { transform: translate(-50%, -50%) rotate(176.54deg) translateY(var(--radius-56));}
+.hole56-7 { transform: translate(-50%, -50%) rotate(177.53deg) translateY(var(--radius-56));}
+.hole56-8 { transform: translate(-50%, -50%) rotate(178.51deg) translateY(var(--radius-56));}
+.hole56-9 { transform: translate(-50%, -50%) rotate(179.50deg) translateY(var(--radius-56));}
+.hole56-10{ transform: translate(-50%, -50%) rotate(180.50deg) translateY(var(--radius-56));}
+.hole56-11{ transform: translate(-50%, -50%) rotate(181.49deg) translateY(var(--radius-56));}
+.hole56-12{ transform: translate(-50%, -50%) rotate(182.47deg) translateY(var(--radius-56));}
+.hole56-13{ transform: translate(-50%, -50%) rotate(183.46deg) translateY(var(--radius-56));}
+.hole56-14{ transform: translate(-50%, -50%) rotate(184.45deg) translateY(var(--radius-56));}
+.hole56-15{ transform: translate(-50%, -50%) rotate(185.44deg) translateY(var(--radius-56));}
+.hole56-16{ transform: translate(-50%, -50%) rotate(186.42deg) translateY(var(--radius-56));}
+.hole56-17{ transform: translate(-50%, -50%) rotate(187.41deg) translateY(var(--radius-56));}
+.hole56-18{ transform: translate(-50%, -50%) rotate(188.40deg) translateY(var(--radius-56));}
+
+.hole57-1 { transform: translate(-50%, -50%) rotate(171.55deg) translateY(var(--radius-57));}
+.hole57-2 { transform: translate(-50%, -50%) rotate(172.49deg) translateY(var(--radius-57));}
+.hole57-3 { transform: translate(-50%, -50%) rotate(173.43deg) translateY(var(--radius-57));}
+.hole57-4 { transform: translate(-50%, -50%) rotate(174.37deg) translateY(var(--radius-57));}
+.hole57-5 { transform: translate(-50%, -50%) rotate(175.31deg) translateY(var(--radius-57));}
+.hole57-6 { transform: translate(-50%, -50%) rotate(176.24deg) translateY(var(--radius-57));}
+.hole57-7 { transform: translate(-50%, -50%) rotate(177.18deg) translateY(var(--radius-57));}
+.hole57-8 { transform: translate(-50%, -50%) rotate(178.12deg) translateY(var(--radius-57));}
+.hole57-9 { transform: translate(-50%, -50%) rotate(179.06deg) translateY(var(--radius-57));}
+.hole57-10{ transform: translate(-50%, -50%) rotate(180.00deg) translateY(var(--radius-57));}
+.hole57-11{ transform: translate(-50%, -50%) rotate(180.94deg) translateY(var(--radius-57));}
+.hole57-12{ transform: translate(-50%, -50%) rotate(181.88deg) translateY(var(--radius-57));}
+.hole57-13{ transform: translate(-50%, -50%) rotate(182.82deg) translateY(var(--radius-57));}
+.hole57-14{ transform: translate(-50%, -50%) rotate(183.76deg) translateY(var(--radius-57));}
+.hole57-15{ transform: translate(-50%, -50%) rotate(184.69deg) translateY(var(--radius-57));}
+.hole57-16{ transform: translate(-50%, -50%) rotate(185.63deg) translateY(var(--radius-57));}
+.hole57-17{ transform: translate(-50%, -50%) rotate(186.57deg) translateY(var(--radius-57));}
+.hole57-18{ transform: translate(-50%, -50%) rotate(187.51deg) translateY(var(--radius-57));}
+.hole57-19{ transform: translate(-50%, -50%) rotate(188.45deg) translateY(var(--radius-57));}
+
+.hole58-1 { transform: translate(-50%, -50%) rotate(171.55deg) translateY(var(--radius-58));}
+.hole58-2 { transform: translate(-50%, -50%) rotate(172.49deg) translateY(var(--radius-58));}
+.hole58-3 { transform: translate(-50%, -50%) rotate(173.43deg) translateY(var(--radius-58));}
+.hole58-4 { transform: translate(-50%, -50%) rotate(174.37deg) translateY(var(--radius-58));}
+.hole58-5 { transform: translate(-50%, -50%) rotate(175.31deg) translateY(var(--radius-58));}
+.hole58-6 { transform: translate(-50%, -50%) rotate(176.24deg) translateY(var(--radius-58));}
+.hole58-7 { transform: translate(-50%, -50%) rotate(177.18deg) translateY(var(--radius-58));}
+.hole58-8 { transform: translate(-50%, -50%) rotate(178.12deg) translateY(var(--radius-58));}
+.hole58-9 { transform: translate(-50%, -50%) rotate(179.06deg) translateY(var(--radius-58));}
+.hole58-10{ transform: translate(-50%, -50%) rotate(180.00deg) translateY(var(--radius-58));}
+.hole58-11{ transform: translate(-50%, -50%) rotate(180.94deg) translateY(var(--radius-58));}
+.hole58-12{ transform: translate(-50%, -50%) rotate(181.88deg) translateY(var(--radius-58));}
+.hole58-13{ transform: translate(-50%, -50%) rotate(182.82deg) translateY(var(--radius-58));}
+.hole58-14{ transform: translate(-50%, -50%) rotate(183.76deg) translateY(var(--radius-58));}
+.hole58-15{ transform: translate(-50%, -50%) rotate(184.69deg) translateY(var(--radius-58));}
+.hole58-16{ transform: translate(-50%, -50%) rotate(185.63deg) translateY(var(--radius-58));}
+.hole58-17{ transform: translate(-50%, -50%) rotate(186.57deg) translateY(var(--radius-58));}
+.hole58-18{ transform: translate(-50%, -50%) rotate(187.51deg) translateY(var(--radius-58));}
+.hole58-19{ transform: translate(-50%, -50%) rotate(188.45deg) translateY(var(--radius-58));}
+
+.hole59-1 { transform: translate(-50%, -50%) rotate(171.50deg) translateY(var(--radius-59));}
+.hole59-2 { transform: translate(-50%, -50%) rotate(172.39deg) translateY(var(--radius-59));}
+.hole59-3 { transform: translate(-50%, -50%) rotate(173.29deg) translateY(var(--radius-59));}
+.hole59-4 { transform: translate(-50%, -50%) rotate(174.18deg) translateY(var(--radius-59));}
+.hole59-5 { transform: translate(-50%, -50%) rotate(175.08deg) translateY(var(--radius-59));}
+.hole59-6 { transform: translate(-50%, -50%) rotate(175.97deg) translateY(var(--radius-59));}
+.hole59-7 { transform: translate(-50%, -50%) rotate(176.87deg) translateY(var(--radius-59));}
+.hole59-8 { transform: translate(-50%, -50%) rotate(177.76deg) translateY(var(--radius-59));}
+.hole59-9 { transform: translate(-50%, -50%) rotate(178.66deg) translateY(var(--radius-59));}
+.hole59-10{ transform: translate(-50%, -50%) rotate(179.55deg) translateY(var(--radius-59));}
+.hole59-11{ transform: translate(-50%, -50%) rotate(180.45deg) translateY(var(--radius-59));}
+.hole59-12{ transform: translate(-50%, -50%) rotate(181.34deg) translateY(var(--radius-59));}
+.hole59-13{ transform: translate(-50%, -50%) rotate(182.24deg) translateY(var(--radius-59));}
+.hole59-14{ transform: translate(-50%, -50%) rotate(183.13deg) translateY(var(--radius-59));}
+.hole59-15{ transform: translate(-50%, -50%) rotate(184.03deg) translateY(var(--radius-59));}
+.hole59-16{ transform: translate(-50%, -50%) rotate(184.92deg) translateY(var(--radius-59));}
+.hole59-17{ transform: translate(-50%, -50%) rotate(185.82deg) translateY(var(--radius-59));}
+.hole59-18{ transform: translate(-50%, -50%) rotate(186.71deg) translateY(var(--radius-59));}
+.hole59-19{ transform: translate(-50%, -50%) rotate(187.61deg) translateY(var(--radius-59));}
+.hole59-20{ transform: translate(-50%, -50%) rotate(188.50deg) translateY(var(--radius-59));}
+
+.hole60-1 { transform: translate(-50%, -50%) rotate(171.50deg) translateY(var(--radius-60));}
+.hole60-2 { transform: translate(-50%, -50%) rotate(172.39deg) translateY(var(--radius-60));}
+.hole60-3 { transform: translate(-50%, -50%) rotate(173.29deg) translateY(var(--radius-60));}
+.hole60-4 { transform: translate(-50%, -50%) rotate(174.18deg) translateY(var(--radius-60));}
+.hole60-5 { transform: translate(-50%, -50%) rotate(175.08deg) translateY(var(--radius-60));}
+.hole60-6 { transform: translate(-50%, -50%) rotate(175.97deg) translateY(var(--radius-60));}
+.hole60-7 { transform: translate(-50%, -50%) rotate(176.87deg) translateY(var(--radius-60));}
+.hole60-8 { transform: translate(-50%, -50%) rotate(177.76deg) translateY(var(--radius-60));}
+.hole60-9 { transform: translate(-50%, -50%) rotate(178.66deg) translateY(var(--radius-60));}
+.hole60-10{ transform: translate(-50%, -50%) rotate(179.55deg) translateY(var(--radius-60));}
+.hole60-11{ transform: translate(-50%, -50%) rotate(180.45deg) translateY(var(--radius-60));}
+.hole60-12{ transform: translate(-50%, -50%) rotate(181.34deg) translateY(var(--radius-60));}
+.hole60-13{ transform: translate(-50%, -50%) rotate(182.24deg) translateY(var(--radius-60));}
+.hole60-14{ transform: translate(-50%, -50%) rotate(183.13deg) translateY(var(--radius-60));}
+.hole60-15{ transform: translate(-50%, -50%) rotate(184.03deg) translateY(var(--radius-60));}
+.hole60-16{ transform: translate(-50%, -50%) rotate(184.92deg) translateY(var(--radius-60));}
+.hole60-17{ transform: translate(-50%, -50%) rotate(185.82deg) translateY(var(--radius-60));}
+.hole60-18{ transform: translate(-50%, -50%) rotate(186.71deg) translateY(var(--radius-60));}
+.hole60-19{ transform: translate(-50%, -50%) rotate(187.61deg) translateY(var(--radius-60));}
+.hole60-20{ transform: translate(-50%, -50%) rotate(188.50deg) translateY(var(--radius-60));}
+
+.hole61-1 { transform: translate(-50%, -50%) rotate(171.50deg) translateY(var(--radius-61));}
+.hole61-2 { transform: translate(-50%, -50%) rotate(172.39deg) translateY(var(--radius-61));}
+.hole61-3 { transform: translate(-50%, -50%) rotate(173.29deg) translateY(var(--radius-61));}
+.hole61-4 { transform: translate(-50%, -50%) rotate(174.18deg) translateY(var(--radius-61));}
+.hole61-5 { transform: translate(-50%, -50%) rotate(175.08deg) translateY(var(--radius-61));}
+.hole61-6 { transform: translate(-50%, -50%) rotate(175.97deg) translateY(var(--radius-61));}
+.hole61-7 { transform: translate(-50%, -50%) rotate(176.87deg) translateY(var(--radius-61));}
+.hole61-8 { transform: translate(-50%, -50%) rotate(177.76deg) translateY(var(--radius-61));}
+.hole61-9 { transform: translate(-50%, -50%) rotate(178.66deg) translateY(var(--radius-61));}
+.hole61-10{ transform: translate(-50%, -50%) rotate(179.55deg) translateY(var(--radius-61));}
+.hole61-11{ transform: translate(-50%, -50%) rotate(180.45deg) translateY(var(--radius-61));}
+.hole61-12{ transform: translate(-50%, -50%) rotate(181.34deg) translateY(var(--radius-61));}
+.hole61-13{ transform: translate(-50%, -50%) rotate(182.24deg) translateY(var(--radius-61));}
+.hole61-14{ transform: translate(-50%, -50%) rotate(183.13deg) translateY(var(--radius-61));}
+.hole61-15{ transform: translate(-50%, -50%) rotate(184.03deg) translateY(var(--radius-61));}
+.hole61-16{ transform: translate(-50%, -50%) rotate(184.92deg) translateY(var(--radius-61));}
+.hole61-17{ transform: translate(-50%, -50%) rotate(185.82deg) translateY(var(--radius-61));}
+.hole61-18{ transform: translate(-50%, -50%) rotate(186.71deg) translateY(var(--radius-61));}
+.hole61-19{ transform: translate(-50%, -50%) rotate(187.61deg) translateY(var(--radius-61));}
+.hole61-20{ transform: translate(-50%, -50%) rotate(188.50deg) translateY(var(--radius-61));}
+
+.hole62-1 { transform: translate(-50%, -50%) rotate(171.50deg) translateY(var(--radius-62));}
+.hole62-2 { transform: translate(-50%, -50%) rotate(172.39deg) translateY(var(--radius-62));}
+.hole62-3 { transform: translate(-50%, -50%) rotate(173.29deg) translateY(var(--radius-62));}
+.hole62-4 { transform: translate(-50%, -50%) rotate(174.18deg) translateY(var(--radius-62));}
+.hole62-5 { transform: translate(-50%, -50%) rotate(175.08deg) translateY(var(--radius-62));}
+.hole62-6 { transform: translate(-50%, -50%) rotate(175.97deg) translateY(var(--radius-62));}
+.hole62-7 { transform: translate(-50%, -50%) rotate(176.87deg) translateY(var(--radius-62));}
+.hole62-8 { transform: translate(-50%, -50%) rotate(177.76deg) translateY(var(--radius-62));}
+.hole62-9 { transform: translate(-50%, -50%) rotate(178.66deg) translateY(var(--radius-62));}
+.hole62-10{ transform: translate(-50%, -50%) rotate(179.55deg) translateY(var(--radius-62));}
+.hole62-11{ transform: translate(-50%, -50%) rotate(180.45deg) translateY(var(--radius-62));}
+.hole62-12{ transform: translate(-50%, -50%) rotate(181.34deg) translateY(var(--radius-62));}
+.hole62-13{ transform: translate(-50%, -50%) rotate(182.24deg) translateY(var(--radius-62));}
+.hole62-14{ transform: translate(-50%, -50%) rotate(183.13deg) translateY(var(--radius-62));}
+.hole62-15{ transform: translate(-50%, -50%) rotate(184.03deg) translateY(var(--radius-62));}
+.hole62-16{ transform: translate(-50%, -50%) rotate(184.92deg) translateY(var(--radius-62));}
+.hole62-17{ transform: translate(-50%, -50%) rotate(185.82deg) translateY(var(--radius-62));}
+.hole62-18{ transform: translate(-50%, -50%) rotate(186.71deg) translateY(var(--radius-62));}
+.hole62-19{ transform: translate(-50%, -50%) rotate(187.61deg) translateY(var(--radius-62));}
+.hole62-20{ transform: translate(-50%, -50%) rotate(188.50deg) translateY(var(--radius-62));}
+
+.hole63-1 { transform: translate(-50%, -50%) rotate(171.50deg) translateY(var(--radius-63));}
+.hole63-2 { transform: translate(-50%, -50%) rotate(172.39deg) translateY(var(--radius-63));}
+.hole63-3 { transform: translate(-50%, -50%) rotate(173.29deg) translateY(var(--radius-63));}
+.hole63-4 { transform: translate(-50%, -50%) rotate(174.18deg) translateY(var(--radius-63));}
+.hole63-5 { transform: translate(-50%, -50%) rotate(175.08deg) translateY(var(--radius-63));}
+.hole63-6 { transform: translate(-50%, -50%) rotate(175.97deg) translateY(var(--radius-63));}
+.hole63-7 { transform: translate(-50%, -50%) rotate(176.87deg) translateY(var(--radius-63));}
+.hole63-8 { transform: translate(-50%, -50%) rotate(177.76deg) translateY(var(--radius-63));}
+.hole63-9 { transform: translate(-50%, -50%) rotate(178.66deg) translateY(var(--radius-63));}
+.hole63-10{ transform: translate(-50%, -50%) rotate(179.55deg) translateY(var(--radius-63));}
+.hole63-11{ transform: translate(-50%, -50%) rotate(180.45deg) translateY(var(--radius-63));}
+.hole63-12{ transform: translate(-50%, -50%) rotate(181.34deg) translateY(var(--radius-63));}
+.hole63-13{ transform: translate(-50%, -50%) rotate(182.24deg) translateY(var(--radius-63));}
+.hole63-14{ transform: translate(-50%, -50%) rotate(183.13deg) translateY(var(--radius-63));}
+.hole63-15{ transform: translate(-50%, -50%) rotate(184.03deg) translateY(var(--radius-63));}
+.hole63-16{ transform: translate(-50%, -50%) rotate(184.92deg) translateY(var(--radius-63));}
+.hole63-17{ transform: translate(-50%, -50%) rotate(185.82deg) translateY(var(--radius-63));}
+.hole63-18{ transform: translate(-50%, -50%) rotate(186.71deg) translateY(var(--radius-63));}
+.hole63-19{ transform: translate(-50%, -50%) rotate(187.61deg) translateY(var(--radius-63));}
+.hole63-20{ transform: translate(-50%, -50%) rotate(188.50deg) translateY(var(--radius-63));}
+
+
+.hole.hole64 {transform: translate(-50%, -50%) rotate(calc(var(--i) * (360deg / 440))) translateY(calc(var(--radius-64) * -1));}
+.hole.hole65 {transform: translate(-50%, -50%) rotate(calc(var(--i) * (360deg / 440))) translateY(calc(var(--radius-65) * -1));}
+.hole.hole66 {transform: translate(-50%, -50%) rotate(calc(var(--i) * (360deg / 440))) translateY(calc(var(--radius-66) * -1));}
+.hole.hole67 {transform: translate(-50%, -50%) rotate(calc(var(--i) * (360deg / 440))) translateY(calc(var(--radius-67) * -1));}
+.hole.hole68 {transform: translate(-50%, -50%) rotate(calc(var(--i) * (360deg / 440))) translateY(calc(var(--radius-68) * -1));}
+.hole.hole69 {transform: translate(-50%, -50%) rotate(calc(var(--i) * (360deg / 440))) translateY(calc(var(--radius-69) * -1));}
+.hole.hole70 {transform: translate(-50%, -50%) rotate(calc(var(--i) * (360deg / 440))) translateY(calc(var(--radius-70) * -1));}
