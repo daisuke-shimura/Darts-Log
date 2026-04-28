@@ -1,6 +1,13 @@
 <div data-controller="hole target">
-  <div class="board">
-    <%= render "records/board/out" %>
+  <div class="board" data-action="click->hole#click">
+    <% cache "dartboard" do %>
+      <%= render "records/board/out" %>
+      <%= render "records/board/double" %>
+      <%= render "records/board/outer-single" %>
+      <%= render "records/board/triple" %>
+      <%= render "records/board/inner-single" %>
+      <%= render "records/board/bull" %>
+    <% end %>
   </div>
 
   <div id="fixedForm" data-controller="result" class="fixed-form">

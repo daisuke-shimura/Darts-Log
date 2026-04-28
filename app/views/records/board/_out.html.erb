@@ -4,7 +4,7 @@
       data-absolute_r="<%= d %>" data-absolute_0="<%= out_top_standard(n, 440) %>" 
       data-index_r="<%= d %>" data-index_n="<%= n + 1 %>" 
       data-value="0" data-name="OUT" 
-      data-multiplier="out" data-bull-target="hole" data-action="click->hole#click"
+      data-multiplier="out"
       style="--i: <%= n %>;"></div>
   <% end %>
 <% end %>
@@ -13,5 +13,3 @@
     <div style="transform: rotate(<%= number * -18 %>deg);"><%= segment %></div>
   </div>
 <% end %>
-
-<%= render "records/board/double" %>

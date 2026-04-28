@@ -9,9 +9,10 @@ export default class extends Controller {
   }
 
   click(event) {
-    const hole = event.currentTarget;
-    const target = this.targetInputTarget.value;
+    const hole = event.target.closest(".hole");
+    if (!hole) return;
 
+    const target = this.targetInputTarget.value;
     const front_data = {
       absolute_r: Number(hole.dataset.absolute_r),
       absolute_0: Number(hole.dataset.absolute_0),
@@ -25,7 +26,6 @@ export default class extends Controller {
 
     console.log("front_data:", front_data);
 
-    // 3つ制限
     if (this.selected.length >= 3) {
       alert("3つまで！");
       return;
