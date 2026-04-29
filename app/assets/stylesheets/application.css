@@ -64,6 +64,15 @@
   transform: scale(1.05);
 }
 
+.cansel-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+.cansel-btn:hover {
+  transform: scale(1.05);
+}
+
 .target-display {
   width: 100%;
   margin-bottom: 4px;

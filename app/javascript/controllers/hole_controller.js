@@ -1,11 +1,13 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["output", "flash", "submitBtn", "targetInput"];
+  static targets = ["output", "flash", "submitBtn", "cancelBtn", "targetInput"];
 
   connect() {
     console.log("hole controller connected");
     this.selected = [];
+    this.updateSubmitButton();
+    this.updateCancelButton();
   }
 
   click(event) {
@@ -34,6 +36,7 @@ export default class extends Controller {
     this.selected.push(front_data);
     this.render();
     this.updateSubmitButton();
+    this.updateCancelButton();
   }
 
   render() {
@@ -63,6 +66,10 @@ export default class extends Controller {
 
   updateSubmitButton() {
     this.submitBtnTarget.disabled = this.selected.length === 0;
+  }
+
+  updateCancelButton() {
+    this.cancelBtnTarget.disabled = this.selected.length === 0;
   }
 
   submit() {
@@ -96,4 +103,12 @@ export default class extends Controller {
     });
   }
 
+  cancel() {
+    if (this.selected.length === 0) return;
+  
+    this.selected.pop();
+    this.render();
+    this.updateSubmitButton();
+    this.updateCancelButton();
+  }
 }
