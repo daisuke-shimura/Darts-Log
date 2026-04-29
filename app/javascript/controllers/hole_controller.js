@@ -46,7 +46,7 @@ export default class extends Controller {
           let rate;
           if (p.multiplier === "triple") {
             rate = 3;
-          } else if (p.multiplier === "double") {
+          } else if (p.multiplier === "double" && p.value !== 50) {
             rate = 2;
           } else {
             rate = 1;
