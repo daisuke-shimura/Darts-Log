@@ -1,6 +1,8 @@
 class Dart < ApplicationRecord
+  validate :parent_presence
   before_validation :normalize_absolute_0
-  belongs_to :round
+  belongs_to :record_round, optional: true
+  belongs_to :game_round, optional: true
 
   enum multiplier: { out: 0, single: 1, double: 2, triple: 3 }
   enum target: {
@@ -17,5 +19,13 @@ class Dart < ApplicationRecord
 
   def segment_label
     self.segment == 50 ? "BULL" : self.segment.to_s
+  end
+
+  def parent_presence
+    if record_round_id.blank? && game_round_id.blank?
+      errors.add(:base, "親が必要")
+    elsif record_round_id.present? && game_round_id.present?
+      errors.add(:base, "どちらか一方にしてください")
+    end
   end
 end

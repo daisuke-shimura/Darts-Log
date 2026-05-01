@@ -18,11 +18,12 @@ class RecordsController < ApplicationController
     end
 
     user_id = current_user.id
-    Round.create!(user_id: user_id)
+    #RecordRound.create!(user_id: user_id)
+    record_round = RecordRound.create!(user_id: user_id)
 
     darts.each_with_index do |dart, index|
       Dart.create!(
-        round_id: Round.last.id,
+        record_round_id: record_round.id,
         segment: dart[:value],
         multiplier: dart[:multiplier],
         number: index + 1,
