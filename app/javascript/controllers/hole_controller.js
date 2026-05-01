@@ -6,6 +6,7 @@ export default class extends Controller {
   connect() {
     console.log("hole controller connected");
     this.selected = [];
+    this.hit = 0;
     this.updateSubmitButton();
     this.updateCancelButton();
   }
@@ -27,6 +28,21 @@ export default class extends Controller {
     };
 
     console.log("front_data:", front_data);
+
+    if (front_data.target === "bull") {
+      if (front_data.value === 50) {
+        this.hit += 1;
+      }
+    }
+    else if (front_data.target === "undefined") {
+    }
+    else {
+      let hit_number;
+      hit_number = front_data.multiplier[0] + front_data.value;
+      if (front_data.target === hit_number) {
+        this.hit += 1;
+      }
+    }
 
     if (this.selected.length >= 3) {
       alert("3つまで！");
@@ -79,6 +95,7 @@ export default class extends Controller {
 
     console.log("submit clicked");
     const results = this.selected
+    const hit = this.hit;
     fetch("/records", {
       method: "POST",
       headers: {
@@ -86,13 +103,15 @@ export default class extends Controller {
         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       },
       body: JSON.stringify({
-        results: results
+        results: results,
+        hit: hit
       })
     })
     .then(res => res.json())
     .then(data => {
       if (data.status === "ok") {
         this.selected = [];
+        this.hit = 0;
         this.render();
         this.updateSubmitButton();
         this.showMessage("保存しました");

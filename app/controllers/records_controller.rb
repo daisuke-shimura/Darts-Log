@@ -10,6 +10,7 @@ class RecordsController < ApplicationController
   def create
     Rails.logger.debug "-----------------------------"
     darts = params[:results]
+    hit = params[:hit]
     Rails.logger.debug darts.inspect
 
     if darts.size > 3
@@ -18,8 +19,10 @@ class RecordsController < ApplicationController
     end
 
     user_id = current_user.id
-    #RecordRound.create!(user_id: user_id)
-    record_round = RecordRound.create!(user_id: user_id)
+    record_round = RecordRound.create!(
+      user_id: user_id,
+      hit: hit,
+    )
 
     darts.each_with_index do |dart, index|
       Dart.create!(
