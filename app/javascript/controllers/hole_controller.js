@@ -15,6 +15,11 @@ export default class extends Controller {
     const hole = event.target.closest(".hole");
     if (!hole) return;
 
+    if (this.selected.length >= 3) {
+      alert("3つまで！");
+      return;
+    }
+
     const target = this.targetInputTarget.value;
     const front_data = {
       absolute_r: Number(hole.dataset.absolute_r),
@@ -29,32 +34,31 @@ export default class extends Controller {
 
     console.log("front_data:", front_data);
 
-    if (front_data.target === "bull") {
-      if (front_data.value === 50) {
-        this.hit += 1;
-      }
-    }
-    else if (front_data.target === "undefined") {
-    }
-    else {
-      let hit_number;
-      hit_number = front_data.multiplier[0] + front_data.value;
-      if (front_data.target === hit_number) {
-        this.hit += 1;
-      }
+    if (this.isHit(front_data)) {
+      this.hit += 1;
     }
 
     console.log("hit:", this.hit);
-
-    if (this.selected.length >= 3) {
-      alert("3つまで！");
-      return;
-    }
 
     this.selected.push(front_data);
     this.render();
     this.updateSubmitButton();
     this.updateCancelButton();
+  }
+
+  isHit({value, multiplier, target}) {
+    if (target === "bull" && value === 50) {
+      return true;
+    } else if (!target || target === "undefined") {
+      return false;
+    } else {
+      const hit_number = multiplier[0] + value;
+      if (target === hit_number) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 
   render() {
@@ -127,7 +131,10 @@ export default class extends Controller {
   cancel() {
     if (this.selected.length === 0) return;
   
-    this.selected.pop();
+    const removed = this.selected.pop();
+    if (this.isHit(removed)) {
+      this.hit -= 1;
+    }
     this.render();
     this.updateSubmitButton();
     this.updateCancelButton();
