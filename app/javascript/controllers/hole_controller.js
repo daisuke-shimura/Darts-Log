@@ -44,6 +44,8 @@ export default class extends Controller {
       }
     }
 
+    console.log("hit:", this.hit);
+
     if (this.selected.length >= 3) {
       alert("3つまで！");
       return;
