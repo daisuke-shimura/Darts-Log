@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_05_01_074615) do
+ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
   create_table "darts", force: :cascade do |t|
     t.integer "record_round_id"
     t.integer "segment", null: false
@@ -29,11 +29,34 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_074615) do
     t.check_constraint "(record_round_id IS NOT NULL AND game_round_id IS NULL) OR (record_round_id IS NULL AND game_round_id IS NOT NULL)", name: "check_darts_parent"
   end
 
+  create_table "game_rounds", force: :cascade do |t|
+    t.integer "game_id", null: false
+    t.integer "score", null: false
+    t.integer "hit", default: 0, null: false
+    t.float "range"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["game_id"], name: "index_game_rounds_on_game_id"
+  end
+
+  create_table "games", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "number", null: false
+    t.float "stats", null: false
+    t.integer "turn_number", null: false
+    t.integer "type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_games_on_user_id"
+  end
+
   create_table "record_rounds", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "hit", default: 0, null: false
+    t.float "range"
     t.index ["user_id"], name: "index_record_rounds_on_user_id"
   end
 
@@ -47,5 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_074615) do
   end
 
   add_foreign_key "darts", "record_rounds"
+  add_foreign_key "game_rounds", "games"
+  add_foreign_key "games", "users"
   add_foreign_key "record_rounds", "users"
 end
