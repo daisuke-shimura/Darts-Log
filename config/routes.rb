@@ -1,8 +1,15 @@
 Rails.application.routes.draw do
+  get 'games/index'
   root to: 'homes#top'
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
   resources :records, only: [:index, :create]
   resources :logs, only: [:index]
+
+  namespace :games do
+    root to: 'games#index'
+    resources :crickets, only: [:new, :index, :create]
+    resources :zero_ones, only: [:new, :index, :create]
+  end
 
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
