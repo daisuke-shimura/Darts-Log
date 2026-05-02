@@ -4,7 +4,7 @@ import "controllers"
 
 // ログイン時のフラッシュメッセージ
 document.addEventListener("turbo:load", () => {
-  const toastElList = document.querySelectorAll(".toast");
+  const toastElList = document.querySelectorAll(".login-toast");
   toastElList.forEach((toastEl) => {
     new bootstrap.Toast(toastEl).show();
   });

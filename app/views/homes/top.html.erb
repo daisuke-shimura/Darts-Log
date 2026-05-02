@@ -3,7 +3,7 @@
 <% if flash.any? %>
   <div class="toast-container position-fixed top-0 start-0 p-3">
     <% flash.each do |key, message| %>
-      <div class="toast align-items-center text-bg-<%= key == "notice" ? "success" : "danger" %> border-0"
+      <div class="toast login-toast align-items-center text-bg-<%= key == "notice" ? "success" : "danger" %> border-0"
           role="alert"
           data-bs-delay="2000"
           data-bs-autohide="true">
