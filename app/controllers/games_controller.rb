@@ -10,9 +10,9 @@ class GamesController < ApplicationController
     )
 
     if game.kind == "cricket"
-      redirect_to games_crickets_path(game_id: game.id)
+      redirect_to games_cricket_path(game.id)
     else
-      redirect_to games_zero_ones_path(game_id: game.id)
+      redirect_to games_zero_one_path(game.id)
     end
   end
 end

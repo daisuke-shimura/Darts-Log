@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     resources :crickets, only: [:new, :index, :create]
     resources :zero_ones, only: [:new, :index, :create]
   end
+  get 'games/:id/zero_one', to: 'games/zero_ones#show', as: :games_zero_one
+  get 'games/:id/cricket',  to: 'games/crickets#show',  as: :games_cricket
 
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
