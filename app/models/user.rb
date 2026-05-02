@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :record_rounds
+  has_many :games
   
   enum gender: { other: 0, male: 1, female: 2 }
 

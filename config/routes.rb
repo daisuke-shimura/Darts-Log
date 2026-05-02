@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   resources :records, only: [:index, :create]
   resources :logs, only: [:index]
 
+  resources :games, only: [:index, :create]
   namespace :games do
-    root to: 'games#index'
     resources :crickets, only: [:new, :index, :create]
     resources :zero_ones, only: [:new, :index, :create]
   end

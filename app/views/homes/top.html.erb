@@ -26,7 +26,10 @@
         <div class="card-body">
           <h2 class="card-title mb-3">計測</h2>
           <% if user_signed_in? %>
-            <%= link_to "計測画面", records_path, class: "btn btn-primary" %>
+            <div class="d-flex justify-content-between">
+              <%= link_to "計測画面", records_path, class: "btn btn-primary" %>
+              <%= link_to "ゲーム", games_path, class: "btn btn-success" %>
+            </div>
           <% else %>
             <h5>ユーザ選択</h5>
             <%= form_with url: login_path, method: :post do |f| %>
