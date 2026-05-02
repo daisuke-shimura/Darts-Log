@@ -1,2 +1,22 @@
-<p>zero_one#show</p>
-<%= @game.start_score %>
+<div class="position-relative" data-controller="hole target">
+  <div class="board position-absolute top-0 ms-2" data-action="click->hole#click">
+    <% cache "dartboard" do %>
+      <%= render "records/board/out" %>
+      <%= render "records/board/double" %>
+      <%= render "records/board/outer-single" %>
+      <%= render "records/board/triple" %>
+      <%= render "records/board/inner-single" %>
+      <%= render "records/board/bull" %>
+    <% end %>
+  </div>
+
+  <%= render "records/result" %>
+  
+  <%= render "records/modal-target-form" %>
+
+  <div class="position-absolute top-0 end-0 p-1">
+    <div class="score-box">
+      <%= @game.start_score %>
+    </div>
+  </div>
+</div>

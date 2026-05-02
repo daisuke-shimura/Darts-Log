@@ -99,6 +99,24 @@
   letter-spacing: 1px;
 }
 
+.score-box {
+  padding: 12px;
+  width: 200px;
+  border-radius: 12px;
+  background: linear-gradient(145deg, #111, #222);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+
+  color: #eaffff;
+  font-size: 4rem;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 0 10px rgba(0, 200, 255, 0.4);
+  letter-spacing: 2px;
+
+  cursor: default;
+  user-select: none;
+}
+
 .board {
   position: relative;
   width: 90%; 
