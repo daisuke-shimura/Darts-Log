@@ -1,1 +1,51 @@
-<p>crikets#show</p>
+<div class="position-relative" data-controller="hole target">
+  <div class="board position-absolute top-0 ms-2" data-action="click->hole#click">
+    <% cache "dartboard" do %>
+      <%= render "records/board/out" %>
+      <%= render "records/board/double" %>
+      <%= render "records/board/outer-single" %>
+      <%= render "records/board/triple" %>
+      <%= render "records/board/inner-single" %>
+      <%= render "records/board/bull" %>
+    <% end %>
+  </div>
+
+  <%= render "records/result" %>
+  
+  <%= render "records/modal-target-form" %>
+
+  <div class="position-absolute top-0 end-0 p-1">
+    <div class="criket-box d-flex justify-content-between">
+      <div class="number-box">
+        <div class="criket-label">20</div>
+        <div class="criket-label">19</div>
+        <div class="criket-label">18</div>
+        <div class="criket-label">17</div>
+        <div class="criket-label">16</div>
+        <div class="criket-label">15</div>
+        <div class="criket-label fs-6">BULL</div>
+      </div>
+      <div class="mark-box">
+        <div class="criket-mark">1</div>
+        <div class="criket-mark">2</div>
+        <div class="criket-mark">3</div>
+        <div class="criket-mark">4</div>
+        <div class="criket-mark">5</div>
+        <div class="criket-mark">6</div>
+        <div class="criket-mark">
+          <div style="color: red; font-size: 24px;">
+            <%= mark_icon('three-mark') %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="round-box mt-2 ms-auto">
+      <% (1..10).each do |n| %>
+      <div class="d-flex">
+        <span class="ps-2 py-1 round-label">R<%= n %></span>
+        <span class="pe-3 py-1 round-score">-</span>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
