@@ -7,6 +7,7 @@ class CreateGames < ActiveRecord::Migration[7.0]
       t.integer :start_score
       t.float :stats
       t.integer :turn_number
+      t.boolean :finished, null: false, default: false
       t.timestamps
     end
   end

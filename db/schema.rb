@@ -34,6 +34,15 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
     t.integer "score", null: false
     t.integer "hit", default: 0, null: false
     t.float "range"
+    t.integer "s_bull", default: 0, null: false
+    t.integer "d_bull", default: 0, null: false
+    t.boolean "low_ton", default: false, null: false
+    t.boolean "hat_trick", default: false, null: false
+    t.boolean "three_in_a_bed", default: false, null: false
+    t.boolean "high_ton", default: false, null: false
+    t.boolean "ton80", default: false, null: false
+    t.boolean "white_horse", default: false, null: false
+    t.boolean "three_in_the_black", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_game_rounds_on_game_id"
@@ -46,6 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
     t.integer "start_score"
     t.float "stats"
     t.integer "turn_number"
+    t.boolean "finished", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_games_on_user_id"
@@ -58,6 +68,16 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
     t.datetime "updated_at", null: false
     t.integer "hit", default: 0, null: false
     t.float "range"
+    t.integer "s_bull", default: 0, null: false
+    t.integer "d_bull", default: 0, null: false
+    t.boolean "low_ton", default: false, null: false
+    t.boolean "hat_trick", default: false, null: false
+    t.boolean "three_in_a_bed", default: false, null: false
+    t.boolean "high_ton", default: false, null: false
+    t.boolean "ton80", default: false, null: false
+    t.boolean "white_horse", default: false, null: false
+    t.boolean "three_in_the_black", default: false, null: false
+    t.boolean "bust", default: false, null: false
     t.index ["user_id"], name: "index_record_rounds_on_user_id"
   end
 
