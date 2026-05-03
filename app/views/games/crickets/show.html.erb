@@ -26,24 +26,28 @@
         <div class="criket-label fs-6">BULL</div>
       </div>
       <div class="mark-box">
-        <div class="criket-mark">1</div>
-        <div class="criket-mark">2</div>
-        <div class="criket-mark">3</div>
-        <div class="criket-mark">4</div>
-        <div class="criket-mark">5</div>
-        <div class="criket-mark">6</div>
-        <div class="criket-mark">
-          <div style="color: red; font-size: 24px;">
-            <%= mark_icon('three-mark') %>
-          </div>
-        </div>
+        <div class="criket-mark"><%= mark_icon('one-mark') %></div>
+        <div class="criket-mark"><%= mark_icon('two-mark') %></div>
+        <div class="criket-mark"><%= mark_icon('three-mark') %></div>
+        <div class="criket-mark"><%= mark_icon('three-mark') %></div>
+        <div class="criket-mark"><%= mark_icon('three-mark') %></div>
+        <div class="criket-mark"></div>
+        <div class="criket-mark"></div>
       </div>
     </div>
     <div class="round-box mt-2 ms-auto">
-      <% (1..10).each do |n| %>
+      <% (1..15).each do |n| %>
       <div class="d-flex">
-        <span class="ps-2 py-1 round-label">R<%= n %></span>
-        <span class="pe-3 py-1 round-score">-</span>
+        <% if n == 2 %>
+          <span class="ps-1 round-label" style="background-color: white; color: black;">R<%= n %></span>
+        <% else %>
+          <span class="ps-1 round-label">R<%= n %></span>
+        <% end %>
+        <span class="round-mark">
+          <span>-</span>
+          <span>-</span>
+          <span>-</span>
+        </span>
       </div>
       <% end %>
     </div>
