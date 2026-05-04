@@ -10,10 +10,11 @@ class RecordsController < ApplicationController
   def create
     calc = RoundCalculator.new
     hit = 0
+    s_bull = 0
+    d_bull = 0
 
     Rails.logger.debug "-----------------------------"
     darts = params[:results]
-    Rails.logger.debug darts.inspect
 
     if darts.size > 3
       render json: { error: "3つまでです" }, status: :unprocessable_entity
@@ -25,10 +26,12 @@ class RecordsController < ApplicationController
       user_id: user_id,
     )
 
+    created_darts = []
+    
     darts.each_with_index do |dart, index|
       now_dart = Dart.create!(
         record_round_id: record_round.id,
-        segment: dart[:value],
+        segment: dart[:segment],
         multiplier: dart[:multiplier],
         number: index + 1,
         absolute_r: dart[:absolute_r],
@@ -37,18 +40,30 @@ class RecordsController < ApplicationController
         index_n: dart[:n],
         target: dart[:target]
       )
+      created_darts << now_dart
 
-      if calc.hit?(
-        segment: now_dart.segment,
-        multiplier: now_dart.multiplier,
-        target: now_dart.target
-      )
+      if calc.hit?(now_dart)
         hit += 1
+      end
+
+      if calc.s_bull?(now_dart)
+        s_bull += 1
+      end
+
+      if calc.d_bull?(now_dart)
+        d_bull += 1
       end
     end
 
+    score = calc.score(created_darts)
+    awards = calc.award(created_darts, score)
     record_round.update!(
-      hit: hit
+      {
+        hit: hit,
+        s_bull: s_bull,
+        d_bull: d_bull,
+        score: score
+      }.merge(awards)
     )
     
     render json: { status: "ok" }

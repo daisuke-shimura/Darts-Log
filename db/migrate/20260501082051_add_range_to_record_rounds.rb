@@ -1,5 +1,6 @@
 class AddRangeToRecordRounds < ActiveRecord::Migration[7.0]
   def change
+    add_column :record_rounds, :score, :integer
     add_column :record_rounds, :hit, :integer, null: false, default: 0
     add_column :record_rounds, :range, :float
     add_column :record_rounds, :s_bull, :integer, null: false, default: 0

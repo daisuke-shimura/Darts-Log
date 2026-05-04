@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
 
   create_table "game_rounds", force: :cascade do |t|
     t.integer "game_id", null: false
-    t.integer "score", null: false
+    t.integer "score"
     t.integer "hit", default: 0, null: false
     t.float "range"
     t.integer "s_bull", default: 0, null: false
@@ -67,6 +67,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
     t.integer "number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "score"
     t.integer "hit", default: 0, null: false
     t.float "range"
     t.integer "s_bull", default: 0, null: false
