@@ -30,12 +30,15 @@ class RoundCalculator
     end
   end
 
-  def score(round)
+  def score_and_range(round)
     score = 0
+    range_sum = 0
     round.each do |dart|
       score += dart.segment * dart.multiplier_before_type_cast
+      range_sum += dart.absolute_r
     end
-    return score
+    range = (range_sum.to_f / round.size).round(2)
+    return score, range
   end
 
   def award(round, score)

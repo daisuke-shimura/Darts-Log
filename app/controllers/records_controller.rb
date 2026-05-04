@@ -55,14 +55,15 @@ class RecordsController < ApplicationController
       end
     end
 
-    score = calc.score(created_darts)
+    score, range = calc.score_and_range(created_darts)
     awards = calc.award(created_darts, score)
     record_round.update!(
       {
         hit: hit,
         s_bull: s_bull,
         d_bull: d_bull,
-        score: score
+        score: score,
+        range: range
       }.merge(awards)
     )
     
