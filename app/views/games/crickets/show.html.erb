@@ -1,0 +1,55 @@
+<div class="position-relative" data-controller="hole target">
+  <div class="board position-absolute top-0 ms-2" data-action="click->hole#click">
+    <% cache "dartboard" do %>
+      <%= render "records/board/out" %>
+      <%= render "records/board/double" %>
+      <%= render "records/board/outer-single" %>
+      <%= render "records/board/triple" %>
+      <%= render "records/board/inner-single" %>
+      <%= render "records/board/bull" %>
+    <% end %>
+  </div>
+
+  <%= render "records/result" %>
+  
+  <%= render "records/modal-target-form" %>
+
+  <div class="position-absolute top-0 end-0 p-1">
+    <div class="criket-box d-flex justify-content-between">
+      <div class="number-box">
+        <div class="criket-label">20</div>
+        <div class="criket-label">19</div>
+        <div class="criket-label">18</div>
+        <div class="criket-label">17</div>
+        <div class="criket-label">16</div>
+        <div class="criket-label">15</div>
+        <div class="criket-label fs-6">BULL</div>
+      </div>
+      <div class="mark-box">
+        <div class="criket-mark"><%= mark_icon('one-mark') %></div>
+        <div class="criket-mark"><%= mark_icon('two-mark') %></div>
+        <div class="criket-mark"><%= mark_icon('three-mark') %></div>
+        <div class="criket-mark"><%= mark_icon('three-mark') %></div>
+        <div class="criket-mark"><%= mark_icon('three-mark') %></div>
+        <div class="criket-mark"></div>
+        <div class="criket-mark"></div>
+      </div>
+    </div>
+    <div class="round-box mt-2 ms-auto">
+      <% (1..15).each do |n| %>
+      <div class="d-flex">
+        <% if n == 2 %>
+          <span class="ps-1 round-label" style="background-color: white; color: black;">R<%= n %></span>
+        <% else %>
+          <span class="ps-1 round-label">R<%= n %></span>
+        <% end %>
+        <span class="round-mark">
+          <span>-</span>
+          <span>-</span>
+          <span>-</span>
+        </span>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

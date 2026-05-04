@@ -1,10 +1,20 @@
 <div class="circle-1">
   <% @segment_index.each_with_index do |segment, number| %>
     <div class="segment <%= number.even? ? 'red' : 'blue' %>" style="transform: rotate(<%= number * 18 %>deg);">
-      <% (59..63).each do |d| %>
-        <% (1..20).each do |n| %>
-          <div class="hole hole<%= d %>-<%= n %>" data-absolute_r="<%= d %>" data-absolute_0="<%= zero_standard(20 * number + n, 400, 110.5) %>" data-index_r="<%= d %>" data-index_n="<%= 20 * number + n %>" data-value="<%= segment %>" data-name="DOUBLE <%= segment %>" data-multiplier="double"></div>
-        <% end %>
+      <% (1..20).each do |n| %>
+        <div class="hole hole59-<%= n %>" data-absolute_r="363" data-absolute_0="<%= zero_standard(20 * number + n, 400, 110.5) %>" data-index_r="59" data-index_n="<%= 20 * number + n %>" data-value="<%= segment %>" data-name="DOUBLE <%= segment %>" data-multiplier="double"></div>
+      <% end %>
+      <% (1..20).each do |n| %>
+        <div class="hole hole60-<%= n %>" data-absolute_r="369" data-absolute_0="<%= zero_standard(20 * number + n, 400, 110.5) %>" data-index_r="60" data-index_n="<%= 20 * number + n %>" data-value="<%= segment %>" data-name="DOUBLE <%= segment %>" data-multiplier="double"></div>
+      <% end %>
+      <% (1..20).each do |n| %>
+        <div class="hole hole61-<%= n %>" data-absolute_r="374" data-absolute_0="<%= zero_standard(20 * number + n, 400, 110.5) %>" data-index_r="61" data-index_n="<%= 20 * number + n %>" data-value="<%= segment %>" data-name="DOUBLE <%= segment %>" data-multiplier="double"></div>
+      <% end %>
+      <% (1..20).each do |n| %>
+        <div class="hole hole62-<%= n %>" data-absolute_r="380" data-absolute_0="<%= zero_standard(20 * number + n, 400, 110.5) %>" data-index_r="62" data-index_n="<%= 20 * number + n %>" data-value="<%= segment %>" data-name="DOUBLE <%= segment %>" data-multiplier="double"></div>
+      <% end %>
+      <% (1..20).each do |n| %>
+        <div class="hole hole63-<%= n %>" data-absolute_r="386" data-absolute_0="<%= zero_standard(20 * number + n, 400, 110.5) %>" data-index_r="63" data-index_n="<%= 20 * number + n %>" data-value="<%= segment %>" data-name="DOUBLE <%= segment %>" data-multiplier="double"></div>
       <% end %>
     </div>
   <% end %>

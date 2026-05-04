@@ -1,13 +1,52 @@
-<% (64..69).each do |d| %>
   <% (0...440).each do |n| %>
-    <div class="hole hole<%= d %>" 
-      data-absolute_r="<%= d %>" data-absolute_0="<%= out_top_standard(n, 440) %>" 
-      data-index_r="<%= d %>" data-index_n="<%= n + 1 %>" 
+    <div class="hole hole64" 
+      data-absolute_r="401" data-absolute_0="<%= out_top_standard(n, 440) %>" 
+      data-index_r="64" data-index_n="<%= n + 1 %>" 
       data-value="0" data-name="OUT" 
       data-multiplier="out"
       style="--i: <%= n %>;"></div>
   <% end %>
-<% end %>
+  <% (0...440).each do |n| %>
+    <div class="hole hole65" 
+      data-absolute_r="407" data-absolute_0="<%= out_top_standard(n, 440) %>" 
+      data-index_r="65" data-index_n="<%= n + 1 %>" 
+      data-value="0" data-name="OUT" 
+      data-multiplier="out"
+      style="--i: <%= n %>;"></div>
+  <% end %>
+  <% (0...440).each do |n| %>
+    <div class="hole hole66" 
+      data-absolute_r="413" data-absolute_0="<%= out_top_standard(n, 440) %>" 
+      data-index_r="66" data-index_n="<%= n + 1 %>" 
+      data-value="0" data-name="OUT" 
+      data-multiplier="out"
+      style="--i: <%= n %>;"></div>
+  <% end %>
+  <% (0...440).each do |n| %>
+    <div class="hole hole67" 
+      data-absolute_r="419" data-absolute_0="<%= out_top_standard(n, 440) %>" 
+      data-index_r="67" data-index_n="<%= n + 1 %>" 
+      data-value="0" data-name="OUT" 
+      data-multiplier="out"
+      style="--i: <%= n %>;"></div>
+  <% end %>
+  <% (0...440).each do |n| %>
+    <div class="hole hole68" 
+      data-absolute_r="425" data-absolute_0="<%= out_top_standard(n, 440) %>" 
+      data-index_r="68" data-index_n="<%= n + 1 %>" 
+      data-value="0" data-name="OUT" 
+      data-multiplier="out"
+      style="--i: <%= n %>;"></div>
+  <% end %>
+  <% (0...440).each do |n| %>
+    <div class="hole hole69" 
+      data-absolute_r="431" data-absolute_0="<%= out_top_standard(n, 440) %>" 
+      data-index_r="69" data-index_n="<%= n + 1 %>" 
+      data-value="0" data-name="OUT" 
+      data-multiplier="out"
+      style="--i: <%= n %>;"></div>
+  <% end %>
+
 <% @segment_index.each_with_index do |segment, number| %>
   <div class="number" style="transform: rotate(<%= number * 18 %>deg);">
     <div style="transform: rotate(<%= number * -18 %>deg);"><%= segment %></div>

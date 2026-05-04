@@ -1,14 +1,16 @@
 class Dart < ApplicationRecord
+  validate :parent_presence
   before_validation :normalize_absolute_0
-  belongs_to :round
+  belongs_to :record_round, optional: true
+  belongs_to :game_round, optional: true
 
   enum multiplier: { out: 0, single: 1, double: 2, triple: 3 }
   enum target: {
-    bull: 0,
-    t1: 1,  t2: 2,  t3: 3,  t4: 4,  t5: 5,  t6: 6,  t7: 7,  t8: 8,  t9: 9,  t10: 10, t11: 11, t12: 12, t13: 13, t14: 14, t15: 15, t16: 16, t17: 17, t18: 18, t19: 19, t20: 20,
-    d1: 21, d2: 22, d3: 23, d4: 24, d5: 25, d6: 26, d7: 27, d8: 28, d9: 29, d10: 30, d11: 31, d12: 32, d13: 33, d14: 34, d15: 35, d16: 36, d17: 37, d18: 38, d19: 39, d20: 40,
-    s1: 41, s2: 42, s3: 43, s4: 44, s5: 45, s6: 46, s7: 47, s8: 48, s9: 49, s10: 50, s11: 51, s12: 52, s13: 53, s14: 54, s15: 55, s16: 56, s17: 57, s18: 58, s19: 59, s20: 60,
-    undefined: 255,
+    bull: 50,
+    t1: 301, t2: 302, t3: 303, t4: 304, t5: 305, t6: 306, t7: 307, t8: 308, t9: 309, t10: 310, t11: 311, t12: 312, t13: 313, t14: 314, t15: 315, t16: 316, t17: 317, t18: 318, t19: 319, t20: 320,
+    d1: 201, d2: 202, d3: 203, d4: 204, d5: 205, d6: 206, d7: 207, d8: 208, d9: 209, d10: 210, d11: 211, d12: 212, d13: 213, d14: 214, d15: 215, d16: 216, d17: 217, d18: 218, d19: 219, d20: 220,
+    s1: 101, s2: 102, s3: 103, s4: 104, s5: 105, s6: 106, s7: 107, s8: 108, s9: 109, s10: 110, s11: 111, s12: 112, s13: 113, s14: 114, s15: 115, s16: 116, s17: 117, s18: 118, s19: 119, s20: 120,
+    undefined: 0,
   }
 
   def normalize_absolute_0
@@ -17,5 +19,13 @@ class Dart < ApplicationRecord
 
   def segment_label
     self.segment == 50 ? "BULL" : self.segment.to_s
+  end
+
+  def parent_presence
+    if record_round_id.blank? && game_round_id.blank?
+      errors.add(:base, "親が必要")
+    elsif record_round_id.present? && game_round_id.present?
+      errors.add(:base, "どちらか一方にしてください")
+    end
   end
 end
