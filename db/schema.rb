@@ -43,6 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
     t.boolean "ton80", default: false, null: false
     t.boolean "white_horse", default: false, null: false
     t.boolean "three_in_the_black", default: false, null: false
+    t.boolean "bust", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_game_rounds_on_game_id"
@@ -77,7 +78,6 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
     t.boolean "ton80", default: false, null: false
     t.boolean "white_horse", default: false, null: false
     t.boolean "three_in_the_black", default: false, null: false
-    t.boolean "bust", default: false, null: false
     t.index ["user_id"], name: "index_record_rounds_on_user_id"
   end
 

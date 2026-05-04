@@ -6,7 +6,6 @@ export default class extends Controller {
   connect() {
     console.log("hole controller connected");
     this.selected = [];
-    this.hit = 0;
     this.updateSubmitButton();
     this.updateCancelButton();
   }
@@ -34,31 +33,10 @@ export default class extends Controller {
 
     console.log("front_data:", front_data);
 
-    if (this.isHit(front_data)) {
-      this.hit += 1;
-    }
-
-    console.log("hit:", this.hit);
-
     this.selected.push(front_data);
     this.render();
     this.updateSubmitButton();
     this.updateCancelButton();
-  }
-
-  isHit({value, multiplier, target}) {
-    if (target === "bull" && value === 50) {
-      return true;
-    } else if (!target || target === "undefined") {
-      return false;
-    } else {
-      const hit_number = multiplier[0] + value;
-      if (target === hit_number) {
-        return true;
-      } else {
-        return false;
-      }
-    }
   }
 
   render() {
@@ -101,7 +79,7 @@ export default class extends Controller {
 
     console.log("submit clicked");
     const results = this.selected
-    const hit = this.hit;
+    console.log("results:", results);
     fetch("/records", {
       method: "POST",
       headers: {
@@ -110,14 +88,12 @@ export default class extends Controller {
       },
       body: JSON.stringify({
         results: results,
-        hit: hit
       })
     })
     .then(res => res.json())
     .then(data => {
       if (data.status === "ok") {
         this.selected = [];
-        this.hit = 0;
         this.render();
         this.updateSubmitButton();
         this.showMessage("保存しました");
@@ -131,10 +107,7 @@ export default class extends Controller {
   cancel() {
     if (this.selected.length === 0) return;
   
-    const removed = this.selected.pop();
-    if (this.isHit(removed)) {
-      this.hit -= 1;
-    }
+    this.selected.pop();
     this.render();
     this.updateSubmitButton();
     this.updateCancelButton();

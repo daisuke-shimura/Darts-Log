@@ -11,6 +11,5 @@ class AddRangeToRecordRounds < ActiveRecord::Migration[7.0]
     add_column :record_rounds, :ton80, :boolean, null: false, default: false
     add_column :record_rounds, :white_horse, :boolean, null: false, default: false
     add_column :record_rounds, :three_in_the_black, :boolean, null: false, default: false
-    add_column :record_rounds, :bust, :boolean, null: false, default: false
   end
 end

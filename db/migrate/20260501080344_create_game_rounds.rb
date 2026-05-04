@@ -14,6 +14,7 @@ class CreateGameRounds < ActiveRecord::Migration[7.0]
       t.boolean :ton80, null: false, default: false
       t.boolean :white_horse, null: false, default: false
       t.boolean :three_in_the_black, null: false, default: false
+      t.boolean :bust, null: false, default: false
       t.timestamps
     end
   end
