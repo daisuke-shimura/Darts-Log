@@ -12,9 +12,8 @@ class RecordsController < ApplicationController
     hit = 0
     s_bull = 0
     d_bull = 0
-
-    Rails.logger.debug "-----------------------------"
     darts = params[:results]
+    created_darts = []
 
     if darts.size > 3
       render json: { error: "3つまでです" }, status: :unprocessable_entity
@@ -26,8 +25,6 @@ class RecordsController < ApplicationController
       user_id: user_id,
     )
 
-    created_darts = []
-    
     darts.each_with_index do |dart, index|
       now_dart = Dart.create!(
         record_round_id: record_round.id,

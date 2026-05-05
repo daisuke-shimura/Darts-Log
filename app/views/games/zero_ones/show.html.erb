@@ -1,4 +1,4 @@
-<div class="position-relative" data-controller="zero-one target">
+<div class="position-relative" data-controller="zero-one target" data-zero-one-game-id-value="<%= @game.id %>">
   <div class="board position-absolute top-0 ms-2" data-action="click->zero-one#click">
     <% cache "dartboard" do %>
       <%= render "records/board/out" %>

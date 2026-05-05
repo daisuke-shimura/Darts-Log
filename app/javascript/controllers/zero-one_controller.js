@@ -2,9 +2,13 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = ["output", "flash", "submitBtn", "cancelBtn", "targetInput"];
+  static values = {
+    gameId: Number
+  }
 
   connect() {
     console.log("zero-one controller connected");
+    console.log("gameId:", this.gameIdValue);
     this.selected = [];
     this.updateSubmitButton();
     this.updateCancelButton();
@@ -79,7 +83,7 @@ export default class extends Controller {
 
     console.log("submit clicked");
     const results = this.selected
-    fetch("/records", {
+    fetch(`/games/${this.gameIdValue}/zero_one`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -91,6 +95,7 @@ export default class extends Controller {
     })
     .then(res => res.json())
     .then(data => {
+      console.log(data);//コントローラのJSON表示
       if (data.status === "ok") {
         this.selected = [];
         this.render();
