@@ -1,4 +1,4 @@
-<div class="position-relative" data-controller="zero-one target" data-zero-one-game-id-value="<%= @game.id %>" data-start-score="<%= @game.start_score %>">
+<div class="position-relative" data-controller="zero-one target" data-zero-one-game-id-value="<%= @game.id %>" data-start-score="<%= @game.start_score %>" data-current-score="<%= @current_score %>" data-round="<%= @rounds.count + 1 %>">
   <div class="board position-absolute top-0 ms-2" data-action="click->zero-one#click">
     <% cache "dartboard" do %>
       <%= render "records/board/out" %>
@@ -19,11 +19,13 @@
       <%= @game.start_score %>
     </div>
     <div class="round-box mt-2 ms-auto" data-zero-one-target="roundBox">
-      <% (1..10).each do |n| %>
-      <div class="d-flex">
-        <span class="ps-1 round-label">R<%= n %></span>
-        <span class="pe-2 round-score" data-zero-one-target="roundScore">-</span>
-      </div>
+      <% [@rounds.size, 10].max.times do |n| %>
+        <div class="d-flex">
+          <span class="ps-1 round-label">R<%= n + 1 %></span>
+          <span class="pe-2 round-score <%= round_text_class(@rounds[n]) %>" data-zero-one-target="roundScore">
+            <%= @rounds[n]&.bust ? "BUST" : (@rounds[n]&.score || "-") %>
+          </span>
+        </div>
       <% end %>
     </div>
   </div>

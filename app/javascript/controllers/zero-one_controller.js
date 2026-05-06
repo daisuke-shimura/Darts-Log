@@ -10,10 +10,11 @@ export default class extends Controller {
     console.log("zero-one controller connected");
     console.log("gameId:", this.gameIdValue);
     this.selected = [];
-    this.round = 1;
+    this.round = Number(this.element.dataset.round);;
     this.bust = false;
     this.clear = false;
-    this.currentScore = Number(this.element.dataset.startScore);
+    this.currentScore = Number(this.element.dataset.currentScore);
+    this.scoreBoxTarget.textContent = this.currentScore;
     this.updateSubmitButton();
     this.updateCancelButton();
   }
