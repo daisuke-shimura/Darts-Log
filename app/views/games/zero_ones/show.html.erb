@@ -1,4 +1,4 @@
-<div class="position-relative" data-controller="zero-one target" data-zero-one-game-id-value="<%= @game.id %>">
+<div class="position-relative" data-controller="zero-one target" data-zero-one-game-id-value="<%= @game.id %>" data-start-score="<%= @game.start_score %>">
   <div class="board position-absolute top-0 ms-2" data-action="click->zero-one#click">
     <% cache "dartboard" do %>
       <%= render "records/board/out" %>
@@ -15,14 +15,14 @@
   <%= render "records/modal-target-form" %>
 
   <div class="position-absolute top-0 end-0 p-1">
-    <div class="score-box">
+    <div class="score-box" data-zero-one-target="scoreBox">
       <%= @game.start_score %>
     </div>
-    <div class="round-box mt-2 ms-auto">
+    <div class="round-box mt-2 ms-auto" data-zero-one-target="roundBox">
       <% (1..10).each do |n| %>
       <div class="d-flex">
         <span class="ps-1 round-label">R<%= n %></span>
-        <span class="pe-3 round-score">-</span>
+        <span class="pe-3 round-score" data-zero-one-target="roundScore">-</span>
       </div>
       <% end %>
     </div>

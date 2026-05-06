@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["output", "flash", "submitBtn", "cancelBtn", "targetInput"];
+  static targets = ["output", "flash", "submitBtn", "cancelBtn", "targetInput", "scoreBox", "roundScore", "roundBox"];
   static values = {
     gameId: Number
   }
@@ -10,6 +10,8 @@ export default class extends Controller {
     console.log("zero-one controller connected");
     console.log("gameId:", this.gameIdValue);
     this.selected = [];
+    this.round = 1;
+    this.currentScore = Number(this.element.dataset.startScore);
     this.updateSubmitButton();
     this.updateCancelButton();
   }
@@ -32,7 +34,8 @@ export default class extends Controller {
       segment: Number(hole.dataset.value),
       name: hole.dataset.name,
       multiplier: hole.dataset.multiplier,
-      target: target
+      target: target,
+      score: null
     };
 
     console.log("front_data:", front_data);
@@ -55,7 +58,8 @@ export default class extends Controller {
           } else {
             rate = 1;
           }
-          const html = `${p.name} ${p.segment * rate}点<br>(r, θ) = (${p.absolute_r}, ${p.absolute_0})<br>(r, n) = (${p.r}, ${p.n})`;
+          p.score = p.segment * rate;
+          const html = `${p.name} ${p.score}点<br>(r, θ) = (${p.absolute_r}, ${p.absolute_0})<br>(r, n) = (${p.r}, ${p.n})`;
           this.outputTargets[index].innerHTML = html;
         }
       });
@@ -95,8 +99,8 @@ export default class extends Controller {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data);//コントローラのJSON表示
       if (data.status === "ok") {
+        this.zeroOne();
         this.selected = [];
         this.render();
         this.updateSubmitButton();
@@ -115,5 +119,38 @@ export default class extends Controller {
     this.render();
     this.updateSubmitButton();
     this.updateCancelButton();
+  }
+
+  zeroOne() {
+    let sum_score = 0;
+    this.selected.forEach(p => {
+      sum_score += p.score;
+    });
+
+    this.currentScore -= sum_score;
+    this.scoreBoxTarget.textContent = this.currentScore;
+
+    const el = this.roundScoreTargets[this.round - 1];
+
+    el.classList.remove("text-danger", "text-warning");
+    if (sum_score >= 100 && sum_score <= 150) {
+      el.classList.add("text-danger");
+    } else if (sum_score > 150) {
+      el.classList.add("text-warning");
+    }
+    el.textContent = sum_score;
+
+    if (this.round === this.roundScoreTargets.length) {
+      const html = `
+        <div class="d-flex">
+          <span class="ps-1 round-label">R${this.round + 1}</span>
+          <span class="pe-3 round-score" data-zero-one-target="roundScore">-</span>
+        </div>
+      `;
+      this.roundBoxTarget.insertAdjacentHTML("beforeend", html);
+      this.roundBoxTarget.scrollTop = this.roundBoxTarget.scrollHeight;
+    }
+  
+    this.round++;
   }
 }
