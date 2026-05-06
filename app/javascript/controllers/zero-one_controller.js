@@ -12,6 +12,7 @@ export default class extends Controller {
     this.selected = [];
     this.round = 1;
     this.bust = false;
+    this.clear = false;
     this.currentScore = Number(this.element.dataset.startScore);
     this.updateSubmitButton();
     this.updateCancelButton();
@@ -96,6 +97,7 @@ export default class extends Controller {
       this.bust = true;
       this.element.querySelector(".board").classList.add("disabled");
     } else if (this.currentScore === 0) {
+      this.clear = true;
       this.element.querySelector(".board").classList.add("clear");
     }
   }
@@ -116,14 +118,20 @@ export default class extends Controller {
       },
       body: JSON.stringify({
         results: results,
-        bust: this.bust
+        bust: this.bust,
+        clear: this.clear
       })
     })
     .then(res => res.json())
     .then(data => {
       if (data.status === "ok") {
+        if (data.redirect_url) {
+          window.location.href = data.redirect_url;
+          return;
+        }
         this.zeroOne(sum_score);
         this.bust = false;
+        this.clear = false;
         this.element.querySelector(".board").classList.remove("disabled");
         this.element.querySelector(".board").classList.remove("clear");
         this.selected = [];
@@ -139,9 +147,13 @@ export default class extends Controller {
 
   cancel() {
     if (this.selected.length === 0) return;
+    this.bust = false;
     this.element.querySelector(".board").classList.remove("disabled");
+    this.clear = false;
     this.element.querySelector(".board").classList.remove("clear");
-    this.selected.pop();
+    const removed = this.selected.pop();
+    this.currentScore += removed.score;
+    this.scoreBoxTarget.textContent = this.currentScore;
     this.render();
     this.updateSubmitButton();
     this.updateCancelButton();

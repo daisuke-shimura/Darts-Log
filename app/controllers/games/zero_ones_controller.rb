@@ -16,6 +16,7 @@ class Games::ZeroOnesController < ApplicationController
     d_bull = 0
     darts = params[:results]
     bust = params[:bust]
+    clear = params[:clear]
     created_darts = []
 
     if darts.size > 3
@@ -68,6 +69,32 @@ class Games::ZeroOnesController < ApplicationController
       }.merge(awards)
     )
 
-    render json: { status: "ok" }
+    if clear
+      game = Game.find(game_id)
+      judge_score = (game.start_score - 1) * 0.2
+      rounds = game.game_rounds.order(:created_at)
+      score_sum = 0
+      status = 0
+      rounds.each_with_index do |round, n|
+        score_sum += round.score
+        if score_sum >= judge_score
+          status = score_sum.to_f / (n + 1)
+          break
+        end
+      end
+      turn_number = rounds.count
+      game.update!(
+        finished: true,
+        stats: status,
+        turn_number: turn_number
+      )
+
+      render json: {
+        status: "ok",
+        redirect_url: root_path
+      }
+    else
+      render json: { status: "ok" }
+    end
   end
 end
