@@ -199,11 +199,11 @@
   justify-content: center; 
   align-items: center;
 }
-.board.disabled,
+.board.bust,
 .board.clear {
   pointer-events: none;
 }
-.board.disabled::after,
+.board.bust::after,
 .board.clear::after {
   position: absolute;
   border-radius: 50%;
@@ -214,11 +214,11 @@
   font-size: 8rem;
   font-weight: 900;
 }
-.board.disabled::after {
+.board.bust::after {
   content: "BUST";
   background: rgba(0, 0, 0, 0.5);
   color: #1e3a8a;
-  -webkit-text-stroke: 1px white;
+  -webkit-text-stroke: 1px black;
   text-shadow:
     0 0 6px #1e3a8a,
     0 0 12px #1e40af,

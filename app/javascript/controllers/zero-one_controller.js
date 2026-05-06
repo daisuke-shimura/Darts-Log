@@ -96,7 +96,7 @@ export default class extends Controller {
     this.scoreBoxTarget.textContent = this.currentScore
     if (this.currentScore < 0) {
       this.bust = true;
-      this.element.querySelector(".board").classList.add("disabled");
+      this.element.querySelector(".board").classList.add("bust");
     } else if (this.currentScore === 0) {
       this.clear = true;
       this.element.querySelector(".board").classList.add("clear");
@@ -133,7 +133,7 @@ export default class extends Controller {
         this.zeroOne(sum_score);
         this.bust = false;
         this.clear = false;
-        this.element.querySelector(".board").classList.remove("disabled");
+        this.element.querySelector(".board").classList.remove("bust");
         this.element.querySelector(".board").classList.remove("clear");
         this.selected = [];
         this.render();
@@ -149,7 +149,7 @@ export default class extends Controller {
   cancel() {
     if (this.selected.length === 0) return;
     this.bust = false;
-    this.element.querySelector(".board").classList.remove("disabled");
+    this.element.querySelector(".board").classList.remove("bust");
     this.clear = false;
     this.element.querySelector(".board").classList.remove("clear");
     const removed = this.selected.pop();
