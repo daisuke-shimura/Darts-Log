@@ -14,7 +14,7 @@
   
   <%= render "records/modal-target-form" %>
 
-  <div class="position-absolute top-0 end-0 p-1">
+  <div class="position-fixed top-10 end-0 p-1">
     <div class="score-box" data-zero-one-target="scoreBox">
       <%= @game.start_score %>
     </div>
@@ -22,7 +22,7 @@
       <% (1..10).each do |n| %>
       <div class="d-flex">
         <span class="ps-1 round-label">R<%= n %></span>
-        <span class="pe-3 round-score" data-zero-one-target="roundScore">-</span>
+        <span class="pe-2 round-score" data-zero-one-target="roundScore">-</span>
       </div>
       <% end %>
     </div>

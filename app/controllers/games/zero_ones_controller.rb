@@ -15,6 +15,7 @@ class Games::ZeroOnesController < ApplicationController
     s_bull = 0
     d_bull = 0
     darts = params[:results]
+    bust = params[:bust]
     created_darts = []
 
     if darts.size > 3
@@ -24,7 +25,8 @@ class Games::ZeroOnesController < ApplicationController
 
     game_id = params[:game_id]
     record_round = GameRound.create!(
-      game_id: game_id
+      game_id: game_id,
+      bust: bust
     )
 
     darts.each_with_index do |dart, index|

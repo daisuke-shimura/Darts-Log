@@ -154,7 +154,7 @@
 .round-box {
   width: 110px;
   font-size: 20px;
-  max-height: 300px;
+  max-height: 301px;
   border: 1px solid black;
   overflow-y: auto;
   position: relative;
@@ -199,6 +199,43 @@
   justify-content: center; 
   align-items: center;
 }
+.board.disabled,
+.board.clear {
+  pointer-events: none;
+}
+.board.disabled::after,
+.board.clear::after {
+  position: absolute;
+  border-radius: 50%;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 8rem;
+  font-weight: 900;
+}
+.board.disabled::after {
+  content: "BUST";
+  background: rgba(0, 0, 0, 0.5);
+  color: #1e3a8a;
+  -webkit-text-stroke: 1px white;
+  text-shadow:
+    0 0 6px #1e3a8a,
+    0 0 12px #1e40af,
+    0 0 20px rgba(30, 58, 138, 0.5);
+}
+.board.clear::after {
+  content: "CLEAR";
+  background: rgba(255, 255, 255, 0.5);
+  color: #ffea00;
+  -webkit-text-stroke: 2px #ffffe0;
+  text-shadow:
+    0 0 8px #ffea00,
+    0 0 16px #fff200,
+    0 0 28px rgba(255, 234, 0, 0.7);
+}
+
+
 
 .number {
   position: absolute;
@@ -230,76 +267,6 @@
 .circle-4 { width: 47.4%; }
 .s-bull { width: 11.25%; background-color: #d32f2f;}
 .d-bull { width: 4.5%; background-color: #4a4a4a;}
-
-/* .circle-1 { 
-  position: absolute;
-  width: 90%; 
-  aspect-ratio: 1 / 1;
-  border-radius: 50%; 
-  margin: 20px auto; 
-  border: 3px solid #000;
-  overflow: hidden;
-}
-
-.circle-2 {
-  position: absolute;
-  width: 90%;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  border: 3px solid black;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  overflow: hidden;
-}
-
-.circle-3 {
-  position: absolute;
-  width: 70%;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  border: 3px solid black;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  overflow: hidden;
-}
-
-.circle-4 {
-  position: absolute;
-  width: 85%;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  border: 3px solid black;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  overflow: hidden;
-}
-
-.s-bull {
-  position: absolute;
-  aspect-ratio: 1 / 1;
-  width: 24%;
-  border-radius: 50%;
-  border: 3px solid black;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #d32f2f;
-}
-
-.d-bull {
-  position: absolute;
-  aspect-ratio: 1 / 1;
-  width: 40%;
-  border-radius: 50%;
-  border: 3px solid black;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #4a4a4a;
-} */
 
 .segment {
   position: absolute;
