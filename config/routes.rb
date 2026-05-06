@@ -5,13 +5,16 @@ Rails.application.routes.draw do
   resources :records, only: [:index, :create]
   resources :logs, only: [:index]
 
-  resources :games, only: [:index, :create]
-  namespace :games do
-    resources :crickets, only: [:new, :index, :create]
-    resources :zero_ones, only: [:new, :index, :create]
+  resources :games, only: [:index, :create] do
+    get  :zero_one, to: 'games/zero_ones#show'
+    post :zero_one, to: 'games/zero_ones#create'
+    get  :cricket,  to: 'games/crickets#show'
+    post :cricket,  to: 'games/crickets#create'
   end
-  get 'games/:id/zero_one', to: 'games/zero_ones#show', as: :games_zero_one
-  get 'games/:id/cricket',  to: 'games/crickets#show',  as: :games_cricket
+  namespace :games do
+    resources :zero_ones, only: [:new]
+    resources :crickets, only: [:new]
+  end
 
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
