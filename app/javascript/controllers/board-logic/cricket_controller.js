@@ -39,7 +39,8 @@ export default class extends Controller {
     this.constructor.CRICKET_SEGMENTS.forEach((segment) => {
       const targetElement = this.marksBoxTarget.querySelector(`[data-cricketrow="${segment}"]`);
       if (targetElement) {
-        targetElement.textContent = this.segmentsStatus[segment];
+        //targetElement.textContent = this.segmentsStatus[segment];
+        targetElement.innerHTML = this.changeMarkIcon(this.segmentsStatus[segment]);
       }
     });
   }
@@ -120,7 +121,7 @@ export default class extends Controller {
       this.segmentsStatus[segment] += mark;
       const targetElement = this.marksBoxTarget.querySelector(`[data-cricketrow="${segment}"]`);
       if (targetElement) {
-        targetElement.textContent = this.segmentsStatus[segment];
+        targetElement.innerHTML = this.changeMarkIcon(this.segmentsStatus[segment]);
       }
     } else {
       mark = 0;
@@ -128,7 +129,7 @@ export default class extends Controller {
     const currentRoundRow = this.roundScoreTargets[this.round - 1];
     if (currentRoundRow) {
       const spans = currentRoundRow.querySelectorAll("span");
-      spans[(this.selected.length) - 1].textContent = mark;
+      spans[(this.selected.length) - 1].innerHTML = this.changeMarkIcon(mark);
     }
     this.round_marks += mark;
   }
@@ -139,17 +140,16 @@ export default class extends Controller {
     const segment = lastAction.segment;
     const reduced = lastAction.amount;
     this.segmentsStatus[segment] -= reduced;
-    this.rount = 0;
     this.round_marks -= reduced;
     const targetElement = this.marksBoxTarget.querySelector(`[data-cricketrow="${segment}"]`);
     if (targetElement) {
-      targetElement.textContent = this.segmentsStatus[segment];
+      targetElement.innerHTML = this.changeMarkIcon(this.segmentsStatus[segment]);
     }
     const currentRoundRow = this.roundScoreTargets[this.round - 1];
     if (currentRoundRow) {
       const spans = currentRoundRow.querySelectorAll("span");
       if (spans[this.selected.length]) {
-        spans[this.selected.length].textContent = "";
+        spans[this.selected.length].innerHTML = "";
       }
     }
   }
@@ -224,6 +224,20 @@ export default class extends Controller {
     `;
     this.roundBoxTarget.insertAdjacentHTML("beforeend", html);
     this.roundBoxTarget.scrollTop = this.roundBoxTarget.scrollHeight;
+    }
+  }
+
+  changeMarkIcon(mark) {
+    if (mark <= 0) {
+      return "-";
+    }
+    else {
+      const iconName = this.constructor.MARK_ICON[mark];
+      return `
+        <svg class="cricket-mark-icon">
+          <use href="#icon-${iconName}"></use>
+        </svg>
+      `.trim();
     }
   }
 
