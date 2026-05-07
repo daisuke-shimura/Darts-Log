@@ -3,8 +3,8 @@ class Games::CricketsController < ApplicationController
   end
   def show
     @game = Game.find(params[:game_id])
-    @defalut_target = "bull"
-    @defalut_target_name = "BULL"
+    @default_target = "bull"
+    @default_target_name = "BULL"
     @segment_index = [20,1,18,4,13,6,10,15,2,17,3,19,7,16,8,11,14,9,12,5]
     # 続きから
     cricket_segments = [20, 19, 18, 17, 16, 15, 50]
@@ -39,7 +39,8 @@ class Games::CricketsController < ApplicationController
     d_bull = 0
     darts = params[:results]
     mark = params[:mark]
-    clear = params[:clear]
+    stats_judge = ActiveRecord::Type::Boolean.new.cast(params[:stats_judge])
+    clear = ActiveRecord::Type::Boolean.new.cast(params[:clear])
     created_darts = []
 
     if darts.size > 3
@@ -92,13 +93,22 @@ class Games::CricketsController < ApplicationController
       }.merge(awards)
     )
 
+    if stats_judge
+      game = Game.find(game_id)
+      rounds = game.game_rounds.order(:created_at)
+      total_mark = rounds.sum(:mark)
+      stats = (total_mark.to_f / rounds.count).round(2)
+      game.update!(
+        stats: stats
+      )
+    end
+
     if clear
       game = Game.find(game_id)
       rounds = game.game_rounds.order(:created_at)
       turn_number = rounds.count
       game.update!(
         finished: true,
-        # stats: status,
         turn_number: turn_number
       )
       render json: {

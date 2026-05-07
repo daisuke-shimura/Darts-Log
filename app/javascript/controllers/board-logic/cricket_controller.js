@@ -21,6 +21,7 @@ export default class extends Controller {
     this.selected = [];
     this.round = Number(this.element.dataset.round);
     this.round_marks = 0;
+    this.statsJudgeTrigger = false;
     this.clear = false;
     this.currentScore = Number(this.element.dataset.currentScore);
     this.updateSubmitButton();
@@ -154,6 +155,7 @@ export default class extends Controller {
       body: JSON.stringify({
         results: results,
         mark: this.round_marks,
+        stats_judge: this.statsJudgeTrigger,
         clear: this.clear
       })
     })
@@ -238,6 +240,11 @@ export default class extends Controller {
   }
 
   isClear() {
+    this.statsJudgeTrigger = this.constructor.CRICKET_SEGMENTS
+      .filter(segment => segment !== 50)
+      .every(segment => {
+        return this.segmentsStatus[segment] >= 3;
+    });
     this.clear = this.constructor.CRICKET_SEGMENTS.every(segment => {
       return this.segmentsStatus[segment] >= 3;
     });

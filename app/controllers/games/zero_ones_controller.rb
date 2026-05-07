@@ -4,8 +4,8 @@ class Games::ZeroOnesController < ApplicationController
 
   def show
     @game = Game.find(params[:game_id])
-    @defalut_target = "bull"
-    @defalut_target_name = "BULL"
+    @default_target = "bull"
+    @default_target_name = "BULL"
     @segment_index = [20,1,18,4,13,6,10,15,2,17,3,19,7,16,8,11,14,9,12,5]
     # 続きから
     @rounds = @game.game_rounds.order(:created_at)
@@ -19,8 +19,8 @@ class Games::ZeroOnesController < ApplicationController
     s_bull = 0
     d_bull = 0
     darts = params[:results]
-    bust = params[:bust]
-    clear = params[:clear]
+    bust = ActiveRecord::Type::Boolean.new.cast(params[:bust])
+    clear = ActiveRecord::Type::Boolean.new.cast(params[:clear])
     created_darts = []
 
     if darts.size > 3

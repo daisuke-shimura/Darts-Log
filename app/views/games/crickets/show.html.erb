@@ -1,5 +1,6 @@
 <div class="position-relative" 
   data-controller="board-logic--cricket target"
+  data-target-selector='[data-board-logic--cricket-target="targetInput"]'
   data-board-logic--cricket-game-id-value="<%= @game.id %>"
   data-current-score="<%= @current_segments_status.to_json %>"
   data-round="<%= @round_number %>">

@@ -1,4 +1,5 @@
-<div data-controller="board-logic--hole target">
+<div data-controller="board-logic--hole target"
+  data-target-selector='[data-board-logic--hole-target="targetInput"]'>
   <div class="board" data-action="click->board-logic--hole#click">
     <% cache "dartboard" do %>
       <%= render "records/board/out" %>
