@@ -29,14 +29,14 @@ class Games::ZeroOnesController < ApplicationController
     end
 
     game_id = params[:game_id]
-    record_round = GameRound.create!(
+    game_round = GameRound.create!(
       game_id: game_id,
       bust: bust
     )
 
     darts.each_with_index do |dart, index|
       now_dart = Dart.create!(
-        record_round_id: record_round.id,
+        game_round_id: game_round.id,
         segment: dart[:segment],
         multiplier: dart[:multiplier],
         number: index + 1,
@@ -63,7 +63,7 @@ class Games::ZeroOnesController < ApplicationController
 
     score, range = calc.score_and_range(created_darts)
     awards = calc.award(created_darts, score)
-    record_round.update!(
+    game_round.update!(
       {
         hit: hit,
         s_bull: s_bull,

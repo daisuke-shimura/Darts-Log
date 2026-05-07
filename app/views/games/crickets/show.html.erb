@@ -1,5 +1,5 @@
-<div class="position-relative" data-controller="hole target">
-  <div class="board position-absolute top-0 ms-2" data-action="click->hole#click">
+<div class="position-relative" data-controller="board-logic--circket target">
+  <div class="board position-absolute top-0 ms-2" data-action="click->board-logic--cricket#click">
     <% cache "dartboard" do %>
       <%= render "records/board/out" %>
       <%= render "records/board/double" %>
@@ -10,7 +10,7 @@
     <% end %>
   </div>
 
-  <%= render "records/result", js_controller: "cricket" %>
+  <%= render "records/result", js_controller: "board-logic--cricket" %>
   
   <%= render "records/modal-target-form" %>
 

@@ -1,5 +1,5 @@
-<div data-controller="hole target">
-  <div class="board" data-action="click->hole#click">
+<div data-controller="board-logic--hole target">
+  <div class="board" data-action="click->board-logic--hole#click">
     <% cache "dartboard" do %>
       <%= render "records/board/out" %>
       <%= render "records/board/double" %>
@@ -10,7 +10,7 @@
     <% end %>
   </div>
 
-  <%= render "result", js_controller: "hole" %>
+  <%= render "result", js_controller: "board-logic--hole" %>
   
   <%= render "modal-target-form" %>
 </div>
