@@ -109,7 +109,7 @@
 
 .score-box,
 .cricket-box {
-  padding: 12px;
+  padding: 8px;
   border-radius: 12px;
   background: linear-gradient(145deg, #111, #222);
   box-shadow: 0 4px 12px rgba(0,0,0,0.6);
@@ -128,8 +128,8 @@
 }
 
 .cricket-box {
-  width: 120px;
-  font-size: 1.5rem;
+  width: 110px;
+  font-size: 1rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }

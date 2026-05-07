@@ -1,7 +1,8 @@
 <div class="position-relative" 
   data-controller="board-logic--cricket target"
   data-board-logic--cricket-game-id-value="<%= @game.id %>"
-  data-round="<%= @rounds.count + 1 %>">
+  data-current-score="<%= @current_segments_status.to_json %>"
+  data-round="<%= @round_number %>">
   <div class="board position-absolute top-0 ms-2" data-action="click->board-logic--cricket#click">
     <% cache "dartboard" do %>
       <%= render "records/board/out" %>
@@ -17,7 +18,7 @@
   
   <%= render "records/modal-target-form" %>
 
-  <div class="position-absolute top-0 end-0 p-1">
+  <div class="position-fixed top-0 end-0 mt-5 p-1">
     <div class="cricket-box d-flex justify-content-between">
       <div class="number-box">
         <div class="cricket-label">20</div>
@@ -29,23 +30,27 @@
         <div class="cricket-label fs-6">BULL</div>
       </div>
       <div class="mark-box" data-board-logic--cricket-target="marksBox">
-        <div class="cricket-mark" data-cricketrow="20"><%= mark_icon('one-mark') %></div>
-        <div class="cricket-mark" data-cricketrow="19"><%= mark_icon('two-mark') %></div>
-        <div class="cricket-mark" data-cricketrow="18"><%= mark_icon('three-mark') %></div>
-        <div class="cricket-mark" data-cricketrow="17">-</div>
-        <div class="cricket-mark" data-cricketrow="16"></div>
-        <div class="cricket-mark" data-cricketrow="15"></div>
-        <div class="cricket-mark" data-cricketrow="50"></div>
+        <% @current_segments_status.each do |number, mark| %>
+          <div class="cricket-mark" data-cricketrow="<%= number %>">
+            <%= cricket_mark(mark) %>
+          </div>
+        <% end %>
       </div>
     </div>
     <div class="round-box mt-2 ms-auto" data-board-logic--cricket-target="roundBox">
-      <% (1..10).each do |n| %>
+      <% [@round_marks.size, 10].max.times do |r| %>
       <div class="d-flex">
-        <span class="ps-1 round-label">R<%= n %></span>
+        <span class="ps-1 round-label">R<%= r + 1 %></span>
         <span class="round-mark" data-board-logic--cricket-target="roundScore">
-          <span></span>
-          <span></span>
-          <span></span>
+          <% if @round_marks[r].present? %>
+            <span><%= cricket_mark(@round_marks[r][0]) %></span>
+            <span><%= cricket_mark(@round_marks[r][1]) %></span>
+            <span><%= cricket_mark(@round_marks[r][2]) %></span>
+          <% else %>
+            <span></span>
+            <span></span>
+            <span></span>
+          <% end %>
         </span>
       </div>
       <% end %>

@@ -7,9 +7,29 @@ class Games::CricketsController < ApplicationController
     @defalut_target_name = "BULL"
     @segment_index = [20,1,18,4,13,6,10,15,2,17,3,19,7,16,8,11,14,9,12,5]
     # 続きから
-    @rounds = @game.game_rounds.order(:created_at)
-    @round_number = @rounds.count + 1
-
+    cricket_segments = [20, 19, 18, 17, 16, 15, 50]
+    rounds = @game.game_rounds.includes(:darts).order(:created_at)
+    @round_number = rounds.count + 1
+    @current_segments_status = cricket_segments.index_with(0)
+    @round_marks = []
+    rounds.each_with_index do |round, r|
+      @round_marks[r] = []
+      round.darts.each_with_index do |dart, n|
+        if @current_segments_status.key?(dart.segment)
+          marks = case dart.multiplier
+                  when "triple" then 3
+                  when "double" then 2
+                  else 1
+                  end
+          current = @current_segments_status[dart.segment]
+          if current + marks > 3
+            marks = 3 - current
+          end
+          @current_segments_status[dart.segment] += marks
+          @round_marks[r][n] = marks
+        end
+      end
+    end
   end
 
   def create
@@ -30,7 +50,7 @@ class Games::CricketsController < ApplicationController
     game_id = params[:game_id]
     game_round = GameRound.create!(
       game_id: game_id,
-      mark: params[:mark],
+      mark: mark,
     )
 
     darts.each_with_index do |dart, index|

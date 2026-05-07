@@ -26,23 +26,7 @@ export default class extends Controller {
     this.updateSubmitButton();
     this.updateCancelButton();
     this.currentRoundRow();
-    this.segmentsStatus = {
-      20: 0,
-      19: 0,
-      18: 0,
-      17: 0,
-      16: 0,
-      15: 0,
-      50: 0
-    };
-
-    this.constructor.CRICKET_SEGMENTS.forEach((segment) => {
-      const targetElement = this.marksBoxTarget.querySelector(`[data-cricketrow="${segment}"]`);
-      if (targetElement) {
-        //targetElement.textContent = this.segmentsStatus[segment];
-        targetElement.innerHTML = this.changeMarkIcon(this.segmentsStatus[segment]);
-      }
-    });
+    this.segmentsStatus = JSON.parse(this.element.dataset.currentScore);
   }
 
   click(event) {
@@ -103,7 +87,7 @@ export default class extends Controller {
 
   rewriteCurrentMark(segment, multiplier) {
     let mark;
-    if (this.segmentsStatus.hasOwnProperty(segment)) {
+    if (this.constructor.CRICKET_SEGMENTS.includes(Number(segment))) {
       if (multiplier === "triple") {
         mark = 3;
       } else if (multiplier === "double") {
@@ -169,7 +153,7 @@ export default class extends Controller {
       },
       body: JSON.stringify({
         results: results,
-        mark: this.mark,
+        mark: this.round_marks,
         clear: this.clear
       })
     })
@@ -203,11 +187,11 @@ export default class extends Controller {
     this.clear = false;
     this.element.querySelector(".board").classList.remove("clear");
     const removed = this.selected.pop();
-    this.revertCurrentMark(removed.segment, removed.multiplier);
+    this.revertCurrentMark();
     this.render();
     this.updateSubmitButton();
     this.updateCancelButton();
-    this.isClear()
+    this.isClear();
   }
 
   exceedRoundRow() {
