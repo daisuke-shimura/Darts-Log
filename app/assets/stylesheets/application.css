@@ -13,7 +13,7 @@
  *= require_tree .
  *= require_self
  */
- .criket-mark-icon {
+ .cricket-mark-icon {
   width: 1em;
   height: 1em;
   fill: currentColor;
@@ -108,7 +108,7 @@
 }
 
 .score-box,
-.criket-box {
+.cricket-box {
   padding: 12px;
   border-radius: 12px;
   background: linear-gradient(145deg, #111, #222);
@@ -127,25 +127,25 @@
   letter-spacing: 2px;
 }
 
-.criket-box {
+.cricket-box {
   width: 120px;
   font-size: 1.5rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
-.criket-box .number-box,
-.criket-box .mark-box {
+.cricket-box .number-box,
+.cricket-box .mark-box {
   width: 46%;
   display: grid;
   grid-template-rows: repeat(7, 1fr);
 }
-.criket-box .mark-box {
+.cricket-box .mark-box {
   border: 1px solid blue;
 }
 
-.criket-box .number-box .criket-label,
-.criket-box .mark-box .criket-mark {
+.cricket-box .number-box .cricket-label,
+.cricket-box .mark-box .cricket-mark {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -168,6 +168,10 @@
   width: 40%;
   color: white;
   background-color: #4a4a4a;
+}
+.round-label.current-round {
+  color: black;
+  background-color: white;
 }
 
 /* スコア */

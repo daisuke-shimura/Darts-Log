@@ -17,6 +17,7 @@ export default class extends Controller {
     this.scoreBoxTarget.textContent = this.currentScore;
     this.updateSubmitButton();
     this.updateCancelButton();
+    this.currentRoundRow();
   }
 
   click(event) {
@@ -138,6 +139,7 @@ export default class extends Controller {
         this.selected = [];
         this.render();
         this.updateSubmitButton();
+        this.currentRoundRow();
         this.showMessage("保存しました");
       }
     })
@@ -203,5 +205,17 @@ export default class extends Controller {
     `;
     this.roundBoxTarget.insertAdjacentHTML("beforeend", html);
     this.roundBoxTarget.scrollTop = this.roundBoxTarget.scrollHeight;
+  }
+
+  currentRoundRow() {
+    const labels = this.roundBoxTarget.querySelectorAll(".round-label");
+    labels.forEach(label => {
+      label.classList.remove("current-round");
+    });
+    const currentLabel = labels[this.round - 1];
+    if (currentLabel) {
+      console.log("current round:", this.round);
+      currentLabel.classList.add("current-round");
+    }
   }
 }
