@@ -64,7 +64,8 @@ class Games::CricketsController < ApplicationController
         absolute_0: dart[:absolute_0],
         index_r: dart[:r],
         index_n: dart[:n],
-        target: dart[:target]
+        target: dart[:target],
+        bounce_out: dart[:bounce_out]
       )
       created_darts << now_dart
 

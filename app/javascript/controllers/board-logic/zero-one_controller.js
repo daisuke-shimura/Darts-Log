@@ -1,7 +1,10 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["output", "flash", "submitBtn", "cancelBtn", "targetInput", "scoreBox", "roundScore", "roundBox"];
+  static targets = [
+    "output", "flash", "resultItem", "submitBtn", "cancelBtn", "targetInput",
+    "scoreBox", "roundScore", "roundBox"
+  ];
   static values = {
     gameId: Number
   }
@@ -42,6 +45,7 @@ export default class extends Controller {
       name: hole.dataset.name,
       multiplier: hole.dataset.multiplier,
       target: target,
+      bounce_out: false,
       score: this.score(Number(hole.dataset.value), hole.dataset.multiplier)
     };
 
@@ -65,12 +69,27 @@ export default class extends Controller {
     return segment * rate;
   }
 
+  toggleBounce(event) {
+    const index = this.outputTargets.indexOf(event.currentTarget);
+    if (index === -1) return;
+    if (!this.selected[index]) return;
+    this.selected[index].bounce_out = !this.selected[index].bounce_out;
+    this.render();
+  }
+
   render() {
     this.outputTargets.forEach(el => el.textContent = "");
+      this.resultItemTargets.forEach(el => {
+        el.classList.remove("bounce-out");
+      });
+
       this.selected.forEach((p, index) => {
         if (this.outputTargets[index]) {
-          const html = `${p.name} ${p.score}点<br>(r, θ) = (${p.absolute_r}, ${p.absolute_0})<br>(r, n) = (${p.r}, ${p.n})`;
+          const html = `${p.name} ${p.score}点<br>(r, θ) = (${p.absolute_r}, ${p.absolute_0})`;
           this.outputTargets[index].innerHTML = html;
+          if (p.bounce_out) {
+            this.resultItemTargets[index].classList.add("bounce-out");
+          }
         }
       });
   }

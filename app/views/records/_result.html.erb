@@ -7,9 +7,9 @@
     </button>
 
     <ul class="result-list">
-      <li>1投目：<span data-<%= js_controller %>-target="output"></span></li>
-      <li>2投目：<span data-<%= js_controller %>-target="output"></span></li>
-      <li>3投目：<span data-<%= js_controller %>-target="output"></span></li>
+      <li data-<%= js_controller %>-target="resultItem">1投目：<span data-<%= js_controller %>-target="output" data-action="click-><%= js_controller %>#toggleBounce"></span></li>
+      <li data-<%= js_controller %>-target="resultItem">2投目：<span data-<%= js_controller %>-target="output" data-action="click-><%= js_controller %>#toggleBounce"></span></li>
+      <li data-<%= js_controller %>-target="resultItem">3投目：<span data-<%= js_controller %>-target="output" data-action="click-><%= js_controller %>#toggleBounce"></span></li>
     </ul>
 
     <%= render "records/flash-message" %>

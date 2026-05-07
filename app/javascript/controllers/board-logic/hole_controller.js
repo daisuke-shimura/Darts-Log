@@ -1,13 +1,12 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["output", "flash", "submitBtn", "cancelBtn", "targetInput"];
+  static targets = ["output", "flash", "resultItem", "submitBtn", "cancelBtn", "targetInput"];
 
   connect() {
     console.log("hole controller connected");
     this.selected = [];
-    this.updateSubmitButton();
-    this.updateCancelButton();
+    this.updateButtons();
   }
 
   click(event) {
@@ -28,19 +27,31 @@ export default class extends Controller {
       segment: Number(hole.dataset.value),
       name: hole.dataset.name,
       multiplier: hole.dataset.multiplier,
-      target: target
+      target: target,
+      bounce_out: false
     };
 
     console.log("front_data:", front_data);
 
     this.selected.push(front_data);
     this.render();
-    this.updateSubmitButton();
-    this.updateCancelButton();
+    this.updateButtons();
+  }
+
+  toggleBounce(event) {
+    const index = this.outputTargets.indexOf(event.currentTarget);
+    if (index === -1) return;
+    if (!this.selected[index]) return;
+    this.selected[index].bounce_out = !this.selected[index].bounce_out;
+    this.render();
   }
 
   render() {
     this.outputTargets.forEach(el => el.textContent = "");
+      this.resultItemTargets.forEach(el => {
+        el.classList.remove("bounce-out");
+      });
+
       this.selected.forEach((p, index) => {
         if (this.outputTargets[index]) {
           let rate;
@@ -51,8 +62,11 @@ export default class extends Controller {
           } else {
             rate = 1;
           }
-          const html = `${p.name} ${p.segment * rate}点<br>(r, θ) = (${p.absolute_r}, ${p.absolute_0})<br>(r, n) = (${p.r}, ${p.n})`;
+          const html = `${p.name} ${p.segment * rate}点<br>(r, θ) = (${p.absolute_r}, ${p.absolute_0})`;
           this.outputTargets[index].innerHTML = html;
+          if (p.bounce_out) {
+            this.resultItemTargets[index].classList.add("bounce-out");
+          }
         }
       });
   }
@@ -64,12 +78,10 @@ export default class extends Controller {
     toast.show()
   }
 
-  updateSubmitButton() {
-    this.submitBtnTarget.disabled = this.selected.length === 0;
-  }
-
-  updateCancelButton() {
-    this.cancelBtnTarget.disabled = this.selected.length === 0;
+  updateButtons() {
+    const disabled = this.selected.length === 0;
+    this.submitBtnTarget.disabled = disabled;
+    this.cancelBtnTarget.disabled = disabled;
   }
 
   submit() {
@@ -95,7 +107,7 @@ export default class extends Controller {
       if (data.status === "ok") {
         this.selected = [];
         this.render();
-        this.updateSubmitButton();
+        this.updateButtons();
         this.showMessage("保存しました");
       }
     })
@@ -109,7 +121,6 @@ export default class extends Controller {
   
     this.selected.pop();
     this.render();
-    this.updateSubmitButton();
-    this.updateCancelButton();
+    this.updateButtons();
   }
 }

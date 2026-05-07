@@ -62,6 +62,13 @@
   color: #fff;
   border-bottom: 1px solid rgba(255,255,255,0.2);
 }
+.result-list li.bounce-out {
+  background: rgba(180, 180, 190, 0.12);
+  color: rgba(255,255,255,0.45);
+  opacity: 0.7;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
 
 .submit-btn {
   position: absolute;
