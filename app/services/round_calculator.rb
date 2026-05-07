@@ -34,7 +34,11 @@ class RoundCalculator
     score = 0
     range_sum = 0
     round.each do |dart|
-      score += dart.segment * dart.multiplier_before_type_cast
+      if dart.segment == 50
+        score += dart.segment
+      else
+        score += dart.segment * dart.multiplier_before_type_cast
+      end
       range_sum += dart.absolute_r
     end
     range = (range_sum.to_f / round.size).round(2)

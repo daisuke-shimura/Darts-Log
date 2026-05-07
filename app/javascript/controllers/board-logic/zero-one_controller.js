@@ -17,6 +17,7 @@ export default class extends Controller {
     this.scoreBoxTarget.textContent = this.currentScore;
     this.updateSubmitButton();
     this.updateCancelButton();
+    this.currentRoundRow();
   }
 
   click(event) {
@@ -138,6 +139,7 @@ export default class extends Controller {
         this.selected = [];
         this.render();
         this.updateSubmitButton();
+        this.currentRoundRow();
         this.showMessage("保存しました");
       }
     })
@@ -198,10 +200,22 @@ export default class extends Controller {
     const html = `
       <div class="d-flex">
         <span class="ps-1 round-label">R${this.round + 1}</span>
-        <span class="pe-2 round-score" data-zero-one-target="roundScore">-</span>
+        <span class="pe-2 round-score" data-board-logic--zero-one-target="roundScore">-</span>
       </div>
     `;
     this.roundBoxTarget.insertAdjacentHTML("beforeend", html);
     this.roundBoxTarget.scrollTop = this.roundBoxTarget.scrollHeight;
+  }
+
+  currentRoundRow() {
+    const labels = this.roundBoxTarget.querySelectorAll(".round-label");
+    labels.forEach(label => {
+      label.classList.remove("current-round");
+    });
+    const currentLabel = labels[this.round - 1];
+    if (currentLabel) {
+      console.log("current round:", this.round);
+      currentLabel.classList.add("current-round");
+    }
   }
 }
