@@ -198,7 +198,7 @@ export default class extends Controller {
     const html = `
       <div class="d-flex">
         <span class="ps-1 round-label">R${this.round + 1}</span>
-        <span class="pe-2 round-score" data-zero-one-target="roundScore">-</span>
+        <span class="pe-2 round-score" data-board-logic--zero-one-target="roundScore">-</span>
       </div>
     `;
     this.roundBoxTarget.insertAdjacentHTML("beforeend", html);
