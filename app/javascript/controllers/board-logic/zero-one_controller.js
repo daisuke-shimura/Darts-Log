@@ -15,8 +15,7 @@ export default class extends Controller {
     this.clear = false;
     this.currentScore = Number(this.element.dataset.currentScore);
     this.scoreBoxTarget.textContent = this.currentScore;
-    this.updateSubmitButton();
-    this.updateCancelButton();
+    this.updateButtons();
     this.currentRoundRow();
   }
 
@@ -50,8 +49,7 @@ export default class extends Controller {
 
     this.selected.push(front_data);
     this.render();
-    this.updateSubmitButton();
-    this.updateCancelButton();
+    this.updateButtons();
     this.rewriteCurrentScore(front_data.score);
   }
 
@@ -84,17 +82,14 @@ export default class extends Controller {
     toast.show()
   }
 
-  updateSubmitButton() {
-    this.submitBtnTarget.disabled = this.selected.length === 0;
-  }
-
-  updateCancelButton() {
-    this.cancelBtnTarget.disabled = this.selected.length === 0;
+  updateButtons() {
+    const disabled = this.selected.length === 0;
+    this.submitBtnTarget.disabled = disabled;
+    this.cancelBtnTarget.disabled = disabled;
   }
 
   rewriteCurrentScore(score) {
     this.currentScore -= score;
-    this.scoreBoxTarget.textContent = this.currentScore
     if (this.currentScore < 0) {
       this.bust = true;
       this.element.querySelector(".board").classList.add("bust");
@@ -102,6 +97,7 @@ export default class extends Controller {
       this.clear = true;
       this.element.querySelector(".board").classList.add("clear");
     }
+    this.refreshView();
   }
 
   submit() {
@@ -131,15 +127,17 @@ export default class extends Controller {
           window.location.href = data.redirect_url;
           return;
         }
-        this.zeroOne(sum_score);
+        this.handleBust();
+        this.round++;
         this.bust = false;
         this.clear = false;
         this.element.querySelector(".board").classList.remove("bust");
         this.element.querySelector(".board").classList.remove("clear");
         this.selected = [];
         this.render();
-        this.updateSubmitButton();
+        this.updateButtons();
         this.currentRoundRow();
+        this.exceedRoundRow();
         this.showMessage("保存しました");
       }
     })
@@ -156,55 +154,25 @@ export default class extends Controller {
     this.element.querySelector(".board").classList.remove("clear");
     const removed = this.selected.pop();
     this.currentScore += removed.score;
-    this.scoreBoxTarget.textContent = this.currentScore;
+    this.refreshView();
     this.render();
-    this.updateSubmitButton();
-    this.updateCancelButton();
+    this.updateButtons();
   }
 
   sumRoundScore() {
     return this.selected.reduce((sum, p) => sum + p.score, 0);
   }
 
-  zeroOne(sum_score) {
-    let colorClass = "";
-    let displayText = "";
-
-    const el = this.roundScoreTargets[this.round - 1];
-    el.classList.remove("text-danger", "text-warning", "text-primary");
-
-    if (this.bust) {
-      this.currentScore += sum_score;
-      this.scoreBoxTarget.textContent = this.currentScore;
-      colorClass = "text-primary";
-      displayText = "BUST";
-    } else {
-      if (sum_score >= 151) {
-        colorClass = "text-warning";
-      } else if (sum_score >= 100) {
-        colorClass = "text-danger";
-      }
-      displayText = sum_score;
-    }
-    if (colorClass) el.classList.add(colorClass);
-    el.textContent = displayText;
-  
-    if (this.round === this.roundScoreTargets.length) {
-      this.exceedRoundRow();
-    }
-  
-    this.round++;
-  }
-
   exceedRoundRow() {
-    const html = `
-      <div class="d-flex">
-        <span class="ps-1 round-label">R${this.round + 1}</span>
-        <span class="pe-2 round-score" data-board-logic--zero-one-target="roundScore">-</span>
-      </div>
-    `;
-    this.roundBoxTarget.insertAdjacentHTML("beforeend", html);
-    this.roundBoxTarget.scrollTop = this.roundBoxTarget.scrollHeight;
+    if (this.round !== this.roundScoreTargets.length) return;
+      const html = `
+        <div class="d-flex">
+          <span class="ps-1 round-label">R${this.round + 1}</span>
+          <span class="pe-2 round-score" data-board-logic--zero-one-target="roundScore">-</span>
+        </div>
+      `;
+      this.roundBoxTarget.insertAdjacentHTML("beforeend", html);
+      this.roundBoxTarget.scrollTop = this.roundBoxTarget.scrollHeight;
   }
 
   currentRoundRow() {
@@ -217,5 +185,34 @@ export default class extends Controller {
       console.log("current round:", this.round);
       currentLabel.classList.add("current-round");
     }
+  }
+
+  refreshView() {
+    this.scoreBoxTarget.textContent = this.currentScore;
+    const el = this.roundScoreTargets[this.round - 1];
+    const sumScore = this.sumRoundScore();
+    el.classList.remove("text-danger", "text-warning", "text-primary");
+  
+    if (this.bust) {
+      el.textContent = "BUST";
+      el.classList.add("text-primary");
+    } else {
+      el.textContent = sumScore;
+      if (sumScore >= 151) {
+        el.classList.add("text-warning");
+      } else if (sumScore >= 100) {
+        el.classList.add("text-danger");
+      }
+    }
+  }
+
+  handleBust() {
+    if (this.bust === false) return;
+    const el = this.roundScoreTargets[this.round - 1];
+    el.classList.remove("text-danger", "text-warning", "text-primary");
+    this.currentScore += this.sumRoundScore();
+    this.scoreBoxTarget.textContent = this.currentScore;
+    el.classList.add("text-primary");
+    el.textContent = "BUST";
   }
 }
