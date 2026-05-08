@@ -67,4 +67,10 @@ class RecordsController < ApplicationController
     
     render json: { status: "ok" }
   end
+
+  private
+  def analysis_columns(calc, round)
+    dartspoints = calc.coordinateXY(round)
+    
+  end
 end

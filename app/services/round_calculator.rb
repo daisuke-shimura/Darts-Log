@@ -191,8 +191,7 @@ class RoundCalculator
 
   #最小外接円
   def min_enclosing_circle(dartspoints)
-    distances = distance(dartspoints)
-    max = distances.max_by { |d| d[:distance] }
+    _, max = average_and_max_distance(dartspoints)
     max_id = max[:id].split(', ').map(&:to_i)
     a = dartspoints.find { |d| d[:id] == max_id[0] }
     b = dartspoints.find { |d| d[:id] == max_id[1] }

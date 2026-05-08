@@ -20,6 +20,7 @@ class CreateGameRounds < ActiveRecord::Migration[7.0]
       t.float   :gravity_center_y
       t.float   :gravity_distance_ave
       t.float   :gravity_distance_max
+      t.float   :distance_ave
       t.float   :variance
       t.float   :variance_x
       t.float   :variance_y
