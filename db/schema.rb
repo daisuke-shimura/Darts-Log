@@ -46,6 +46,17 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
     t.boolean "white_horse", default: false, null: false
     t.boolean "three_in_the_black", default: false, null: false
     t.boolean "bust", default: false, null: false
+    t.float "gravity_center_x"
+    t.float "gravity_center_y"
+    t.float "gravity_distance_ave"
+    t.float "gravity_distance_max"
+    t.float "variance"
+    t.float "variance_x"
+    t.float "variance_y"
+    t.float "area"
+    t.float "circle_center_x"
+    t.float "circle_center_y"
+    t.float "circle_radius"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_game_rounds_on_game_id"
@@ -81,6 +92,17 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
     t.boolean "ton80", default: false, null: false
     t.boolean "white_horse", default: false, null: false
     t.boolean "three_in_the_black", default: false, null: false
+    t.float "gravity_center_x"
+    t.float "gravity_center_y"
+    t.float "gravity_distance_ave"
+    t.float "gravity_distance_max"
+    t.float "variance"
+    t.float "variance_x"
+    t.float "variance_y"
+    t.float "area"
+    t.float "circle_center_x"
+    t.float "circle_center_y"
+    t.float "circle_radius"
     t.index ["user_id"], name: "index_record_rounds_on_user_id"
   end
 

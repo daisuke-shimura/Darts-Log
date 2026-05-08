@@ -12,5 +12,17 @@ class AddRangeToRecordRounds < ActiveRecord::Migration[7.0]
     add_column :record_rounds, :ton80, :boolean, null: false, default: false
     add_column :record_rounds, :white_horse, :boolean, null: false, default: false
     add_column :record_rounds, :three_in_the_black, :boolean, null: false, default: false
+
+    add_column :record_rounds, :gravity_center_x, :float
+    add_column :record_rounds, :gravity_center_y, :float
+    add_column :record_rounds, :gravity_distance_ave, :float
+    add_column :record_rounds, :gravity_distance_max, :float
+    add_column :record_rounds, :variance, :float
+    add_column :record_rounds, :variance_x, :float
+    add_column :record_rounds, :variance_y, :float
+    add_column :record_rounds, :area, :float
+    add_column :record_rounds, :circle_center_x, :float
+    add_column :record_rounds, :circle_center_y, :float
+    add_column :record_rounds, :circle_radius, :float
   end
 end

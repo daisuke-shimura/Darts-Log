@@ -16,6 +16,17 @@ class CreateGameRounds < ActiveRecord::Migration[7.0]
       t.boolean :white_horse, null: false, default: false
       t.boolean :three_in_the_black, null: false, default: false
       t.boolean :bust, null: false, default: false
+      t.float   :gravity_center_x
+      t.float   :gravity_center_y
+      t.float   :gravity_distance_ave
+      t.float   :gravity_distance_max
+      t.float   :variance
+      t.float   :variance_x
+      t.float   :variance_y
+      t.float   :area
+      t.float   :circle_center_x
+      t.float   :circle_center_y
+      t.float   :circle_radius
       t.timestamps
     end
   end

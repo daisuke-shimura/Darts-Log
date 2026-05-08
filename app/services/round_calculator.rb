@@ -159,12 +159,15 @@ class RoundCalculator
 
   # 分散
   def variance(dartspoints)
-    x_avg = center_of_gravity(dartspoints)[:x]
-    y_avg = center_of_gravity(dartspoints)[:y]
+    gravity = center_of_gravity(dartspoints)
+    x_avg = gravity[:x]
+    y_avg = gravity[:y]
     xterm = dartspoints.sum { |d| (d[:x] - x_avg) ** 2 }
     yterm = dartspoints.sum { |d| (d[:y] - y_avg) ** 2 }
     variance = (xterm + yterm) / dartspoints.size
-    return variance.round(2)
+    variance_x = xterm / dartspoints.size
+    variance_y = yterm / dartspoints.size
+    return variance.round(2), variance_x.round(2), variance_y.round(2)
   end
 
   #外接円
