@@ -188,6 +188,20 @@ class RoundCalculator
 
   #最小外接円
   def min_enclosing_circle(dartspoints)
-    
+    distances = distance(dartspoints)
+    max = distances.max_by { |d| d[:distance] }
+    max_id = max[:id].split(', ').map(&:to_i)
+    a = dartspoints.find { |d| d[:id] == max_id[0] }
+    b = dartspoints.find { |d| d[:id] == max_id[1] }
+    c = dartspoints.find { |d| d[:id] != max_id[0] && d[:id] != max_id[1] }
+    center_x = ((a[:x] + b[:x]) / 2)
+    center_y = ((a[:y] + b[:y]) / 2)
+    radius = (max[:distance] / 2)
+    c_distance = Math.sqrt((center_x - c[:x])**2 + (center_y - c[:y])**2)
+    if c_distance <= radius
+      return { center: { x: center_x.round(2), y: center_y.round(2) }, radius: radius.round(2) }
+    else
+      return circumscribed_circle(dartspoints)
+    end
   end
 end
