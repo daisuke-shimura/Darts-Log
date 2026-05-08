@@ -21,6 +21,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
     t.integer "index_r"
     t.integer "index_n"
     t.integer "target"
+    t.boolean "bounce_out", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "game_round_id"

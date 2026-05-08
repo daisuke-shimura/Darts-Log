@@ -10,6 +10,7 @@ class CreateDarts < ActiveRecord::Migration[7.0]
       t.integer :index_r
       t.integer :index_n
       t.integer :target
+      t.boolean :bounce_out, null: false, default: false
       t.timestamps
     end
   end
