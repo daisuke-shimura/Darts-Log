@@ -98,7 +98,7 @@ class RoundCalculator
   def coordinateXY(round)
     dartspoints = []
     round.each do |dart|
-      r = dart.absolute_r
+      r = dart.absolute_r / 2.0
       theta = dart.absolute_0 * Math::PI / 180
       x = (r * Math.cos(theta)).round(2)
       y = (r * Math.sin(theta)).round(2)
@@ -130,9 +130,8 @@ class RoundCalculator
 
   #重心
   def center_of_gravity(dartspoints)
-    distances = distance(dartspoints)
-    x_avg = (distances.sum { |d| d[:x] } / distances.size).round(2)
-    y_avg = (distances.sum { |d| d[:y] } / distances.size).round(2)
+    x_avg = (dartspoints.sum { |d| d[:x] } / dartspoints.size).round(2)
+    y_avg = (dartspoints.sum { |d| d[:y] } / dartspoints.size).round(2)
     return { x: x_avg, y: y_avg }
   end
 
@@ -145,16 +144,6 @@ class RoundCalculator
     average = ((d1 + d2 + d3) / 3).round(2)
     max = [d1, d2, d3].max.round(2)
     return average, max
-  end
-
-  #面積
-  def area(dartspoints)
-    term1 = dartspoints[0][:x] * (dartspoints[1][:y] - dartspoints[2][:y])
-    term2 = dartspoints[1][:x] * (dartspoints[2][:y] - dartspoints[0][:y])
-    term3 = dartspoints[2][:x] * (dartspoints[0][:y] - dartspoints[1][:y])
-    absolute = (term1 + term2 + term3).abs
-    area = (absolute / 2).round(2)
-    return area
   end
 
   # 分散
@@ -170,6 +159,16 @@ class RoundCalculator
     return variance.round(2), variance_x.round(2), variance_y.round(2)
   end
 
+  #面積
+  def area(dartspoints)
+    term1 = dartspoints[0][:x] * (dartspoints[1][:y] - dartspoints[2][:y])
+    term2 = dartspoints[1][:x] * (dartspoints[2][:y] - dartspoints[0][:y])
+    term3 = dartspoints[2][:x] * (dartspoints[0][:y] - dartspoints[1][:y])
+    absolute = (term1 + term2 + term3).abs
+    area = (absolute / 2).round(2)
+    return area
+  end
+
   #外接円
   def circumscribed_circle(dartspoints)
     a = dartspoints[0]
@@ -181,12 +180,12 @@ class RoundCalculator
       return nil
     end
 
-    ux = ((a[:x]**2 + a[:y]**2) * (b[:y] - c[:y]) + (b[:x]**2 + b[:y]**2) * (c[:y] - a[:y]) + (c[:x]**2 + c[:y]**2) * (a[:y] - b[:y])) / d
-    uy = ((a[:x]**2 + a[:y]**2) * (c[:x] - b[:x]) + (b[:x]**2 + b[:y]**2) * (a[:x] - c[:x]) + (c[:x]**2 + c[:y]**2) * (b[:x] - a[:x])) / d
+    center_x = ((a[:x]**2 + a[:y]**2) * (b[:y] - c[:y]) + (b[:x]**2 + b[:y]**2) * (c[:y] - a[:y]) + (c[:x]**2 + c[:y]**2) * (a[:y] - b[:y])) / d
+    center_y = ((a[:x]**2 + a[:y]**2) * (c[:x] - b[:x]) + (b[:x]**2 + b[:y]**2) * (a[:x] - c[:x]) + (c[:x]**2 + c[:y]**2) * (b[:x] - a[:x])) / d
 
-    radius = Math.sqrt((ux - a[:x])**2 + (uy - a[:y])**2).round(2)
+    radius = Math.sqrt((center_x - a[:x])**2 + (center_y - a[:y])**2).round(2)
 
-    return { center: { x: ux.round(2), y: uy.round(2) }, radius: radius }
+    return { center: { x: center_x.round(2), y: center_y.round(2) }, radius: radius }
   end
 
   #最小外接円
@@ -205,5 +204,31 @@ class RoundCalculator
     else
       return circumscribed_circle(dartspoints)
     end
+  end
+
+  # まとめて求める
+  def analysis_columns(round)
+    dartspoints = coordinateXY(round)
+    gravity_center = center_of_gravity(dartspoints)
+    gravity_distance_ave, gravity_distance_max = average_and_max_distance_from_center(dartspoints)
+    distance_ave, _ = average_and_max_distance(dartspoints)
+    variance, variance_x, variance_y = variance(dartspoints)
+    area = area(dartspoints)
+    circle = min_enclosing_circle(dartspoints)
+
+    return {
+      gravity_center_x: gravity_center[:x],
+      gravity_center_y: gravity_center[:y],
+      gravity_distance_ave: gravity_distance_ave,
+      gravity_distance_max: gravity_distance_max,
+      distance_ave: distance_ave,
+      variance: variance,
+      variance_x: variance_x,
+      variance_y: variance_y,
+      area: area,
+      circle_center_x: circle[:center][:x],
+      circle_center_y: circle[:center][:y],
+      circle_radius: circle[:radius]
+    }
   end
 end
