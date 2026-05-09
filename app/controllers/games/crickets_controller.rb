@@ -84,6 +84,7 @@ class Games::CricketsController < ApplicationController
 
     score, range = calc.score_and_range(created_darts)
     awards = calc.award(created_darts, score)
+    analysis = calc.analysis_columns(created_darts)
     game_round.update!(
       {
         hit: hit,
@@ -91,7 +92,7 @@ class Games::CricketsController < ApplicationController
         d_bull: d_bull,
         score: score,
         range: range
-      }.merge(awards)
+      }.merge(awards).merge(analysis)
     )
 
     if stats_judge

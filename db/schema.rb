@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
+ActiveRecord::Schema[7.0].define(version: 2026_05_09_143404) do
   create_table "darts", force: :cascade do |t|
     t.integer "record_round_id"
+    t.integer "game_round_id"
     t.integer "segment", null: false
     t.integer "multiplier", null: false
     t.integer "number", null: false
@@ -24,7 +25,6 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
     t.boolean "bounce_out", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "game_round_id"
     t.index ["game_round_id"], name: "index_darts_on_game_round_id"
     t.index ["record_round_id"], name: "index_darts_on_record_round_id"
     t.check_constraint "(record_round_id IS NOT NULL AND game_round_id IS NULL) OR (record_round_id IS NULL AND game_round_id IS NOT NULL)", name: "check_darts_parent"
@@ -46,6 +46,18 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
     t.boolean "white_horse", default: false, null: false
     t.boolean "three_in_the_black", default: false, null: false
     t.boolean "bust", default: false, null: false
+    t.float "gravity_center_x"
+    t.float "gravity_center_y"
+    t.float "gravity_distance_ave"
+    t.float "gravity_distance_max"
+    t.float "distance_ave"
+    t.float "variance_x"
+    t.float "variance_y"
+    t.float "covariance"
+    t.float "area"
+    t.float "circle_center_x"
+    t.float "circle_center_y"
+    t.float "circle_radius"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["game_id"], name: "index_game_rounds_on_game_id"
@@ -59,6 +71,15 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
     t.float "stats"
     t.integer "turn_number"
     t.boolean "finished", default: false, null: false
+    t.integer "sample_number"
+    t.integer "sample_target"
+    t.float "gravity_center_x"
+    t.float "gravity_center_y"
+    t.float "gravity_distance_ave"
+    t.float "gravity_distance_max"
+    t.float "variance_x"
+    t.float "variance_y"
+    t.float "covariance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_games_on_user_id"
@@ -67,8 +88,6 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
   create_table "record_rounds", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "number", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "score"
     t.integer "hit", default: 0, null: false
     t.float "range"
@@ -81,6 +100,20 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
     t.boolean "ton80", default: false, null: false
     t.boolean "white_horse", default: false, null: false
     t.boolean "three_in_the_black", default: false, null: false
+    t.float "gravity_center_x"
+    t.float "gravity_center_y"
+    t.float "gravity_distance_ave"
+    t.float "gravity_distance_max"
+    t.float "distance_ave"
+    t.float "variance_x"
+    t.float "variance_y"
+    t.float "covariance"
+    t.float "area"
+    t.float "circle_center_x"
+    t.float "circle_center_y"
+    t.float "circle_radius"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_record_rounds_on_user_id"
   end
 
@@ -93,6 +126,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_01_082051) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "darts", "game_rounds"
   add_foreign_key "darts", "record_rounds"
   add_foreign_key "game_rounds", "games"
   add_foreign_key "games", "users"
