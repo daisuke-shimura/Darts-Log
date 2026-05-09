@@ -9,6 +9,7 @@ class CreateGames < ActiveRecord::Migration[7.0]
       t.integer :turn_number
       t.boolean :finished, null: false, default: false
       t.integer :sample_number
+      t.integer :sample_target
       t.float :gravity_center_x
       t.float :gravity_center_y
       t.float :gravity_distance_ave

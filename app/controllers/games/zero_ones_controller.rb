@@ -78,7 +78,8 @@ class Games::ZeroOnesController < ApplicationController
     if clear
       game = Game.find(game_id)
       judge_score = (game.start_score - 1) * 0.2
-      rounds = game.game_rounds.order(:created_at)
+      rounds = game.game_rounds.includes(:darts).order(:created_at)
+
       score_sum = 0
       status = 0
       rounds.each_with_index do |round, n|
@@ -89,10 +90,19 @@ class Games::ZeroOnesController < ApplicationController
         end
       end
       turn_number = rounds.count
+
+      darts = rounds.flat_map(&:darts)
+      target_counts = darts.group_by(&:target)
+      target, target_darts = target_counts.max_by { |_, v| v.size }
+      game_analyzes = calc.analysis_columns_for_game(target_darts)
+
       game.update!(
-        finished: true,
-        stats: status,
-        turn_number: turn_number
+        {
+          finished: true,
+          stats: status,
+          turn_number: turn_number,
+          sample_target: target
+        }.merge(game_analyzes)
       )
 
       render json: {

@@ -72,6 +72,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_09_143404) do
     t.integer "turn_number"
     t.boolean "finished", default: false, null: false
     t.integer "sample_number"
+    t.integer "sample_target"
     t.float "gravity_center_x"
     t.float "gravity_center_y"
     t.float "gravity_distance_ave"

@@ -210,7 +210,7 @@ class RoundCalculator
     end
   end
 
-  # まとめて求める
+  # まとめて求める Round用（3本）
   def analysis_columns(round)
     dartspoints = coordinateXY(round)
     gravity_center = center_of_gravity(dartspoints)
@@ -233,6 +233,24 @@ class RoundCalculator
       circle_center_x: circle[:center][:x],
       circle_center_y: circle[:center][:y],
       circle_radius: circle[:radius]
+    }
+  end
+
+  # Game用
+  def analysis_columns_for_game(round)
+    dartspoints = coordinateXY(round)
+    gravity_center = center_of_gravity(dartspoints)
+    gravity_distance_ave, gravity_distance_max = average_and_max_distance_from_center(dartspoints)
+    variance_x, variance_y, covariance = variance(dartspoints)
+
+    return {
+      gravity_center_x: gravity_center[:x],
+      gravity_center_y: gravity_center[:y],
+      gravity_distance_ave: gravity_distance_ave,
+      gravity_distance_max: gravity_distance_max,
+      variance_x: variance_x,
+      variance_y: variance_y,
+      covariance: covariance
     }
   end
 end
