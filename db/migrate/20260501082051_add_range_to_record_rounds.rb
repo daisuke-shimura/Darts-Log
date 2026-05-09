@@ -18,9 +18,9 @@ class AddRangeToRecordRounds < ActiveRecord::Migration[7.0]
     add_column :record_rounds, :gravity_distance_ave, :float
     add_column :record_rounds, :gravity_distance_max, :float
     add_column :record_rounds, :distance_ave, :float
-    add_column :record_rounds, :variance, :float
     add_column :record_rounds, :variance_x, :float
     add_column :record_rounds, :variance_y, :float
+    add_column :record_rounds, :covariance, :float
     add_column :record_rounds, :area, :float
     add_column :record_rounds, :circle_center_x, :float
     add_column :record_rounds, :circle_center_y, :float

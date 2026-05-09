@@ -153,10 +153,13 @@ class RoundCalculator
     y_avg = gravity[:y]
     xterm = dartspoints.sum { |d| (d[:x] - x_avg) ** 2 }
     yterm = dartspoints.sum { |d| (d[:y] - y_avg) ** 2 }
-    variance = (xterm + yterm) / dartspoints.size
+    covariance_term = dartspoints.sum do |d|
+      (d[:x] - x_avg) * (d[:y] - y_avg)
+    end
     variance_x = xterm / dartspoints.size
     variance_y = yterm / dartspoints.size
-    return variance.round(2), variance_x.round(2), variance_y.round(2)
+    covariance = covariance_term / dartspoints.size
+    return variance_x.round(2), variance_y.round(2), covariance.round(2)
   end
 
   #面積
@@ -212,7 +215,7 @@ class RoundCalculator
     gravity_center = center_of_gravity(dartspoints)
     gravity_distance_ave, gravity_distance_max = average_and_max_distance_from_center(dartspoints)
     distance_ave, _ = average_and_max_distance(dartspoints)
-    variance, variance_x, variance_y = variance(dartspoints)
+    variance_x, variance_y, covariance = variance(dartspoints)
     area = area(dartspoints)
     circle = min_enclosing_circle(dartspoints)
 
@@ -222,9 +225,9 @@ class RoundCalculator
       gravity_distance_ave: gravity_distance_ave,
       gravity_distance_max: gravity_distance_max,
       distance_ave: distance_ave,
-      variance: variance,
       variance_x: variance_x,
       variance_y: variance_y,
+      covariance: covariance,
       area: area,
       circle_center_x: circle[:center][:x],
       circle_center_y: circle[:center][:y],
