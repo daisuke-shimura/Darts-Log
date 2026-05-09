@@ -109,6 +109,7 @@ class RoundCalculator
 
   #三点間の距離
   def distance(dartspoints)
+    return nil if dartspoints.size < 2
     dartspoints.combination(2).map do |a, b|
       x_d = (a[:x] - b[:x])**2
       y_d = (a[:y] - b[:y])**2
@@ -122,6 +123,7 @@ class RoundCalculator
 
   #三点間の距離の平均と最大値
   def average_and_max_distance(dartspoints)
+    return nil, nil if dartspoints.size < 2
     distances = distance(dartspoints)
     average = (distances.sum { |d| d[:distance] } / distances.size).round(2)
     max = distances.max_by { |d| d[:distance] }
@@ -137,6 +139,7 @@ class RoundCalculator
 
   #重心からの距離の平均と最大値
   def average_and_max_distance_from_center(dartspoints)
+    return nil, nil if dartspoints.size < 3
     center = center_of_gravity(dartspoints)
     d1 = Math.sqrt((dartspoints[0][:x] - center[:x])**2 + (dartspoints[0][:y] - center[:y])**2)
     d2 = Math.sqrt((dartspoints[1][:x] - center[:x])**2 + (dartspoints[1][:y] - center[:y])**2)
@@ -164,6 +167,7 @@ class RoundCalculator
 
   #面積
   def area(dartspoints)
+    return nil if dartspoints.size < 3
     term1 = dartspoints[0][:x] * (dartspoints[1][:y] - dartspoints[2][:y])
     term2 = dartspoints[1][:x] * (dartspoints[2][:y] - dartspoints[0][:y])
     term3 = dartspoints[2][:x] * (dartspoints[0][:y] - dartspoints[1][:y])
@@ -179,20 +183,17 @@ class RoundCalculator
     c = dartspoints[2]
 
     d = 2 * (a[:x] * (b[:y] - c[:y]) + b[:x] * (c[:y] - a[:y]) + c[:x] * (a[:y] - b[:y]))
-    if d == 0
-      return nil
-    end
+    return { center: { x: nil, y: nil }, radius: nil } if d == 0
 
     center_x = ((a[:x]**2 + a[:y]**2) * (b[:y] - c[:y]) + (b[:x]**2 + b[:y]**2) * (c[:y] - a[:y]) + (c[:x]**2 + c[:y]**2) * (a[:y] - b[:y])) / d
     center_y = ((a[:x]**2 + a[:y]**2) * (c[:x] - b[:x]) + (b[:x]**2 + b[:y]**2) * (a[:x] - c[:x]) + (c[:x]**2 + c[:y]**2) * (b[:x] - a[:x])) / d
-
     radius = Math.sqrt((center_x - a[:x])**2 + (center_y - a[:y])**2).round(2)
-
     return { center: { x: center_x.round(2), y: center_y.round(2) }, radius: radius }
   end
 
   #最小外接円
   def min_enclosing_circle(dartspoints)
+    return { center: { x: nil, y: nil }, radius: nil } if dartspoints.size < 3
     _, max = average_and_max_distance(dartspoints)
     max_id = max[:id].split(', ').map(&:to_i)
     a = dartspoints.find { |d| d[:id] == max_id[0] }

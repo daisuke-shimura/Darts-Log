@@ -8,13 +8,15 @@ class CreateGames < ActiveRecord::Migration[7.0]
       t.float :stats
       t.integer :turn_number
       t.boolean :finished, null: false, default: false
-      t.float   :gravity_center_x
-      t.float   :gravity_center_y
-      t.float   :gravity_distance_ave
-      t.float   :gravity_distance_max
-      t.float   :variance_x
-      t.float   :variance_y
-      t.float   :covariance
+      t.integer :sample_number
+      t.float :gravity_center_x
+      t.float :gravity_center_y
+      t.float :gravity_distance_ave
+      t.float :gravity_distance_max
+      t.float :variance_x
+      t.float :variance_y
+      t.float :covariance
+
       t.timestamps
     end
   end
