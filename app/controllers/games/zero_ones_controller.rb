@@ -92,8 +92,8 @@ class Games::ZeroOnesController < ApplicationController
       turn_number = rounds.count
 
       darts = rounds.flat_map(&:darts)
-      target_counts = darts.group_by(&:target)
-      target, target_darts = target_counts.max_by { |_, v| v.size }
+      target_hashes = darts.group_by(&:target)
+      target, target_darts = target_hashes.max_by { |_, v| v.size }
       game_analyzes = calc.analysis_columns_for_game(target_darts)
 
       game.update!(
@@ -101,6 +101,7 @@ class Games::ZeroOnesController < ApplicationController
           finished: true,
           stats: status,
           turn_number: turn_number,
+          sample_number: target_darts.size,
           sample_target: target
         }.merge(game_analyzes)
       )
