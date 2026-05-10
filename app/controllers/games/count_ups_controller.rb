@@ -89,6 +89,7 @@ class Games::CountUpsController < ApplicationController
         {
           finished: true,
           stats: stats,
+          score: score_sum,
           turn_number: turn_number,
           sample_number: target_darts.size,
           sample_target: target
