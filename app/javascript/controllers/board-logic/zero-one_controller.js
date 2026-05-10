@@ -13,7 +13,7 @@ export default class extends Controller {
     console.log("zero-one controller connected");
     console.log("gameId:", this.gameIdValue);
     this.selected = [];
-    this.round = Number(this.element.dataset.round);;
+    this.round = Number(this.element.dataset.round);
     this.bust = false;
     this.clear = false;
     this.currentScore = Number(this.element.dataset.currentScore);
@@ -79,19 +79,19 @@ export default class extends Controller {
 
   render() {
     this.outputTargets.forEach(el => el.textContent = "");
-      this.resultItemTargets.forEach(el => {
-        el.classList.remove("bounce-out");
-      });
+    this.resultItemTargets.forEach(el => {
+      el.classList.remove("bounce-out");
+    });
 
-      this.selected.forEach((p, index) => {
-        if (this.outputTargets[index]) {
-          const html = `${p.name} ${p.score}点<br>(r, θ) = (${p.absolute_r}, ${p.absolute_0})`;
-          this.outputTargets[index].innerHTML = html;
-          if (p.bounce_out) {
-            this.resultItemTargets[index].classList.add("bounce-out");
-          }
+    this.selected.forEach((p, index) => {
+      if (this.outputTargets[index]) {
+        const html = `${p.name} ${p.score}点<br>(r, θ) = (${p.absolute_r}, ${p.absolute_0})`;
+        this.outputTargets[index].innerHTML = html;
+        if (p.bounce_out) {
+          this.resultItemTargets[index].classList.add("bounce-out");
         }
-      });
+      }
+    });
   }
 
   showMessage(message) {
@@ -125,8 +125,6 @@ export default class extends Controller {
     }
 
     console.log("submit clicked");
-    const sum_score = this.sumRoundScore();
-    const results = this.selected
     fetch(`/games/${this.gameIdValue}/zero_one`, {
       method: "POST",
       headers: {
@@ -134,7 +132,7 @@ export default class extends Controller {
         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       },
       body: JSON.stringify({
-        results: results,
+        results: this.selected,
         bust: this.bust,
         clear: this.clear
       })

@@ -1,4 +1,4 @@
-class Games::ZeroOnesController < ApplicationController
+class Games::CountUpsController < ApplicationController
   def new
   end
 
@@ -10,7 +10,7 @@ class Games::ZeroOnesController < ApplicationController
     # 続きから
     @rounds = @game.game_rounds.order(:created_at)
     @round_number = @rounds.count + 1
-    @current_score = @game.start_score - @rounds.where(bust: false).sum(:score)
+    @current_score = @rounds.where(bust: false).sum(:score)
   end
 
   def create
@@ -19,8 +19,6 @@ class Games::ZeroOnesController < ApplicationController
     s_bull = 0
     d_bull = 0
     darts = params[:results]
-    bust = ActiveRecord::Type::Boolean.new.cast(params[:bust])
-    clear = ActiveRecord::Type::Boolean.new.cast(params[:clear])
     created_darts = []
 
     if darts.size > 3
@@ -28,10 +26,9 @@ class Games::ZeroOnesController < ApplicationController
       return
     end
 
-    game_id = params[:game_id]
+    game = Game.find(params[:game_id])
     game_round = GameRound.create!(
-      game_id: game_id,
-      bust: bust
+      game_id: game.id
     )
 
     darts.each_with_index do |dart, index|
@@ -75,21 +72,13 @@ class Games::ZeroOnesController < ApplicationController
       }.merge(awards).merge(analysis)
     )
 
-    if clear
-      game = Game.find(game_id)
-      judge_score = (game.start_score - 1) * 0.2
+    # ゲーム終了の判定
+    if game.game_rounds.count >= 8
       rounds = game.game_rounds.includes(:darts).order(:created_at)
 
-      score_sum = 0
-      stats = 0
-      rounds.each_with_index do |round, n|
-        score_sum += round.score
-        if score_sum >= judge_score
-          stats = score_sum.to_f / (n + 1)
-          break
-        end
-      end
+      score_sum = rounds.sum(&:score)
       turn_number = rounds.count
+      stats = (score_sum / turn_number).round(2)
 
       darts = rounds.flat_map(&:darts)
       target_hashes = darts.group_by(&:target)
@@ -100,6 +89,7 @@ class Games::ZeroOnesController < ApplicationController
         {
           finished: true,
           stats: stats,
+          score: score_sum,
           turn_number: turn_number,
           sample_number: target_darts.size,
           sample_target: target

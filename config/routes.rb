@@ -10,10 +10,13 @@ Rails.application.routes.draw do
     post :zero_one, to: 'games/zero_ones#create'
     get  :cricket,  to: 'games/crickets#show'
     post :cricket,  to: 'games/crickets#create'
+    get  :count_up, to: 'games/count_ups#show'
+    post :count_up, to: 'games/count_ups#create'
   end
   namespace :games do
     resources :zero_ones, only: [:new]
     resources :crickets, only: [:new]
+    resources :count_ups, only: [:new]
   end
 
   post 'login', to: 'sessions#create'

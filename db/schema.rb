@@ -69,6 +69,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_09_143404) do
     t.integer "kind", null: false
     t.integer "start_score"
     t.float "stats"
+    t.integer "score"
     t.integer "turn_number"
     t.boolean "finished", default: false, null: false
     t.integer "sample_number"
