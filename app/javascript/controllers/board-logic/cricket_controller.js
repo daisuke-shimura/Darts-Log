@@ -162,7 +162,6 @@ export default class extends Controller {
     }
 
     console.log("submit clicked");
-    const results = this.selected
     fetch(`/games/${this.gameIdValue}/cricket`, {
       method: "POST",
       headers: {
@@ -170,7 +169,7 @@ export default class extends Controller {
         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       },
       body: JSON.stringify({
-        results: results,
+        results: this.selected,
         mark: this.round_marks,
         stats_judge: this.statsJudgeTrigger,
         clear: this.clear

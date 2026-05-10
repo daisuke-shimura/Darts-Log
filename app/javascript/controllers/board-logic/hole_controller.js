@@ -90,8 +90,6 @@ export default class extends Controller {
     }
 
     console.log("submit clicked");
-    const results = this.selected
-    console.log("results:", results);
     fetch("/records", {
       method: "POST",
       headers: {
@@ -99,7 +97,7 @@ export default class extends Controller {
         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
       },
       body: JSON.stringify({
-        results: results,
+        results: this.selected
       })
     })
     .then(res => res.json())

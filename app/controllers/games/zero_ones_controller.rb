@@ -81,11 +81,11 @@ class Games::ZeroOnesController < ApplicationController
       rounds = game.game_rounds.includes(:darts).order(:created_at)
 
       score_sum = 0
-      status = 0
+      stats = 0
       rounds.each_with_index do |round, n|
         score_sum += round.score
         if score_sum >= judge_score
-          status = score_sum.to_f / (n + 1)
+          stats = score_sum.to_f / (n + 1)
           break
         end
       end
@@ -99,7 +99,7 @@ class Games::ZeroOnesController < ApplicationController
       game.update!(
         {
           finished: true,
-          stats: status,
+          stats: stats,
           turn_number: turn_number,
           sample_number: target_darts.size,
           sample_target: target
