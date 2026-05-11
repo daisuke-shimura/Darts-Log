@@ -177,6 +177,10 @@
   width: 40%;
   color: white;
   background-color: #4a4a4a;
+  cursor: default;
+  user-select: none;
+  display: flex;
+  align-items: center;
 }
 .round-label.current-round {
   color: black;
@@ -190,6 +194,8 @@
   color: white;
   background-color: black;
   text-align: right;
+  cursor: default;
+  user-select: none;
 }
 
 .round-mark {
@@ -198,6 +204,47 @@
   grid-template-columns: repeat(3, 1fr);
   align-items: center;
   justify-items: center;
+}
+
+/*センターカウントアップ用*/
+.round-border {
+  border-bottom: 3px solid transparent;
+}
+.round-border.border-color-600 {
+  border-color:#FD8687;
+}
+.round-border.border-color-500 {
+  border-color:#FC1C45;
+}
+.round-border.border-color-480 {
+  border-color:#FE642C;
+}
+.round-border.border-color-400 {
+  border-color:#FFAA16;
+}
+.round-border.border-color-350 {
+  border-color:#E9DA06;
+}
+.round-border.border-color-200 {
+  border-color:#ABD503;
+}
+.round-border.border-color-100 {
+  border-color:#56B82E;
+}
+.round-border.border-color-80 {
+  border-color:#0F9C91;
+}
+.round-border.border-color-70 {
+  border-color:#0056CE;
+}
+.round-border.border-color-60 {
+  border-color:#013490;
+}
+.round-border.border-color-50 {
+  border-color:#001869;
+}
+.round-border.border-color-0 {
+  border-color:#000F3A;
 }
 
 .board {
@@ -256,6 +303,8 @@
   height: 100%;
   font-size: 2vw;
   pointer-events: none;
+  cursor: default;
+  user-select: none;
 }
 
 .circle-1,

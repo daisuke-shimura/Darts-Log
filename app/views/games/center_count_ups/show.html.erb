@@ -1,0 +1,49 @@
+<div class="position-relative" data-controller="board-logic--center-count-up target"
+  data-target-selector='[data-board-logic--center-count-up-target="targetInput"]'
+  data-board-logic--center-count-up-game-id-value="<%= @game.id %>" 
+  data-current-score="<%= @current_score %>" 
+  data-round="<%= @round_number %>">
+  <div class="board position-absolute top-0 ms-2" data-action="click->board-logic--center-count-up#click">
+    <% cache "dartboard" do %>
+      <%= render "records/board/out" %>
+      <%= render "records/board/double" %>
+      <%= render "records/board/outer-single" %>
+      <%= render "records/board/triple" %>
+      <%= render "records/board/inner-single" %>
+      <%= render "records/board/bull" %>
+    <% end %>
+  </div>
+
+  <%= render "records/result", js_controller: "board-logic--center-count-up" %>
+  
+  <%= render "records/modal-target-form" %>
+
+  <div class="position-fixed top-0 end-0 mt-5 p-1">
+    <div class="score-box" data-board-logic--center-count-up-target="scoreBox">
+      <%= @current_score %>
+    </div>
+    <div class="round-box mt-2 ms-auto" data-board-logic--center-count-up-target="roundBox">
+      <% [@rounds.size, 8].max.times do |n| %>
+        <div class="d-flex">
+          <span class="ps-1 round-label">R<%= n + 1 %></span>
+          <span class="round-score d-inline-flex flex-column align-items-center" >
+            <span data-board-logic--center-count-up-target="roundScore"><%= @rounds[n]&.score || "-" %></span>
+            <span class="d-flex w-100">
+              <% if @rounds[n].present? %>
+                <% [@rounds[n].darts.size, 3].max.times do |i| %>
+                  <span
+                    class="flex-fill round-border <%= round_border_class(@rounds[n].darts[i]&.absolute_r) %>">
+                  </span>
+                <% end %>
+              <% else %>
+                <% 3.times do %>
+                  <span class="flex-fill round-border" data-board-logic--center-count-up-target="roundBorder"></span>
+                <% end %>
+              <% end %>
+            </span>
+          </span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
