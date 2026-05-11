@@ -13,7 +13,7 @@ export default class extends Controller {
     console.log("count-up controller connected");
     console.log("gameId:", this.gameIdValue);
     this.selected = [];
-    this.round = Number(this.element.dataset.round);;
+    this.round = Number(this.element.dataset.round);
     this.currentScore = Number(this.element.dataset.currentScore);
     this.scoreBoxTarget.textContent = this.currentScore;
     this.updateButtons();

@@ -25,8 +25,7 @@ export default class extends Controller {
     this.statsJudgeTrigger = false;
     this.clear = false;
     this.currentScore = Number(this.element.dataset.currentScore);
-    this.updateSubmitButton();
-    this.updateCancelButton();
+    this.updateButtons();
     this.currentRoundRow();
     this.segmentsStatus = JSON.parse(this.element.dataset.currentScore);
   }
@@ -57,8 +56,7 @@ export default class extends Controller {
 
     this.selected.push(front_data);
     this.render();
-    this.updateSubmitButton();
-    this.updateCancelButton();
+    this.updateButtons();
     this.rewriteCurrentMark(front_data.segment, front_data.multiplier);
     this.isClear();
   }
@@ -95,12 +93,10 @@ export default class extends Controller {
     toast.show()
   }
 
-  updateSubmitButton() {
-    this.submitBtnTarget.disabled = this.selected.length === 0;
-  }
-
-  updateCancelButton() {
-    this.cancelBtnTarget.disabled = this.selected.length === 0;
+  updateButtons() {
+    const disabled = this.selected.length === 0;
+    this.submitBtnTarget.disabled = disabled;
+    this.cancelBtnTarget.disabled = disabled;
   }
 
   rewriteCurrentMark(segment, multiplier) {
@@ -190,7 +186,7 @@ export default class extends Controller {
         this.marksHistory = [];
         this.selected = [];
         this.render();
-        this.updateSubmitButton();
+        this.updateButtons();
         this.currentRoundRow();
         this.showMessage("保存しました");
       }
@@ -207,8 +203,7 @@ export default class extends Controller {
     this.selected.pop();
     this.revertCurrentMark();
     this.render();
-    this.updateSubmitButton();
-    this.updateCancelButton();
+    this.updateButtons();
     this.isClear();
   }
 
