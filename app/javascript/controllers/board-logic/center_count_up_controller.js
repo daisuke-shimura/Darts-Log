@@ -63,7 +63,8 @@ export default class extends Controller {
     this.selected.push(front_data);
     this.render();
     this.updateButtons();
-    this.refreshView(front_data.score);
+    this.currentScore += front_data.score;
+    this.refreshView();
   }
 
   score(absolute_r) {
@@ -102,20 +103,23 @@ export default class extends Controller {
     this.cancelBtnTarget.disabled = disabled;
   }
 
-  refreshView(score) {
-    this.currentScore += score;
-    this.scoreBoxTarget.textContent = this.currentScore;
-    const el = this.roundScoreTargets[this.round - 1];
+  refreshView() {
     const sumScore = this.sumRoundScore();
-    el.textContent = sumScore;
+    this.scoreBoxTarget.textContent = this.currentScore;
 
-    const row = el.closest(".round-score"); 
+    const el = this.roundScoreTargets[this.round - 1];
+    if (el) el.textContent = sumScore;
+
+    const row = el.closest(".round-score");
     const borders = row.querySelectorAll('[data-board-logic--center-count-up-target="roundBorder"]');
-    const targetBorder = borders[this.selected.length - 1];
-  
-    if (targetBorder) {
-      targetBorder.classList.add(`border-color-${score}`);
-    }
+    
+    borders.forEach((border, index) => {
+      border.className = border.className.replace(/\bborder-color-\d+\b/g, "");
+
+      if (this.selected[index]) {
+        border.classList.add(`border-color-${this.selected[index].score}`);
+      }
+    });
   }
 
   currentRoundRow() {

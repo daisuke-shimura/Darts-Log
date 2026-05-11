@@ -204,7 +204,7 @@ export default class extends Controller {
     if (this.selected.length === 0) return;
     this.clear = false;
     this.element.querySelector(".board").classList.remove("clear");
-    const removed = this.selected.pop();
+    this.selected.pop();
     this.revertCurrentMark();
     this.render();
     this.updateSubmitButton();
