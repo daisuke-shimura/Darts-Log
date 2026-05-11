@@ -79,27 +79,52 @@ class Games::ZeroOnesController < ApplicationController
       game = Game.find(game_id)
       judge_score = (game.start_score - 1) * 0.2
       rounds = game.game_rounds.includes(:darts).order(:created_at)
-
-      score_sum = 0
-      stats = 0
-      rounds.each_with_index do |round, n|
-        score_sum += round.score
-        if score_sum >= judge_score
-          stats = score_sum.to_f / (n + 1)
-          break
-        end
-      end
       turn_number = rounds.count
 
-      darts = rounds.flat_map(&:darts)
-      target_hashes = darts.group_by(&:target)
-      target, target_darts = target_hashes.max_by { |_, v| v.size }
-      game_analyzes = calc.analysis_columns_for_game(target_darts)
+      progress_score = game.start_score
+      score_sum = 0
+      range_sum = 0
+      stats = 0
+      stats_darts = []
+      rate_80 = false
 
+      stats = 0
+      game_range = nil
+      target = nil
+      target_darts = []
+      game_analyzes = {}
+
+      rounds.each_with_index do |round, r|
+        round.darts.each_with_index do |dart, n|
+          stats_darts << dart
+          if dart.segment == 50
+            score_sum += dart.segment
+          else
+            score_sum += dart.segment * dart.multiplier_before_type_cast
+          end
+          range_sum += dart.absolute_r
+          #80%スタッツ
+          if progress_score - score_sum <= judge_score
+            total_darts_count = (r * 3) + (n + 1)
+            stats = (score_sum.to_f / total_darts_count) * 3
+
+            target_hashes = stats_darts.group_by(&:target)
+            target, target_darts = target_hashes.max_by { |_, v| v.size }
+            game_analyzes = calc.analysis_columns_for_game(target_darts)
+            if target == "bull"
+              game_range = (range_sum.to_f / total_darts_count).round(2)
+            end
+            rate_80 = true
+            break
+          end
+          break if rate_80
+        end
+      end
       game.update!(
         {
           finished: true,
-          stats: stats,
+          stats: stats.round(2),
+          range: game_range,
           turn_number: turn_number,
           sample_number: target_darts.size,
           sample_target: target

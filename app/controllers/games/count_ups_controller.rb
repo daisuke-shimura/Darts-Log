@@ -83,6 +83,9 @@ class Games::CountUpsController < ApplicationController
       darts = rounds.flat_map(&:darts)
       target_hashes = darts.group_by(&:target)
       target, target_darts = target_hashes.max_by { |_, v| v.size }
+      if target == "bull" && target_darts.size == 24
+        _, game_range = calc.score_and_range(target_darts)
+      end
       game_analyzes = calc.analysis_columns_for_game(target_darts)
 
       game.update!(
@@ -90,6 +93,7 @@ class Games::CountUpsController < ApplicationController
           finished: true,
           stats: stats,
           score: score_sum,
+          range: game_range,
           turn_number: turn_number,
           sample_number: target_darts.size,
           sample_target: target
