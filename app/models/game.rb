@@ -4,7 +4,7 @@ class Game < ApplicationRecord
 
   before_create :set_number
 
-  enum kind: { zero_one: 0, cricket: 1, count_up: 2, center_count_up: 3 }
+  enum kind: { zero_one: 0, cricket: 1, count_up: 2, center_count_up: 3, cricket_count_up: 4 }
   enum sample_target: {
     bull: 50,
     t1: 301, t2: 302, t3: 303, t4: 304, t5: 305, t6: 306, t7: 307, t8: 308, t9: 309, t10: 310, t11: 311, t12: 312, t13: 313, t14: 314, t15: 315, t16: 316, t17: 317, t18: 318, t19: 319, t20: 320,
