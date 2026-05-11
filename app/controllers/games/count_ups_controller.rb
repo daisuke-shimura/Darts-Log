@@ -10,7 +10,7 @@ class Games::CountUpsController < ApplicationController
     # 続きから
     @rounds = @game.game_rounds.order(:created_at)
     @round_number = @rounds.count + 1
-    @current_score = @rounds.where(bust: false).sum(:score)
+    @current_score = @rounds.sum(:score)
   end
 
   def create

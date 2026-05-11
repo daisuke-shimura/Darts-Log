@@ -1,6 +1,6 @@
 module Games::CenterCountUpsHelper
   def round_border_class(r)
-    r = r.to_f
+    return "border-color-0" if r.nil?
     if r <= 16.6
       "border-color-600"
     elsif r <= 40.0

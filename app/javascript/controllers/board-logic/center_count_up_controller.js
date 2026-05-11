@@ -18,7 +18,7 @@ const CENTER_COUNT_UP_SCORE = [
 export default class extends Controller {
   static targets = [
     "output", "flash", "resultItem", "submitBtn", "cancelBtn", "targetInput",
-    "scoreBox", "roundScore", "roundBox"
+    "scoreBox", "roundScore", "roundBox", "roundBorder"
   ];
   static values = {
     gameId: Number
@@ -63,8 +63,7 @@ export default class extends Controller {
     this.selected.push(front_data);
     this.render();
     this.updateButtons();
-    this.currentScore += front_data.score;
-    this.refreshView();
+    this.refreshView(front_data.score);
   }
 
   score(absolute_r) {
@@ -103,11 +102,20 @@ export default class extends Controller {
     this.cancelBtnTarget.disabled = disabled;
   }
 
-  refreshView() {
+  refreshView(score) {
+    this.currentScore += score;
     this.scoreBoxTarget.textContent = this.currentScore;
     const el = this.roundScoreTargets[this.round - 1];
     const sumScore = this.sumRoundScore();
     el.textContent = sumScore;
+
+    const row = el.closest(".round-score"); 
+    const borders = row.querySelectorAll('[data-board-logic--center-count-up-target="roundBorder"]');
+    const targetBorder = borders[this.selected.length - 1];
+  
+    if (targetBorder) {
+      targetBorder.classList.add(`border-color-${score}`);
+    }
   }
 
   currentRoundRow() {
@@ -141,7 +149,7 @@ export default class extends Controller {
       return;
     }
 
-    fetch(`/games/${this.gameIdValue}/count_up`, {
+    fetch(`/games/${this.gameIdValue}/center_count_up`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

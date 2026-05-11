@@ -207,41 +207,44 @@
 }
 
 /*センターカウントアップ用*/
-.border-color-600 {
-  border-color:#FD8687 !important;
+.round-border {
+  border-bottom: 3px solid transparent;
 }
-.border-color-500 {
-  border-color:#FC1C45 !important;
+.round-border.border-color-600 {
+  border-color:#FD8687;
 }
-.border-color-480 {
-  border-color:#FE642C !important;
+.round-border.border-color-500 {
+  border-color:#FC1C45;
 }
-.border-color-400 {
-  border-color:#FFAA16 !important;
+.round-border.border-color-480 {
+  border-color:#FE642C;
 }
-.border-color-350 {
-  border-color:#E9DA06 !important;
+.round-border.border-color-400 {
+  border-color:#FFAA16;
 }
-.border-color-200 {
-  border-color:#ABD503 !important;
+.round-border.border-color-350 {
+  border-color:#E9DA06;
 }
-.border-color-100 {
-  border-color:#56B82E !important;
+.round-border.border-color-200 {
+  border-color:#ABD503;
 }
-.border-color-80 {
-  border-color:#0F9C91 !important;
+.round-border.border-color-100 {
+  border-color:#56B82E;
 }
-.border-color-70 {
-  border-color:#0056CE !important;
+.round-border.border-color-80 {
+  border-color:#0F9C91;
 }
-.border-color-60 {
-  border-color:#013490 !important;
+.round-border.border-color-70 {
+  border-color:#0056CE;
 }
-.border-color-50 {
-  border-color:#001869 !important;
+.round-border.border-color-60 {
+  border-color:#013490;
 }
-.border-color-0 {
-  border-color:#000C33 !important;
+.round-border.border-color-50 {
+  border-color:#001869;
+}
+.round-border.border-color-0 {
+  border-color:#000F3A;
 }
 
 .board {

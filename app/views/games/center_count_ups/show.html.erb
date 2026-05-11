@@ -29,12 +29,16 @@
           <span class="round-score d-inline-flex flex-column align-items-center" >
             <span data-board-logic--center-count-up-target="roundScore"><%= @rounds[n]&.score || "-" %></span>
             <span class="d-flex w-100">
-              <% 3.times do |i| %>
-                <% dart = @rounds[n]&.darts&.[](i) %>
-
-                <span
-                  class="flex-fill border-3 border-bottom <%= dart ? round_border_class(dart.absolute_r) : '' %>">
-                </span>
+              <% if @rounds[n].present? %>
+                <% [@rounds[n].darts.size, 3].max.times do |i| %>
+                  <span
+                    class="flex-fill round-border <%= round_border_class(@rounds[n].darts[i]&.absolute_r) %>">
+                  </span>
+                <% end %>
+              <% else %>
+                <% 3.times do %>
+                  <span class="flex-fill round-border" data-board-logic--center-count-up-target="roundBorder"></span>
+                <% end %>
               <% end %>
             </span>
           </span>
