@@ -11,6 +11,8 @@
 `RAILS_ENV=production rails assets:precompile`
 ### 開発環境に設定を戻す (assetsを削除)
 `rails assets:clobber`
+### db編集後
+`RAILS_ENV=production rails db:migrate`
 
 ## バックアップをDropBoxに作成
 `./backup_db.sh`
