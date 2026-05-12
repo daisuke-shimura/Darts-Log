@@ -1,2 +1,5 @@
 <h1>Logs#index</h1>
-<%= @darts_data.inspect %>
+<%= @darts_data.count %><br>
+<% @darts_data.each do |dart| %>
+  <%= dart.inspect %><br>
+<% end %>
