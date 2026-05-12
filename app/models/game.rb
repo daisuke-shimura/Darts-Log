@@ -1,6 +1,6 @@
 class Game < ApplicationRecord
   belongs_to :user
-  has_many :game_rounds
+  has_many :game_rounds, dependent: :destroy
 
   before_create :set_number
 
