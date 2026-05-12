@@ -116,6 +116,21 @@ class Games::CricketCountUpsController < ApplicationController
 
     # ゲーム終了の判定
     if round_count >= 8
+      rounds = game.game_rounds.includes(:darts).order(:created_at)
+      score_sum = rounds.sum(&:score)
+      mark_sum = rounds.sum(&:mark)
+      turn_number = rounds.count
+      stats = (mark_sum / turn_number).round(2)
+
+      game.update!(
+        {
+          finished: true,
+          stats: stats,
+          score: score_sum,
+          turn_number: turn_number
+        }
+      )
+
       render json: {
         status: "ok",
         redirect_url: root_path
