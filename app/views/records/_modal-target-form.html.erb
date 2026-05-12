@@ -1,0 +1,47 @@
+<div class="modal fade" id="targetModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h5 class="modal-title border-start border-4 ps-2 d-flex align-items-center">TARGET選択</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body position-relative" data-action="click->target#select">
+        <button type="button" class="btn btn-light btn-sm border position-absolute top-0 start-0 m-3 target" data-value="undefined" data-name="---">未設定</button>
+        <div class="board">
+          <% @segment_index.each_with_index do |segment, number| %>
+            <div class="number" style="transform: rotate(<%= number * 18 %>deg);">
+              <div style="transform: rotate(<%= number * -18 %>deg);"><%= segment %></div>
+            </div>
+          <% end %>
+
+          <div class="circle-1">
+            <% @segment_index.each_with_index do |segment, number| %>
+              <div class="segment <%= number.even? ? 'red' : 'blue' %> target" data-value="d<%= segment %>" data-name="DOUBLE <%= segment %>" role="button" style="transform: rotate(<%= number * 18 %>deg);"></div>
+            <% end %>
+          </div>
+          
+          <div class="circle-2">
+            <% @segment_index.each_with_index do |segment, number| %>
+              <div class="segment <%= number.even? ? 'black' : 'white' %> target" data-value="s<%= segment %>" data-name="SINGLE <%= segment %>" role="button" style="transform: rotate(<%= number * 18 %>deg);"></div>
+            <% end %>
+          </div>
+              
+          <div class="circle-3">
+            <% @segment_index.each_with_index do |segment, number| %>
+              <div class="segment <%= number.even? ? 'red' : 'blue' %> target" data-value="t<%= segment %>" data-name="TRIPLE <%= segment %>" role="button" style="transform: rotate(<%= number * 18 %>deg);"></div>
+            <% end %>
+          </div>
+                
+          <div class="circle-4">
+            <% @segment_index.each_with_index do |segment, number| %>
+              <div class="segment <%= number.even? ? 'black' : 'white' %> target" data-value="s<%= segment %>" data-name="SINGLE <%= segment %>" role="button" style="transform: rotate(<%= number * 18 %>deg);"></div>
+            <% end %>
+          </div>
+          <div class="s-bull target" data-value="bull" data-name="BULL" role="button"></div>
+          <div class="d-bull target" data-value="bull" data-name="BULL" role="button"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

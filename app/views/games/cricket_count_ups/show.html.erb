@@ -1,0 +1,44 @@
+<div class="position-relative" data-controller="board-logic--cricket-count-up target"
+  data-target-selector='[data-board-logic--cricket-count-up-target="targetInput"]'
+  data-board-logic--cricket-count-up-game-id-value="<%= @game.id %>" 
+  data-current-score="<%= @current_score %>" 
+  data-round="<%= @round_number %>">
+  <div class="board position-absolute top-0 ms-2" data-action="click->board-logic--cricket-count-up#click">
+    <% cache "dartboard" do %>
+      <%= render "records/board/out" %>
+      <%= render "records/board/double" %>
+      <%= render "records/board/outer-single" %>
+      <%= render "records/board/triple" %>
+      <%= render "records/board/inner-single" %>
+      <%= render "records/board/bull" %>
+    <% end %>
+  </div>
+
+  <%= render "records/result", js_controller: "board-logic--cricket-count-up" %>
+  
+  <%= render "records/modal-target-form" %>
+
+  <div class="position-fixed top-0 end-0 mt-5 p-1">
+    <div class="score-box" data-board-logic--cricket-count-up-target="scoreBox">
+      <%= @current_score %>
+    </div>
+    <div class="round-box mt-2 ms-auto" data-board-logic--cricket-count-up-target="roundBox">
+      <% [@round_marks.size, 8].max.times do |r| %>
+      <div class="d-flex">
+        <span class="ps-1 round-label">R<%= r + 1 %></span>
+        <span class="round-mark" data-board-logic--cricket-count-up-target="roundScore">
+          <% if @round_marks[r].present? %>
+            <span><%= cricket_mark(@round_marks[r][0]) %></span>
+            <span><%= cricket_mark(@round_marks[r][1]) %></span>
+            <span><%= cricket_mark(@round_marks[r][2]) %></span>
+          <% else %>
+            <span></span>
+            <span></span>
+            <span></span>
+          <% end %>
+        </span>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

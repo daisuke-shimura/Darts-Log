@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <h3 class="mb-3">ZERO-ONE</h3>
+
+  <%= form_with url: games_path, method: :post do |f| %>
+    <%= hidden_field_tag :kind, "zero_one" %>
+
+    <div class="row g-2 mb-4">
+      <% [301, 501, 701, 901, 1101, 1501].each do |score| %>
+        <div class="col-4">
+          <input type="radio"
+                 class="btn-check"
+                 name="start_score"
+                 id="score_<%= score %>"
+                 value="<%= score %>"
+                 autocomplete="off"
+                 required="true">
+
+          <label class="btn btn-outline-primary w-100 py-3"
+                 for="score_<%= score %>">
+            <strong><%= score %></strong>
+          </label>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="d-grid">
+      <%= f.submit "START", class: "btn btn-primary btn-lg" %>
+    </div>
+  <% end %>
+</div>

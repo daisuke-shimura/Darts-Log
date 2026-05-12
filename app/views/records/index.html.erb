@@ -1,0 +1,17 @@
+<div data-controller="board-logic--hole target"
+  data-target-selector='[data-board-logic--hole-target="targetInput"]'>
+  <div class="board" data-action="click->board-logic--hole#click">
+    <% cache "dartboard" do %>
+      <%= render "records/board/out" %>
+      <%= render "records/board/double" %>
+      <%= render "records/board/outer-single" %>
+      <%= render "records/board/triple" %>
+      <%= render "records/board/inner-single" %>
+      <%= render "records/board/bull" %>
+    <% end %>
+  </div>
+
+  <%= render "result", js_controller: "board-logic--hole" %>
+  
+  <%= render "modal-target-form" %>
+</div>
