@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2026_05_09_143404) do
+ActiveRecord::Schema[7.0].define(version: 2026_05_11_154529) do
   create_table "darts", force: :cascade do |t|
     t.integer "record_round_id"
     t.integer "game_round_id"
@@ -70,7 +70,6 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_09_143404) do
     t.integer "start_score"
     t.float "stats"
     t.integer "score"
-    t.float "range"
     t.integer "turn_number"
     t.boolean "finished", default: false, null: false
     t.integer "sample_number"
@@ -84,6 +83,7 @@ ActiveRecord::Schema[7.0].define(version: 2026_05_09_143404) do
     t.float "covariance"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "range"
     t.index ["user_id"], name: "index_games_on_user_id"
   end
 

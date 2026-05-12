@@ -2,14 +2,45 @@
   <div class="container-fluid">
     <%= link_to "DartsLog", root_path, class: "navbar-brand" %>
 
-    <div class="d-flex align-items-center">
-      <% if user_signed_in? %>
-        <div class="small text-muted">ログイン中：</div>
-        <div class="fw-semibold me-2"><%= current_user.name %></div>
-        <%= link_to "ログアウト", logout_path, data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" }, class: "btn btn-outline-danger" %>
-      <% else %>
-        <div class="me-3 text-muted small">ログインしていません</div>
+    <% if user_signed_in? %>
+      <div class="d-flex align-items-center ms-auto gap-3">
+
+      <%= link_to root_path, class: "d-flex align-items-center text-decoration-none bg-white text-dark border border-2 border-dark rounded-pill py-1 px-2" do %>
+        <div class="px-2 d-flex align-items-center">
+          <small class="text-muted me-2">Record</small>
+          <span class="fw-bold"><%= @today_records %></span>
+        </div>
+
+        <div class="vr mx-1 opacity-25"></div>
+
+        <div class="px-2 d-flex align-items-center">
+          <small class="text-muted me-2">Game</small>
+          <span class="fw-bold"><%= @today_games %></span>
+        </div>
       <% end %>
-    </div>
+
+        <div class="d-flex align-items-center">
+          <small class="text-muted me-1">ログイン中：</small>
+
+          <div class="fw-semibold me-3">
+            <%= current_user.name %>
+          </div>
+
+          <%= link_to "ログアウト",
+            logout_path,
+            data: {
+              turbo_method: :delete,
+              turbo_confirm: "ログアウトしますか？"
+            },
+            class: "btn btn-outline-danger btn-sm"
+          %>
+        </div>
+
+      </div>
+    <% else %>
+      <div class="ms-auto me-3 text-muted small">
+        ログインしていません
+      </div>
+    <% end %>
   </div>
 </nav>
