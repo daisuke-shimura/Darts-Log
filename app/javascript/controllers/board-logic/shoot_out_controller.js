@@ -182,6 +182,56 @@ export default class extends Controller {
     this.targetNameTarget.textContent = targetName;
   }
 
+  cancel() {
+    if (this.selected.length === 0) return;
+    const removed = this.selected.pop();
+    if (removed.score !== 0) {
+      this.segmentsStatus[removed.segment] = 0;
+    }
+    this.setTarget();
+    this.currentScore -= removed.score;
+    this.refreshView();
+    this.currentRate = this.reRate();
+    this.render();
+    this.updateButtons();
+  }
+
+  submit() {
+    console.log("submit clicked");
+    if (this.selected.length === 0) {
+      return;
+    }
+
+    fetch(`/games/${this.gameIdValue}/shoot_out`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify({
+        results: this.selected
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data.status === "ok") {
+        if (data.redirect_url) {
+          window.location.href = data.redirect_url;
+          return;
+        }
+        this.round++;
+        this.selected = [];
+        this.render();
+        this.updateButtons();
+        this.currentRoundRow();
+        this.showMessage("保存しました");
+      }
+    })
+    .catch(err => {
+      console.error(err)
+    });
+  }
+
   showMessage(message) {
     const toastEl = document.getElementById("liveToast")
     toastEl.querySelector(".toast-body").textContent = message
