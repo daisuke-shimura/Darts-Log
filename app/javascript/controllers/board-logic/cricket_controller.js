@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = [
     "output", "flash", "resultItem", "submitBtn", "cancelBtn", "targetInput",
-    "roundScore", "roundBox", "marksBox"
+    "targetName", "roundScore", "roundBox", "marksBox"
   ];
   static values = {
     gameId: Number
@@ -28,6 +28,7 @@ export default class extends Controller {
     this.updateButtons();
     this.currentRoundRow();
     this.segmentsStatus = JSON.parse(this.element.dataset.currentScore);
+    this.setTarget();
   }
 
   click(event) {
@@ -58,6 +59,7 @@ export default class extends Controller {
     this.render();
     this.updateButtons();
     this.rewriteCurrentMark(front_data.segment, front_data.multiplier);
+    this.setTarget();
     this.isClear();
   }
 
@@ -204,6 +206,7 @@ export default class extends Controller {
     this.revertCurrentMark();
     this.render();
     this.updateButtons();
+    this.setTarget();
     this.isClear();
   }
 
@@ -265,5 +268,25 @@ export default class extends Controller {
     } else {
       this.element.querySelector(".board").classList.remove("clear");
     }
+  }
+
+  setTarget() {
+    const targetSegment = this.constructor.CRICKET_SEGMENTS.find(segment => {
+      return this.segmentsStatus[segment] < 3;
+    });
+
+    let targetValue = "";
+    let targetName = "";
+
+    if ([20, 19, 18, 17, 16, 15].includes(targetSegment)) {
+      targetValue = `t${targetSegment}`;
+      targetName = `TRIPLE ${targetSegment}`;
+    } else {
+      targetValue = "bull";
+      targetName = "BULL";
+    }
+  
+    this.targetInputTarget.value = targetValue;
+    this.targetNameTarget.textContent = targetName;
   }
 }
