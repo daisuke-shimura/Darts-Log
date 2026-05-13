@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = [
     "output", "flash", "resultItem", "submitBtn", "cancelBtn", "targetInput",
-    "scoreBox", "roundScore", "roundBox"
+    "targetName", "scoreBox", "roundScore", "roundBox"
   ];
   static values = {
     gameId: Number
@@ -25,6 +25,7 @@ export default class extends Controller {
     this.round_marks = 0;
     this.updateButtons();
     this.currentRoundRow();
+    this.setTarget();
   }
 
   click(event) {
@@ -205,6 +206,7 @@ export default class extends Controller {
         this.render();
         this.updateButtons();
         this.currentRoundRow();
+        this.setTarget();
         this.showMessage("保存しました");
       }
     })
@@ -223,6 +225,26 @@ export default class extends Controller {
     this.updateButtons();
   }
 
+  setTarget() {
+    let targetValue = "";
+    let targetName = "";
+    if (this.round >= 1 && this.round <= 6) {
+      targetValue = `t${this.constructor.CRICKET_SEGMENTS[this.round - 1]}`;
+      targetName = `TRIPLE ${this.constructor.CRICKET_SEGMENTS[this.round - 1]}`;
+    } else if (this.round === 7) {
+      targetValue = "bull";
+      targetName = `BULL`;
+    } else if (this.round === 8) {
+      targetValue = "t20";
+      targetName = `TRIPLE 20`;
+    } else {
+      targetValue = "bull";
+      targetName = `BULL`;
+    }
+
+    this.targetInputTarget.value = targetValue;
+    this.targetNameTarget.textContent = targetName;
+  }
 
   showMessage(message) {
     const toastEl = document.getElementById("liveToast")

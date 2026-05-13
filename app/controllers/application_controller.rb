@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   private
   def set_today_data
     return unless user_signed_in?
+    @all_records   = current_user.record_rounds.count
+    @all_games     = current_user.games.count
     @today_records = current_user.record_rounds.where(created_at: Time.current.all_day).count
     @today_games   = current_user.games.where(created_at: Time.current.all_day).count
   end

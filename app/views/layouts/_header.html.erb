@@ -5,17 +5,27 @@
     <% if user_signed_in? %>
       <div class="d-flex align-items-center ms-auto gap-3">
 
-      <%= link_to root_path, class: "d-flex align-items-center text-decoration-none bg-white text-dark border border-2 border-dark rounded-pill py-1 px-2" do %>
-        <div class="px-2 d-flex align-items-center">
-          <small class="text-muted me-2">Record</small>
-          <span class="fw-bold"><%= @today_records %></span>
+      <%= link_to root_path, class: "d-inline-flex align-items-center text-decoration-none bg-white text-dark border border-2 border-dark rounded-pill px-3 py-2 shadow-sm" do %>
+        <div class="d-flex align-items-center">
+          <span class="badge bg-secondary me-2">ALL</span>
+
+          <small class="text-muted me-1">Record</small>
+          <span class="fw-bold fs-6 me-3"><%= @all_records %></span>
+
+          <small class="text-muted me-1">Game</small>
+          <span class="fw-bold fs-6"><%= @all_games %></span>
         </div>
 
-        <div class="vr mx-1 opacity-25"></div>
+        <div class="vr mx-3 opacity-25"></div>
 
-        <div class="px-2 d-flex align-items-center">
-          <small class="text-muted me-2">Game</small>
-          <span class="fw-bold"><%= @today_games %></span>
+        <div class="d-flex align-items-center">
+          <span class="badge bg-secondary me-2">TODAY</span>
+
+          <small class="text-muted me-1">Record</small>
+          <span class="fw-bold fs-6 me-3"><%= @today_records %></span>
+
+          <small class="text-muted me-1">Game</small>
+          <span class="fw-bold fs-6"><%= @today_games %></span>
         </div>
       <% end %>
 
