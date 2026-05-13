@@ -1,0 +1,2 @@
+module Games::ShootOutsHelper
+end
