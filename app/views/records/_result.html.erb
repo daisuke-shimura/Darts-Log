@@ -3,7 +3,7 @@
     <button class="target-display" data-bs-toggle="modal" data-bs-target="#targetModal">
       <input type="hidden" value="<%= @default_target %>" data-<%= js_controller %>-target="targetInput">
       <div class="target-label">TARGET</div>
-      <div class="target-name" data-target-target="name"><%= @default_target_name %></div>
+      <div class="target-name" data-target-target="name" data-<%= js_controller %>-target="targetName"><%= @default_target_name %></div>
     </button>
 
     <ul class="result-list">
