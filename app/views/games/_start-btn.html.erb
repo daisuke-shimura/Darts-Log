@@ -1,0 +1,168 @@
+<%
+  themes = {
+    "primary" => {
+      main: "#0d6efd",
+      sub: "#6ea8fe",
+      top:  "#1e40af"
+    },
+    "success" => {
+      main: "#198754",
+      sub: "#75b798",
+      top:  "#14532d"
+    },
+    "warning" => {
+      main: "#ffc107",
+      sub: "#ffda6a",
+      top:  "#78350f"
+    },
+    "info" => {
+      main: "#0dcaf0",
+      sub: "#6edff6",
+      top:  "#164e63"
+    },
+    "dark" => {
+      main: "#212529",
+      sub: "#6c757d",
+      top: "#52525b"
+    }
+  }
+
+  colors = themes[theme] || themes["primary"]
+%>
+
+<div
+  class="d-flex flex-column justify-content-center align-items-center position-relative overflow-hidden"
+  style="
+    min-height: 100vh;
+
+background:
+  linear-gradient(
+    to bottom,
+    <%= colors[:top] %> 0%,
+    #0f172a 30%,
+    #020617 70%,
+    #000000 100%
+  );
+
+    padding: 2rem;
+  "
+>
+
+  <div
+    class="position-absolute top-0 start-0 w-100"
+    style="
+      height: 6px;
+
+      background:
+        linear-gradient(
+          90deg,
+          <%= colors[:sub] %>,
+          <%= colors[:main] %>,
+          <%= colors[:sub] %>
+        );
+
+      box-shadow:
+        0 0 20px <%= colors[:main] %>;
+    "
+  ></div>
+
+  <h1
+    class="fw-bold text-white text-center mb-5"
+    style="
+      font-size: clamp(3rem, 10vw, 6rem);
+      letter-spacing: .2em;
+
+      text-shadow:
+        0 0 10px <%= colors[:sub] %>,
+        0 0 30px <%= colors[:main] %>,
+        0 0 60px <%= colors[:main] %>;
+    "
+  >
+    <%= title %>
+  </h1>
+
+  <%= button_to "START",
+        games_path,
+        method: :post,
+        params: { kind: kind },
+        class: "
+          btn
+          rounded-pill
+          fw-bold
+          border-0
+          px-5
+          start-button
+        ",
+        style: "
+          --main-color: #{colors[:main]};
+          --sub-color: #{colors[:sub]};
+        " %>
+
+</div>
+
+<style>
+  .start-button {
+    height: 72px;
+    min-width: 260px;
+
+    font-size: 1.4rem;
+    letter-spacing: .25em;
+    color: white;
+
+    background:
+      linear-gradient(
+        135deg,
+        var(--main-color),
+        var(--sub-color)
+      );
+
+    box-shadow:
+      0 0 20px color-mix(in srgb, var(--main-color) 60%, transparent),
+      0 0 40px color-mix(in srgb, var(--main-color) 35%, transparent),
+      inset 0 1px 1px rgba(255,255,255,.3);
+
+    transition:
+      transform .15s ease,
+      box-shadow .15s ease;
+
+    position: relative;
+    overflow: hidden;
+  }
+
+  .start-button:hover {
+    color: white;
+
+    transform: scale(1.05);
+
+    box-shadow:
+      0 0 30px color-mix(in srgb, var(--main-color) 90%, transparent),
+      0 0 60px color-mix(in srgb, var(--main-color) 60%, transparent),
+      inset 0 1px 1px rgba(255,255,255,.4);
+  }
+
+  .start-button:active {
+    transform: scale(.98);
+  }
+
+  .start-button::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+      linear-gradient(
+        120deg,
+        transparent 20%,
+        rgba(255,255,255,.25) 50%,
+        transparent 80%
+      );
+
+    transform: translateX(-120%);
+    transition: transform .4s ease;
+  }
+
+  .start-button:hover::before {
+    transform: translateX(120%);
+  }
+</style>

@@ -1,8 +1,2 @@
-<h1>Games::ShootOuts#new</h1>
-<p>CENTER COUNT-UP Game Start</p>
+<%= render "games/start-btn", title: "SHOOT OUT", kind: "shoot_out", theme: "dark" %>
 
-<%= button_to "START",
-      games_path,
-      method: :post,
-      params: { kind: "shoot_out" },
-      class: "btn btn-primary" %>

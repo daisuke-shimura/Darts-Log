@@ -1,9 +1,1 @@
-<h1>Games::CenterCountUps#new</h1>
-<p>CENTER COUNT-UP Game Start</p>
-
-<%= button_to "START",
-      games_path,
-      method: :post,
-      params: { kind: "center_count_up" },
-      class: "btn btn-primary" %>
-
+<%= render "games/start-btn", title: "CENTER COUNT-UP", kind: "center_count_up", theme: "warning" %>

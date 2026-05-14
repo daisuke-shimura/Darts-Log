@@ -1,8 +1,1 @@
-<p>crikets#new</p>
-<p>クリケット Game Start</p>
-
-<%= button_to "START",
-      games_path,
-      method: :post,
-      params: { kind: "cricket" },
-      class: "btn btn-primary" %>
+<%= render "games/start-btn", title: "CRICKET", kind: "cricket", theme: "primary" %>

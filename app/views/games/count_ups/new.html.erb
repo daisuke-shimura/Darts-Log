@@ -1,8 +1,1 @@
-<h1>Games::CountUps#new</h1>
-<p>COUNT-UP Game Start</p>
-
-<%= button_to "START",
-      games_path,
-      method: :post,
-      params: { kind: "count_up" },
-      class: "btn btn-primary" %>
+<%= render "games/start-btn", title: "COUNT-UP", kind: "count_up", theme: "success" %>
