@@ -247,6 +247,21 @@
   border-color:#000F3A;
 }
 
+.closed-number {
+  position: relative;
+  display: inline-block;
+}
+.closed-number::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 80%;
+  height: 1.5px;
+  background: white;
+  transform: translate(-50%, -50%) rotate(-10deg);
+}
+
 .board {
   position: relative;
   width: 90%; 

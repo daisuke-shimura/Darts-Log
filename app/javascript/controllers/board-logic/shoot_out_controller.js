@@ -101,15 +101,28 @@ export default class extends Controller {
 
   refreshView() {
     this.scoreBoxTarget.textContent = this.currentScore;
-    const el = this.roundScoreTargets[this.round - 1];
+    const roundEl = this.roundScoreTargets[this.round - 1];
     const sumScore = this.sumRoundScore();
-    el.classList.remove("text-danger", "text-warning");
-    el.textContent = sumScore;
+    roundEl.classList.remove("text-danger", "text-warning");
+    roundEl.textContent = sumScore;
     if (sumScore >= 151) {
-      el.classList.add("text-warning");
+      roundEl.classList.add("text-warning");
     } else if (sumScore >= 100) {
-      el.classList.add("text-danger");
+      roundEl.classList.add("text-danger");
     }
+
+    Object.keys(this.segmentsStatus).forEach(segment => {
+      const closeEl = this.element.querySelector(
+        `[data-segment="${segment}"]`
+      );
+      if (!closeEl) return;
+  
+      if (this.segmentsStatus[segment] !== 0) {
+        closeEl.classList.add("closed-number");
+      } else {
+        closeEl.classList.remove("closed-number");
+      }
+    });
   }
 
   sumRoundScore() {

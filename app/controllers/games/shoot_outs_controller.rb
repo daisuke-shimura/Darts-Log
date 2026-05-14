@@ -22,6 +22,15 @@ class Games::ShootOutsController < ApplicationController
         end
       end
     end
+    @closed_segments = [
+      [15, 8, 1],
+      [16, 9, 2],
+      [17, 10, 3],
+      [18, 11, 4],
+      [19, 12, 5],
+      [20, 13, 6],
+      [50, 14, 7]
+    ]
   end
 
   def create
