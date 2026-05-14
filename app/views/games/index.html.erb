@@ -1,10 +1,75 @@
-<h1>Games#index</h1>
-<p>Find me in app/views/games/index.html.erb</p>
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h1 class="fw-bold">GAME SELECT</h1>
+  </div>
 
-<p>ゲーム選択</p>
-<%= link_to "01", new_games_zero_one_path %>
-<%= link_to "クリケット", new_games_cricket_path %>
-<%= link_to "COUNT-UP", new_games_count_up_path %>
-<%= link_to "CENTER COUNT-UP", new_games_center_count_up_path %>
-<%= link_to "CRICKET COUNT-UP", new_games_cricket_count_up_path %>
-<%= link_to "SHOOT OUT", new_games_shoot_out_path %>
+  <div class="row g-4">
+
+    <div class="col-12 col-md-6 col-xl-4">
+      <div class="ratio ratio-16x9">
+        <%= link_to new_games_zero_one_path,
+          class: "card text-decoration-none text-danger shadow-sm h-100 rounded-4 border border-3 border-danger" do %>
+          <div class="card-body p-4 d-flex align-items-center justify-content-center">
+            <h2 class="fw-bold mb-0">01</h2>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-xl-4">
+      <div class="ratio ratio-16x9">
+        <%= link_to new_games_cricket_path,
+          class: "card text-decoration-none text-primary shadow-sm h-100 rounded-4 border border-3 border-primary" do %>
+          <div class="card-body p-4 d-flex align-items-center justify-content-center">
+            <h2 class="fw-bold mb-0">CRICKET</h2>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-xl-4">
+      <div class="ratio ratio-16x9">
+        <%= link_to new_games_count_up_path,
+          class: "card text-decoration-none text-success shadow-sm h-100 rounded-4 border border-3 border-success" do %>
+          <div class="card-body p-4 d-flex align-items-center justify-content-center">
+            <h2 class="fw-bold mb-0">COUNT-UP</h2>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-xl-4">
+      <div class="ratio ratio-16x9">
+        <%= link_to new_games_center_count_up_path,
+          class: "card text-decoration-none text-warning shadow-sm h-100 rounded-4 border border-3 border-warning" do %>
+          <div class="card-body p-4 d-flex align-items-center justify-content-center">
+            <h2 class="fw-bold mb-0 text-center">CENTER COUNT-UP</h2>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-xl-4">
+      <div class="ratio ratio-16x9">
+        <%= link_to new_games_cricket_count_up_path,
+          class: "card text-decoration-none text-info shadow-sm h-100 rounded-4 border border-3 border-info" do %>
+          <div class="card-body p-4 d-flex align-items-center justify-content-center">
+            <h2 class="fw-bold mb-0 text-center">CRICKET COUNT-UP</h2>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-6 col-xl-4">
+      <div class="ratio ratio-16x9">
+        <%= link_to new_games_shoot_out_path,
+          class: "card text-decoration-none text-dark shadow-sm h-100 rounded-4 border border-3 border-dark" do %>
+          <div class="card-body p-4 d-flex align-items-center justify-content-center">
+            <h2 class="fw-bold mb-0">SHOOT OUT</h2>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
