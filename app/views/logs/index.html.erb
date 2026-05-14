@@ -1,5 +1,25 @@
-<h1>Logs#index</h1>
-<%= @darts_data.count %><br>
-<% @darts_data.each do |dart| %>
-  <%= dart.inspect %><br>
-<% end %>
+<div class="flex flex-col items-center p-4">
+  <h2 class="text-xl font-bold mb-4">スロー分布（ヒートマップ）</h2>
+
+  <!-- wrapperのサイズを 500px に固定 -->
+  <div id="heatmap-wrapper" 
+       class="relative border border-gray-300 rounded-lg bg-white overflow-hidden"
+       style="width: 500px; height: 500px;" 
+       data-controller="heatmap"
+       data-heatmap-points-value="<%= @heatmap_data.to_json %>">
+    
+    <!-- 背景のボード (z-index: 1) -->
+    <svg class="absolute inset-0 w-full h-full text-gray-800" 
+         viewBox="0 0 1000 1000" 
+         style="z-index: 1; pointer-events: none;">
+      <use href="#icon-dartboard"></use>
+    </svg>
+
+    <!-- ヒートマップ層 (z-index: 10) -->
+    <div id="heatmap-container" 
+         class="absolute inset-0 w-full h-full" 
+         data-heatmap-target="canvas"
+         style="z-index: 10; pointer-events: none;">
+    </div>
+  </div>
+</div>
