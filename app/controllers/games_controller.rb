@@ -19,6 +19,8 @@ class GamesController < ApplicationController
       redirect_to game_center_count_up_path(game.id)
     elsif game.kind == "cricket_count_up"
       redirect_to game_cricket_count_up_path(game.id)
+    elsif game.kind == "shoot_out"
+      redirect_to game_shoot_out_path(game.id)
     end
   end
 end

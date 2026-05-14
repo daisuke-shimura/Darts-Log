@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     post :center_count_up, to: 'games/center_count_ups#create'
     get  :cricket_count_up, to: 'games/cricket_count_ups#show'
     post :cricket_count_up, to: 'games/cricket_count_ups#create'
+    get  :shoot_out, to: 'games/shoot_outs#show'
+    post :shoot_out, to: 'games/shoot_outs#create'
   end
   namespace :games do
     resources :zero_ones, only: [:new]
@@ -23,6 +25,7 @@ Rails.application.routes.draw do
     resources :count_ups, only: [:new]
     resources :center_count_ups, only: [:new]
     resources :cricket_count_ups, only: [:new]
+    resources :shoot_outs, only: [:new]
   end
 
   post 'login', to: 'sessions#create'
