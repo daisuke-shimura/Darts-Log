@@ -1,25 +1,23 @@
-<div class="flex flex-col items-center p-4">
-  <h2 class="text-xl font-bold mb-4">スロー分布（ヒートマップ）</h2>
+<%# app/views/darts/show.html.erb %>
 
-  <!-- wrapperのサイズを 500px に固定 -->
-  <div id="heatmap-wrapper" 
-       class="relative border border-gray-300 rounded-lg bg-white overflow-hidden"
-       style="width: 500px; height: 500px;" 
-       data-controller="heatmap"
-       data-heatmap-points-value="<%= @heatmap_data.to_json %>">
+<div class="darts-container" style="width: 100%; max-width: 500px; margin: auto;">
+  <svg viewBox="-250 -250 500 500" xmlns="http://www.w3.org/2000/svg">
     
-    <!-- 背景のボード (z-index: 1) -->
-    <svg class="absolute inset-0 w-full h-full text-gray-800" 
-         viewBox="0 0 1000 1000" 
-         style="z-index: 1; pointer-events: none;">
-      <use href="#icon-dartboard"></use>
-    </svg>
+    <!-- 1. 背景：ダーツボードのSVG（後ろで配置） -->
+    <use href="#icon-dartboard" x="-250" y="-250" width="500" height="500" />
 
-    <!-- ヒートマップ層 (z-index: 10) -->
-    <div id="heatmap-container" 
-         class="absolute inset-0 w-full h-full" 
-         data-heatmap-target="canvas"
-         style="z-index: 10; pointer-events: none;">
-    </div>
-  </div>
+    <!-- 2. プロット点：Railsのデータからループで生成 -->
+    <g id="points-layer">
+      <% @darts_data.each do |throw| %>
+        <circle 
+          cx="<%= throw.x %>" 
+          cy="<%= throw.y %>" 
+          r="1.5" 
+          fill="red" 
+          fill-opacity="0.25" <%# かなり薄くするのがコツ %>
+        />
+      <% end %>
+    </g>
+    
+  </svg>
 </div>

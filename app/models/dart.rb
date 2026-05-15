@@ -28,4 +28,16 @@ class Dart < ApplicationRecord
       errors.add(:base, "どちらか一方にしてください")
     end
   end
+
+  def r
+    self.absolute_r / 2.0
+  end
+
+  def x
+    (self.r * Math.cos(self.absolute_0 * Math::PI / 180)).round(2)
+  end
+
+  def y
+    (self.r * Math.sin(self.absolute_0 * Math::PI / 180)).round(2)
+  end
 end
