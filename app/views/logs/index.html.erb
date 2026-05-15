@@ -1,12 +1,8 @@
-<%# app/views/darts/show.html.erb %>
-
 <div class="darts-container" style="width: 100%; max-width: 500px; margin: auto;">
   <svg viewBox="-250 -250 500 500" xmlns="http://www.w3.org/2000/svg">
-    
-    <!-- 1. 背景：ダーツボードのSVG（後ろで配置） -->
+
     <use href="#icon-dartboard" x="-250" y="-250" width="500" height="500" />
 
-    <!-- 2. プロット点：Railsのデータからループで生成 -->
     <g id="points-layer">
       <% @darts_data.each do |throw| %>
         <circle 
@@ -14,7 +10,7 @@
           cy="<%= throw.y %>" 
           r="1.5" 
           fill="red" 
-          fill-opacity="0.25" <%# かなり薄くするのがコツ %>
+          fill-opacity="0.2"
         />
       <% end %>
     </g>
