@@ -4,6 +4,13 @@ class LogsController < ApplicationController
     @Record_join = Dart.all.joins(:record_round)
     @Game_darts = Dart.where.not(game_round_id: nil)
     @Game_all = Dart.all
+    @target_groups = []
+    colors = [
+      "blue",
+      "green",
+      "orange",
+      "purple"
+    ]
 
     game_data = Dart.none
     record_data = Dart.none
@@ -28,6 +35,20 @@ class LogsController < ApplicationController
       @darts_data = game_data.to_a | record_data.to_a
     else
       @darts_data = game_data.presence || record_data
+    end
+
+    if params[:targets].present?
+      #@darts_data = @darts_data.where(target: params[:targets])
+      params[:targets]&.each_with_index do |target, index|
+
+        darts = Dart.where(target: target)
+      
+        @target_groups << {
+          target: target,
+          color: colors[index % colors.length],
+          darts: darts
+        }
+      end
     end
   end
 end
