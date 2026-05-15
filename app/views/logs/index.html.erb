@@ -1,9 +1,47 @@
+<%= form_with url: logs_path,
+              method: :get,
+              local: true do %>
+
+  <div class="d-flex gap-3">
+    <%= check_box_tag("kinds[]", "zero_one", params[:kinds]&.include?("zero_one"), class: "btn-check", id: "kind_zero_one") %>
+    <%= label_tag("kind_zero_one", "01", class: "btn btn-outline-danger") %>
+
+    <%= check_box_tag("kinds[]", "cricket", params[:kinds]&.include?("cricket"), class: "btn-check", id: "kind_cricket") %>
+    <%= label_tag("kind_cricket", "CRICKET", class: "btn btn-outline-primary") %>
+
+    <%= check_box_tag("kinds[]", "count_up", params[:kinds]&.include?("count_up"), class: "btn-check", id: "kind_count_up") %>
+    <%= label_tag("kind_count_up", "COUNT-UP", class: "btn btn-outline-success") %>
+
+    <%= check_box_tag("kinds[]", "center_count_up", params[:kinds]&.include?("center_count_up"), class: "btn-check", id: "kind_center_count_up") %>
+    <%= label_tag("kind_center_count_up", "CENTER COUNT-UP", class: "btn btn-outline-warning") %>
+
+    <%= check_box_tag("kinds[]", "cricket_count_up", params[:kinds]&.include?("cricket_count_up"), class: "btn-check", id: "kind_cricket_count_up") %>
+    <%= label_tag("kind_cricket_count_up", "CRICKET COUNT-UP", class: "btn btn-outline-info") %>
+
+    <%= check_box_tag("kinds[]", "shoot_out", params[:kinds]&.include?("shoot_out"), class: "btn-check", id: "kind_shoot_out") %>
+    <%= label_tag("kind_shoot_out", "SHOOT OUT", class: "btn btn-outline-dark") %>
+  </div>
+  <div>
+    <%= check_box_tag(:record, "1", params[:record] == "1", class: "btn-check", id: "kind_record") %>
+    <%= label_tag(:kind_record, "record", class: "btn btn-outline-secondary") %>
+  </div>
+  <%= submit_tag "Filter", class: "btn btn-primary mt-3" %>
+  <%= link_to "Reset",
+  logs_path,
+  class: "btn btn-outline-secondary" %>
+<% end %>
+
+検索：<%= @darts_data.count %><br>
+データの総計：<%= @Game_all.count %><br>
+Record：<%= @Record_darts.count %>　　　Record.join<%= @Record_join.count %><br>
+Game：<%= @Game_darts.count %>
+
 <div class="darts-container" style="width: 100%; max-width: 500px; margin: auto;">
   <svg viewBox="-250 -250 500 500" xmlns="http://www.w3.org/2000/svg">
 
     <use href="#icon-dartboard" x="-250" y="-250" width="500" height="500" />
 
-    <g id="points-layer">
+    <g id="points-layer" transform="scale(1,-1)">
       <% @darts_data.each do |throw| %>
         <circle 
           cx="<%= throw.x %>" 
