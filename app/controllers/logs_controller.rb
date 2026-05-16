@@ -41,11 +41,12 @@ class LogsController < ApplicationController
       #@darts_data = @darts_data.where(target: params[:targets])
       params[:targets]&.each_with_index do |target, index|
 
+        color = params[:colors][index].presence || "red"
         darts = Dart.where(target: target)
       
         @target_groups << {
           target: target,
-          color: colors[index % colors.length],
+          color: color,
           darts: darts
         }
       end

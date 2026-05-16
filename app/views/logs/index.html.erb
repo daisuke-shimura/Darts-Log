@@ -27,8 +27,13 @@
     <%= label_tag(:kind_record, "record", class: "btn btn-outline-secondary") %>
   </div>
 
-  <div data-controller="filter">
-    <div class="d-flex gap-2">
+  <div
+    data-controller="filter"
+    data-filter-targets-value='<%= (params[:targets] || []).to_json %>'
+    data-filter-colors-value='<%= (params[:colors] || []).to_json %>'
+  >
+    <div class="d-flex gap-2 align-items-center">
+
       <select class="form-select w-auto" data-filter-target="select">
         <% target_sort.each do |target| %>
           <option value="<%= target %>">
@@ -37,26 +42,30 @@
         <% end %>
       </select>
 
-      <button type="button" class="btn btn-primary" data-action="click->filter#addTarget">
+      <input
+        type="color"
+        value="#ff0000"
+        class="form-control form-control-color"
+        data-filter-target="color"
+      >
+
+      <button
+        type="button"
+        class="btn btn-primary"
+        data-action="click->filter#addTarget"
+      >
         Add
       </button>
+
     </div>
 
     <div class="d-flex gap-2 flex-wrap mt-3" data-filter-target="tags"></div>
     <div data-filter-target="hiddenInputs"></div>
   </div>
 
-  <%= submit_tag "Filter", class: "btn btn-primary mt-3" %>
-  <%= link_to "Reset",
-  logs_path,
-  class: "btn btn-secondary" %>
+  <%= submit_tag "絞り込み", class: "btn btn-primary" %>
+  <%= link_to "リセット", logs_path, class: "btn btn-light border text-secondary" %>
 <% end %>
-
-
-検索：<%= @darts_data.count %><br>
-データの総計：<%= @Game_all.count %><br>
-Record：<%= @Record_darts.count %>　　　Record.join<%= @Record_join.count %><br>
-Game：<%= @Game_darts.count %>
 
 <div class="darts-container" style="width: 100%; max-width: 500px; margin: auto;">
   <svg viewBox="-250 -250 500 500" xmlns="http://www.w3.org/2000/svg">
