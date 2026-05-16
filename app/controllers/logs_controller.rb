@@ -40,11 +40,10 @@ class LogsController < ApplicationController
     end
 
     if params[:targets].present?
-      #@darts_data = @darts_data.where(target: params[:targets])
       params[:targets]&.each_with_index do |target, index|
 
         color = params[:colors][index].presence || "red"
-        darts = Dart.where(target: target)
+        darts = @darts_data.where(target: target)
       
         @target_groups << {
           target: target,
