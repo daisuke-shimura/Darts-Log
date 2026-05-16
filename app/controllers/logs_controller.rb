@@ -1,16 +1,6 @@
 class LogsController < ApplicationController
   def index
-    @Record_darts = Dart.where.not(record_round_id: nil)
-    @Record_join = Dart.all.joins(:record_round)
-    @Game_darts = Dart.where.not(game_round_id: nil)
-    @Game_all = Dart.all
     @target_groups = []
-    colors = [
-      "blue",
-      "green",
-      "orange",
-      "purple"
-    ]
 
     game_data = Dart.none
     record_data = Dart.none
