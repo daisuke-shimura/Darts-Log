@@ -34,6 +34,21 @@
     </div>
   </div>
 
+  <div class="position-absolute top-0 start-0 mt-3 ms-3">
+    <p>ダーツの総計：<%= @darts_all.count %></p>
+    <p>検索結果<%= @darts_data.count %>　ターゲット絞り<%= @target_groups.sum { |group| group[:darts].count } || nil %></p>
+    <hr>
+    <h5>ターゲット</h5>
+    <p>BULL：<%= @target_bull.count %>　20：<%= @target_20.count %></p>
+    <h5>テーブル別</h5>
+    <p>ROUND：<%= @round_darts.count %>　GAME：<%= @game_darts.count %></p>
+    <h5>ゲーム別</h5>
+    <p>01：<%= @zero_one_darts.count %>　CRICKET：<%= @cricket_darts.count %>　COUNT-UP：<%= @count_up_darts.count %></p>
+    <p>CENTER COUNT-UP：<%= @center_count_up_darts.count %></p>
+    <p>CRICKET COUNT-UP：<%= @cricket_count_up_darts.count %></p>
+    <p>SHOOT OUT：<%= @shoot_out_darts.count %></p>
+  </div>
+
   <div class="position-absolute top-0 end-0 mt-3 me-3">
     <%= form_with url: logs_path,
                   method: :get,

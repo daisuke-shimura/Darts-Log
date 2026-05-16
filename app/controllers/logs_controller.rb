@@ -1,5 +1,17 @@
 class LogsController < ApplicationController
   def index
+    @darts_all = Dart.all
+    @target_bull = @darts_all.where(target: "bull")
+    @target_20 = @darts_all.where(target: "20")
+    @round_darts = @darts_all.where.not(game_round_id: nil)
+    @game_darts = @darts_all.joins(game_round: :game)
+    @zero_one_darts = @game_darts.where(games: { kind: "zero_one" })
+    @cricket_darts = @game_darts.where(games: { kind: "cricket" })
+    @count_up_darts = @game_darts.where(games: { kind: "count_up" })
+    @center_count_up_darts = @game_darts.where(games: { kind: "center_count_up" })
+    @cricket_count_up_darts = @game_darts.where(games: { kind: "cricket_count_up" })
+    @shoot_out_darts = @game_darts.where(games: { kind: "shoot_out" })
+
     @target_groups = []
 
     game_data = Dart.none
