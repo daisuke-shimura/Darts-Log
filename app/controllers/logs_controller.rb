@@ -2,7 +2,7 @@ class LogsController < ApplicationController
   def index
     @darts_all = Dart.all
     @target_bull = @darts_all.where(target: "bull")
-    @target_20 = @darts_all.where(target: "20")
+    @target_20 = @darts_all.where(target: "t20")
     @round_darts = @darts_all.where.not(game_round_id: nil)
     @game_darts = @darts_all.joins(game_round: :game)
     @zero_one_darts = @game_darts.where(games: { kind: "zero_one" })
