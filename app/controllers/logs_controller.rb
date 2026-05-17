@@ -13,6 +13,35 @@ class LogsController < ApplicationController
     @shoot_out_darts = @game_darts.where(games: { kind: "shoot_out" })
 
     @target_groups = []
+    @game_labels = {
+      "zero_one" => {
+        label: "01",
+        color: "danger"
+      },
+      "cricket" => {
+        label: "CRICKET",
+        color: "primary"
+      },
+      "count_up" => {
+        label: "COUNT-UP",
+        color: "success"
+      },
+      "center_count_up" => {
+        label: "CENTER COUNT-UP",
+        color: "warning"
+      },
+      "cricket_count_up" => {
+        label: "CRICKET COUNT-UP",
+        color: "info"
+      },
+      "shoot_out" => {
+        label: "SHOOT OUT",
+        color: "dark"
+      }
+    }
+    @selected_kinds = @game_labels.select do |key, _|
+      params[:kinds]&.include?(key)
+    end
 
     game_data = Dart.none
     record_data = Dart.none
@@ -34,7 +63,9 @@ class LogsController < ApplicationController
     if params[:kinds].blank? && params[:record].blank?
       @darts_data = Dart.all
     elsif params[:kinds].present? && params[:record] == "1"
-      @darts_data = game_data.to_a | record_data.to_a
+      #@darts_data = game_data.to_a | record_data.to_a
+      id = game_data.ids | record_data.ids
+      @darts_data = Dart.where(id: id)
     else
       @darts_data = game_data.presence || record_data
     end

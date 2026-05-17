@@ -54,46 +54,74 @@
     <p>SHOOT OUT：<%= @shoot_out_darts.count %></p>
   </div>
 
-  <div class="position-absolute top-0 end-0 mt-3 me-3">
+  <div class="position-absolute top-0 end-0 mt-3 me-3 w-25">
     <%= form_with url: logs_path,
                   method: :get,
                   local: true do %>
       
       <div>
         <%= check_box_tag(:record, "1", params[:record] == "1", class: "btn-check", id: "kind_record") %>
-        <%= label_tag(:kind_record, "record", class: "btn btn-outline-secondary") %>
+        <%= label_tag(:kind_record, "record", class: "btn btn-outline-secondary btn-sm") %>
       </div>
 
-      <div class="accordion" id="gameAccordion">
-        <div class="accordion-item">
-          <h2 class="accordion-header" id="headingGame">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseGame" aria-expanded="false" aria-controls="collapseGame">
-              ▼ Game
-            </button>
-          </h2>
-          <div id="collapseGame" class="accordion-collapse collapse" aria-labelledby="headingGame" data-bs-parent="#gameAccordion">
-            <div class="accordion-body d-flex gap-3">
-              <%= check_box_tag("kinds[]", "zero_one", params[:kinds]&.include?("zero_one"), class: "btn-check", id: "kind_zero_one") %>
-              <%= label_tag("kind_zero_one", "01", class: "btn btn-outline-danger") %>
+    <div class="accordion w-100" id="gameAccordion">
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingGame">
+          <button
+            class="accordion-button collapsed"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#collapseGame"
+            aria-expanded="false"
+            aria-controls="collapseGame"
+          >
+            <div class="d-flex align-items-center gap-2 flex-wrap w-100">
+              <span class="text-nowrap">▼ Game</span>
 
-              <%= check_box_tag("kinds[]", "cricket", params[:kinds]&.include?("cricket"), class: "btn-check", id: "kind_cricket") %>
-              <%= label_tag("kind_cricket", "CRICKET", class: "btn btn-outline-primary") %>
-
-              <%= check_box_tag("kinds[]", "count_up", params[:kinds]&.include?("count_up"), class: "btn-check", id: "kind_count_up") %>
-              <%= label_tag("kind_count_up", "COUNT-UP", class: "btn btn-outline-success") %>
-
-              <%= check_box_tag("kinds[]", "center_count_up", params[:kinds]&.include?("center_count_up"), class: "btn-check", id: "kind_center_count_up") %>
-              <%= label_tag("kind_center_count_up", "CENTER COUNT-UP", class: "btn btn-outline-warning") %>
-
-              <%= check_box_tag("kinds[]", "cricket_count_up", params[:kinds]&.include?("cricket_count_up"), class: "btn-check", id: "kind_cricket_count_up") %>
-              <%= label_tag("kind_cricket_count_up", "CRICKET COUNT-UP", class: "btn btn-outline-info") %>
-
-              <%= check_box_tag("kinds[]", "shoot_out", params[:kinds]&.include?("shoot_out"), class: "btn-check", id: "kind_shoot_out") %>
-              <%= label_tag("kind_shoot_out", "SHOOT OUT", class: "btn btn-outline-dark") %>
+              <% if @selected_kinds.present? %>
+                <div class="d-flex gap-1 flex-wrap">
+                  <% @selected_kinds.each_value do |game| %>
+                    <span class="badge rounded-pill text-bg-<%= game[:color] %>">
+                      <%= game[:label] %>
+                    </span>
+                  <% end %>
+                </div>
+              <% end %>
             </div>
+          </button>
+        </h2>
+
+        <div
+          id="collapseGame"
+          class="accordion-collapse collapse"
+          aria-labelledby="headingGame"
+          data-bs-parent="#gameAccordion"
+        >
+
+          <div class="accordion-body d-flex gap-2 flex-wrap w-100">
+
+            <%= check_box_tag("kinds[]", "zero_one", params[:kinds]&.include?("zero_one"), class: "btn-check", id: "kind_zero_one") %>
+            <%= label_tag("kind_zero_one", "01", class: "btn btn-outline-danger btn-sm") %>
+
+            <%= check_box_tag("kinds[]", "cricket", params[:kinds]&.include?("cricket"), class: "btn-check", id: "kind_cricket") %>
+            <%= label_tag("kind_cricket", "CRICKET", class: "btn btn-outline-primary btn-sm") %>
+
+            <%= check_box_tag("kinds[]", "count_up", params[:kinds]&.include?("count_up"), class: "btn-check", id: "kind_count_up") %>
+            <%= label_tag("kind_count_up", "COUNT-UP", class: "btn btn-outline-success btn-sm") %>
+
+            <%= check_box_tag("kinds[]", "center_count_up", params[:kinds]&.include?("center_count_up"), class: "btn-check", id: "kind_center_count_up") %>
+            <%= label_tag("kind_center_count_up", "CENTER COUNT-UP", class: "btn btn-outline-warning btn-sm") %>
+
+            <%= check_box_tag("kinds[]", "cricket_count_up", params[:kinds]&.include?("cricket_count_up"), class: "btn-check", id: "kind_cricket_count_up") %>
+            <%= label_tag("kind_cricket_count_up", "CRICKET COUNT-UP", class: "btn btn-outline-info btn-sm") %>
+
+            <%= check_box_tag("kinds[]", "shoot_out", params[:kinds]&.include?("shoot_out"), class: "btn-check", id: "kind_shoot_out") %>
+            <%= label_tag("kind_shoot_out", "SHOOT OUT", class: "btn btn-outline-dark btn-sm") %>
+
           </div>
         </div>
       </div>
+    </div>
 
       <div
         data-controller="filter"
@@ -102,7 +130,7 @@
       >
         <div class="d-flex gap-2 align-items-center">
 
-          <select class="form-select w-auto" data-filter-target="select">
+          <select class="form-select w-auto form-select-sm" data-filter-target="select">
             <% target_sort.each do |target| %>
               <option value="<%= target %>">
                 <%= target.upcase %>
@@ -113,9 +141,10 @@
           <input
             type="color"
             value="#ff0000"
-            class="form-control form-control-color"
+            class="form-control form-control-color form-control-sm"
             data-filter-target="color"
             list="color-palette"
+            style="width: 30px; height: 30px;"
           >
           <datalist id="color-palette">
             <option value="#FF0000"></option> <!-- 赤 -->
@@ -132,7 +161,7 @@
 
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-primary btn-sm"
             data-action="click->filter#addTarget"
           >
             Add
@@ -144,7 +173,7 @@
         <div data-filter-target="hiddenInputs"></div>
       </div>
 
-      <%= submit_tag "絞り込み", class: "btn btn-primary" %>
+      <%= submit_tag "絞り込み", class: "btn btn-primary", name: nil %>
       <%= link_to "リセット", logs_path, class: "btn btn-light border text-secondary" %>
     <% end %>
   </div>
