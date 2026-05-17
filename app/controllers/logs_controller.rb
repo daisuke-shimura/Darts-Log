@@ -84,4 +84,12 @@ class LogsController < ApplicationController
       end
     end
   end
+
+  def line_graph
+
+  end
+
+  def histogram
+    
+  end
 end
