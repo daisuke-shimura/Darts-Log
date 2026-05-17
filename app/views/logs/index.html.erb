@@ -36,7 +36,12 @@
 
   <div class="position-absolute top-0 start-0 mt-3 ms-3">
     <p>ダーツの総計：<%= @darts_all.count %></p>
-    <p>検索結果<%= @darts_data.count %>　ターゲット絞り<%= @target_groups.sum { |group| group[:darts].count } || nil %></p>
+    <p>検索結果：
+      <% if params[:targets].present? %>
+        <%= @target_groups.sum { |group| group[:darts].count } || nil %>
+      <% else %>
+        <%= @darts_data.count %>
+      <% end %>
     <hr>
     <h5>ターゲット</h5>
     <p>BULL：<%= @target_bull.count %>　20：<%= @target_20.count %></p>
