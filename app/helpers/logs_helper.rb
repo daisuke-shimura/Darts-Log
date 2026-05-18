@@ -10,4 +10,13 @@ module LogsHelper
 
     targets
   end
+
+  def darts_number_color(throw, default_color)
+    if params[:numbers].present?
+      number_colors = { 1 => "red", 2 => "blue", 3 => "green" }
+      number_colors[throw.number]
+    else
+      default_color
+    end
+  end
 end
