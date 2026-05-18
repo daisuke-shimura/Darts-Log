@@ -26,8 +26,10 @@
     </p>
     <p>BULL合計：<%= bull_count(@darts_data) %></p>
     <p>
-      <% params[:numbers].each do |number| %>
-        <span><%= number %>投目：<%= bull_count_of_number(@darts_data, number) %>　</span>
+      <% if params[:numbers].present? %>
+        <% params[:numbers].each do |number| %>
+          <span><%= number %>投目：<%= bull_count_of_number(@darts_data, number) %>　</span>
+        <% end %>
       <% end %>
     </p>
     <hr>
