@@ -11,6 +11,9 @@ class LogsController < ApplicationController
     @center_count_up_darts = @game_darts.where(games: { kind: "center_count_up" })
     @cricket_count_up_darts = @game_darts.where(games: { kind: "cricket_count_up" })
     @shoot_out_darts = @game_darts.where(games: { kind: "shoot_out" })
+    @first_darts = @darts_all.where(number: 1)
+    @second_darts = @darts_all.where(number: 2)
+    @third_darts = @darts_all.where(number: 3)
 
     @target_groups = []
     @game_labels = {
@@ -57,17 +60,19 @@ class LogsController < ApplicationController
     end
 
     if params[:targets].present?
-      params[:targets]&.each_with_index do |target, index|
+      target_darts = []
+      params[:targets].each_with_index do |target, index|
 
         color = params[:colors][index].presence || "red"
         darts = @darts_data.where(target: target)
-      
-        @target_groups << {
-          target: target,
-          color: color,
-          darts: darts
-        }
+  
+        darts.each do |dart|
+          dart.color = color
+        end
+
+        target_darts.concat(darts)
       end
+      @darts_data = target_darts
     end
   end
 

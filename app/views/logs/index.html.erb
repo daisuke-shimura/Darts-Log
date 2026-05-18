@@ -6,29 +6,14 @@
         <use href="#icon-dartboard" x="-250" y="-250" width="500" height="500" />
 
         <g id="points-layer" transform="scale(1,-1)">
-          <% if params[:targets].present? %>
-            <% @target_groups.each do |group| %>
-              <% group[:darts].each do |throw| %>
-                <circle
-                  cx="<%= throw.x %>"
-                  cy="<%= throw.y %>"
-                  r="1"
-                  fill="<%= darts_number_color(throw, group[:color]) %>"
-                  fill-opacity="0.25"
-                />
-              <% end %>
-            <% end %>
-          <% else %>
-            <% @darts_data.each do |throw| %>
-              <circle
-                cx="<%= throw.x %>"
-                cy="<%= throw.y %>"
-                r="1"
-                <%# fill="red" %>
-                fill="<%= darts_number_color(throw, "red") %>"
-                fill-opacity="0.25"
-              />
-            <% end %>
+          <% @darts_data.each do |throw| %>
+            <circle
+              cx="<%= throw.x %>"
+              cy="<%= throw.y %>"
+              r="1"
+              fill="<%= darts_number_color(throw) %>"
+              fill-opacity="0.2"
+            />
           <% end %>
         </g>
       </svg>
@@ -37,12 +22,14 @@
 
   <div class="position-absolute top-0 start-0 mt-3 ms-3">
     <p>ダーツの総計：<%= @darts_all.count %></p>
-    <p>検索結果：
-      <% if params[:targets].present? %>
-        <%= @target_groups.sum { |group| group[:darts].count } || nil %>
-      <% else %>
-        <%= @darts_data.count %>
+    <p>検索結果：<%= @darts_data.count %>
+    </p>
+    <p>BULL合計：<%= bull_count(@darts_data) %></p>
+    <p>
+      <% params[:numbers].each do |number| %>
+        <span><%= number %>投目：<%= bull_count_of_number(@darts_data, number) %>　</span>
       <% end %>
+    </p>
     <hr>
     <h5>ターゲット</h5>
     <p>BULL：<%= @target_bull.count %>　20：<%= @target_20.count %></p>
