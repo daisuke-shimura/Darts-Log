@@ -14,7 +14,7 @@ export default class extends Controller {
       data: {
         labels: this.labelsValue,
         datasets: [{
-          label: '人数（人）',
+          label: 'Range [mm]',
           data: this.dataValue,
           backgroundColor: 'rgba(54, 162, 235, 0.6)',
           borderColor: 'rgba(54, 162, 235, 1)',

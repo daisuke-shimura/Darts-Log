@@ -77,14 +77,66 @@ class LogsController < ApplicationController
   end
 
   def line_graph
-    # デモデータ
-    @line_labels = ['1月', '2月', '3月', '4月', '5月']
-    @line_data = [100, 150, 200, 120, 250]
+    recent_rounds = RecordRound.joins(:darts)
+      .where(darts: { target: "bull" })
+      .distinct
+      .order(created_at: :asc)
+
+    # X軸のラベル（例: R1, R2...）
+    @line_labels = recent_rounds.map { |r| "R#{r.number}" }
+
+    # Y軸のデータ（HIT数）
+    @line_data = recent_rounds.map(&:hit)
   end
 
   def histogram
-    # デモデータ
-    histogram_data = { '0-20点' => 5, '21-40点' => 12, '41-60点' => 25, '61-80点' => 38, '81-100点' => 15 }
+    darts = Dart.where(target: "bull")
+    histogram_data = {
+      "0〜16" => 0,
+      "17〜40" => 0,
+      "41〜54" => 0,
+      "55〜65" => 0,
+      "66〜84" => 0,
+      "85〜109" => 0,
+      "110〜130" => 0,
+      "131〜150" => 0,
+      "151〜173" => 0,
+      "174〜196" => 0,
+      "197〜392" => 0,
+      "393〜465" => 0,
+      "466以上" => 0
+    }
+    darts.each do |dart|
+      r = dart.absolute_r # 整数
+
+      case r
+      when 0..16
+        histogram_data["0〜16"] += 1
+      when 17..40
+        histogram_data["17〜40"] += 1
+      when 41..54
+        histogram_data["41〜54"] += 1
+      when 55..65
+        histogram_data["55〜65"] += 1
+      when 66..84
+        histogram_data["66〜84"] += 1
+      when 85..109
+        histogram_data["85〜109"] += 1
+      when 110..130
+        histogram_data["110〜130"] += 1
+      when 131..150
+        histogram_data["131〜150"] += 1
+      when 151..173
+        histogram_data["151〜173"] += 1
+      when 174..196
+        histogram_data["174〜196"] += 1
+      when 197..392
+        histogram_data["197〜392"] += 1
+      when 393..465
+        histogram_data["393〜465"] += 1
+      end
+    end
+
     @bar_labels = histogram_data.keys
     @bar_data = histogram_data.values
   end
