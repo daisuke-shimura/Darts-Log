@@ -77,10 +77,15 @@ class LogsController < ApplicationController
   end
 
   def line_graph
-
+    # デモデータ
+    @line_labels = ['1月', '2月', '3月', '4月', '5月']
+    @line_data = [100, 150, 200, 120, 250]
   end
 
   def histogram
-    
+    # デモデータ
+    histogram_data = { '0-20点' => 5, '21-40点' => 12, '41-60点' => 25, '61-80点' => 38, '81-100点' => 15 }
+    @bar_labels = histogram_data.keys
+    @bar_data = histogram_data.values
   end
 end
