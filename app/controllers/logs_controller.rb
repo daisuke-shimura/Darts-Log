@@ -103,8 +103,7 @@ class LogsController < ApplicationController
       "151〜173" => 0,
       "174〜196" => 0,
       "197〜392" => 0,
-      "393〜465" => 0,
-      "466以上" => 0
+      "393〜465" => 0
     }
     darts.each do |dart|
       r = dart.absolute_r # 整数

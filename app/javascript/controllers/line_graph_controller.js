@@ -16,7 +16,7 @@ export default class extends Controller {
       data: {
         labels: this.labelsValue, // static values で定義したものを使用
         datasets: [{
-          label: '月別売上',
+          label: 'BULL数',
           data: this.dataValue,
           borderColor: 'rgb(75, 192, 192)',
           tension: 0.1
