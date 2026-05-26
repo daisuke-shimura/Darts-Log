@@ -1,24 +1,35 @@
-# README
+# Darts-Log
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## 概要
+Darts-Log は、ソフトダーツ（主にDARTSLIVE3の仕様を想定）のプレイデータを記録・分析するためのRuby on Rails製ウェブアプリケーションです。
+毎ラウンドのダーツの投擲結果を詳細に記録し、ハットトリックやTon80といったアワードを自動的に判定・集計することができます。
 
-Things you may want to cover:
+## 主な機能
+* **プレイデータの詳細な記録**: 各ラウンドごとのスコアや刺さった位置を記録します（`record_round`、`darts` テーブルによるリレーショナルなデータ管理）。
+* **アワードの自動判定ロジック**: 入力された投擲データに基づき、Hat TrickやTon80などのダーツ特有のアワードを獲得したかを自動計算します。
+* **カスタムアイコン表示**: SVGスプライトを活用し、軽量かつメンテナンス性の高いカスタムアイコンをUIに実装しています。
+* **効率的なデータ操作**: モデルの `enum` や `scope` を活用した、直感的で効率的なデータベース設計。
 
-* Ruby version
+## 使用技術
+* **バックエンド**: Ruby, Ruby on Rails
+* **フロントエンド**: HTML, CSS, JavaScript
 
-* System dependencies
+## ローカル環境でのセットアップ
 
-* Configuration
+以下の手順でローカル環境にアプリケーションを構築し、起動することができます。
 
-* Database creation
+```bash
+# 1. リポジトリのクローン
+git clone [https://github.com/daisuke-shimura/Darts-Log.git](https://github.com/daisuke-shimura/Darts-Log.git)
 
-* Database initialization
+# 2. プロジェクトディレクトリへ移動
+cd Darts-Log
 
-* How to run the test suite
+# 3. 必要なパッケージ（Gemなど）のインストール
+bundle install
 
-* Services (job queues, cache servers, search engines, etc.)
+# 4. データベースの作成とマイグレーション
+rails db:create db:migrate
 
-* Deployment instructions
-
-* ...
+# 5. ローカルサーバーの起動
+rails s
