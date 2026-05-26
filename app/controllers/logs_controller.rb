@@ -91,46 +91,64 @@ class LogsController < ApplicationController
 
   def histogram
     darts = Dart.where(target: "bull")
-    histogram_data = {
-      "0〜42" => 0,
-      "43〜85" => 0,
-      "86〜128" => 0,
-      "129〜171" => 0,
-      "172〜214" => 0,
-      "215〜257" => 0,
-      "258〜300" => 0,
-      "301〜343" => 0,
-      "344〜386" => 0,
-      "387〜431" => 0 #最後はちょっと多い
-    }
-    darts.each do |dart|
-      r = dart.absolute_r # 整数
 
-      case r
-      when 0..42
-        histogram_data["0〜42"] += 1
-      when 43..85
-        histogram_data["43〜85"] += 1
-      when 86..128
-        histogram_data["86〜128"] += 1
-      when 129..171
-        histogram_data["129〜171"] += 1
-      when 172..214
-        histogram_data["172〜214"] += 1
-      when 215..257
-        histogram_data["215〜257"] += 1
-      when 258..300
-        histogram_data["258〜300"] += 1
-      when 301..343
-        histogram_data["301〜343"] += 1
-      when 344..386
-        histogram_data["344〜386"] += 1
-      when 387..431
-        histogram_data["387〜431"] += 1
+    mode = params[:histogram_mode] || "range"
+
+    if mode == "exact"
+      r_values = [
+        0, 8, 15, 24, 29, 34, 40, 52, 58, 64, 69, 74, 77, 79, 82, 84, 87, 
+        89, 92, 95, 97, 100, 102, 105, 107, 111, 112, 117, 122, 128, 133, 
+        138, 144, 149, 155, 161, 166, 172, 177, 183, 189, 195, 201, 206, 
+        219, 225, 231, 236, 241, 257, 262, 267, 272, 277, 283, 288, 293, 
+        299, 304, 310, 316, 321, 326, 332, 337, 342, 348, 363, 369, 374, 
+        380, 386, 401, 407, 413, 419, 425, 431
+      ]
+      db_counts = darts.group(:absolute_r).count
+
+      histogram_data = r_values.index_with { |val| db_counts[val] || 0 }
+    else 
+      histogram_data = {
+        "0〜42" => 0,
+        "43〜85" => 0,
+        "86〜128" => 0,
+        "129〜171" => 0,
+        "172〜214" => 0,
+        "215〜257" => 0,
+        "258〜300" => 0,
+        "301〜343" => 0,
+        "344〜386" => 0,
+        "387〜431" => 0 #最後はちょっと多い
+      }
+    
+      darts.each do |dart|
+        r = dart.absolute_r
+  
+        case r
+        when 0..42
+          histogram_data["0〜42"] += 1
+        when 43..85
+          histogram_data["43〜85"] += 1
+        when 86..128
+          histogram_data["86〜128"] += 1
+        when 129..171
+          histogram_data["129〜171"] += 1
+        when 172..214
+          histogram_data["172〜214"] += 1
+        when 215..257
+          histogram_data["215〜257"] += 1
+        when 258..300
+          histogram_data["258〜300"] += 1
+        when 301..343
+          histogram_data["301〜343"] += 1
+        when 344..386
+          histogram_data["344〜386"] += 1
+        when 387..431
+          histogram_data["387〜431"] += 1
+        end
       end
     end
-
     @bar_labels = histogram_data.keys
     @bar_data = histogram_data.values
+    @graph_mode = mode
   end
 end

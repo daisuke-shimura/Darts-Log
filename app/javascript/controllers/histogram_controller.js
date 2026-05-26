@@ -25,6 +25,7 @@ export default class extends Controller {
       },
       options: {
         scales: {
+          x: { grid: { display: false }},
           y: { beginAtZero: true }
         }
       }
