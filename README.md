@@ -20,7 +20,7 @@ Darts-Log は、ソフトダーツ（主にDARTSLIVE3の仕様を想定）のプ
 
 ```bash
 # 1. リポジトリのクローン
-git clone [https://github.com/daisuke-shimura/Darts-Log.git](https://github.com/daisuke-shimura/Darts-Log.git)
+git clone https://github.com/daisuke-shimura/Darts-Log.git
 
 # 2. プロジェクトディレクトリへ移動
 cd Darts-Log
