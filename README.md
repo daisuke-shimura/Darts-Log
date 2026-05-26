@@ -29,7 +29,7 @@ cd Darts-Log
 bundle install
 
 # 4. データベースの作成とマイグレーション
-rails db:create db:migrate
+rails db:migrate
 
 # 5. ローカルサーバーの起動
 rails s
