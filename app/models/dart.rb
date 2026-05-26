@@ -1,4 +1,5 @@
 class Dart < ApplicationRecord
+  attr_accessor :color
   validate :parent_presence
   before_validation :normalize_absolute_0
   belongs_to :record_round, optional: true

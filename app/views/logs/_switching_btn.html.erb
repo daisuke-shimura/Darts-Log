@@ -1,0 +1,13 @@
+<div class="btn-group btn-group-sm">
+  <%= link_to "ダーツマップ",
+      logs_path(request.query_parameters),
+      class: "btn #{current_page?(logs_path) ? 'btn-dark active' : 'btn-outline-secondary'}" %>
+
+  <%= link_to "折れ線グラフ",
+      logs_line_graph_path(request.query_parameters),
+      class: "btn #{current_page?(logs_line_graph_path) ? 'btn-dark active' : 'btn-outline-secondary'}" %>
+
+  <%= link_to "ヒストグラム",
+      logs_histogram_path(request.query_parameters),
+      class: "btn #{current_page?(logs_histogram_path) ? 'btn-dark active' : 'btn-outline-secondary'}" %>
+</div>

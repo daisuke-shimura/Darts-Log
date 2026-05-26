@@ -6,28 +6,14 @@
         <use href="#icon-dartboard" x="-250" y="-250" width="500" height="500" />
 
         <g id="points-layer" transform="scale(1,-1)">
-          <% if params[:targets].present? %>
-            <% @target_groups.each do |group| %>
-              <% group[:darts].each do |throw| %>
-                <circle
-                  cx="<%= throw.x %>"
-                  cy="<%= throw.y %>"
-                  r="1"
-                  fill="<%= group[:color] %>"
-                  fill-opacity="0.25"
-                />
-              <% end %>
-            <% end %>
-          <% else %>
-            <% @darts_data.each do |throw| %>
-              <circle
-                cx="<%= throw.x %>"
-                cy="<%= throw.y %>"
-                r="1"
-                fill="red"
-                fill-opacity="0.25"
-              />
-            <% end %>
+          <% @darts_data.each do |throw| %>
+            <circle
+              cx="<%= throw.x %>"
+              cy="<%= throw.y %>"
+              r="1"
+              fill="<%= darts_number_color(throw) %>"
+              fill-opacity="0.2"
+            />
           <% end %>
         </g>
       </svg>
@@ -36,12 +22,16 @@
 
   <div class="position-absolute top-0 start-0 mt-3 ms-3">
     <p>ダーツの総計：<%= @darts_all.count %></p>
-    <p>検索結果：
-      <% if params[:targets].present? %>
-        <%= @target_groups.sum { |group| group[:darts].count } || nil %>
-      <% else %>
-        <%= @darts_data.count %>
+    <p>検索結果：<%= @darts_data.count %>
+    </p>
+    <p>BULL合計：<%= bull_count(@darts_data) %></p>
+    <p>
+      <% if params[:numbers].present? %>
+        <% params[:numbers].each do |number| %>
+          <span><%= number %>投目：<%= bull_count_of_number(@darts_data, number) %>　</span>
+        <% end %>
       <% end %>
+    </p>
     <hr>
     <h5>ターゲット</h5>
     <p>BULL：<%= @target_bull.count %>　20：<%= @target_20.count %></p>
@@ -52,6 +42,8 @@
     <p>CENTER COUNT-UP：<%= @center_count_up_darts.count %></p>
     <p>CRICKET COUNT-UP：<%= @cricket_count_up_darts.count %></p>
     <p>SHOOT OUT：<%= @shoot_out_darts.count %></p>
+    <h5>投擲順</h5>
+    <p>1投目：<%= @first_darts.count %>　2投目：<%= @second_darts.count %>　3投目：<%= @third_darts.count %></p>
   </div>
 
   <div class="position-absolute top-0 end-0 mt-3 me-3 ps-5 w-25">
@@ -127,6 +119,7 @@
         data-controller="filter"
         data-filter-targets-value='<%= (params[:targets] || []).to_json %>'
         data-filter-colors-value='<%= (params[:colors] || []).to_json %>'
+        data-filter-numbers-value='<%= (params[:numbers] || []).to_json %>'
       >
         <div class="d-flex align-items-center mb-2">
           <select class="form-select w-auto form-select-sm" data-filter-target="select">
@@ -165,6 +158,21 @@
 
         <div class="d-flex gap-1 flex-wrap mb-2" data-filter-target="tags"></div>
         <div data-filter-target="hiddenInputs"></div>
+
+        <div class="d-flex align-items-center mb-2">
+          <select class="form-select w-auto form-select-sm" data-filter-target="numberSelect">
+            <option value="1">1投目</option>
+            <option value="2">2投目</option>
+            <option value="3">3投目</option>
+          </select>
+
+          <button type="button" class="btn btn-primary btn-sm ms-2" data-action="click->filter#addNumber">
+            Add
+          </button>
+        </div>
+
+        <div class="d-flex gap-1 flex-wrap mb-2" data-filter-target="numberTags"></div>
+        <div data-filter-target="numberHiddenInputs"></div>
       </div>
 
       <div class="d-flex justify-content-end gap-2">
@@ -173,4 +181,8 @@
       </div>
     <% end %>
   </div>
+</div>
+
+<div class="position-fixed bottom-0 end-0">
+  <%= render "switching_btn" %>
 </div>

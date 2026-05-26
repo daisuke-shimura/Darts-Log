@@ -1,11 +1,21 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["select", "tags", "color", "hiddenInputs"]
+  static targets = [
+    "select", "tags", "color", "hiddenInputs",
+    "numberSelect", "numberTags", "numberHiddenInputs"
+  ]
 
   static values = {
     targets: Array,
-    colors: Array
+    colors: Array,
+    numbers: Array
+  }
+
+  static numberColors = {
+    "1": "#ff4d4d", // 1投目 = 赤
+    "2": "#3399ff", // 2投目 = 青
+    "3": "#00cc66"  // 3投目 = 緑
   }
 
   connect() {
@@ -15,6 +25,12 @@ export default class extends Controller {
   
       this.createTag(target, color)
     })
+
+    if (this.hasNumbersValue) {
+      this.numbersValue.forEach(number => {
+        this.createNumberTag(number)
+      })
+    }
   }
 
 
@@ -61,6 +77,38 @@ export default class extends Controller {
     this.hiddenInputsTarget.appendChild(wrapper)
   }
 
+  addNumber() {
+    const value = this.numberSelectTarget.value
+    if (this.numberHiddenInputsTarget.querySelector(`input[value="${value}"]`)) return
+
+    this.createNumberTag(value)
+  }
+
+  createNumberTag(value) {
+    const color = this.constructor.numberColors[value] || "#6c757d"
+    const contrast = this.designTagBtn(color)
+
+    const tag = document.createElement("div")
+    tag.style.backgroundColor = color
+    tag.className = `badge d-flex align-items-center gap-2 ${contrast.text}`
+    tag.innerHTML = `
+      <span>${value}投目</span>
+      <button type="button" class="btn-close ${contrast.btn}" aria-label="Remove"></button>
+    `
+
+    const input = document.createElement("input")
+    input.type = "hidden"
+    input.name = "numbers[]"
+    input.value = value
+
+    tag.querySelector("button").addEventListener("click", () => {
+      tag.remove()
+      input.remove()
+    })
+
+    this.numberTagsTarget.appendChild(tag)
+    this.numberHiddenInputsTarget.appendChild(input)
+  }
 
   designTagBtn(color) {
     if (!color || !color.startsWith('#')) {

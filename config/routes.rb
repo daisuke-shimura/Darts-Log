@@ -2,8 +2,9 @@ Rails.application.routes.draw do
   get 'games/index'
   root to: 'homes#top'
   resources :users, only: [:index, :new, :create, :edit, :update, :destroy]
+  post 'login', to: 'sessions#create'
+  delete 'logout', to: 'sessions#destroy'
   resources :records, only: [:index, :create]
-  resources :logs, only: [:index]
 
   resources :games, only: [:index, :create] do
     get  :zero_one, to: 'games/zero_ones#show'
@@ -28,8 +29,9 @@ Rails.application.routes.draw do
     resources :shoot_outs, only: [:new]
   end
 
-  post 'login', to: 'sessions#create'
-  delete 'logout', to: 'sessions#destroy'
+  resources :logs, only: [:index]
+  get 'logs/line_graph', to: 'logs#line_graph'
+  get 'logs/histogram', to: 'logs#histogram'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
