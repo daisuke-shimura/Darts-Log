@@ -11,8 +11,19 @@ Darts-Log は、ソフトダーツ（主にDARTSLIVE3の仕様を想定）のプ
 * **効率的なデータ操作**: モデルの `enum` や `scope` を活用した、直感的で効率的なデータベース設計。
 
 ## 使用技術
-* **バックエンド**: Ruby, Ruby on Rails
-* **フロントエンド**: HTML, CSS, JavaScript
+### バックエンド
+* Ruby ruby 3.1.2
+* Ruby on Rails 7.0.10
+
+### フロントエンド
+* HTML
+* CSS
+* JavaScript
+* Bootstrap
+* Stimulus
+
+### データベース
+* SQLite3
 
 ## ローカル環境でのセットアップ
 
