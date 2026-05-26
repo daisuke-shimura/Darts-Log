@@ -7,11 +7,12 @@
         <%= select_tag :histogram_mode,
             options_for_select([
               ["幅43", "range"],
-              ["実値", "exact"]
+              ["実値", "exact"],
+              ["実値（R）", "exact_r"]
             ], params[:histogram_mode]),
             class: "form-select form-select-sm" 
         %>
-        <%= submit_tag "切り替え", class: "btn btn-primary btn-sm" %>
+        <%= submit_tag "切り替え", class: "btn btn-primary btn-sm", name: nil %>
       </div>
     <% end %>
   </div>

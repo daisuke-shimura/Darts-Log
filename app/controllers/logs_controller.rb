@@ -106,6 +106,9 @@ class LogsController < ApplicationController
       db_counts = darts.group(:absolute_r).count
 
       histogram_data = r_values.index_with { |val| db_counts[val] || 0 }
+    elsif mode == "exact_r"
+      db_counts = darts.group(:index_r).count
+      histogram_data = (0..69).index_with { |val| db_counts[val] || 0 }
     else 
       histogram_data = {
         "0〜42" => 0,
@@ -149,6 +152,5 @@ class LogsController < ApplicationController
     end
     @bar_labels = histogram_data.keys
     @bar_data = histogram_data.values
-    @graph_mode = mode
   end
 end
