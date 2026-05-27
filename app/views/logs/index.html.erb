@@ -116,13 +116,13 @@
       </div>
 
       <div
-        data-controller="filter"
-        data-filter-targets-value='<%= (params[:targets] || []).to_json %>'
-        data-filter-colors-value='<%= (params[:colors] || []).to_json %>'
-        data-filter-numbers-value='<%= (params[:numbers] || []).to_json %>'
+        data-controller="log-logic--filter"
+        data-log-logic--filter-targets-value='<%= (params[:targets] || []).to_json %>'
+        data-log-logic--filter-colors-value='<%= (params[:colors] || []).to_json %>'
+        data-log-logic--filter-numbers-value='<%= (params[:numbers] || []).to_json %>'
       >
         <div class="d-flex align-items-center mb-2">
-          <select class="form-select w-auto form-select-sm" data-filter-target="select">
+          <select class="form-select w-auto form-select-sm" data-log-logic--filter-target="select">
             <% target_sort.each do |target| %>
               <option value="<%= target %>">
                 <%= target.upcase %>
@@ -134,7 +134,7 @@
             type="color"
             value="#ff0000"
             class="form-control form-control-color form-control-sm"
-            data-filter-target="color"
+            data-log-logic--filter-target="color"
             list="color-palette"
             style="width: 30px; height: 30px;"
           >
@@ -151,28 +151,28 @@
             <option value="#000000"></option> <!-- 黒 -->
           </datalist>
 
-          <button type="button" class="btn btn-primary btn-sm ms-2" data-action="click->filter#addTarget">
+          <button type="button" class="btn btn-primary btn-sm ms-2" data-action="click->log-logic--filter#addTarget">
             Add
           </button>
         </div>
 
-        <div class="d-flex gap-1 flex-wrap mb-2" data-filter-target="tags"></div>
-        <div data-filter-target="hiddenInputs"></div>
+        <div class="d-flex gap-1 flex-wrap mb-2" data-log-logic--filter-target="tags"></div>
+        <div data-log-logic--filter-target="hiddenInputs"></div>
 
         <div class="d-flex align-items-center mb-2">
-          <select class="form-select w-auto form-select-sm" data-filter-target="numberSelect">
+          <select class="form-select w-auto form-select-sm" data-log-logic--filter-target="numberSelect">
             <option value="1">1投目</option>
             <option value="2">2投目</option>
             <option value="3">3投目</option>
           </select>
 
-          <button type="button" class="btn btn-primary btn-sm ms-2" data-action="click->filter#addNumber">
+          <button type="button" class="btn btn-primary btn-sm ms-2" data-action="click->log-logic--filter#addNumber">
             Add
           </button>
         </div>
 
-        <div class="d-flex gap-1 flex-wrap mb-2" data-filter-target="numberTags"></div>
-        <div data-filter-target="numberHiddenInputs"></div>
+        <div class="d-flex gap-1 flex-wrap mb-2" data-log-logic--filter-target="numberTags"></div>
+        <div data-log-logic--filter-target="numberHiddenInputs"></div>
       </div>
 
       <div class="d-flex justify-content-end gap-2">
