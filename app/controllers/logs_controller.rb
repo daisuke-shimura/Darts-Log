@@ -1,4 +1,5 @@
 class LogsController < ApplicationController
+  layout "logs"
   before_action :set_r_values, only: [:histogram, :cumulative]
 
   def index

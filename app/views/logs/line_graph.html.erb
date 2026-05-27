@@ -1,13 +1,8 @@
-<div class="position-relative bg-light" style="height: 100vh;">
-  <p>折れ線グラフ用ページ</p>
-  <div style="width: 80%; margin: 0 auto;">
-    <canvas data-controller="log-logic--line-graph"
-            data-log-logic--line-graph-labels-value="<%= @line_labels.to_json %>"
-            data-log-logic--line-graph-data-value="<%= @line_data.to_json %>">
-    </canvas>
-  </div>
-</div>
+<div style="width: 80%; margin: 0 auto;">
+  <p class="fw-bold fs-5">折れ線グラフ用ページ</p>
 
-<div class="position-fixed bottom-0 end-0">
-  <%= render "switching_btn" %>
+  <canvas data-controller="log-logic--line-graph"
+          data-log-logic--line-graph-labels-value="<%= @line_labels.to_json %>"
+          data-log-logic--line-graph-data-value="<%= @line_data.to_json %>">
+  </canvas>
 </div>
