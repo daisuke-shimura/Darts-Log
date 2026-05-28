@@ -1,4 +1,7 @@
 class LogsController < ApplicationController
+  layout "logs"
+  before_action :set_r_values, only: [:histogram, :cumulative]
+
   def index
     @darts_all = Dart.all
     @target_bull = @darts_all.where(target: "bull")
@@ -95,17 +98,8 @@ class LogsController < ApplicationController
     mode = params[:histogram_mode] || "range"
 
     if mode == "exact"
-      r_values = [
-        0, 8, 15, 24, 29, 34, 40, 52, 58, 64, 69, 74, 77, 79, 82, 84, 87, 
-        89, 92, 95, 97, 100, 102, 105, 107, 111, 112, 117, 122, 128, 133, 
-        138, 144, 149, 155, 161, 166, 172, 177, 183, 189, 195, 201, 206, 
-        219, 225, 231, 236, 241, 257, 262, 267, 272, 277, 283, 288, 293, 
-        299, 304, 310, 316, 321, 326, 332, 337, 342, 348, 363, 369, 374, 
-        380, 386, 401, 407, 413, 419, 425, 431
-      ]
       db_counts = darts.group(:absolute_r).count
-
-      histogram_data = r_values.index_with { |val| db_counts[val] || 0 }
+      histogram_data = @r_values.index_with { |val| db_counts[val] || 0 }
     elsif mode == "exact_r"
       db_counts = darts.group(:index_r).count
       histogram_data = (0..69).index_with { |val| db_counts[val] || 0 }
@@ -152,5 +146,45 @@ class LogsController < ApplicationController
     end
     @bar_labels = histogram_data.keys
     @bar_data = histogram_data.values
+  end
+
+  def cumulative
+    darts = Dart.where(target: "bull")
+    n = darts.count
+    cumulative = 0.0
+
+    mode = params[:cumulative_mode] || "absolute_r"
+    if mode == "index_r"
+      db_counts = darts.group(:index_r).count
+      histogram_data = (0..69).index_with do |r|
+        count = db_counts[r] || 0
+        cumulative += count
+        cumulative.to_f / n
+      end
+    else
+      db_counts = darts.group(:absolute_r).count
+      histogram_data = @r_values.index_with do |r|
+        count = db_counts[r] || 0
+        cumulative += count
+        cumulative.to_f / n
+      end
+    end
+
+    @bar_labels = histogram_data.keys
+    @bar_data = histogram_data.values
+  end
+
+
+  private
+
+  def set_r_values
+    @r_values = [
+      0, 8, 15, 24, 29, 34, 40, 52, 58, 64, 69, 74, 77, 79, 82, 84, 87, 
+      89, 92, 95, 97, 100, 102, 105, 107, 111, 112, 117, 122, 128, 133, 
+      138, 144, 149, 155, 161, 166, 172, 177, 183, 189, 195, 201, 206, 
+      219, 225, 231, 236, 241, 257, 262, 267, 272, 277, 283, 288, 293, 
+      299, 304, 310, 316, 321, 326, 332, 337, 342, 348, 363, 369, 374, 
+      380, 386, 401, 407, 413, 419, 425, 431
+    ]
   end
 end

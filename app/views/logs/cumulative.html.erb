@@ -1,0 +1,23 @@
+<div style="width: 80%; margin: 0 auto;">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <p class="fw-bold fs-5">累積分布関数用ページ</p>
+    
+    <%= form_with url: logs_cumulative_path, method: :get, local: true do %>
+      <div class="d-flex gap-2">
+        <%= select_tag :cumulative_mode,
+            options_for_select([
+              ["直径", "absolute_r"],
+              ["R", "index_r"]
+            ], params[:cumulative_mode]),
+            class: "form-select form-select-sm" 
+        %>
+        <%= submit_tag "切り替え", class: "btn btn-primary btn-sm", name: nil %>
+      </div>
+    <% end %>
+  </div>
+
+  <canvas data-controller="log-logic--cumulative"
+          data-log-logic--cumulative-labels-value="<%= @bar_labels.to_json %>"
+          data-log-logic--cumulative-data-value="<%= @bar_data.to_json %>">
+  </canvas>
+</div>

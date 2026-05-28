@@ -10,4 +10,8 @@
   <%= link_to "ヒストグラム",
       logs_histogram_path(request.query_parameters),
       class: "btn #{current_page?(logs_histogram_path) ? 'btn-dark active' : 'btn-outline-secondary'}" %>
+
+  <%= link_to "累積分布関数",
+      logs_cumulative_path(request.query_parameters),
+      class: "btn #{current_page?(logs_cumulative_path) ? 'btn-dark active' : 'btn-outline-secondary'}" %>
 </div>
