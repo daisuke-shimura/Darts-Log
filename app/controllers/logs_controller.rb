@@ -157,14 +157,28 @@ class LogsController < ApplicationController
 
   def rayleigh
     cumulative_data = set_cumulative_data
-    rayleigh_data = cumulative_data.map do |r, f|
-      next if f >= 1.0
-  
-      [
-        r ** 2,
-        -Math.log(1 - f)
-      ]
-    end.compact.to_h
+
+    mode = params[:mode] || "absolute_r"
+    if mode == "index_r"
+      rayleigh_data = cumulative_data.map do |r, f|
+        next if f >= 1.0
+    
+        [
+          r ** 2,
+          -Math.log(1 - f)
+        ]
+      end.compact.to_h
+    else
+      rayleigh_data = cumulative_data.map do |r, f|
+        next if f >= 1.0
+    
+        radius = r / 2.0
+        [
+          radius ** 2,
+          -Math.log(1 - f)
+        ]
+      end.compact.to_h
+    end
 
     @bar_labels = rayleigh_data.keys
     @bar_data = rayleigh_data.values
