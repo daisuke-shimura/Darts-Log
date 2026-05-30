@@ -115,7 +115,7 @@ class Games::CricketsController < ApplicationController
       )
       render json: {
         status: "ok",
-        redirect_url: root_path
+        redirect_url: game_path(game.id)
       }
     else
       render json: { status: "ok" }

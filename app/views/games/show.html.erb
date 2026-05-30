@@ -1,0 +1,426 @@
+<%
+  themes = {
+    "zero_one" => {
+      main: "#dc3545", #danger
+      sub: "#ff6b81",
+      top: "#7f1d1d"
+    },
+    "cricket" => {
+      main: "#0d6efd", #primary
+      sub: "#6ea8fe",
+      top: "#1e40af"
+    },
+    "count_up" => {
+      main: "#198754", #success
+      sub: "#75b798",
+      top: "#14532d"
+    },
+    "center_count_up" => {
+      main: "#ffc107", #warning
+      sub: "#ffda6a",
+      top: "#78350f"
+    },
+    "cricket_count_up" => {
+      main: "#0dcaf0", #info
+      sub: "#6edff6",
+      top: "#164e63"
+    },
+    "shoot_out" => {
+      main: "#212529", #dark
+      sub: "#6c757d",
+      top: "#52525b"
+    }
+  }
+
+  colors = themes[@game.kind]
+%>
+
+<div
+  class="min-vh-100 position-relative overflow-hidden text-white"
+  style="
+    background:
+      linear-gradient(
+        to bottom,
+        <%= colors[:top] %> 0%,
+        #0f172a 35%,
+        #020617 70%,
+        #000000 100%
+      );
+  "
+>
+
+  <!-- 上部ライン -->
+  <div
+    class="position-absolute top-0 start-0 w-100"
+    style="
+      height: 6px;
+
+      background:
+        linear-gradient(
+          90deg,
+          <%= colors[:sub] %>,
+          <%= colors[:main] %>,
+          <%= colors[:sub] %>
+        );
+
+      box-shadow:
+        0 0 20px <%= colors[:main] %>;
+    "
+  ></div>
+
+  <div class="container py-5">
+
+    <!-- タイトル -->
+    <div class="text-center mb-5">
+
+      <div
+        class="fw-bold mb-2"
+        style="
+          letter-spacing: .4em;
+          color: <%= colors[:sub] %>;
+          font-size: .9rem;
+        "
+      >
+        GAME RESULT
+      </div>
+
+      <h1
+        class="fw-bold"
+        style="
+          font-size: clamp(3rem, 10vw, 5rem);
+          letter-spacing: .12em;
+
+          text-shadow:
+            0 0 10px <%= colors[:sub] %>,
+            0 0 30px <%= colors[:main] %>;
+        "
+      >
+        <%= game_title(@game.kind) %>
+      </h1>
+
+      <div class="text-secondary">
+        <%= @game.created_at.strftime("%Y/%m/%d %H:%M") %>
+      </div>
+
+    </div>
+
+    <!-- STATS -->
+    <div class="text-center mb-5">
+
+      <div
+        class="fw-bold"
+        style="
+          font-size: clamp(4rem, 15vw, 7rem);
+          line-height: 1;
+
+          color: white;
+
+          text-shadow:
+            0 0 20px <%= colors[:main] %>,
+            0 0 50px <%= colors[:main] %>;
+        "
+      >
+        <%= @game.stats&.round(2) || "-" %>
+      </div>
+
+      <div
+        style="
+          letter-spacing: .5em;
+          color: <%= colors[:sub] %>;
+        "
+      >
+        STATS
+      </div>
+
+    </div>
+
+    <!-- 情報カード -->
+    <div class="row g-4 mb-5">
+
+      <div class="col-md-4">
+        <div class="result-card h-100">
+
+          <div class="result-label">
+            SCORE
+          </div>
+
+          <div class="result-value">
+            <%= @game.score || "-" %>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="result-card h-100">
+
+          <div class="result-label">
+            TURNS
+          </div>
+
+          <div class="result-value">
+            <%= @game.turn_number || "-" %>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="result-card h-100">
+
+          <div class="result-label">
+            GROUPING
+          </div>
+
+          <div class="result-value">
+            <%= @game.range&.round(1) || "-" %>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 分析エリア -->
+    <div class="analysis-card mb-5">
+
+      <div class="analysis-title mb-4">
+        THROW ANALYSIS
+      </div>
+
+      <div class="row g-4">
+
+        <div class="col-md-6">
+          <div class="analysis-item">
+            <div class="analysis-label">
+              CENTER X
+            </div>
+
+            <div class="analysis-value">
+              <%= @game.gravity_center_x&.round(2) || "-" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="analysis-item">
+            <div class="analysis-label">
+              CENTER Y
+            </div>
+
+            <div class="analysis-value">
+              <%= @game.gravity_center_y&.round(2) || "-" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="analysis-item">
+            <div class="analysis-label">
+              AVG DISTANCE
+            </div>
+
+            <div class="analysis-value">
+              <%= @game.gravity_distance_ave&.round(2) || "-" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="analysis-item">
+            <div class="analysis-label">
+              MAX DISTANCE
+            </div>
+
+            <div class="analysis-value">
+              <%= @game.gravity_distance_max&.round(2) || "-" %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ボタン -->
+    <div class="d-flex justify-content-center gap-3 flex-wrap">
+
+      <%= link_to "HOME",
+            root_path,
+            class: "btn action-button px-5 py-3 rounded-pill fw-bold" %>
+
+    </div>
+
+  </div>
+
+</div>
+
+<style>
+
+  .result-card {
+    padding: 2rem;
+
+    border-radius: 24px;
+
+    background:
+      rgba(255,255,255,.05);
+
+    border:
+      1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:
+      blur(12px);
+
+    box-shadow:
+      0 0 30px rgba(0,0,0,.35);
+
+    text-align: center;
+
+    transition:
+      transform .15s ease,
+      box-shadow .15s ease;
+  }
+
+  .result-card:hover {
+    transform: translateY(-4px);
+
+    box-shadow:
+      0 0 40px rgba(0,0,0,.45);
+  }
+
+  .result-label {
+    font-size: .85rem;
+
+    letter-spacing: .3em;
+
+    color: #94a3b8;
+
+    margin-bottom: 1rem;
+  }
+
+  .result-value {
+    font-size: clamp(2rem, 5vw, 3rem);
+
+    font-weight: 700;
+
+    color: white;
+  }
+
+  .analysis-card {
+    padding: 2rem;
+
+    border-radius: 28px;
+
+    background:
+      rgba(255,255,255,.04);
+
+    border:
+      1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:
+      blur(12px);
+
+    box-shadow:
+      0 0 30px rgba(0,0,0,.35);
+  }
+
+  .analysis-title {
+    font-size: 1.2rem;
+
+    font-weight: 700;
+
+    letter-spacing: .2em;
+
+    color: white;
+  }
+
+  .analysis-item {
+    padding: 1rem;
+
+    border-radius: 18px;
+
+    background:
+      rgba(255,255,255,.03);
+
+    border:
+      1px solid rgba(255,255,255,.05);
+  }
+
+  .analysis-label {
+    font-size: .8rem;
+
+    letter-spacing: .25em;
+
+    color: #94a3b8;
+
+    margin-bottom: .5rem;
+  }
+
+  .analysis-value {
+    font-size: 1.8rem;
+
+    font-weight: 700;
+
+    color: white;
+  }
+
+  .action-button {
+    min-width: 180px;
+
+    color: white;
+
+    background:
+      linear-gradient(
+        135deg,
+        <%= colors[:main] %>,
+        <%= colors[:sub] %>
+      );
+
+    border: none;
+
+    box-shadow:
+      0 0 20px color-mix(in srgb, <%= colors[:main] %> 60%, transparent);
+
+    transition:
+      transform .15s ease,
+      box-shadow .15s ease;
+  }
+
+  .action-button:hover {
+    color: white;
+
+    transform: scale(1.05);
+
+    box-shadow:
+      0 0 35px color-mix(in srgb, <%= colors[:main] %> 90%, transparent);
+  }
+
+  .retry-button {
+    min-width: 180px;
+
+    color: white;
+
+    background:
+      rgba(255,255,255,.08);
+
+    border:
+      1px solid rgba(255,255,255,.12);
+
+    backdrop-filter:
+      blur(10px);
+
+    transition:
+      transform .15s ease,
+      background .15s ease;
+  }
+
+  .retry-button:hover {
+    color: white;
+
+    transform: scale(1.05);
+
+    background:
+      rgba(255,255,255,.14);
+  }
+
+</style>
