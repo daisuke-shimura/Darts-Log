@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get 'logs/line_graph', to: 'logs#line_graph'
   get 'logs/histogram', to: 'logs#histogram'
   get 'logs/cumulative', to: 'logs#cumulative'
+  get 'logs/rayleigh', to: 'logs#rayleigh'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -14,4 +14,8 @@
   <%= link_to "累積分布関数",
       logs_cumulative_path(request.query_parameters),
       class: "btn #{current_page?(logs_cumulative_path) ? 'btn-dark active' : 'btn-outline-secondary'}" %>
+
+  <%= link_to "レイリー",
+      logs_rayleigh_path(request.query_parameters),
+      class: "btn #{current_page?(logs_rayleigh_path) ? 'btn-dark active' : 'btn-outline-secondary'}" %>
 </div>
