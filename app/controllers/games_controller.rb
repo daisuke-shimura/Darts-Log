@@ -23,4 +23,10 @@ class GamesController < ApplicationController
       redirect_to game_shoot_out_path(game.id)
     end
   end
+
+  # リザルト画面
+  def show
+    @game = Game.find(params[:id])
+    
+  end
 end

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
   resources :records, only: [:index, :create]
 
-  resources :games, only: [:index, :create] do
+  resources :games, only: [:index, :create, :show] do
     get  :zero_one, to: 'games/zero_ones#show'
     post :zero_one, to: 'games/zero_ones#create'
     get  :cricket,  to: 'games/crickets#show'
