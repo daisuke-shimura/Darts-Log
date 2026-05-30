@@ -1,6 +1,6 @@
 class LogsController < ApplicationController
   layout "logs"
-  before_action :set_r_values, only: [:histogram, :cumulative]
+  before_action :set_r_values, only: [:histogram, :cumulative, :rayleigh]
 
   def index
     @darts_all = Dart.all
@@ -149,29 +149,39 @@ class LogsController < ApplicationController
   end
 
   def cumulative
-    darts = Dart.where(target: "bull")
-    n = darts.count
-    cumulative = 0.0
+    cumulative_data = set_cumulative_data
 
-    mode = params[:cumulative_mode] || "absolute_r"
+    @bar_labels = cumulative_data.keys
+    @bar_data = cumulative_data.values
+  end
+
+  def rayleigh
+    cumulative_data = set_cumulative_data
+
+    mode = params[:mode] || "absolute_r"
     if mode == "index_r"
-      db_counts = darts.group(:index_r).count
-      histogram_data = (0..69).index_with do |r|
-        count = db_counts[r] || 0
-        cumulative += count
-        cumulative.to_f / n
-      end
+      rayleigh_data = cumulative_data.map do |r, f|
+        next if f >= 1.0
+    
+        [
+          r ** 2,
+          -Math.log(1 - f)
+        ]
+      end.compact.to_h
     else
-      db_counts = darts.group(:absolute_r).count
-      histogram_data = @r_values.index_with do |r|
-        count = db_counts[r] || 0
-        cumulative += count
-        cumulative.to_f / n
-      end
+      rayleigh_data = cumulative_data.map do |r, f|
+        next if f >= 1.0
+    
+        radius = r / 2.0
+        [
+          radius ** 2,
+          -Math.log(1 - f)
+        ]
+      end.compact.to_h
     end
 
-    @bar_labels = histogram_data.keys
-    @bar_data = histogram_data.values
+    @bar_labels = rayleigh_data.keys
+    @bar_data = rayleigh_data.values
   end
 
 
@@ -186,5 +196,30 @@ class LogsController < ApplicationController
       299, 304, 310, 316, 321, 326, 332, 337, 342, 348, 363, 369, 374, 
       380, 386, 401, 407, 413, 419, 425, 431
     ]
+  end
+
+  def set_cumulative_data
+    darts = Dart.where(target: "bull")
+    n = darts.count
+    cumulative = 0.0
+
+    mode = params[:mode] || "absolute_r"
+    if mode == "index_r"
+      db_counts = darts.group(:index_r).count
+      cumulative_data = (0..69).index_with do |r|
+        count = db_counts[r] || 0
+        cumulative += count
+        cumulative.to_f / n
+      end
+    else
+      db_counts = darts.group(:absolute_r).count
+      cumulative_data = @r_values.index_with do |r|
+        count = db_counts[r] || 0
+        cumulative += count
+        cumulative.to_f / n
+      end
+    end
+
+    return cumulative_data
   end
 end
