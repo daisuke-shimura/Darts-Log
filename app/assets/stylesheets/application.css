@@ -163,7 +163,7 @@
 .round-box {
   width: 110px;
   font-size: 20px;
-  max-height: 301px;
+  max-height: 601px;
   border: 1px solid black;
   overflow-y: auto;
   position: relative;
