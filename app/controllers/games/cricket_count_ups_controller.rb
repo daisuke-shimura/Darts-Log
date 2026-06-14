@@ -120,7 +120,7 @@ class Games::CricketCountUpsController < ApplicationController
       score_sum = rounds.sum(&:score)
       mark_sum = rounds.sum(&:mark)
       turn_number = rounds.count
-      stats = (mark_sum / turn_number).round(2)
+      stats = (mark_sum.to_f / turn_number).round(2)
 
       game.update!(
         {

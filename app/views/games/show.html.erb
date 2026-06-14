@@ -35,6 +35,28 @@
   colors = themes[@game.kind]
 %>
 
+<%
+  third_label =
+    case @game.kind
+    when "cricket", "cricket_count_up"
+      "MARKS"
+    when "shoot_out"
+      "HITS"
+    else
+      "BULLS"
+    end
+
+  third_value =
+    case @game.kind
+    when "cricket", "cricket_count_up"
+      @mark_count
+    when "shoot_out"
+      @hit_count
+    else
+      @bull_count
+    end
+%>
+
 <div
   class="min-vh-100 position-relative overflow-hidden text-white"
   style="
@@ -169,17 +191,235 @@
         <div class="result-card h-100">
 
           <div class="result-label">
-            GROUPING
+            <%= third_label %>
           </div>
 
           <div class="result-value">
-            <%= @game.range&.round(1) || "-" %>
+            <%= third_value || "-" %>
           </div>
 
         </div>
       </div>
 
     </div>
+
+    <!-- ROUND HISTORY -->
+    <div class="analysis-card mb-5">
+
+      <div class="analysis-title mb-4">
+        ROUND HISTORY
+      </div>
+
+      <div class="round-history">
+
+        <% if @game.kind == "zero_one" %>
+
+          <% @rounds.size.times do |n| %>
+
+            <div class="d-flex justify-content-between py-1">
+
+              <span class="round-label">
+                R<%= n + 1 %>
+              </span>
+
+              <span class="round-score <%= round_text_class(@rounds[n]) %>">
+                <%= @rounds[n]&.bust ? "BUST" : (@rounds[n]&.score || "-") %>
+              </span>
+
+            </div>
+
+          <% end %>
+
+        <% elsif @game.kind == "count_up" || @game.kind == "shoot_out" %>
+
+          <% @rounds.size.times do |n| %>
+
+            <div class="d-flex justify-content-between py-1">
+
+              <span class="round-label">
+                R<%= n + 1 %>
+              </span>
+
+              <span class="round-score <%= round_text_class(@rounds[n]) %>">
+                <%= @rounds[n]&.score || "-" %>
+              </span>
+
+            </div>
+
+          <% end %>
+
+        <% elsif @game.kind == "center_count_up" %>
+
+          <% @rounds.size.times do |n| %>
+
+            <div class="d-flex justify-content-between align-items-center py-1">
+
+              <span class="round-label">
+                R<%= n + 1 %>
+              </span>
+
+              <span class="round-score d-inline-flex flex-column align-items-end">
+
+                <span>
+                  <%= @rounds[n]&.score || "-" %>
+                </span>
+
+                <% if @rounds[n].present? %>
+
+                  <span class="d-flex mt-1" style="width:90px">
+
+                    <% [@rounds[n].darts.size, 3].max.times do |i| %>
+
+                      <span
+                        class="flex-fill round-border <%= round_border_class(@rounds[n].darts[i]&.absolute_r) %>">
+                      </span>
+
+                    <% end %>
+
+                  </span>
+
+                <% end %>
+
+              </span>
+
+            </div>
+
+          <% end %>
+
+        <% elsif @game.kind == "cricket" %>
+
+          <% @round_marks.size.times do |r| %>
+
+            <div class="d-flex justify-content-between py-1">
+
+              <span class="round-label">
+                R<%= r + 1 %>
+              </span>
+
+              <span class="round-mark">
+
+                <% if @round_marks[r].present? %>
+
+                  <span><%= cricket_mark(@round_marks[r][0]) %></span>
+                  <span><%= cricket_mark(@round_marks[r][1]) %></span>
+                  <span><%= cricket_mark(@round_marks[r][2]) %></span>
+
+                <% else %>
+
+                  <span></span>
+                  <span></span>
+                  <span></span>
+
+                <% end %>
+
+              </span>
+
+            </div>
+
+          <% end %>
+
+        <% elsif @game.kind == "cricket_count_up" %>
+
+          <% @round_marks.size.times do |r| %>
+
+            <div class="d-flex justify-content-between py-1">
+
+              <span class="round-label">
+                R<%= r + 1 %>
+              </span>
+
+              <span class="round-mark">
+
+                <% if @round_marks[r].present? %>
+
+                  <span><%= cricket_mark(@round_marks[r][0]) %></span>
+                  <span><%= cricket_mark(@round_marks[r][1]) %></span>
+                  <span><%= cricket_mark(@round_marks[r][2]) %></span>
+
+                <% else %>
+
+                  <span></span>
+                  <span></span>
+                  <span></span>
+
+                <% end %>
+
+              </span>
+
+            </div>
+
+          <% end %>
+
+        <% end %>
+
+      </div>
+
+    </div>
+
+    <!-- AWARDS -->
+    <div class="analysis-card mb-5">
+
+      <div class="analysis-title mb-4">
+        AWARDS
+      </div>
+
+      <div class="row g-3">
+
+        <% awards = [] %>
+
+        <% awards << ["HAT TRICK", @rounds.count(&:hat_trick)] %>
+        <% awards << ["HIGH TON", @rounds.count(&:high_ton)] %>
+        <% awards << ["LOW TON", @rounds.count(&:low_ton)] %>
+        <% awards << ["TON80", @rounds.count(&:ton80)] %>
+        <% awards << ["WHITE HORSE", @rounds.count(&:white_horse)] %>
+        <% awards << ["THREE IN A BED", @rounds.count(&:three_in_a_bed)] %>
+        <% awards << ["THREE IN THE BLACK", @rounds.count(&:three_in_the_black)] %>
+
+        <% awards.each do |name, count| %>
+          <% next if count.zero? %>
+
+          <div class="col-md-4">
+
+            <div class="analysis-item text-center">
+
+              <div class="analysis-label">
+                <%= name %>
+              </div>
+
+              <div class="analysis-value">
+                ×<%= count %>
+              </div>
+
+            </div>
+
+          </div>
+
+        <% end %>
+
+        <% if awards.all? { |_, count| count.zero? } %>
+
+          <div class="col-12">
+
+            <div class="analysis-item text-center">
+
+              <div class="analysis-label">
+                AWARDS
+              </div>
+
+              <div class="analysis-value">
+                NONE
+              </div>
+
+            </div>
+
+          </div>
+
+        <% end %>
+
+      </div>
+
+    </div>
+
 
     <!-- 分析エリア -->
     <div class="analysis-card mb-5">
@@ -235,6 +475,20 @@
             <div class="analysis-value">
               <%= @game.gravity_distance_max&.round(2) || "-" %>
             </div>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="analysis-item">
+
+            <div class="analysis-label">
+              GROUPING
+            </div>
+
+            <div class="analysis-value">
+              <%= @game.range&.round(1) || "-" %>
+            </div>
+
           </div>
         </div>
 
@@ -423,4 +677,59 @@
       rgba(255,255,255,.14);
   }
 
+  .round-history {
+    max-height: 350px;
+    overflow-y: auto;
+
+    padding-right: .5rem;
+  }
+
+  .round-history::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .round-history::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,.15);
+    border-radius: 999px;
+  }
+
+  .round-label {
+    width: 60px;
+
+    color: #94a3b8;
+
+    font-weight: 600;
+
+    letter-spacing: .1em;
+  }
+
+  .round-score {
+    font-weight: 700;
+
+    color: white;
+  }
+
+  .round-mark {
+    min-width: 100px;
+
+    display: flex;
+
+    justify-content: end;
+
+    gap: .4rem;
+
+    font-size: 1.2rem;
+
+    font-weight: 700;
+  }
+
+  .round-border {
+    height: 6px;
+
+    margin: 0 1px;
+
+    border-radius: 999px;
+
+    background: rgba(255,255,255,.15);
+  }
 </style>
