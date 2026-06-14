@@ -20,7 +20,7 @@
 
   <div class="position-fixed top-0 end-0 mt-5 p-1">
     <div class="round-box ms-auto" data-board-logic--zero-one-target="roundBox">
-      <% [@rounds.size + 2, 20].max.times do |n| %>
+      <% [@rounds.size + 2, 15].max.times do |n| %>
         <div class="d-flex">
           <span class="ps-1 round-label">R<%= n + 1 %></span>
           <span class="pe-2 round-score <%= round_text_class(@rounds[n]) %>" data-board-logic--zero-one-target="roundScore">
