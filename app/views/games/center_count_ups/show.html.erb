@@ -19,10 +19,7 @@
   <%= render "records/modal-target-form" %>
 
   <div class="position-fixed top-0 end-0 mt-5 p-1">
-    <div class="score-box" data-board-logic--center-count-up-target="scoreBox">
-      <%= @current_score %>
-    </div>
-    <div class="round-box mt-2 ms-auto" data-board-logic--center-count-up-target="roundBox">
+    <div class="round-box ms-auto" data-board-logic--center-count-up-target="roundBox">
       <% [@rounds.size, 8].max.times do |n| %>
         <div class="d-flex">
           <span class="ps-1 round-label">R<%= n + 1 %></span>

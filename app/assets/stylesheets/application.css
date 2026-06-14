@@ -127,7 +127,7 @@
 }
 
 .score-box {
-  padding: 12px;
+  padding: 8px;
   border-radius: 12px;
   width: 200px;
   font-size: 4rem;
@@ -163,7 +163,7 @@
 .round-box {
   width: 110px;
   font-size: 20px;
-  max-height: 301px;
+  max-height: 601px;
   border: 1px solid black;
   overflow-y: auto;
   position: relative;
