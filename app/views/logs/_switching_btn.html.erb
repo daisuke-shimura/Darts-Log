@@ -18,4 +18,8 @@
   <%= link_to "レイリー",
       logs_rayleigh_path(request.query_parameters),
       class: "btn #{current_page?(logs_rayleigh_path) ? 'btn-dark active' : 'btn-outline-secondary'}" %>
+
+  <%= link_to "状態遷移図",
+      logs_state_transition_path(request.query_parameters),
+      class: "btn #{current_page?(logs_state_transition_path) ? 'btn-dark active' : 'btn-outline-secondary'}" %>
 </div>

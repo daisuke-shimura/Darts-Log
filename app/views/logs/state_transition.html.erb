@@ -1,0 +1,20 @@
+<div style="width: 80%; margin: 0 auto;">
+  <p class="fw-bold fs-5">状態遷移図</p>
+  <%= @transitions %>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>状態</th>
+        <th>回数</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @patterns.each do |state, count| %>
+        <tr>
+          <td><%= state %></td>
+          <td><%= count %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -184,6 +184,58 @@ class LogsController < ApplicationController
     @bar_data = rayleigh_data.values
   end
 
+  def state_transition
+    recent_rounds = RecordRound.joins(:darts)
+    .where(darts: { target: "bull" })
+    .distinct
+    .order(created_at: :asc)
+
+    states_frow = []
+    @patterns = {
+      "000" => 0,
+      "100" => 0,
+      "010" => 0,
+      "001" => 0,
+      "110" => 0,
+      "101" => 0,
+      "011" => 0,
+      "111" => 0
+    }
+    recent_rounds.each do |round|
+      state = ["0","0","0"]
+
+      round.darts.each do |dart|
+        state[dart.number - 1] = "1" if dart.segment == 50
+      end
+
+      states_frow << state.join
+      @patterns[state.join] += 1
+    end
+
+    states = %w[
+      000
+      100
+      010
+      001
+      110
+      101
+      011
+      111
+    ]
+
+    @transitions = {}
+
+    states.each do |from|
+      states.each do |to|
+        @transitions[[from, to]] = 0
+      end
+    end
+
+    states_frow.each_cons(2) do |from, to|
+      @transitions[[from, to]] += 1
+    end
+  end
+
 
   private
 

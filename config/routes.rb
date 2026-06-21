@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   get 'logs/histogram', to: 'logs#histogram'
   get 'logs/cumulative', to: 'logs#cumulative'
   get 'logs/rayleigh', to: 'logs#rayleigh'
+  get 'logs/state_transition', to: 'logs#state_transition'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
