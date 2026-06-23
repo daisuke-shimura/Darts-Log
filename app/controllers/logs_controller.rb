@@ -236,6 +236,7 @@ class LogsController < ApplicationController
     end
 
     @max_transition = @transitions.values.max
+    @second_max_transition = @transitions.values.uniq.max(2)[1]
 
     center_x = 400
     center_y = 275
