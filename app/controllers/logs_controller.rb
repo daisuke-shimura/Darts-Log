@@ -234,6 +234,27 @@ class LogsController < ApplicationController
     states_frow.each_cons(2) do |from, to|
       @transitions[[from, to]] += 1
     end
+
+    @max_transition = @transitions.values.max
+
+    center_x = 400
+    center_y = 275
+    radius = 225
+  
+    angles = {
+      "000" => 0,   "110" => 45,  "101" => 90,  "011" => 135,
+      "111" => 180, "001" => 225, "010" => 270, "100" => 315
+    }
+  
+    @positions = angles.transform_values do |degree|
+      radian = degree * Math::PI / 180
+      x = (center_x + radius * Math.sin(radian)).round
+      y = (center_y - radius * Math.cos(radian)).round
+      
+      angle = Math.atan2(y - center_y, x - center_x)
+  
+      { x: x, y: y, angle: angle }
+    end
   end
 
 

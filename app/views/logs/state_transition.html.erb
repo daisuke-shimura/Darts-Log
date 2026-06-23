@@ -1,6 +1,102 @@
 <div style="width: 80%; margin: 0 auto;">
   <p class="fw-bold fs-5">状態遷移図</p>
   <%= @transitions %>
+<svg width="800" height="600" viewBox="0 -100 800 700">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="40" refY="5" markerWidth="10" markerHeight="10" orient="auto" markerUnits="userSpaceOnUse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#888" />
+    </marker>
+  </defs>
+
+  <% @transitions.each do |(from, to), count| %>
+    <% next if count == 0 %>
+    <% stroke_w = [count, 10].min %>
+
+    <% if from == to %>
+      <%
+        node_x = @positions[from][:x]
+        node_y = @positions[from][:y]
+        angle  = @positions[from][:angle]
+
+        # ループの長さを少しだけ調整
+        loop_length = 100
+        cp1_x = node_x + loop_length * Math.cos(angle - 0.6)
+        cp1_y = node_y + loop_length * Math.sin(angle - 0.6)
+        cp2_x = node_x + loop_length * Math.cos(angle + 0.6)
+        cp2_y = node_y + loop_length * Math.sin(angle + 0.6)
+
+        # テキストの位置をループの曲線の先端付近（線上）に変更
+        text_x = node_x + (loop_length * 0.75) * Math.cos(angle)
+        text_y = node_y + (loop_length * 0.75) * Math.sin(angle)
+      %>
+      <path
+        d="M <%= node_x %> <%= node_y %> C <%= cp1_x %> <%= cp1_y %>, <%= cp2_x %> <%= cp2_y %>, <%= node_x %> <%= node_y %>"
+        fill="none" stroke="#888" stroke-width="<%= stroke_w %>" marker-end="url(#arrow)"
+      />
+      
+      <circle cx="<%= text_x %>" cy="<%= text_y %>" r="12" fill="white" stroke="#888" opacity="1.0" />
+      <text x="<%= text_x %>" y="<%= text_y %>" font-size="14" fill="#333" text-anchor="middle" dominant-baseline="middle" font-weight="bold">
+        <%= count %>
+      </text>
+
+    <% else %>
+      <%
+        x1 = @positions[from][:x]
+        y1 = @positions[from][:y]
+        x2 = @positions[to][:x]
+        y2 = @positions[to][:y]
+
+        mx = (x1 + x2) / 2.0
+        my = (y1 + y2) / 2.0
+        dx = x2 - x1
+        dy = y2 - y1
+        dist = Math.sqrt(dx**2 + dy**2)
+
+        nx = -dy / dist
+        ny = dx / dist
+
+        offset = 30
+        cx = mx + nx * offset
+        cy = my + ny * offset
+
+        # 二次ベジェ曲線(Q)のちょうど中間点（t=0.5）の座標を計算して線上に配置
+        text_x = mx + nx * (offset / 2.0)
+        text_y = my + ny * (offset / 2.0)
+      %>
+      <path
+        d="M <%= x1 %> <%= y1 %> Q <%= cx %> <%= cy %> <%= x2 %> <%= y2 %>"
+        fill="none" stroke="#888" stroke-width="<%= stroke_w %>" marker-end="url(#arrow)"
+      />
+      
+      <circle cx="<%= text_x %>" cy="<%= text_y %>" r="12" fill="white" stroke="#888" opacity="1.0" />
+      <text x="<%= text_x %>" y="<%= text_y %>" font-size="14" fill="#333" text-anchor="middle" dominant-baseline="middle" font-weight="bold">
+        <%= count %>
+      </text>
+    <% end %>
+  <% end %>
+
+  <% @positions.each do |state, pos| %>
+    <circle
+      cx="<%= pos[:x] %>"
+      cy="<%= pos[:y] %>"
+      r="30"
+      fill="white"
+      stroke="#333"
+      stroke-width="2"
+    />
+    <text
+      x="<%= pos[:x] %>"
+      y="<%= pos[:y] %>"
+      font-size="16"
+      font-weight="bold"
+      fill="#333"
+      text-anchor="middle"
+      dominant-baseline="middle"
+    >
+      <%= state %>
+    </text>
+  <% end %>
+</svg>
   <table class="table table-bordered">
     <thead>
       <tr>
