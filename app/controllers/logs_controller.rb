@@ -212,7 +212,7 @@ class LogsController < ApplicationController
       @patterns[state.join] += 1
     end
 
-    states = %w[
+    @states = %w[
       000
       100
       010
@@ -225,8 +225,8 @@ class LogsController < ApplicationController
 
     @transitions = {}
 
-    states.each do |from|
-      states.each do |to|
+    @states.each do |from|
+      @states.each do |to|
         @transitions[[from, to]] = 0
       end
     end

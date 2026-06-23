@@ -30,6 +30,7 @@ module LogsHelper
     end
   end
 
+  # 状態遷移図
   # 自己ループのパスとテキスト座標を計算
   def loop_path_attributes(pos)
     node_x = pos[:x]
@@ -52,7 +53,6 @@ module LogsHelper
     }
   end
 
-  # 状態遷移図
   # 他ノードへの遷移パスとテキスト座標を計算
   def transition_path_attributes(from_pos, to_pos)
     x1, y1 = from_pos[:x], from_pos[:y]
