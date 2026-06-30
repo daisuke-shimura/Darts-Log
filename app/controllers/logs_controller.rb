@@ -77,6 +77,27 @@ class LogsController < ApplicationController
       end
       @darts_data = target_darts
     end
+
+    # 日付による絞り込み
+    if params[:day_from].present?
+      @darts_data = @darts_data.where(
+        "created_at >= ?",
+        Date.parse(params[:day_from]).beginning_of_day
+      )
+    end
+    
+    if params[:day_to].present?
+      @darts_data = @darts_data.where(
+        "created_at <= ?",
+        Date.parse(params[:day_to]).end_of_day
+      )
+    end
+
+    if params[:recent_darts].present?
+      @darts_data = @darts_data
+                      .order(created_at: :desc)
+                      .limit(params[:recent_darts].to_i)
+    end
   end
 
   def line_graph
