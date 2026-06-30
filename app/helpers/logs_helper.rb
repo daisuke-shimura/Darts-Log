@@ -164,4 +164,10 @@ module LogsHelper
     # 大きい順（暖色が上）になるように反転
     legend_data.reverse
   end
+
+  def short_date(date)
+    return "..." unless date.present?
+
+    Date.parse(date).strftime("%-m/%-d")
+  end
 end

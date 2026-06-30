@@ -170,8 +170,61 @@
         </button>
       </div>
 
-      <div class="d-flex gap-1 flex-wrap mb-2" data-log-logic--filter-target="numberTags"></div>
+      <div class="d-flex gap-1 flex-wrap mb-3" data-log-logic--filter-target="numberTags"></div>
       <div data-log-logic--filter-target="numberHiddenInputs"></div>
+    </div>
+
+    <div class="card border-light mb-2">
+      <div class="card-body py-2">
+
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <span class="fw-semibold text-secondary">Day</span>
+
+          <div class="d-flex gap-1 flex-wrap">
+            <% if params[:day_from].present? || params[:day_to].present? %>
+              <span class="badge text-bg-secondary">
+                <%= short_date(params[:day_from]) %> ～ <%= short_date(params[:day_to]) %>
+              </span>
+            <% end %>
+
+            <% if params[:recent].present? %>
+              <span class="badge text-bg-secondary">
+                <%= params[:recent] %> 本
+              </span>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="row g-2 align-items-center">
+          <div class="col-auto">
+            <div class="d-flex align-items-center gap-1">
+              <%= date_field_tag :day_from,
+                    params[:day_from],
+                    class: "form-control form-control-sm",
+                    style: "width: 108px;" %>
+
+              <span>～</span>
+
+              <%= date_field_tag :day_to,
+                    params[:day_to],
+                    class: "form-control form-control-sm",
+                    style: "width: 108px;" %>
+            </div>
+          </div>
+
+          <div class="col-auto">
+            <div class="input-group input-group-sm">
+              <%= number_field_tag :recent,
+                    params[:recent],
+                    min: 1,
+                    class: "form-control",
+                    style: "width: 90px;" %>
+
+              <span class="input-group-text">本</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="d-flex justify-content-end gap-2">
