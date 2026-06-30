@@ -78,33 +78,16 @@ class LogsController < ApplicationController
       @darts_data = target_darts
     end
 
-    # 日付による絞り込み
-    if params[:day_from].present?
-      @darts_data = @darts_data.where(
-        "created_at >= ?",
-        Date.parse(params[:day_from]).beginning_of_day
-      )
-    end
-    
-    if params[:day_to].present?
-      @darts_data = @darts_data.where(
-        "created_at <= ?",
-        Date.parse(params[:day_to]).end_of_day
-      )
-    end
-
-    if params[:recent_darts].present?
-      @darts_data = @darts_data
-                      .order(created_at: :desc)
-                      .limit(params[:recent_darts].to_i)
-    end
+    @darts_data = filter_by_time(@darts_data)
   end
 
   def line_graph
-    recent_rounds = RecordRound.joins(:darts)
-      .where(darts: { target: "bull" })
-      .distinct
-      .order(created_at: :asc)
+    recent_rounds = filter_by_time(
+                      RecordRound.joins(:darts)
+                      .where(darts: { target: "bull" })
+                      .distinct
+                      .order(created_at: :asc)
+                    )
 
     # X軸のラベル（例: R1, R2...）
     @line_labels = recent_rounds.map { |r| "R#{r.number}" }
@@ -114,7 +97,8 @@ class LogsController < ApplicationController
   end
 
   def histogram
-    darts = Dart.where(target: "bull")
+    darts = filter_by_time(Dart.where(target: "bull"))
+    # darts = Dart.where(target: "bull")
 
     mode = params[:histogram_mode] || "range"
 
@@ -206,10 +190,16 @@ class LogsController < ApplicationController
   end
 
   def state_transition
-    recent_rounds = RecordRound.joins(:darts)
-    .where(darts: { target: "bull" })
-    .distinct
-    .order(created_at: :asc)
+    recent_rounds = filter_by_time(
+      RecordRound.joins(:darts)
+      .where(darts: { target: "bull" })
+      .distinct
+      .order(created_at: :asc)
+    )
+    # recent_rounds = RecordRound.joins(:darts)
+    # .where(darts: { target: "bull" })
+    # .distinct
+    # .order(created_at: :asc)
 
     states_frow = []
     @patterns = {
@@ -294,7 +284,8 @@ class LogsController < ApplicationController
   end
 
   def set_cumulative_data
-    darts = Dart.where(target: "bull")
+    darts = filter_by_time(Dart.where(target: "bull"))
+    # darts = Dart.where(target: "bull")
     n = darts.count
     cumulative = 0.0
 
@@ -316,5 +307,30 @@ class LogsController < ApplicationController
     end
 
     return cumulative_data
+  end
+
+  def filter_by_time(scope)
+    table = scope.model.table_name
+
+    if params[:day_from].present?
+      scope = scope.where(
+        "#{table}.created_at >= ?",
+        Date.parse(params[:day_from]).beginning_of_day
+      )
+    end
+  
+    if params[:day_to].present?
+      scope = scope.where(
+        "#{table}.created_at <= ?",
+        Date.parse(params[:day_to]).end_of_day
+      )
+    end
+  
+    if params[:recent].present?
+      scope = scope.order("#{table}.created_at DESC")
+                   .limit(params[:recent].to_i)
+    end
+  
+    scope
   end
 end

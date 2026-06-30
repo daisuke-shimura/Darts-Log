@@ -170,11 +170,11 @@
         </button>
       </div>
 
-      <div class="d-flex gap-1 flex-wrap mb-2" data-log-logic--filter-target="numberTags"></div>
+      <div class="d-flex gap-1 flex-wrap mb-3" data-log-logic--filter-target="numberTags"></div>
       <div data-log-logic--filter-target="numberHiddenInputs"></div>
     </div>
 
-    <div class="card border-light shadow-sm mb-2">
+    <div class="card border-light mb-2">
       <div class="card-body py-2">
 
         <div class="d-flex align-items-center justify-content-between mb-2">
@@ -187,9 +187,9 @@
               </span>
             <% end %>
 
-            <% if params[:recent_darts].present? %>
+            <% if params[:recent].present? %>
               <span class="badge text-bg-secondary">
-                <%= params[:recent_darts] %> 本
+                <%= params[:recent] %> 本
               </span>
             <% end %>
           </div>
@@ -214,8 +214,8 @@
 
           <div class="col-auto">
             <div class="input-group input-group-sm">
-              <%= number_field_tag :recent_darts,
-                    params[:recent_darts],
+              <%= number_field_tag :recent,
+                    params[:recent],
                     min: 1,
                     class: "form-control",
                     style: "width: 90px;" %>
