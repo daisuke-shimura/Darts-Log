@@ -98,7 +98,12 @@ class LogsController < ApplicationController
 
   def histogram
     darts = filter_by_time(Dart.where(target: "bull"))
-    # darts = Dart.where(target: "bull")
+
+    @histogram_modes = {
+      range: "幅43",
+      exact: "実値",
+      exact_r: "実値（R）"
+    }
 
     mode = params[:histogram_mode] || "range"
 
