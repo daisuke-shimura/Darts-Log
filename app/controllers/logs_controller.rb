@@ -161,12 +161,22 @@ class LogsController < ApplicationController
   def cumulative
     cumulative_data = set_cumulative_data
 
+    @modes = {
+      absolute_r: "直径",
+      index_r: "R"
+    }
+
     @bar_labels = cumulative_data.keys
     @bar_data = cumulative_data.values
   end
 
   def rayleigh
     cumulative_data = set_cumulative_data
+
+    @modes = {
+      absolute_r: "直径",
+      index_r: "R"
+    }
 
     mode = params[:mode] || "absolute_r"
     if mode == "index_r"
