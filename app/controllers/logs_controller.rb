@@ -62,6 +62,8 @@ class LogsController < ApplicationController
       @darts_data = @darts_data.where(number: params[:numbers])
     end
 
+    @darts_data = filter_by_time(@darts_data)
+
     if params[:targets].present?
       target_darts = []
       params[:targets].each_with_index do |target, index|
@@ -77,8 +79,6 @@ class LogsController < ApplicationController
       end
       @darts_data = target_darts
     end
-
-    @darts_data = filter_by_time(@darts_data)
   end
 
   def line_graph
@@ -211,10 +211,6 @@ class LogsController < ApplicationController
       .distinct
       .order(created_at: :asc)
     )
-    # recent_rounds = RecordRound.joins(:darts)
-    # .where(darts: { target: "bull" })
-    # .distinct
-    # .order(created_at: :asc)
 
     states_frow = []
     @patterns = {
