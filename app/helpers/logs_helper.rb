@@ -132,11 +132,7 @@ module LogsHelper
 
     marker_id = "arrow-#{level}"
 
-    {
-      width: width.round(1),
-      color: arrow_marker_colors[marker_id],
-      marker_id: marker_id
-    }
+    { marker_id: marker_id, width: width.round(1), color: arrow_marker_colors[marker_id] }
   end
 
   def arrow_marker_colors
@@ -163,23 +159,26 @@ module LogsHelper
 
     # 最大値は無視して、1から「2番目の最大値」までだけをループして9等分の凡例を作る
     (1..safe_second).each do |count|
-      color = transition_style(count, max_count, safe_second)[:color]
-      legend_groups[color] ||= []
-      legend_groups[color] << count
+      style = transition_style(count, max_count, safe_second)
+      marker_id = style[:marker_id]
+      legend_groups[marker_id] ||= { color: style[:color], counts: [] }
+      
+      legend_groups[marker_id][:counts] << count
     end
 
     # レベル1〜9の凡例テキストを作成
-    legend_data = legend_groups.map do |color, counts|
+    legend_data = legend_groups.map do |marker_id, data|
+      counts = data[:counts]
       min = counts.min
       max = counts.max
       text = min == max ? "#{min}回" : "#{min}〜#{max}回"
-      { color: color, text: text }
+      { marker_id: marker_id, text: text, color: data[:color] }
     end
 
     # 最後に、最大値（レベル10）を独立した凡例として追加
     if max_count > safe_second
       max_color = arrow_marker_colors["arrow-10"]
-      legend_data << { color: max_color, text: "#{max_count}回" }
+      legend_data << { marker_id: "arrow-10", text: "#{max_count}回", color: max_color }
     end
 
     # 大きい順（暖色が上）になるように反転
