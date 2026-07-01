@@ -30,6 +30,27 @@ module LogsHelper
     end
   end
 
+  def sement_count(darts, target)
+    return if target == "bull" || target == "undefined"
+ 
+    rate = target[0]
+    if rate == "t"
+      multiplier = "triple"
+    elsif rate == "d"
+      multiplier = "double"
+    elsif rate == "s"
+      multiplier = "single"
+    end
+
+    segment = target[1..-1].to_i
+
+    count = darts.count do |dart|
+      dart.multiplier == multiplier && dart.segment == segment
+    end
+
+    "#{target}合計：#{count}"
+  end
+
   # 状態遷移図
   # 自己ループのパスとテキスト座標を計算
   def loop_path_attributes(pos)

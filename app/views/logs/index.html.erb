@@ -20,10 +20,16 @@
 </div>
 
 <div class="position-absolute top-0 start-0 mt-3 ms-3">
-  <p>ダーツの総計：<%= @darts_all.count %></p>
   <p>検索結果：<%= @darts_data.count %>
   </p>
   <p>BULL合計：<%= bull_count(@darts_data) %></p>
+  <p>
+    <% if params[:targets].present? %>
+      <% params[:targets].each do |target| %>
+        <span><%= sement_count(@darts_data, target) %></span>
+      <% end %>
+    <% end %>
+  </p>
   <p>
     <% if params[:numbers].present? %>
       <% params[:numbers].each do |number| %>
@@ -32,6 +38,7 @@
     <% end %>
   </p>
   <hr>
+  <p>ダーツの総計：<%= @darts_all.count %></p>
   <h5>ターゲット</h5>
   <p>BULL：<%= @target_bull.count %>　20：<%= @target_20.count %></p>
   <h5>テーブル別</h5>
