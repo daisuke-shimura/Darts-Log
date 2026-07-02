@@ -12,7 +12,7 @@ Darts-Log は、ソフトダーツ（主にDARTSLIVE3の仕様を想定）のプ
 
 ## 使用技術
 ### バックエンド
-* Ruby ruby 3.1.2
+* Ruby 3.1.2
 * Ruby on Rails 7.0.10
 
 ### フロントエンド
