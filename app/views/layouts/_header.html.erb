@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white">
   <div class="container-fluid">
-    <%= link_to "DartsLog", root_path, class: "navbar-brand" %>
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag "logo.svg", alt: "Darts-Log", height: 48 %>
+    <% end %>
 
     <% if user_signed_in? %>
       <div class="d-flex align-items-center ms-auto gap-3">
