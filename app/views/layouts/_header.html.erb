@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white">
   <div class="container-fluid">
     <%= link_to root_path, class: "navbar-brand" do %>
-      <%= image_tag "logo.svg", alt: "Darts-Log", height: 48 %>
+      <%= image_tag "logo.svg", alt: "Darts-Log", height: 32 %>
     <% end %>
 
     <% if user_signed_in? %>
       <div class="d-flex align-items-center ms-auto gap-3">
 
-      <%= link_to root_path, class: "d-inline-flex align-items-center text-decoration-none bg-white text-dark border border-2 border-dark rounded-pill px-3 py-2 shadow-sm" do %>
+      <%= link_to logs_path, class: "d-inline-flex align-items-center text-decoration-none bg-white text-dark border border-2 border-dark rounded-pill px-3 py-2 shadow-sm" do %>
         <div class="d-flex align-items-center">
           <span class="badge bg-secondary me-2">ALL</span>
 
