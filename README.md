@@ -13,27 +13,45 @@ Darts-Log は、ソフトダーツ（主にDARTSLIVE3の仕様を想定）のプ
 
 ## アプリ画面
 
-### 測定画面
+### 測定・記録画面
+ダーツボード上の着弾位置をタップすることで、各投擲の正確な座標データ（r, θ）とスコアをリアルタイムに記録します。
+<br>
+<img src="screenshots/record.gif" width="850" alt="測定画面のデモ">
 
-![Home](docs/images/home.png)
+### ゲーム選択
+01（ゼロワン）やCRICKET（クリケット）をはじめ、COUNT-UP、CENTER COUNT-UP、CRICKET COUNT-UP、SHOOT OUTの6つの主要なゲームデータを記録できます。
+<br>
+<img src="screenshots/game.png" width="500" alt="ゲーム選択画面">
 
----
+### データ分析
+蓄積したプレイデータをさまざまな角度から統計的に分析し、自身の投擲傾向や成績の推移を視覚的に確認できます。
 
-### プレイ記録
-
-![Record](docs/images/record.png)
-
----
-
-### 統計画面
-
-![Stats](docs/images/stats.png)
-
----
-
-### 状態遷移分析
-
-![Transition](docs/images/transition.png)
+<table>
+  <tr>
+    <td width="50%" valign="top">
+      <h4>弾道分布（ダーツマップ）</h4>
+      ダーツの着弾位置をボード上にマッピングし、グルーピングの精度や狙いに対するばらつきを視覚的に確認できます。<br><br>
+      <img src="screenshots/darts_map.png" width="100%" alt="Darts Map">
+    </td>
+    <td width="50%" valign="top">
+      <h4>状態遷移図</h4>
+      各投擲を状態として扱い、次にどの状態へ遷移したかを可視化します。BULLへの連続ヒット率など、プレイ中の傾向を分析できます。<br><br>
+      <img src="screenshots/transition.png" width="100%" alt="Transition">
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" valign="top">
+      <h4>折れ線グラフ</h4>
+      ラウンドごとのBULL率の推移を可視化し、調子の変化や成績のトレンドを長期的に確認できます。<br><br>
+      <img src="screenshots/line_graph.png" width="100%" alt="Line Graph">
+    </td>
+    <td width="50%" valign="top">
+      <h4>ヒストグラム</h4>
+      スコアの分布を可視化し、実力のばらつきや頻出するスコア帯（安定度）を客観的に分析できます。<br><br>
+      <img src="screenshots/histogram.png" width="100%" alt="Histogram">
+    </td>
+  </tr>
+</table>
 
 ## 主な機能
 * **プレイデータの詳細な記録**: 各ラウンドごとのスコアや刺さった位置を記録します（`record_round`、`darts` テーブルによるリレーショナルなデータ管理）。
