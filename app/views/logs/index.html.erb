@@ -190,7 +190,7 @@
           <div class="d-flex gap-1 flex-wrap">
             <% if params[:day_from].present? || params[:day_to].present? %>
               <span class="badge text-bg-secondary">
-                <%= short_date(params[:day_from]) %> ～ <%= short_date(params[:day_to]) %>
+                <%= date_range(params[:day_from], params[:day_to]) %>
               </span>
             <% end %>
 
