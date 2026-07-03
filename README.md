@@ -13,7 +13,7 @@ Darts-Log は、ソフトダーツ（主にDARTSLIVE3の仕様を想定）のプ
 
 ## アプリ画面
 
-### ホーム画面
+### 測定画面
 
 ![Home](docs/images/home.png)
 
