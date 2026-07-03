@@ -21,6 +21,10 @@
   vertical-align: middle;
 }
 
+ .navbar {
+  height: 60px;
+ }
+
  .fixed-form {
   position: fixed;
   top: 0;

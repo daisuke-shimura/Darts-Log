@@ -1,5 +1,8 @@
-<div class="container-fluid py-4 px-lg-5">
-  <div class="d-flex justify-content-between align-items-center mb-3">
+<div class="container-fluid py-4 px-5 position-relative">
+  <div
+    class="position-absolute top-0 start-50 translate-middle-x d-flex justify-content-between align-items-center"
+    style="width: 80%;"
+  >
     <p class="fw-bold fs-5">状態遷移図</p>
 
     <button
@@ -10,7 +13,7 @@
       Filter
       <% if params[:day_from].present? || params[:day_to].present? %>
         <span class="badge text-bg-secondary">
-          <%= short_date(params[:day_from]) %> ～ <%= short_date(params[:day_to]) %>
+          <%= date_range(params[:day_from], params[:day_to]) %>
         </span>
       <% end %>
 
@@ -24,7 +27,7 @@
   
   <div class="row mb-5" data-controller="log-logic--state-transition">
     <div class="col-12 d-flex justify-content-center overflow-auto">
-      <svg width="800" height="600" viewBox="0 -50 800 700">
+      <svg width="800" height="600" viewBox="0 -75 800 700">
         <defs>
           <% arrow_marker_colors.each do |id, color| %>
             <marker id="<%= id %>" viewBox="0 0 10 10" refX="40" refY="5" markerWidth="10" markerHeight="10" orient="auto" markerUnits="userSpaceOnUse">
@@ -185,7 +188,7 @@
             <div class="d-flex gap-1 flex-wrap">
               <% if params[:day_from].present? || params[:day_to].present? %>
                 <span class="badge text-bg-secondary">
-                  <%= short_date(params[:day_from]) %> ～ <%= short_date(params[:day_to]) %>
+                  <%= date_range(params[:day_from], params[:day_to]) %>
                 </span>
               <% end %>
 

@@ -185,9 +185,25 @@ module LogsHelper
     legend_data.reverse
   end
 
-  def short_date(date)
-    return "..." unless date.present?
+  def date_range(day_from, day_to)
+    return if day_from.blank? && day_to.blank?
 
-    Date.parse(date).strftime("%-m/%-d")
+    if day_from.blank?
+      from = "..."
+    else
+      from = Date.parse(day_from).strftime("%-m/%-d")
+    end
+
+    if day_to.blank?
+      to = "..."
+    else
+      to = Date.parse(day_to).strftime("%-m/%-d")
+    end
+
+    if day_from == day_to
+      from
+    else
+      "#{from}〜#{to}"
+    end
   end
 end
