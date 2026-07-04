@@ -1,4 +1,4 @@
-# Darts-Log
+![Darts-Log](app/assets/images/logo.svg)
 
 ## 概要
 Darts-Log は、ソフトダーツ（主にDARTSLIVE3の仕様を想定）のプレイデータを記録・分析するためのRuby on Rails製ウェブアプリケーションです。
