@@ -23,13 +23,10 @@ class Games::ShootOutsController < ApplicationController
       end
     end
     @closed_segments = [
-      [15, 8, 1],
-      [16, 9, 2],
-      [17, 10, 3],
-      [18, 11, 4],
-      [19, 12, 5],
-      [20, 13, 6],
-      [50, 14, 7]
+      [nil, 17, 13,  9,  5,  1],
+      [nil, 18, 14, 10,  6,  2],
+      [nil, 19, 15, 11,  7,  3],
+      [ 50, 20, 16, 12,  8,  4],
     ]
   end
 
