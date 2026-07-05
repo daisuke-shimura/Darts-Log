@@ -5,24 +5,27 @@
   >
     <p class="fw-bold fs-5">状態遷移図</p>
 
-    <button
-      class="btn btn-outline-secondary"
-      data-bs-toggle="offcanvas"
-      data-bs-target="#filterPanel"
-    >
-      Filter
-      <% if params[:day_from].present? || params[:day_to].present? %>
-        <span class="badge text-bg-secondary">
-          <%= date_range(params[:day_from], params[:day_to]) %>
-        </span>
-      <% end %>
+    <div>
+      Rounds：<%= @recent_rounds.count %>本
+      <button
+        class="btn btn-outline-secondary"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#filterPanel"
+      >
+        Filter
+        <% if params[:day_from].present? || params[:day_to].present? %>
+          <span class="badge text-bg-secondary">
+            <%= date_range(params[:day_from], params[:day_to]) %>
+          </span>
+        <% end %>
 
-      <% if params[:recent].present? %>
-        <span class="badge text-bg-secondary">
-          <%= params[:recent] %> 本
-        </span>
-      <% end %>
-    </button>
+        <% if params[:recent].present? %>
+          <span class="badge text-bg-secondary">
+            <%= params[:recent] %> 回
+          </span>
+        <% end %>
+      </button>
+    </div>
   </div>
   
   <div class="row mb-5" data-controller="log-logic--state-transition">

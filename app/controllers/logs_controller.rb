@@ -82,7 +82,7 @@ class LogsController < ApplicationController
   end
 
   def line_graph
-    recent_rounds = filter_by_time(
+    @recent_rounds = filter_by_time(
                       RecordRound.joins(:darts)
                       .where(darts: { target: "bull" })
                       .distinct
@@ -90,14 +90,14 @@ class LogsController < ApplicationController
                     )
 
     # X軸のラベル（例: R1, R2...）
-    @line_labels = recent_rounds.map { |r| "R#{r.number}" }
+    @line_labels = @recent_rounds.map { |r| "R#{r.number}" }
 
     # Y軸のデータ（HIT数）
-    @line_data = recent_rounds.map(&:hit)
+    @line_data = @recent_rounds.map(&:hit)
   end
 
   def histogram
-    darts = filter_by_time(Dart.where(target: "bull"))
+    @darts = filter_by_time(Dart.where(target: "bull"))
 
     @histogram_modes = {
       range: "幅43",
@@ -108,10 +108,10 @@ class LogsController < ApplicationController
     mode = params[:histogram_mode] || "range"
 
     if mode == "exact"
-      db_counts = darts.group(:absolute_r).count
+      db_counts = @darts.group(:absolute_r).count
       histogram_data = @r_values.index_with { |val| db_counts[val] || 0 }
     elsif mode == "exact_r"
-      db_counts = darts.group(:index_r).count
+      db_counts = @darts.group(:index_r).count
       histogram_data = (0..69).index_with { |val| db_counts[val] || 0 }
     else 
       histogram_data = {
@@ -127,7 +127,7 @@ class LogsController < ApplicationController
         "387〜431" => 0 #最後はちょっと多い
       }
     
-      darts.each do |dart|
+      @darts.each do |dart|
         r = dart.absolute_r
   
         case r
@@ -205,7 +205,7 @@ class LogsController < ApplicationController
   end
 
   def state_transition
-    recent_rounds = filter_by_time(
+    @recent_rounds = filter_by_time(
       RecordRound.joins(:darts)
       .where(darts: { target: "bull" })
       .distinct
@@ -223,7 +223,7 @@ class LogsController < ApplicationController
       "011" => 0,
       "111" => 0
     }
-    recent_rounds.each do |round|
+    @recent_rounds.each do |round|
       state = ["0","0","0"]
 
       round.darts.each do |dart|
@@ -295,21 +295,21 @@ class LogsController < ApplicationController
   end
 
   def set_cumulative_data
-    darts = filter_by_time(Dart.where(target: "bull"))
-    # darts = Dart.where(target: "bull")
-    n = darts.count
+    @darts = filter_by_time(Dart.where(target: "bull"))
+    # @darts = Dart.where(target: "bull")
+    n = @darts.count
     cumulative = 0.0
 
     mode = params[:mode] || "absolute_r"
     if mode == "index_r"
-      db_counts = darts.group(:index_r).count
+      db_counts = @darts.group(:index_r).count
       cumulative_data = (0..69).index_with do |r|
         count = db_counts[r] || 0
         cumulative += count
         cumulative.to_f / n
       end
     else
-      db_counts = darts.group(:absolute_r).count
+      db_counts = @darts.group(:absolute_r).count
       cumulative_data = @r_values.index_with do |r|
         count = db_counts[r] || 0
         cumulative += count

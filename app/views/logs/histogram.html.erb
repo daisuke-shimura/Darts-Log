@@ -2,30 +2,34 @@
   <div class="d-flex justify-content-between align-items-center mb-3">
     <p class="fw-bold fs-5">ヒストグラム用ページ</p>
 
-    <button
-      class="btn btn-outline-secondary"
-      data-bs-toggle="offcanvas"
-      data-bs-target="#filterPanel"
-    >
-      Filter
-      <% if params[:histogram_mode].present? %>
-        <span class="badge text-bg-primary">
-          <%= @histogram_modes[params[:histogram_mode].to_sym] %>
-        </span>
-      <% end %>
+    <div>
+      Darts：<%=@darts.count %>本
 
-      <% if params[:day_from].present? || params[:day_to].present? %>
-        <span class="badge text-bg-secondary">
-          <%= date_range(params[:day_from], params[:day_to]) %>
-        </span>
-      <% end %>
+      <button
+        class="btn btn-outline-secondary"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#filterPanel"
+      >
+        Filter
+        <% if params[:histogram_mode].present? %>
+          <span class="badge text-bg-primary">
+            <%= @histogram_modes[params[:histogram_mode].to_sym] %>
+          </span>
+        <% end %>
 
-      <% if params[:recent].present? %>
-        <span class="badge text-bg-secondary">
-          <%= params[:recent] %> 本
-        </span>
-      <% end %>
-    </button>
+        <% if params[:day_from].present? || params[:day_to].present? %>
+          <span class="badge text-bg-secondary">
+            <%= date_range(params[:day_from], params[:day_to]) %>
+          </span>
+        <% end %>
+
+        <% if params[:recent].present? %>
+          <span class="badge text-bg-secondary">
+            <%= params[:recent] %> 本
+          </span>
+        <% end %>
+      </button>
+    </div>
   </div>
 
   <canvas data-controller="log-logic--histogram"
