@@ -30,7 +30,9 @@ require "csv"
 bull_darts = Dart.where.not(record_round_id: nil)
                  .where(target: "bull")
 
-CSV.open("bull_darts.csv", "w") do |csv|
+date = Time.current.strftime("%Y%m%d")
+
+CSV.open("exports/bull_darts_#{date}.csv", "w") do |csv|
   csv << [
     "id",
     "segment",
@@ -38,8 +40,8 @@ CSV.open("bull_darts.csv", "w") do |csv|
     "number",
     "absolute_r",
     "absolute_0",
-    "index_r",
-    "index_n",
+    "x",
+    "y",
     "target",
     "created_at"
   ]
@@ -51,8 +53,8 @@ CSV.open("bull_darts.csv", "w") do |csv|
     :number,
     :absolute_r,
     :absolute_0,
-    :index_r,
-    :index_n,
+    :x,
+    :y,
     :target,
     :created_at
   ).find_each do |dart|
@@ -63,8 +65,8 @@ CSV.open("bull_darts.csv", "w") do |csv|
       dart.number,
       dart.absolute_r,
       dart.absolute_0,
-      dart.index_r,
-      dart.index_n,
+      dart.x,
+      dart.y,
       dart.target,
       dart.created_at
     ]
