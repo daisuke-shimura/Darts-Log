@@ -22,3 +22,54 @@
 
 ### 権限を復活
 `chmod +x script.sh`
+
+## CSV出力
+```ruby
+require "csv"
+
+bull_darts = Dart.where.not(record_round_id: nil)
+                 .where(target: "bull")
+
+CSV.open("bull_darts.csv", "w") do |csv|
+  csv << [
+    "id",
+    "segment",
+    "multiplier",
+    "number",
+    "absolute_r",
+    "absolute_0",
+    "index_r",
+    "index_n",
+    "target",
+    "created_at"
+  ]
+
+  bull_darts.select(
+    :id,
+    :segment,
+    :multiplier,
+    :number,
+    :absolute_r,
+    :absolute_0,
+    :index_r,
+    :index_n,
+    :target,
+    :created_at
+  ).find_each do |dart|
+    csv << [
+      dart.id,
+      dart.segment,
+      dart.multiplier,
+      dart.number,
+      dart.absolute_r,
+      dart.absolute_0,
+      dart.index_r,
+      dart.index_n,
+      dart.target,
+      dart.created_at
+    ]
+  end
+end
+
+puts "CSV出力が完了しました！"
+```
