@@ -16,12 +16,12 @@ Darts-Log は、ソフトダーツ（主にDARTSLIVE3の仕様を想定）のプ
 ### 測定・記録画面
 ダーツボード上の着弾位置をタップすることで、各投擲の正確な座標データ（r, θ）とスコアをリアルタイムに記録します。
 <br>
-<img src="screenshots/record.gif" width="850" alt="測定画面のデモ">
+<img src="docs/screenshots/record.gif" width="850" alt="測定画面のデモ">
 
 ### ゲーム選択
 01（ゼロワン）やCRICKET（クリケット）をはじめ、COUNT-UP、CENTER COUNT-UP、CRICKET COUNT-UP、SHOOT OUTの6つの主要なゲームデータを記録できます。
 <br>
-<img src="screenshots/game.png" width="500" alt="ゲーム選択画面">
+<img src="docs/screenshots/game.png" width="500" alt="ゲーム選択画面">
 
 ### データ分析
 蓄積したプレイデータをさまざまな角度から統計的に分析し、自身の投擲傾向や成績の推移を視覚的に確認できます。
@@ -31,24 +31,24 @@ Darts-Log は、ソフトダーツ（主にDARTSLIVE3の仕様を想定）のプ
     <td width="50%" valign="top">
       <h4>弾道分布（ダーツマップ）</h4>
       ダーツの着弾位置をボード上にマッピングし、グルーピングの精度や狙いに対するばらつきを視覚的に確認できます。<br><br>
-      <img src="screenshots/darts_map.png" width="100%" alt="Darts Map">
+      <img src="docs/screenshots/darts_map.png" width="100%" alt="Darts Map">
     </td>
     <td width="50%" valign="top">
       <h4>状態遷移図</h4>
       各投擲を状態として扱い、次にどの状態へ遷移したかを可視化します。BULLへの連続ヒット率など、プレイ中の傾向を分析できます。<br><br>
-      <img src="screenshots/transition.png" width="100%" alt="Transition">
+      <img src="docs/screenshots/transition.png" width="100%" alt="Transition">
     </td>
   </tr>
   <tr>
     <td width="50%" valign="top">
       <h4>折れ線グラフ</h4>
       ラウンドごとのBULL率の推移を可視化し、調子の変化や成績のトレンドを長期的に確認できます。<br><br>
-      <img src="screenshots/line_graph.png" width="100%" alt="Line Graph">
+      <img src="docs/screenshots/line_graph.png" width="100%" alt="Line Graph">
     </td>
     <td width="50%" valign="top">
       <h4>ヒストグラム</h4>
       スコアの分布を可視化し、実力のばらつきや頻出するスコア帯（安定度）を客観的に分析できます。<br><br>
-      <img src="screenshots/histogram.png" width="100%" alt="Histogram">
+      <img src="docs/screenshots/histogram.png" width="100%" alt="Histogram">
     </td>
   </tr>
 </table>
@@ -61,18 +61,18 @@ Darts-Log は、ソフトダーツ（主にDARTSLIVE3の仕様を想定）のプ
 
 ## 使用技術
 ### バックエンド
-* Ruby 3.1.2
-* Ruby on Rails 7.0.10
+- <img src="docs/tech/ruby.svg" width="16" alt="Ruby"> Ruby 3.1.2
+- <img src="docs/tech/rails.svg" width="16" alt="Ruby on Rails"> Ruby on Rails 7.0.10
 
 ### フロントエンド
-* HTML
-* CSS
-* JavaScript
-* Bootstrap
-* Stimulus
+- <img src="docs/tech/html.svg" width="16" alt="HTML"> HTML
+- <img src="docs/tech/css.svg" width="16" alt="CSS"> CSS
+- <img src="docs/tech/javascript.svg" width="16" alt="JavaScript"> JavaScript
+- <img src="docs/tech/bootstrap.svg" width="16" alt="Bootstrap"> Bootstrap
+- <img src="docs/tech/stimulus.svg" width="16" alt="Stimulus"> Stimulus
 
 ### データベース
-* SQLite3
+- <img src="docs/tech/sqlite.svg" width="16" alt="SQLite3"> SQLite3
 
 ## ローカル環境でのセットアップ
 
