@@ -42,12 +42,14 @@
   <h5>ターゲット</h5>
   <p>BULL：<%= @target_bull.count %>　20：<%= @target_20.count %></p>
   <h5>テーブル別</h5>
-  <p>ROUND：<%= @round_darts.count %>　GAME：<%= @game_darts.count %></p>
+  <p>ROUND：<%= @record_rounds %>R（<%= @record_darts.count %>本）</p>
+  <p>GAME：<%= @game %>（<%= @game_rounds %>R, <%= @game_darts.count %>本）</p>
   <h5>ゲーム別</h5>
-  <p>01：<%= @zero_one_darts.count %>　CRICKET：<%= @cricket_darts.count %>　COUNT-UP：<%= @count_up_darts.count %></p>
-  <p>CENTER COUNT-UP：<%= @center_count_up_darts.count %></p>
-  <p>CRICKET COUNT-UP：<%= @cricket_count_up_darts.count %></p>
-  <p>SHOOT OUT：<%= @shoot_out_darts.count %></p>
+  <p>01：<%= @zero_one_games %>（<%= @zero_one_darts.count %>本）　CRICKET：<%= @cricket_games %>（<%= @cricket_darts.count %>本）</p>
+  <p>COUNT-UP：<%= @count_up_games %>（<%= @count_up_darts.count %>本）</p>
+  <p>CENTER COUNT-UP：<%= @center_count_up_games %>（<%= @center_count_up_darts.count %>本）</p>
+  <p>CRICKET COUNT-UP：<%= @cricket_count_up_games %>（<%= @cricket_count_up_darts.count %>本）</p>
+  <p>SHOOT OUT：<%= @shoot_out_games %>（<%= @shoot_out_darts.count %>本）</p>
   <h5>投擲順</h5>
   <p>1投目：<%= @first_darts.count %>　2投目：<%= @second_darts.count %>　3投目：<%= @third_darts.count %></p>
 </div>
