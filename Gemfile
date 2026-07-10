@@ -71,3 +71,5 @@ group :test do
 end
 
 gem "enum_help"
+gem "simple_calendar"
+gem "holiday_jp"
