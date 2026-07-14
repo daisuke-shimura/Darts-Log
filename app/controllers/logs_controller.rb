@@ -1,6 +1,7 @@
 class LogsController < ApplicationController
   layout "logs"
   before_action :set_r_values, only: [:histogram, :cumulative, :rayleigh]
+  before_action :load_calendar, only: [:index]
 
   def index
     @darts_all = Dart.all
@@ -352,5 +353,15 @@ class LogsController < ApplicationController
     end
   
     scope
+  end
+
+  def load_calendar
+    @start_date = Date.current.beginning_of_month
+    @end_date   = Date.current.end_of_month
+    start_day = @start_date.beginning_of_week(:sunday)
+    end_day = @end_date.end_of_week(:sunday)
+    @calendar_dates = (start_day..end_day).to_a
+
+    @target_month = Date.current
   end
 end

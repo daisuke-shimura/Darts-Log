@@ -1324,10 +1324,44 @@
 .hole.hole69 {transform: translate(-50%, -50%) rotate(calc(var(--i) * (360deg / 440))) translateY(calc(var(--radius-69) * -1));}
 .hole.hole70 {transform: translate(-50%, -50%) rotate(calc(var(--i) * (360deg / 440))) translateY(calc(var(--radius-70) * -1));}
 
+
 /*状態遷移図*/
 .legend-item {
   cursor:pointer;
 }
 .legend-item.disabled {
   opacity: 0.5;
+}
+
+
+/*カレンダー*/
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border-top: 1px solid #dee2e6;
+  border-left: 1px solid #dee2e6;
+}
+
+.calendar-header {
+  padding: 0.25rem;
+  text-align: center;
+  font-weight: 600;
+  border-right: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+}
+
+.calendar-day {
+  position: relative;
+  min-height: 100px;
+  border-right: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.calendar-day-number {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
 }

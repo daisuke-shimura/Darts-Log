@@ -242,3 +242,27 @@
     </div>
   <% end %>
 </div>
+
+<div class="p-3 h-100">
+  <h4 class="text-center mb-3">
+    <%= @target_month.strftime("%Y年%-m月") %>
+  </h4>
+
+  <div class="calendar-grid w-100">
+    <div class="calendar-header text-danger">日</div>
+    <div class="calendar-header">月</div>
+    <div class="calendar-header">火</div>
+    <div class="calendar-header">水</div>
+    <div class="calendar-header">木</div>
+    <div class="calendar-header">金</div>
+    <div class="calendar-header text-primary">土</div>
+
+    <% @calendar_dates.each do |date| %>
+      <div class="calendar-day">
+        <div class="calendar-day-number">
+          <%= date.day %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
