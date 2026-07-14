@@ -239,13 +239,21 @@ module LogsHelper
     end
   end
 
-  def date_font(date)
+  def date_font_color(date)
     if HolidayJp.holiday?(date) || date.sunday?
       "text-danger"
     elsif date.saturday?
       "text-primary"
     else
       "text-dark"
+    end
+  end
+
+  def date_font(date, month)
+    if date.month == month.month
+      date.day.to_s
+    else
+      "#{date.month}/#{date.day}"
     end
   end
 end

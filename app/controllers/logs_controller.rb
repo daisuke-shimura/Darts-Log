@@ -356,12 +356,16 @@ class LogsController < ApplicationController
   end
 
   def load_calendar
-    @start_date = (Date.current).beginning_of_month
-    @end_date   = (Date.current).end_of_month
+    if params[:month].present?
+      @target_month = Date.parse(params[:month])
+    else
+      @target_month = Date.current
+    end
+    @start_date = @target_month.beginning_of_month
+    @end_date   = @target_month.end_of_month
     start_day = @start_date.beginning_of_week(:sunday)
     end_day = @end_date.end_of_week(:sunday)
     @calendar_dates = (start_day..end_day).to_a
-    @target_month = Date.current
 
     @daily_darts = Dart.where(created_at: start_day.beginning_of_day..end_day.end_of_day).group_by { |dart| dart.created_at.to_date }
   end
