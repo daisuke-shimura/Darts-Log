@@ -258,10 +258,20 @@
     <div class="calendar-header text-primary">土</div>
 
     <% @calendar_dates.each do |date| %>
-      <div class="calendar-day <%= date_color(date) %>">
-        <div class="calendar-day-number <%= date_font(date) %>"><%= date.day %></div>
-        <div class="pt-4 ps-1">あああ</div>
-      </div>
+    <% darts = @daily_darts[date] || [] %>
+      <% if darts.present? %>
+        <% bull = bull_count(darts) %>
+        <div class="calendar-day <%= date_color(bull) %>">
+          <div class="calendar-day-number <%= date_font(date) %>"><%= date.day %></div>
+          <div class="pt-4 ps-1"><%= darts.count %>本</div>
+          <div class="pt-1 ps-1">BULL数：<%= bull_count(darts) %>本</div>
+          <div class="pt-1 ps-1">BULL率：<%= bull_late(darts, bull) %></div>
+        </div>
+      <% else %>
+        <div class="calendar-day">
+          <div class="calendar-day-number <%= date_font(date) %>"><%= date.day %></div>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>
