@@ -213,15 +213,21 @@ module LogsHelper
   end
 
   def date_color(bull)
-    # if count == 0
-    #   "bg-light"
-    # elsif count < 10
-    #   "bg-success"
-    # elsif count < 20
-    #   "bg-warning"
-    # else
-    #   "bg-danger"
-    # end
+    if bull > 100
+      return "background-color: rgba(0, 77, 148);" if bull > 200
+
+      late = ((bull - 100).to_f / 100).round(3)
+      start  = [9, 132, 227]
+      finish = [0,  77, 148]
+      r = (start[0] + (finish[0] - start[0]) * late).round
+      g = (start[1] + (finish[1] - start[1]) * late).round
+      b = (start[2] + (finish[2] - start[2]) * late).round
+
+      "background-color: rgba(#{r}, #{g}, #{b});"
+    else
+      transparent = (bull.to_f / 100).round(3)
+      "background-color: rgba(9, 132, 227, #{transparent});"
+    end
   end
 
   def bull_late(darts, bull)
