@@ -258,10 +258,9 @@
     <div class="calendar-header text-primary">土</div>
 
     <% @calendar_dates.each do |date| %>
-      <div class="calendar-day">
-        <div class="calendar-day-number">
-          <%= date.day %>
-        </div>
+      <div class="calendar-day <%= date_color(date) %>">
+        <div class="calendar-day-number <%= date_font(date) %>"><%= date.day %></div>
+        <div class="pt-4 ps-1">あああ</div>
       </div>
     <% end %>
   </div>

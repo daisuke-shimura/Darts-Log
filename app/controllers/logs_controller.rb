@@ -361,7 +361,8 @@ class LogsController < ApplicationController
     start_day = @start_date.beginning_of_week(:sunday)
     end_day = @end_date.end_of_week(:sunday)
     @calendar_dates = (start_day..end_day).to_a
-
     @target_month = Date.current
+
+    
   end
 end

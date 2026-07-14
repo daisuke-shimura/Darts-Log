@@ -206,4 +206,19 @@ module LogsHelper
       "#{from}〜#{to}"
     end
   end
+
+  #カレンダー
+  def date_color(date)
+    
+  end
+
+  def date_font(date)
+    if HolidayJp.holiday?(date) || date.sunday?
+      "text-danger"
+    elsif date.saturday?
+      "text-primary"
+    else
+      "text-dark"
+    end
+  end
 end
