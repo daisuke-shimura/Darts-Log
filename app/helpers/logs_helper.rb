@@ -250,7 +250,7 @@ module LogsHelper
   end
 
   def date_font(date, month)
-    if date.month == month.month
+    if date.year == month.year && date.month == month.month
       date.day.to_s
     else
       "#{date.month}/#{date.day}"

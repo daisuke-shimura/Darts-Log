@@ -357,7 +357,7 @@ class LogsController < ApplicationController
 
   def load_calendar
     if params[:month].present?
-      @target_month = Date.parse(params[:month])
+      @target_month = Date.strptime(params[:month], "%Y-%m")
     else
       @target_month = Date.current
     end
