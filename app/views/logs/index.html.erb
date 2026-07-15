@@ -281,8 +281,21 @@
             bs_html: true,
             bs_title: date.strftime("%Y/%m/%d"),
             bs_content: "
-              母数：#{sample}本<br>
-              BULL数：#{bull}本"
+              <div class='calendar-popover'>
+                <div class='d-flex justify-content-between'>
+                  <span>BULL数</span>
+                  <span>#{bull}本</span>
+                </div>
+                <div class='d-flex justify-content-between'>
+                  <span>母数</span>
+                  <span>#{sample}本</span>
+                </div>
+                <hr>
+                <div class='d-flex justify-content-between'>
+                  <span>BULL率</span>
+                  <strong>#{bull_late(sample, bull)}</strong>
+                </div>
+              </div>"
         } do %>
           <div class="calendar-day-number <%= date_font_color(date) %>"><%= date_font(date, @target_month) %></div>
           <div class="pt-4 ps-1 calendar-day-count"><%= darts.count %>本</div>
