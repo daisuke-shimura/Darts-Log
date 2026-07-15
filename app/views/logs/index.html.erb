@@ -271,12 +271,12 @@
     <% darts = @daily_darts[date] || [] %>
       <% if darts.present? %>
         <% bull = bull_count(darts) %>
-        <div class="calendar-day" style="<%= date_color(bull) %>">
+        <%= link_to logs_path(request.query_parameters.merge(day_from: date, day_to: date)), class: "calendar-day", style: date_color(bull) do %>
           <div class="calendar-day-number <%= date_font_color(date) %>"><%= date_font(date, @target_month) %></div>
-          <div class="pt-4 ps-1"><%= darts.count %>本</div>
-          <div class="pt-1 ps-1">BULL数：<%= bull_count(darts) %>本</div>
-          <div class="pt-1 ps-1">BULL率：<%= bull_late(darts, bull) %></div>
-        </div>
+          <div class="pt-4 ps-1 calendar-day-count"><%= darts.count %>本</div>
+          <!--div class="pt-1 ps-1">BULL数：<%= bull_count(darts) %>本</div-->
+          <div class="pt-1 ps-1 calendar-day-late"><%= bull_late(darts, bull) %></div>
+        <% end %>
       <% else %>
         <div class="calendar-day">
           <div class="calendar-day-number <%= date_font_color(date) %>"><%= date_font(date, @target_month) %></div>
