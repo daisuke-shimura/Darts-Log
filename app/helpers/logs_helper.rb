@@ -212,6 +212,10 @@ module LogsHelper
     darts.count { |dart| dart.target == "bull" && dart.segment == 50 }
   end
 
+  def sample_count(darts)
+    darts.count { |dart| dart.target == "bull" }
+  end
+
   def date_color(bull)
     if bull > 100
       return "background-color: rgba(0, 77, 148);" if bull > 200
@@ -230,12 +234,11 @@ module LogsHelper
     end
   end
 
-  def bull_late(darts, bull)
-    sample_count = darts.count { |dart| dart.target == "bull" }
-    if sample_count == 0
+  def bull_late(sample, bull)
+    if sample == 0
       return "---" 
     else
-      return "#{((bull.to_f / sample_count) * 100).round(2)}%"
+      return "#{((bull.to_f / sample) * 100).round(2)}%"
     end
   end
 

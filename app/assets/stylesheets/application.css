@@ -1360,6 +1360,12 @@
   border-right: 1px solid #dee2e6;
   border-bottom: 1px solid #dee2e6;
 }
+a.calendar-day {
+  transition: filter 0.15s ease;
+}
+a.calendar-day:hover {
+  filter: brightness(1.15);
+}
 
 .calendar-day-number {
   position: absolute;
