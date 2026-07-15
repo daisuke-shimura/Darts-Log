@@ -4,8 +4,20 @@ export default class extends Controller {
   connect() {
     requestAnimationFrame(() => {
       const header = document.querySelector("header")
+      const height = header?.offsetHeight || 60
 
-      const height = header?.offsetHeight || 56
+      const params = new URLSearchParams(window.location.search)
+
+      if (params.get("scroll") === "calendar") {
+        const calendar = document.getElementById("calendar")
+
+        window.scrollTo({
+          top: calendar.offsetTop + height,
+          behavior: "instant"
+        })
+
+        return
+      }
 
       window.scrollTo({
         top: height,
