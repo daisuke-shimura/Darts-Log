@@ -13,7 +13,7 @@ export default class extends Controller {
 
         window.scrollTo({
           top: calendar.offsetTop + height,
-          behavior: "instant"
+          behavior: "auto"
         })
 
         return

@@ -367,6 +367,14 @@ class LogsController < ApplicationController
     end_day = @end_date.end_of_week(:sunday)
     @calendar_dates = (start_day..end_day).to_a
 
-    @daily_darts = Dart.where(created_at: start_day.beginning_of_day..end_day.end_of_day).group_by { |dart| dart.created_at.to_date }
+    @daily_darts = Rails.cache.fetch(
+        "calendar/#{@target_month.strftime('%Y-%m')}",
+        expires_in: 1.hour
+      ) do
+        Dart.select(:created_at, :target, :segment)
+            .where(created_at: start_day.beginning_of_day..end_day.end_of_day)
+            .group_by { |dart| dart.created_at.to_date }
+      end
+    # @daily_darts = Dart.where(created_at: start_day.beginning_of_day..end_day.end_of_day).group_by { |dart| dart.created_at.to_date }
   end
 end
