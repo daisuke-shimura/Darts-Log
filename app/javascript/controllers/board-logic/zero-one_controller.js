@@ -2,8 +2,8 @@ import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
   static targets = [
-    "output", "flash", "resultItem", "submitBtn", "cancelBtn", "targetInput",
-    "scoreBox", "roundScore", "roundBox"
+    "output", "flash", "resultItem", "submitBtn", "cancelBtn",
+    "targetInput", "targetName", "scoreBox", "roundScore", "roundBox"
   ];
   static values = {
     gameId: Number
@@ -231,5 +231,9 @@ export default class extends Controller {
     this.scoreBoxTarget.textContent = this.currentScore;
     el.classList.add("text-primary");
     el.textContent = "BUST";
+    //BUST時にターゲットを戻す
+    const firstDart = this.selected[0];
+    this.targetInputTarget.value = firstDart.target;
+    this.targetNameTarget.textContent = firstDart.name;
   }
 }
