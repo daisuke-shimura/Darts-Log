@@ -1,6 +1,7 @@
 class LogsController < ApplicationController
   layout "logs"
   before_action :set_r_values, only: [:histogram, :cumulative, :rayleigh]
+  before_action :load_calendar, only: [:index]
 
   def index
     @darts_all = Dart.all
@@ -352,5 +353,28 @@ class LogsController < ApplicationController
     end
   
     scope
+  end
+
+  def load_calendar
+    if params[:month].present?
+      @target_month = Date.strptime(params[:month], "%Y-%m")
+    else
+      @target_month = Date.current
+    end
+    @start_date = @target_month.beginning_of_month
+    @end_date   = @target_month.end_of_month
+    start_day = @start_date.beginning_of_week(:sunday)
+    end_day = @end_date.end_of_week(:sunday)
+    @calendar_dates = (start_day..end_day).to_a
+
+    @daily_darts = Rails.cache.fetch(
+        "calendar/#{@target_month.strftime('%Y-%m')}",
+        expires_in: 1.hour
+      ) do
+        Dart.select(:created_at, :target, :segment)
+            .where(created_at: start_day.beginning_of_day..end_day.end_of_day)
+            .group_by { |dart| dart.created_at.to_date }
+      end
+    # @daily_darts = Dart.where(created_at: start_day.beginning_of_day..end_day.end_of_day).group_by { |dart| dart.created_at.to_date }
   end
 end

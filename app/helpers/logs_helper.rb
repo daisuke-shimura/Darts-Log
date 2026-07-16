@@ -206,4 +206,57 @@ module LogsHelper
       "#{from}〜#{to}"
     end
   end
+
+  #カレンダー
+  def bull_count(darts)
+    darts.count { |dart| dart.target == "bull" && dart.segment == 50 }
+  end
+
+  def sample_count(darts)
+    darts.count { |dart| dart.target == "bull" }
+  end
+
+  def date_color(bull)
+    if bull > 100
+      return "background-color: rgba(0, 77, 148);" if bull > 200
+
+      late = ((bull - 100).to_f / 100).round(3)
+      start  = [9, 132, 227]
+      finish = [0,  77, 148]
+      r = (start[0] + (finish[0] - start[0]) * late).round
+      g = (start[1] + (finish[1] - start[1]) * late).round
+      b = (start[2] + (finish[2] - start[2]) * late).round
+
+      "background-color: rgba(#{r}, #{g}, #{b});"
+    else
+      transparent = (bull.to_f / 100).round(3)
+      "background-color: rgba(9, 132, 227, #{transparent});"
+    end
+  end
+
+  def bull_late(sample, bull)
+    if sample == 0
+      return "---" 
+    else
+      return "#{((bull.to_f / sample) * 100).round(2)}%"
+    end
+  end
+
+  def date_font_color(date)
+    if HolidayJp.holiday?(date) || date.sunday?
+      "text-danger"
+    elsif date.saturday?
+      "text-primary"
+    else
+      "text-dark"
+    end
+  end
+
+  def date_font(date, month)
+    if date.year == month.year && date.month == month.month
+      date.day.to_s
+    else
+      "#{date.month}/#{date.day}"
+    end
+  end
 end

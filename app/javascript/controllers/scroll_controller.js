@@ -4,8 +4,7 @@ export default class extends Controller {
   connect() {
     requestAnimationFrame(() => {
       const header = document.querySelector("header")
-
-      const height = header?.offsetHeight || 56
+      const height = header?.offsetHeight || 60
 
       window.scrollTo({
         top: height,

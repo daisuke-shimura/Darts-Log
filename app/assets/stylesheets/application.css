@@ -1324,10 +1324,170 @@
 .hole.hole69 {transform: translate(-50%, -50%) rotate(calc(var(--i) * (360deg / 440))) translateY(calc(var(--radius-69) * -1));}
 .hole.hole70 {transform: translate(-50%, -50%) rotate(calc(var(--i) * (360deg / 440))) translateY(calc(var(--radius-70) * -1));}
 
+
 /*状態遷移図*/
 .legend-item {
   cursor:pointer;
 }
 .legend-item.disabled {
   opacity: 0.5;
+}
+
+
+/*カレンダー*/
+.calendar-grid {
+  display: grid;
+  width: 100%;
+  height: 87.5%;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: auto repeat(6, 1fr);
+  border-top: 1px solid #dee2e6;
+  border-left: 1px solid #dee2e6;
+
+  transition: opacity .2s ease;
+}
+
+.calendar-frame {
+  position: relative;
+}
+/* 読み込み中は少し暗くする */
+.calendar-frame[busy] {
+  pointer-events: none;
+}
+
+.calendar-frame[busy] .calendar-grid {
+  opacity: 0.3;
+  transition: opacity 0.2s;
+}
+/* オーバーレイ */
+.calendar-frame[busy]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(2px);
+  z-index: 10;
+}
+/* スピナー */
+.calendar-frame[busy]::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 48px;
+  height: 48px;
+  margin-left: -24px;
+  margin-top: -24px;
+
+  border: 4px solid rgba(9,132,227,0.2);
+  border-top-color: #0984E3;
+  border-radius: 50%;
+
+  animation: spin 0.8s linear infinite;
+  z-index: 11;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.calendar-header {
+  padding: 0.25rem;
+  text-align: center;
+  font-weight: 600;
+  border-right: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+  background-color: #f8f9fa;
+}
+
+.calendar-day {
+  display: block;
+  position: relative;
+  border-right: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+  text-decoration: none;
+  color: inherit;
+  overflow: hidden;
+}
+a.calendar-day {
+  transition:
+    filter 0.15s ease,
+    box-shadow 0.15s ease;
+}
+a.calendar-day:hover {
+  filter: brightness(1.12);
+  z-index: 10;
+}
+
+.calendar-day-number {
+  position: absolute;
+  top: 0.25rem;
+  left: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.calendar-day-count {
+  position: absolute;
+  bottom: 0.25rem;
+  right: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  opacity: 0.65;
+}
+
+.calendar-day-late {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -55%);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.popover {
+  border: 1px solid #d6e4ff;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(13, 110, 253, 0.18);
+  overflow: hidden;
+}
+
+.popover-header {
+  background: linear-gradient(135deg, #F1F8FF, #E6F4FF);
+  color: #2D3436;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid #D6EBFF;
+  padding: 0.75rem 1rem;
+}
+
+.popover-body {
+  background-color: #f8fbff;
+  min-width: 180px;
+  padding: 0.85rem 1rem;
+  color: #495057;
+}
+
+.calendar-popover {
+  font-size: 0.9rem;
+}
+
+.calendar-popover .d-flex {
+  padding: 0.15rem 0;
+}
+
+.calendar-popover hr {
+  margin: 0.5rem 0;
+  border-color: #cfe2ff;
+  opacity: 1;
+}
+
+.calendar-popover strong {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0984E3;
 }
