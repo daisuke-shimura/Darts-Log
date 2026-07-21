@@ -74,6 +74,16 @@
         <% end %>
       </div>
 
+      <div>
+        <%= f.check_box :separate_bull %>
+        <%= f.label :separate_bull, "セパレートブル" %>
+      </div>
+
+      <div>
+        <%= f.check_box :master_out %>
+        <%= f.label :master_out, "マスターアウト" %>
+      </div>
+
       <div class="d-grid">
         <%= f.button type: :submit,
           class: "

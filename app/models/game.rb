@@ -16,4 +16,18 @@ class Game < ApplicationRecord
   def set_number
     self.number = user.games.maximum(:number).to_i + 1
   end
+
+  # 定数は二の階乗で与えて、複数オプションに対応
+  module Options
+    SEPARATE_BULL = 1
+    MASTER_OUT    = 2
+  end
+
+  def separate_bull?
+    options & Options::SEPARATE_BULL != 0
+  end
+
+  def master_out?
+    options & Options::MASTER_OUT != 0
+  end
 end
