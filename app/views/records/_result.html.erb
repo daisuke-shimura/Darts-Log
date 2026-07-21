@@ -12,13 +12,17 @@
       <li data-<%= js_controller %>-target="resultItem">3投目：<span data-<%= js_controller %>-target="output" data-action="click-><%= js_controller %>#toggleBounce"></span></li>
     </ul>
 
-    <%= render "records/flash-message" %>
     <button disabled class="cansel-btn btn btn-secondary rounded-pill" data-action="click-><%= js_controller %>#cancel" data-<%= js_controller %>-target="cancelBtn">
       キャンセル
     </button>
+    <% if controller_path == "records" %>
+      <p class="round_number text-light fs-5" data-<%= js_controller %>-target="roundNumber"></p>
+    <% end %>
     <button disabled class="submit-btn btn btn-primary rounded-pill" data-action="click-><%= js_controller %>#submit" data-<%= js_controller %>-target="submitBtn">
       確定
     </button>
+
+    <%= render "records/flash-message" %>
   </div>
 
   <% if controller_path.start_with?("games/") %>
