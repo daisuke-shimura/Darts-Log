@@ -65,7 +65,11 @@ class Games::ZeroOnesController < ApplicationController
       end
     end
 
-    score, range = calc.score_and_range(created_darts)
+    if @game.separate_bull?
+      score, range = calc.separate_score_and_range(created_darts)
+    else
+      score, range = calc.score_and_range(created_darts)
+    end
     awards = calc.award(created_darts, score)
     analysis = calc.analysis_columns(created_darts)
     game_round.update!(

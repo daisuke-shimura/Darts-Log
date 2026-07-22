@@ -6,12 +6,14 @@ export default class extends Controller {
     "targetInput", "targetName", "scoreBox", "roundScore", "roundBox"
   ];
   static values = {
-    gameId: Number
+    gameId: Number,
+    options: Number
   }
 
   connect() {
     console.log("zero-one controller connected");
     console.log("gameId:", this.gameIdValue);
+    console.log("options:", this.optionsValue);
     this.selected = [];
     this.round = Number(this.element.dataset.round);
     this.bust = false;
