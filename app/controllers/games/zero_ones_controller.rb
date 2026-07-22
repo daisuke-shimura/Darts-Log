@@ -7,6 +7,9 @@ class Games::ZeroOnesController < ApplicationController
     @default_target = "bull"
     @default_target_name = "BULL"
     @segment_index = [20,1,18,4,13,6,10,15,2,17,3,19,7,16,8,11,14,9,12,5]
+    @options = []
+    @options << "セパレートブル" if @game.separate_bull?
+    @options << "マスターアウト" if @game.master_out?
     # 続きから
     @rounds = @game.game_rounds.order(:created_at)
     @round_number = @rounds.count + 1

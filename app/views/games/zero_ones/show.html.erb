@@ -29,5 +29,18 @@
         </div>
       <% end %>
     </div>
+    <% if @options.present? %>
+    <div class="mt-2 p-2 bg-dark rounded">
+      <div class="small text-secondary mb-1 border-bottom border-danger pb-1">OPTION</div>
+      <div class="d-flex flex-column gap-1">
+      <% @options.each do |option| %>
+        <div class="small">
+          <span class="text-danger">●</span>
+          <span class="text-light"><%= option %></span>
+        </div>
+      <% end %>
+      </div>
+    </div>
+    <% end %>
   </div>
 </div>
