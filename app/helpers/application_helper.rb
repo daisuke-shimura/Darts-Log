@@ -7,7 +7,7 @@ module ApplicationHelper
   end
 
   def round_text_class(round)
-    return "" if round.nil?
+    return "" if round.nil? || round.score.nil?
 
     if round.score >= 100 && round.score <= 150
       "text-danger"

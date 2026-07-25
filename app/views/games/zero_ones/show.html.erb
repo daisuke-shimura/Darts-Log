@@ -2,6 +2,7 @@
   data-target-selector='[data-board-logic--zero-one-target="targetInput"]'
   data-board-logic--zero-one-game-id-value="<%= @game.id %>"
   data-board-logic--zero-one-options-value="<%= @game.options %>"
+  data-board-logic--zero-one-target-labels-value='<%= Dart.targets.keys.to_h { |key| [key, I18n.t("enums.dart.target.#{key}")] }.to_json %>'
   data-current-score="<%= @current_score %>" 
   data-round="<%= @round_number %>">
   <div class="board position-absolute top-0 ms-2" data-action="click->board-logic--zero-one#click">

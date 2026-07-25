@@ -7,7 +7,8 @@ export default class extends Controller {
   ];
   static values = {
     gameId: Number,
-    options: Number
+    options: Number,
+    targetLabels: Object
   }
 
   connect() {
@@ -236,6 +237,6 @@ export default class extends Controller {
     //BUST時にターゲットを戻す
     const firstDart = this.selected[0];
     this.targetInputTarget.value = firstDart.target;
-    this.targetNameTarget.textContent = firstDart.name;
+    this.targetNameTarget.textContent = this.targetLabelsValue[firstDart.target];
   }
 }

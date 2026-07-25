@@ -32,6 +32,7 @@ class Games::ZeroOnesController < ApplicationController
     end
 
     game_id = params[:game_id]
+    game = Game.find(game_id)
     game_round = GameRound.create!(
       game_id: game_id,
       bust: bust
@@ -65,7 +66,7 @@ class Games::ZeroOnesController < ApplicationController
       end
     end
 
-    if @game.separate_bull?
+    if game.separate_bull?
       score, range = calc.separate_score_and_range(created_darts)
     else
       score, range = calc.score_and_range(created_darts)
