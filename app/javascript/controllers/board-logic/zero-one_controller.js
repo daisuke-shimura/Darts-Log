@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
+import { OPTIONS, hasOption } from "../../utils/game_options";
 
 export default class extends Controller {
   static targets = [
@@ -61,15 +62,27 @@ export default class extends Controller {
   }
 
   score(segment, multiplier) {
-    let rate;
-    if (multiplier === "triple") {
-      rate = 3;
-    } else if (multiplier === "double" && segment !== 50) {
-      rate = 2;
+    if (segment === 50) {
+      if (hasOption(this.optionsValue, OPTIONS.SEPARATE_BULL)) {
+        if (multiplier === "double") {
+          return 50;
+        } else {
+          return 25;
+        }
+      } else {
+        return 50;
+      }
     } else {
-      rate = 1;
+      let rate;
+      if (multiplier === "triple") {
+        rate = 3;
+      } else if (multiplier === "double") {
+        rate = 2;
+      } else {
+        rate = 1;
+      }
+      return segment * rate;
     }
-    return segment * rate;
   }
 
   toggleBounce(event) {
