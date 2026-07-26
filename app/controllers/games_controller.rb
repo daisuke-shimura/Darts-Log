@@ -3,10 +3,16 @@ class GamesController < ApplicationController
   end
 
   def create
+    options = 0
+
+    options |= Game::Options::SEPARATE_BULL if params[:separate_bull] == "1"
+    options |= Game::Options::MASTER_OUT if params[:master_out] == "1"
+
     game = Game.create!(
       user_id: current_user.id,
       kind: params[:kind],
       start_score: params[:start_score],
+      options: options
     )
 
     if game.kind == "zero_one"

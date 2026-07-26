@@ -92,6 +92,12 @@
   transform: scale(1.05);
 }
 
+.round_number {
+  position: absolute;
+  bottom: 0px;
+  right: 80px;
+}
+
 .target-display {
   width: 100%;
   margin-bottom: 4px;

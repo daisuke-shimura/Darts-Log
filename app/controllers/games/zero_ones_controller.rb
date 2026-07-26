@@ -7,6 +7,9 @@ class Games::ZeroOnesController < ApplicationController
     @default_target = "bull"
     @default_target_name = "BULL"
     @segment_index = [20,1,18,4,13,6,10,15,2,17,3,19,7,16,8,11,14,9,12,5]
+    @options = []
+    @options << "セパレートブル" if @game.separate_bull?
+    @options << "マスターアウト" if @game.master_out?
     # 続きから
     @rounds = @game.game_rounds.order(:created_at)
     @round_number = @rounds.count + 1
@@ -29,6 +32,7 @@ class Games::ZeroOnesController < ApplicationController
     end
 
     game_id = params[:game_id]
+    game = Game.find(game_id)
     game_round = GameRound.create!(
       game_id: game_id,
       bust: bust
@@ -62,7 +66,11 @@ class Games::ZeroOnesController < ApplicationController
       end
     end
 
-    score, range = calc.score_and_range(created_darts)
+    if game.separate_bull?
+      score, range = calc.separate_score_and_range(created_darts)
+    else
+      score, range = calc.score_and_range(created_darts)
+    end
     awards = calc.award(created_darts, score)
     analysis = calc.analysis_columns(created_darts)
     game_round.update!(

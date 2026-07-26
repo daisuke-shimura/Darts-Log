@@ -1,11 +1,13 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["output", "flash", "resultItem", "submitBtn", "cancelBtn", "targetInput"];
+  static targets = ["output", "flash", "resultItem", "submitBtn", "cancelBtn", "targetInput", "roundNumber"];
 
   connect() {
     console.log("hole controller connected");
     this.selected = [];
+    this.roundCount = 0;
+    this.roundNumberTarget.textContent = `${this.roundCount}回`;
     this.updateButtons();
   }
 
@@ -107,6 +109,8 @@ export default class extends Controller {
         this.render();
         this.updateButtons();
         this.showMessage("保存しました");
+        this.roundCount += 1;
+        this.roundNumberTarget.textContent = `${this.roundCount}回`;
       }
     })
     .catch(err => {

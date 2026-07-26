@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
+import { OPTIONS, hasOption } from "../../utils/game_options";
 
 export default class extends Controller {
   static targets = [
@@ -6,12 +7,15 @@ export default class extends Controller {
     "targetInput", "targetName", "scoreBox", "roundScore", "roundBox"
   ];
   static values = {
-    gameId: Number
+    gameId: Number,
+    options: Number,
+    targetLabels: Object
   }
 
   connect() {
     console.log("zero-one controller connected");
     console.log("gameId:", this.gameIdValue);
+    console.log("options:", this.optionsValue);
     this.selected = [];
     this.round = Number(this.element.dataset.round);
     this.bust = false;
@@ -54,19 +58,31 @@ export default class extends Controller {
     this.selected.push(front_data);
     this.render();
     this.updateButtons();
-    this.rewriteCurrentScore(front_data.score);
+    this.rewriteCurrentScore(front_data);
   }
 
   score(segment, multiplier) {
-    let rate;
-    if (multiplier === "triple") {
-      rate = 3;
-    } else if (multiplier === "double" && segment !== 50) {
-      rate = 2;
+    if (segment === 50) {
+      if (hasOption(this.optionsValue, OPTIONS.SEPARATE_BULL)) {
+        if (multiplier === "double") {
+          return 50;
+        } else {
+          return 25;
+        }
+      } else {
+        return 50;
+      }
     } else {
-      rate = 1;
+      let rate;
+      if (multiplier === "triple") {
+        rate = 3;
+      } else if (multiplier === "double") {
+        rate = 2;
+      } else {
+        rate = 1;
+      }
+      return segment * rate;
     }
-    return segment * rate;
   }
 
   toggleBounce(event) {
@@ -107,15 +123,29 @@ export default class extends Controller {
     this.cancelBtnTarget.disabled = disabled;
   }
 
-  rewriteCurrentScore(score) {
-    this.currentScore -= score;
-    if (this.currentScore < 0) {
+  rewriteCurrentScore(front_data) {
+    this.currentScore -= front_data.score;
+    let bustThreshold = 0;
+
+    if (hasOption(this.optionsValue, OPTIONS.MASTER_OUT)) {
+      bustThreshold = 1;
+      console.log("MASTER_OUT");
+      if (this.currentScore === 0 && (front_data.multiplier === "double" || front_data.multiplier === "triple" || front_data.segment === 50) ) {
+        this.clear = true;
+        this.element.querySelector(".board").classList.add("clear");
+      }
+    } else {
+      if (this.currentScore === 0) {
+        this.clear = true;
+        this.element.querySelector(".board").classList.add("clear");
+      }
+    }
+
+    if (!this.clear && (this.currentScore <= bustThreshold)) {
       this.bust = true;
       this.element.querySelector(".board").classList.add("bust");
-    } else if (this.currentScore === 0) {
-      this.clear = true;
-      this.element.querySelector(".board").classList.add("clear");
     }
+
     this.refreshView();
   }
 
@@ -234,6 +264,6 @@ export default class extends Controller {
     //BUST時にターゲットを戻す
     const firstDart = this.selected[0];
     this.targetInputTarget.value = firstDart.target;
-    this.targetNameTarget.textContent = firstDart.name;
+    this.targetNameTarget.textContent = this.targetLabelsValue[firstDart.target];
   }
 }

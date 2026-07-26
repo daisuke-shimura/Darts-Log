@@ -30,12 +30,33 @@ class RoundCalculator
     end
   end
 
+  # インブルとアウターブルを分けない
   def score_and_range(round)
     score = 0
     range_sum = 0
     round.each do |dart|
       if dart.segment == 50
         score += dart.segment
+      else
+        score += dart.segment * dart.multiplier_before_type_cast
+      end
+      range_sum += dart.absolute_r
+    end
+    range = (range_sum.to_f / round.size).round(2)
+    return score, range
+  end
+
+  # セパレートブル
+  def separate_score_and_range(round)
+    score = 0
+    range_sum = 0
+    round.each do |dart|
+      if dart.segment == 50
+        if dart.single?
+          score += 25
+        elsif dart.double?
+          score += 50
+        end
       else
         score += dart.segment * dart.multiplier_before_type_cast
       end

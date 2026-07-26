@@ -1,6 +1,8 @@
 <div class="position-relative" data-controller="board-logic--zero-one target"
   data-target-selector='[data-board-logic--zero-one-target="targetInput"]'
-  data-board-logic--zero-one-game-id-value="<%= @game.id %>" 
+  data-board-logic--zero-one-game-id-value="<%= @game.id %>"
+  data-board-logic--zero-one-options-value="<%= @game.options %>"
+  data-board-logic--zero-one-target-labels-value='<%= Dart.targets.keys.to_h { |key| [key, I18n.t("enums.dart.target.#{key}")] }.to_json %>'
   data-current-score="<%= @current_score %>" 
   data-round="<%= @round_number %>">
   <div class="board position-absolute top-0 ms-2" data-action="click->board-logic--zero-one#click">
@@ -29,5 +31,18 @@
         </div>
       <% end %>
     </div>
+    <% if @options.present? %>
+    <div class="mt-2 p-2 bg-dark rounded">
+      <div class="small text-secondary mb-1 border-bottom border-danger pb-1">OPTION</div>
+      <div class="d-flex flex-column gap-1">
+      <% @options.each do |option| %>
+        <div class="small">
+          <span class="text-danger">●</span>
+          <span class="text-light"><%= option %></span>
+        </div>
+      <% end %>
+      </div>
+    </div>
+    <% end %>
   </div>
 </div>

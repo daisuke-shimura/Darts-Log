@@ -52,6 +52,9 @@
     <%= hidden_field_tag :kind, "zero_one" %>
 
     <div style="width: min(560px, 100%);">
+      <div class="option-title">
+        START SCORE
+      </div>
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mb-5">
         <% [301, 501, 701, 901, 1101, 1501].each do |score| %>
           <div class="col">
@@ -72,6 +75,36 @@
             </label>
           </div>
         <% end %>
+      </div>
+
+      <div class="option-section">
+        <div class="option-title">
+          GAME OPTIONS
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 g-3 mb-5">
+          <div class="col">
+            <%= f.check_box :separate_bull,
+              class: "btn-check",
+              autocomplete: "off" %>
+
+            <%= f.label :separate_bull, class: "option-card w-100" do %>
+              <span class="option-check">✓</span>
+              <span>セパレートブル</span>
+            <% end %>
+          </div>
+
+          <div class="col">
+            <%= f.check_box :master_out,
+              class: "btn-check",
+              autocomplete: "off" %>
+
+            <%= f.label :master_out, class: "option-card w-100" do %>
+              <span class="option-check">✓</span>
+              <span>マスターアウト</span>
+            <% end %>
+          </div>
+        </div>
       </div>
 
       <div class="d-grid">
@@ -199,5 +232,114 @@
 
   .start-button:hover::before {
     transform: translateX(120%);
+  }
+
+  .option-section {
+    margin-bottom: 2rem;
+  }
+
+  .option-title {
+    margin-bottom: .75rem;
+    padding-left: .5rem;
+    color: rgba(255, 255, 255, .55);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .2em;
+  }
+
+  .option-card {
+    min-height: 64px;
+    padding: 0 1.25rem;
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+    cursor: pointer;
+
+    color: rgba(255, 255, 255, .72);
+    font-size: 1rem;
+    font-weight: 700;
+
+    border: 1.5px solid rgba(220, 53, 69, .35);
+
+    background:
+      linear-gradient(
+        145deg,
+        rgba(220, 53, 69, .10),
+        rgba(255, 255, 255, .02)
+      );
+
+    box-shadow:
+      0 0 10px rgba(220, 53, 69, .08),
+      inset 0 1px 1px rgba(255, 255, 255, .05);
+
+    transition:
+      transform .15s ease,
+      border-color .15s ease,
+      box-shadow .15s ease,
+      color .15s ease,
+      background .15s ease;
+  }
+
+  .option-card:hover {
+    transform: translateY(-2px);
+    color: white;
+    border-color: rgba(255, 107, 129, .7);
+
+    box-shadow:
+      0 0 18px rgba(220, 53, 69, .25),
+      0 10px 25px rgba(0, 0, 0, .35);
+  }
+
+  .btn-check:checked + .option-card {
+    color: white;
+
+    border-color: rgba(255, 107, 129, 1);
+
+    background:
+      linear-gradient(
+        145deg,
+        rgba(220, 53, 69, .42),
+        rgba(120, 0, 0, .25)
+      );
+
+    box-shadow:
+      0 0 18px rgba(220, 53, 69, .45),
+      0 0 45px rgba(220, 53, 69, .2),
+      inset 0 1px 1px rgba(255, 255, 255, .2);
+  }
+
+  .option-check {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    color: transparent;
+    font-size: .8rem;
+    font-weight: 900;
+
+    border: 1.5px solid rgba(255, 255, 255, .25);
+
+    transition:
+      color .15s ease,
+      background .15s ease,
+      border-color .15s ease,
+      box-shadow .15s ease;
+  }
+
+  .btn-check:checked + .option-card .option-check {
+    color: white;
+    border-color: #ff6b81;
+    background: #dc3545;
+
+    box-shadow:
+      0 0 10px rgba(220, 53, 69, .8),
+      0 0 20px rgba(220, 53, 69, .4);
   }
 </style>
