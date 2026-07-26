@@ -58,7 +58,7 @@ export default class extends Controller {
     this.selected.push(front_data);
     this.render();
     this.updateButtons();
-    this.rewriteCurrentScore(front_data.score);
+    this.rewriteCurrentScore(front_data);
   }
 
   score(segment, multiplier) {
@@ -123,15 +123,29 @@ export default class extends Controller {
     this.cancelBtnTarget.disabled = disabled;
   }
 
-  rewriteCurrentScore(score) {
-    this.currentScore -= score;
-    if (this.currentScore < 0) {
+  rewriteCurrentScore(front_data) {
+    this.currentScore -= front_data.score;
+    let bustThreshold = 0;
+
+    if (hasOption(this.optionsValue, OPTIONS.MASTER_OUT)) {
+      bustThreshold = 1;
+      console.log("MASTER_OUT");
+      if (this.currentScore === 0 && (front_data.multiplier === "double" || front_data.multiplier === "triple" || front_data.segment === 50) ) {
+        this.clear = true;
+        this.element.querySelector(".board").classList.add("clear");
+      }
+    } else {
+      if (this.currentScore === 0) {
+        this.clear = true;
+        this.element.querySelector(".board").classList.add("clear");
+      }
+    }
+
+    if (!this.clear && (this.currentScore <= bustThreshold)) {
       this.bust = true;
       this.element.querySelector(".board").classList.add("bust");
-    } else if (this.currentScore === 0) {
-      this.clear = true;
-      this.element.querySelector(".board").classList.add("clear");
     }
+
     this.refreshView();
   }
 
