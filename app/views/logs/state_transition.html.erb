@@ -116,6 +116,7 @@
             <tr>
               <th scope="col">状態</th>
               <th scope="col">回数</th>
+              <th scope="col">合計</th>
             </tr>
           </thead>
           <tbody>
@@ -123,6 +124,23 @@
               <tr>
                 <td><%= state %></td>
                 <td><%= count %></td>
+                <% if state == "000" %>
+                  <td rowspan="1">
+                    <%= @patterns.select { |pattern, _| pattern.count("1") == 0 }.sum { |_, count| count } %>
+                  </td>
+                <% elsif state == "100" %>
+                  <td rowspan="3">
+                    <%= @patterns.select { |pattern, _| pattern.count("1") == 1 }.sum { |_, count| count } %>
+                  </td>
+                <% elsif state == "110" %>
+                  <td rowspan="3">
+                    <%= @patterns.select { |pattern, _| pattern.count("1") == 2 }.sum { |_, count| count } %>
+                  </td>
+                <% elsif state == "111" %>
+                  <td rowspan="1">
+                    <%= @patterns.select { |pattern, _| pattern.count("1") == 3 }.sum { |_, count| count } %>
+                  </td>
+                <% end %>
               </tr>
             <% end %>
           </tbody>
