@@ -104,6 +104,8 @@ class LogsController < ApplicationController
 
     # Y軸のデータ（HIT数）
     @line_data = @recent_rounds.map(&:hit)
+
+    @grouping_data = @recent_rounds.map(&:gravity_distance_ave)
   end
 
   def histogram

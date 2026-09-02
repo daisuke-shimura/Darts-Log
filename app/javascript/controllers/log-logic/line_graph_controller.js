@@ -7,7 +7,9 @@ export default class extends Controller {
   // HTMLから受け取るデータの型を定義（自動でJSONパースされます）
   static values = {
     labels: Array,
-    data: Array
+    data: Array,
+    labelName: String,
+    borderColor: String
   }
 
   // HTML(canvas)が画面に表示された瞬間に実行される
@@ -17,9 +19,9 @@ export default class extends Controller {
       data: {
         labels: this.labelsValue, // static values で定義したものを使用
         datasets: [{
-          label: 'BULL数',
+          label: this.labelNameValue || 'データ',
           data: this.dataValue,
-          borderColor: 'rgb(75, 192, 192)',
+          borderColor: this.borderColorValue || '#4BC0C0',
           tension: 0.1
         }]
       },

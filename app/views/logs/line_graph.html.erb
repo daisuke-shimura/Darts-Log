@@ -25,10 +25,29 @@
     </div>
   </div>
 
-  <canvas data-controller="log-logic--line-graph"
-          data-log-logic--line-graph-labels-value="<%= @line_labels.to_json %>"
-          data-log-logic--line-graph-data-value="<%= @line_data.to_json %>">
-  </canvas>
+  <!-- 1つ目のグラフ（既存：HIT数） -->
+  <div class="mb-5">
+    <h5 class="fw-bold mb-3">HIT数</h5>
+    <canvas data-controller="log-logic--line-graph"
+            data-log-logic--line-graph-labels-value="<%= @line_labels.to_json %>"
+            data-log-logic--line-graph-data-value="<%= @line_data.to_json %>"
+            data-log-logic--line-graph-label-name-value="BULL数"
+            data-log-logic--line-graph-border-color-value="#4BC0C0">
+    </canvas>
+  </div>
+
+  <!-- 2つ目のグラフ（新規：平均距離） -->
+  <div class="mb-5">
+    <h5 class="fw-bold mb-1">グルーピング（平均距離）</h5>
+    <p class="text-muted small mb-3"></p>
+    
+    <canvas data-controller="log-logic--line-graph"
+            data-log-logic--line-graph-labels-value="<%= @line_labels.to_json %>"
+            data-log-logic--line-graph-data-value="<%= @grouping_data.to_json %>"
+            data-log-logic--line-graph-label-name-value="平均距離"
+            data-log-logic--line-graph-border-color-value="#36A2EB">
+    </canvas>
+  </div>
 </div>
 
 <div
