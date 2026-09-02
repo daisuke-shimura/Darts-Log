@@ -102,10 +102,25 @@ class LogsController < ApplicationController
     # X軸のラベル（例: R1, R2...）
     @line_labels = @recent_rounds.map { |r| "R#{r.number}" }
 
-    # Y軸のデータ（HIT数）
-    @line_data = @recent_rounds.map(&:hit)
-
+    # HIT数
+    @hit_data = @recent_rounds.map(&:hit)
+    # 平均距離
     @grouping_data = @recent_rounds.map(&:gravity_distance_ave)
+
+    @graph_data = [
+      {
+        label: "BULL数",
+        data: @hit_data,
+        color: "#4BC0C0",
+        axis: "hit"
+      },
+      {
+        label: "平均距離",
+        data: @grouping_data,
+        color: "#36A2EB",
+        axis: "distance"
+      }
+    ]
   end
 
   def histogram

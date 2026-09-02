@@ -1,4 +1,4 @@
-<div style="width: 80%; margin: 0 auto;">
+<div style="width: 90%; margin: 0 auto;">
   <div class="d-flex justify-content-between align-items-center mb-3">
     <p class="fw-bold fs-5">折れ線グラフ用ページ</p>
 
@@ -25,28 +25,39 @@
     </div>
   </div>
 
-  <!-- 1つ目のグラフ（既存：HIT数） -->
-  <div class="mb-5">
-    <h5 class="fw-bold mb-3">HIT数</h5>
-    <canvas data-controller="log-logic--line-graph"
-            data-log-logic--line-graph-labels-value="<%= @line_labels.to_json %>"
-            data-log-logic--line-graph-data-value="<%= @line_data.to_json %>"
-            data-log-logic--line-graph-label-name-value="BULL数"
-            data-log-logic--line-graph-border-color-value="#4BC0C0">
-    </canvas>
-  </div>
+  <div
+    class="mb-5"
+    data-controller="log-logic--line-graph"
+    data-log-logic--line-graph-labels-value="<%= @line_labels.to_json %>"
+    data-log-logic--line-graph-graph-data-value="<%= @graph_data.to_json %>"
+  >
 
-  <!-- 2つ目のグラフ（新規：平均距離） -->
-  <div class="mb-5">
-    <h5 class="fw-bold mb-1">グルーピング（平均距離）</h5>
-    <p class="text-muted small mb-3"></p>
-    
-    <canvas data-controller="log-logic--line-graph"
-            data-log-logic--line-graph-labels-value="<%= @line_labels.to_json %>"
-            data-log-logic--line-graph-data-value="<%= @grouping_data.to_json %>"
-            data-log-logic--line-graph-label-name-value="平均距離"
-            data-log-logic--line-graph-border-color-value="#36A2EB">
+    <div class="d-flex gap-3 mb-3">
+
+      <% @graph_data.each do |graph| %>
+        <div class="form-check">
+
+          <input
+            class="form-check-input"
+            type="checkbox"
+            checked
+            data-log-logic--line-graph-target="checkbox"
+            data-action="change->log-logic--line-graph#toggleGraph"
+          >
+
+          <label class="form-check-label">
+            <%= graph[:label] %>
+          </label>
+
+        </div>
+      <% end %>
+
+    </div>
+
+    <canvas
+      data-log-logic--line-graph-target="canvas">
     </canvas>
+
   </div>
 </div>
 
