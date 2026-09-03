@@ -33,11 +33,10 @@
   >
 
     <div class="d-flex gap-3 mb-3">
-
-      <% @graph_data.each do |graph| %>
+      <% @graph_data.each_with_index do |graph, index| %>
         <div class="form-check">
-
           <input
+            id="graph_checkbox_<%= index %>"
             class="form-check-input"
             type="checkbox"
             checked
@@ -45,13 +44,14 @@
             data-action="change->log-logic--line-graph#toggleGraph"
           >
 
-          <label class="form-check-label">
+          <label
+            class="form-check-label"
+            for="graph_checkbox_<%= index %>"
+          >
             <%= graph[:label] %>
           </label>
-
         </div>
       <% end %>
-
     </div>
 
     <canvas

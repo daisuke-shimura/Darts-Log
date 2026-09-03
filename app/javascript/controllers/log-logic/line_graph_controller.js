@@ -47,7 +47,30 @@ export default class extends Controller {
   
       options: {
         responsive: true,
-        scales
+      
+        scales,
+      
+        plugins: {
+          zoom: {
+            pan: {
+              enabled: true,
+              mode: "x"
+            },
+      
+            zoom: {
+              wheel: {
+                enabled: true,
+                speed: 0.05
+              },
+      
+              pinch: {
+                enabled: true
+              },
+      
+              mode: "x"
+            }
+          }
+        }
       }
     })
   }
