@@ -114,12 +114,12 @@ export default class extends Controller {
     switch (event.key) {
       case "ArrowLeft":
         event.preventDefault()
-        this.chart.pan({ x: -50 })
+        this.chart.pan({ x: 50 })
         break
   
       case "ArrowRight":
         event.preventDefault()
-        this.chart.pan({ x: 50 })
+        this.chart.pan({ x: -50 })
         break
   
       case "ArrowUp":
