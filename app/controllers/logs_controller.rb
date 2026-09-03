@@ -107,12 +107,19 @@ class LogsController < ApplicationController
     # 平均距離
     @grouping_data = @recent_rounds.map(&:gravity_distance_ave)
 
+    # 重心のR
     @gravity_r_data = @recent_rounds.map do |round|
       Math.sqrt(
         round.gravity_center_x ** 2 +
         round.gravity_center_y ** 2
       ).round(2)
     end
+
+    # X分散
+    @variance_x_data = @recent_rounds.map(&:variance_x)
+
+    # Y分散
+    @variance_y_data = @recent_rounds.map(&:variance_y)
 
     @graph_data = [
       {
@@ -132,6 +139,18 @@ class LogsController < ApplicationController
         data: @gravity_r_data,
         color: "rgb(153, 102, 255)",
         axis: "gravity_r"
+      },
+      {
+        label: "X分散",
+        data: @variance_x_data,
+        color: "rgb(255, 159, 64)",
+        axis: "variance_x"
+      },
+      {
+        label: "Y分散",
+        data: @variance_y_data,
+        color: "rgb(255, 205, 86)",
+        axis: "variance_y"
       }
     ]
   end

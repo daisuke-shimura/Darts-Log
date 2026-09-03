@@ -15,8 +15,10 @@ export default class extends Controller {
   }
 
   connect() {
+    this.keydownHandler = this.handleKeydown.bind(this)
+    window.addEventListener("keydown", this.keydownHandler)
+    
     const scales = {}
-  
     this.graphDataValue.forEach((graph) => {
       if (!scales[graph.axis]) {
         const darkenColor = this.darkenColor(graph.color)
@@ -101,7 +103,44 @@ export default class extends Controller {
     )`
   }
 
+  handleKeydown(event) {
+    if (
+      event.target.tagName === "INPUT" ||
+      event.target.tagName === "TEXTAREA"
+    ) {
+      return
+    }
+  
+    switch (event.key) {
+      case "ArrowLeft":
+        event.preventDefault()
+        this.chart.pan({ x: -50 })
+        break
+  
+      case "ArrowRight":
+        event.preventDefault()
+        this.chart.pan({ x: 50 })
+        break
+  
+      case "ArrowUp":
+        event.preventDefault()
+        this.chart.zoom(1.1)
+        break
+  
+      case "ArrowDown":
+        event.preventDefault()
+        this.chart.zoom(0.9)
+        break
+  
+      case "r":
+      case "R":
+        this.chart.resetZoom()
+        break
+    }
+  }
+
   disconnect() {
+    window.removeEventListener("keydown", this.keydownHandler)
     this.chart?.destroy()
   }
 }
