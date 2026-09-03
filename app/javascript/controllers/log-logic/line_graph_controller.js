@@ -56,6 +56,29 @@ export default class extends Controller {
         scales,
       
         plugins: {
+          legend: {
+            onClick: (event, legendItem, legend) => {
+              const index = legendItem.datasetIndex
+
+              Chart.defaults.plugins.legend.onClick(
+                event,
+                legendItem,
+                legend
+              )
+
+              this.checkboxTargets[index].checked =
+                this.chart.isDatasetVisible(index)
+
+              const dataset = this.chart.data.datasets[index]
+        
+              this.chart.options.scales[
+                dataset.yAxisID
+              ].display = this.chart.isDatasetVisible(index)
+        
+              this.chart.update()
+            }
+          },
+
           zoom: {
             pan: {
               enabled: true,
