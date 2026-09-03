@@ -19,12 +19,15 @@ export default class extends Controller {
   
     this.graphDataValue.forEach((graph) => {
       if (!scales[graph.axis]) {
+        const darkenColor = this.darkenColor(graph.color)
         scales[graph.axis] = {
           type: "linear",
           position: "left",
-          title: {
-            display: true,
-            text: graph.label || ""
+          border: {
+            color: darkenColor
+          },
+          ticks: {
+            color: darkenColor
           }
         }
       }
@@ -77,13 +80,25 @@ export default class extends Controller {
 
   toggleGraph() {
     this.checkboxTargets.forEach((checkbox, index) => {
+      const dataset = this.chart.data.datasets[index]
       this.chart.setDatasetVisibility(
         index,
         checkbox.checked
       )
+      this.chart.options.scales[dataset.yAxisID].display = checkbox.checked
     })
-
     this.chart.update()
+  }
+
+  darkenColor(color) {
+    const amount = 0.7
+    const [r, g, b] = color.match(/\d+/g).map(Number)
+  
+    return `rgb(
+      ${Math.round(r * amount)},
+      ${Math.round(g * amount)},
+      ${Math.round(b * amount)}
+    )`
   }
 
   disconnect() {

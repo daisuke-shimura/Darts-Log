@@ -107,18 +107,31 @@ class LogsController < ApplicationController
     # 平均距離
     @grouping_data = @recent_rounds.map(&:gravity_distance_ave)
 
+    @gravity_r_data = @recent_rounds.map do |round|
+      Math.sqrt(
+        round.gravity_center_x ** 2 +
+        round.gravity_center_y ** 2
+      ).round(2)
+    end
+
     @graph_data = [
       {
         label: "BULL数",
         data: @hit_data,
-        color: "#4BC0C0",
+        color: "rgb(75, 192, 192)",
         axis: "hit"
       },
       {
         label: "平均距離",
         data: @grouping_data,
-        color: "#36A2EB",
+        color: "rgb(54, 162, 235)",
         axis: "distance"
+      },
+      {
+        label: "重心のR",
+        data: @gravity_r_data,
+        color: "rgb(153, 102, 255)",
+        axis: "gravity_r"
       }
     ]
   end
