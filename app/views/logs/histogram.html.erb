@@ -3,7 +3,14 @@
     <p class="fw-bold fs-5">ヒストグラム用ページ</p>
 
     <div>
-      Darts：<%=@darts.count %>本
+      <!-- ▼ 選択されているモードに合わせて単位（本/R）を切り替え ▼ -->
+      <span class="me-3 fw-semibold">
+        <% if @data_type == "rounds" %>
+          Rounds：<%= @recent_rounds&.count || 0 %>R
+        <% else %>
+          Darts：<%= @darts&.count || 0 %>本
+        <% end %>
+      </span>
 
       <button
         class="btn btn-outline-secondary"
@@ -11,10 +18,18 @@
         data-bs-target="#filterPanel"
       >
         Filter
-        <% if params[:histogram_mode].present? %>
-          <span class="badge text-bg-primary">
-            <%= @histogram_modes[params[:histogram_mode].to_sym] %>
+        
+        <!-- ▼ モード別のバッジ表示 ▼ -->
+        <% if @data_type == "rounds" %>
+          <span class="badge text-bg-success">
+            <%= { "hit" => "BULL数", "distance" => "平均距離", "gravity_r" => "重心のズレ", "variance_x" => "X分散", "variance_y" => "Y分散" }[params[:metric] || "hit"] %>
           </span>
+        <% else %>
+          <% if params[:histogram_mode].present? || @histogram_modes.present? %>
+            <span class="badge text-bg-primary">
+              <%= @histogram_modes[(params[:histogram_mode] || "range").to_sym] %>
+            </span>
+          <% end %>
         <% end %>
 
         <% if params[:day_from].present? || params[:day_to].present? %>
@@ -25,7 +40,7 @@
 
         <% if params[:recent].present? %>
           <span class="badge text-bg-secondary">
-            <%= params[:recent] %> 本
+            <%= params[:recent] %> <%= @data_type == "rounds" ? "R" : "本" %>
           </span>
         <% end %>
       </button>
@@ -43,10 +58,8 @@
   tabindex="-1"
   id="filterPanel"
 >
-
   <div class="offcanvas-header">
     <h5>Filter</h5>
-
     <button
       type="button"
       class="btn-close"
@@ -59,18 +72,56 @@
                 method: :get,
                 local: true do %>
 
-      <div class="card border-light mb-2">
-        <%= select_tag :histogram_mode,
-            options_for_select(
-              @histogram_modes.invert,
-              params[:histogram_mode]&.to_sym
-            ), class: "form-select form-select-sm" 
-        %>
-      </div>
-
-      <div class="card border-light mb-2">
+      <!-- ▼ 追加：分析モードの切り替えセクション ▼ -->
+      <div class="card border-light mb-3">
+        <div class="card-header bg-transparent fw-semibold text-secondary pb-0 border-0">
+          分析モード
+        </div>
         <div class="card-body py-2">
+          
+          <!-- モード1: ダーツ1本ごとの分布 -->
+          <div class="form-check mb-3">
+            <%= radio_button_tag :data_type, "darts", @data_type == "darts" || @data_type.blank?, class: "form-check-input", id: "mode_darts" %>
+            <%= label_tag :mode_darts, "1本ごとの着弾分布", class: "form-check-label fw-bold" %>
+            
+            <div class="mt-2 ms-2">
+              <%= select_tag :histogram_mode,
+                  options_for_select(
+                    @histogram_modes.invert,
+                    params[:histogram_mode]&.to_sym || :range
+                  ), class: "form-select form-select-sm" 
+              %>
+            </div>
+          </div>
 
+          <hr class="text-secondary opacity-25">
+
+          <!-- モード2: ラウンドごとの分布 -->
+          <div class="form-check mt-3">
+            <%= radio_button_tag :data_type, "rounds", @data_type == "rounds", class: "form-check-input", id: "mode_rounds" %>
+            <%= label_tag :mode_rounds, "ラウンドごとの成績分布", class: "form-check-label fw-bold" %>
+            
+            <div class="mt-2 ms-2">
+              <%= select_tag :metric,
+                  options_for_select([
+                    ["BULL数 (安定感)", "hit"], 
+                    ["平均距離 (グルーピング力)", "distance"], 
+                    ["重心のズレ (コントロール力)", "gravity_r"],
+                    ["X分散 (横ブレの大きさ)", "variance_x"],
+                    ["Y分散 (縦ブレの大きさ)", "variance_y"] 
+                  ], params[:metric] || "hit"), 
+                  class: "form-select form-select-sm" 
+              %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- ▲ 追加ここまで ▲ -->
+
+      <!-- 既存のDayフィルター -->
+      <div class="card border-light mb-3">
+        <div class="card-body py-2">
           <div class="d-flex align-items-center justify-content-between mb-2">
             <span class="fw-semibold text-secondary">Day</span>
 
@@ -83,7 +134,7 @@
 
               <% if params[:recent].present? %>
                 <span class="badge text-bg-secondary">
-                  <%= params[:recent] %> 本
+                  <%= params[:recent] %> <%= @data_type == "rounds" ? "R" : "本" %>
                 </span>
               <% end %>
             </div>
@@ -96,9 +147,7 @@
                       params[:day_from],
                       class: "form-control form-control-sm",
                       style: "width: 108px;" %>
-
                 <span>～</span>
-
                 <%= date_field_tag :day_to,
                       params[:day_to],
                       class: "form-control form-control-sm",
@@ -113,8 +162,7 @@
                       min: 1,
                       class: "form-control",
                       style: "width: 90px;" %>
-
-                <span class="input-group-text">本</span>
+                <span class="input-group-text"><%= @data_type == "rounds" ? "R" : "本" %></span>
               </div>
             </div>
           </div>

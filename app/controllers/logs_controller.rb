@@ -159,60 +159,191 @@ class LogsController < ApplicationController
   end
 
   def histogram
-    @darts = filter_by_time(Dart.where(target: "bull"))
-
-    @histogram_modes = {
-      range: "幅43",
-      exact: "実値",
-      exact_r: "実値（R）"
-    }
-
-    mode = params[:histogram_mode] || "range"
-
-    if mode == "exact"
-      db_counts = @darts.group(:absolute_r).count
-      histogram_data = @r_values.index_with { |val| db_counts[val] || 0 }
-    elsif mode == "exact_r"
-      db_counts = @darts.group(:index_r).count
-      histogram_data = (0..69).index_with { |val| db_counts[val] || 0 }
-    else 
-      histogram_data = {
-        "0〜42" => 0,
-        "43〜85" => 0,
-        "86〜128" => 0,
-        "129〜171" => 0,
-        "172〜214" => 0,
-        "215〜257" => 0,
-        "258〜300" => 0,
-        "301〜343" => 0,
-        "344〜386" => 0,
-        "387〜431" => 0 #最後はちょっと多い
-      }
+    @data_type = params[:data_type] || "darts"
     
-      @darts.each do |dart|
-        r = dart.absolute_r
-  
-        case r
-        when 0..42
-          histogram_data["0〜42"] += 1
-        when 43..85
-          histogram_data["43〜85"] += 1
-        when 86..128
-          histogram_data["86〜128"] += 1
-        when 129..171
-          histogram_data["129〜171"] += 1
-        when 172..214
-          histogram_data["172〜214"] += 1
-        when 215..257
-          histogram_data["215〜257"] += 1
-        when 258..300
-          histogram_data["258〜300"] += 1
-        when 301..343
-          histogram_data["301〜343"] += 1
-        when 344..386
-          histogram_data["344〜386"] += 1
-        when 387..431
-          histogram_data["387〜431"] += 1
+    @histogram_modes = {
+        range: "幅43",
+        exact: "実値",
+        exact_r: "実値（R）"
+      }
+
+    if @data_type == "darts"
+      @darts = filter_by_time(Dart.where(target: "bull"))
+
+      mode = params[:histogram_mode] || "range"
+
+      if mode == "exact"
+        db_counts = @darts.group(:absolute_r).count
+        histogram_data = @r_values.index_with { |val| db_counts[val] || 0 }
+      elsif mode == "exact_r"
+        db_counts = @darts.group(:index_r).count
+        histogram_data = (0..69).index_with { |val| db_counts[val] || 0 }
+      else 
+        histogram_data = {
+          "0〜42" => 0,
+          "43〜85" => 0,
+          "86〜128" => 0,
+          "129〜171" => 0,
+          "172〜214" => 0,
+          "215〜257" => 0,
+          "258〜300" => 0,
+          "301〜343" => 0,
+          "344〜386" => 0,
+          "387〜431" => 0 #最後はちょっと多い
+        }
+      
+        @darts.each do |dart|
+          r = dart.absolute_r
+    
+          case r
+          when 0..42
+            histogram_data["0〜42"] += 1
+          when 43..85
+            histogram_data["43〜85"] += 1
+          when 86..128
+            histogram_data["86〜128"] += 1
+          when 129..171
+            histogram_data["129〜171"] += 1
+          when 172..214
+            histogram_data["172〜214"] += 1
+          when 215..257
+            histogram_data["215〜257"] += 1
+          when 258..300
+            histogram_data["258〜300"] += 1
+          when 301..343
+            histogram_data["301〜343"] += 1
+          when 344..386
+            histogram_data["344〜386"] += 1
+          when 387..431
+            histogram_data["387〜431"] += 1
+          end
+        end
+      end
+
+    elsif @data_type == "rounds"
+      # 対象のラウンドデータを取得
+      @recent_rounds = filter_by_time(
+        RecordRound.joins(:darts).where(darts: { target: "bull" }).distinct
+      )
+      
+      # 何の指標をヒストグラムにするか (hit, distance, gravity_r)
+      @metric = params[:metric] || "hit"
+
+      if @metric == "hit"
+        # 【BULL数の分布】
+        db_counts = @recent_rounds.group(:hit).count
+        histogram_data = {
+          "0本" => db_counts[0] || 0,
+          "1本" => db_counts[1] || 0,
+          "2本" => db_counts[2] || 0,
+          "3本" => db_counts[3] || 0
+        }
+
+      elsif @metric == "distance"
+        # 【グルーピング力（平均距離）の分布】
+        histogram_data = {
+          "0〜10"  => 0, "11〜20" => 0, "21〜30" => 0, "31〜40" => 0,
+          "41〜50" => 0, "51〜60" => 0, "61〜70" => 0, "71〜80" => 0,
+          "81〜90" => 0, "91〜100" => 0, "101以上" => 0
+        }
+
+        @recent_rounds.each do |round|
+          # nilの場合は0として扱う（エラー防止）
+          dist = round.gravity_distance_ave.to_f
+          
+          case dist
+          when 0..10   then histogram_data["0〜10"] += 1
+          when 11..20  then histogram_data["11〜20"] += 1
+          when 21..30  then histogram_data["21〜30"] += 1
+          when 31..40  then histogram_data["31〜40"] += 1
+          when 41..50  then histogram_data["41〜50"] += 1
+          when 51..60  then histogram_data["51〜60"] += 1
+          when 61..70  then histogram_data["61〜70"] += 1
+          when 71..80  then histogram_data["71〜80"] += 1
+          when 81..90  then histogram_data["81〜90"] += 1
+          when 91..100 then histogram_data["91〜100"] += 1
+          else              histogram_data["101以上"] += 1
+          end
+        end
+
+      elsif @metric == "gravity_r"
+        # 【狙いからのズレ（重心のR）の分布】
+        histogram_data = {
+          "0〜10"  => 0, "11〜20" => 0, "21〜30" => 0, "31〜40" => 0,
+          "41〜50" => 0, "51〜60" => 0, "61〜70" => 0, "71〜80" => 0,
+          "81〜90" => 0, "91〜100" => 0, "101以上" => 0
+        }
+        
+        @recent_rounds.each do |round|
+          # 重心データが存在しない場合（エラー防止）はスキップ
+          next unless round.gravity_center_x && round.gravity_center_y
+
+          r = Math.sqrt(round.gravity_center_x ** 2 + round.gravity_center_y ** 2)
+          case r
+          when 0..10   then histogram_data["0〜10"] += 1
+          when 11..20  then histogram_data["11〜20"] += 1
+          when 21..30  then histogram_data["21〜30"] += 1
+          when 31..40  then histogram_data["31〜40"] += 1
+          when 41..50  then histogram_data["41〜50"] += 1
+          when 51..60  then histogram_data["51〜60"] += 1
+          when 61..70  then histogram_data["61〜70"] += 1
+          when 71..80  then histogram_data["71〜80"] += 1
+          when 81..90  then histogram_data["81〜90"] += 1
+          when 91..100 then histogram_data["91〜100"] += 1
+          else              histogram_data["101以上"] += 1
+          end
+        end
+
+      elsif @metric == "variance_x"
+        # 【X分散（横ブレ）の分布】
+        # 0〜3000に密集しているため、500刻みで作成し5000以上はまとめる
+        histogram_data = {
+          "0〜499" => 0, "500〜999" => 0, "1000〜1499" => 0, "1500〜1999" => 0,
+          "2000〜2499" => 0, "2500〜2999" => 0, "3000〜3499" => 0, "3500〜3999" => 0,
+          "4000〜4499" => 0, "4500〜4999" => 0, "5000以上" => 0
+        }
+        
+        @recent_rounds.each do |round|
+          vx = round.variance_x.to_f
+          case vx
+          when 0...500    then histogram_data["0〜499"] += 1
+          when 500...1000 then histogram_data["500〜999"] += 1
+          when 1000...1500 then histogram_data["1000〜1499"] += 1
+          when 1500...2000 then histogram_data["1500〜1999"] += 1
+          when 2000...2500 then histogram_data["2000〜2499"] += 1
+          when 2500...3000 then histogram_data["2500〜2999"] += 1
+          when 3000...3500 then histogram_data["3000〜3499"] += 1
+          when 3500...4000 then histogram_data["3500〜3999"] += 1
+          when 4000...4500 then histogram_data["4000〜4499"] += 1
+          when 4500...5000 then histogram_data["4500〜4999"] += 1
+          else                 histogram_data["5000以上"] += 1
+          end
+        end
+
+      elsif @metric == "variance_y"
+        # 【Y分散（縦ブレ）の分布】
+        # X分散とスケールを合わせることで、「縦ブレのほうが広い」ことをグラフで視覚的に比較できるようにする
+        histogram_data = {
+          "0〜499" => 0, "500〜999" => 0, "1000〜1499" => 0, "1500〜1999" => 0,
+          "2000〜2499" => 0, "2500〜2999" => 0, "3000〜3499" => 0, "3500〜3999" => 0,
+          "4000〜4499" => 0, "4500〜4999" => 0, "5000以上" => 0
+        }
+        
+        @recent_rounds.each do |round|
+          vy = round.variance_y.to_f
+          case vy
+          when 0...500    then histogram_data["0〜499"] += 1
+          when 500...1000 then histogram_data["500〜999"] += 1
+          when 1000...1500 then histogram_data["1000〜1499"] += 1
+          when 1500...2000 then histogram_data["1500〜1999"] += 1
+          when 2000...2500 then histogram_data["2000〜2499"] += 1
+          when 2500...3000 then histogram_data["2500〜2999"] += 1
+          when 3000...3500 then histogram_data["3000〜3499"] += 1
+          when 3500...4000 then histogram_data["3500〜3999"] += 1
+          when 4000...4500 then histogram_data["4000〜4499"] += 1
+          when 4500...5000 then histogram_data["4500〜4999"] += 1
+          else                 histogram_data["5000以上"] += 1
+          end
         end
       end
     end
