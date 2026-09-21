@@ -236,6 +236,50 @@
       </div>
     </div>
 
+    <div class="card border-light mb-3">
+      <div class="card-body py-2">
+        
+        <div class="d-flex align-items-center justify-content-between mb-2">
+          <span class="fw-semibold text-secondary">Rate</span>
+          
+          <!-- 絞り込み中ならバッジを表示（DayやGameのUIと統一） -->
+          <% if params[:streak_window].present? && params[:streak_rate].present? %>
+            <span class="badge text-bg-secondary">
+              <%= params[:streak_window] %>R / <%= params[:streak_rate] %>%↑
+            </span>
+          <% end %>
+        </div>
+
+        <div class="row g-2">
+          <!-- 左側：ラウンド数 -->
+          <div class="col-6">
+            <div class="input-group input-group-sm">
+              <%= number_field_tag :streak_window, 
+                    params[:streak_window], 
+                    class: "form-control",
+                    placeholder: "10",
+                    min: 1 %>
+              <span class="input-group-text px-2" style="font-size: 0.85rem;">R連続</span>
+            </div>
+          </div>
+
+          <!-- 右側：BULL率 -->
+          <div class="col-6">
+            <div class="input-group input-group-sm">
+              <%= number_field_tag :streak_rate, 
+                    params[:streak_rate], 
+                    class: "form-control",
+                    placeholder: "80",
+                    min: 0, 
+                    max: 100 %>
+              <span class="input-group-text px-2" style="font-size: 0.85rem;">％以上</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <div class="d-flex justify-content-end gap-2">
       <%= link_to "リセット", logs_path, class: "btn btn-light border text-secondary" %>
       <%= submit_tag "絞り込み", class: "btn btn-primary", name: nil %>

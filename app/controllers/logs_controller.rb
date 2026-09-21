@@ -74,6 +74,9 @@ class LogsController < ApplicationController
 
     @darts_data = filter_by_time(@darts_data)
 
+    # ======== ゾーン(覚醒)抽出機能 (ラウンド単位版) ========
+    @darts_data = bull_late_window(@darts_data)
+
     if params[:targets].present?
       target_darts = []
       params[:targets].each_with_index do |target, index|
@@ -424,6 +427,40 @@ class LogsController < ApplicationController
             .where(created_at: start_day.beginning_of_day..end_day.end_of_day)
             .group_by { |dart| dart.created_at.to_date }
       end
-    # @daily_darts = Dart.where(created_at: start_day.beginning_of_day..end_day.end_of_day).group_by { |dart| dart.created_at.to_date }
+  end
+
+  def bull_late_window(darts_data)
+    if params[:streak_window].present? && params[:streak_rate].present?
+      window_size = params[:streak_window].to_i
+      
+      target_rate = params[:streak_rate].to_f 
+      target_rate = target_rate / 100.0 if target_rate > 1.0 
+
+      target_hits = (window_size * 3 * target_rate).round
+      matched_round_ids = []
+
+      # 時系列順に取得
+      # ※ current_user 等でユーザーごとの履歴に絞る設定があればここに追記してください
+      rounds = RecordRound.order(created_at: :asc).to_a
+
+      # スライディングウィンドウで合致する区間を探す
+      rounds.each_cons(window_size) do |chunk|
+        current_hits = chunk.sum(&:hit)
+        
+        # 目標hit数に達している（または以上）の区間を採用
+        if current_hits >= target_hits
+          matched_round_ids.concat(chunk.map(&:id))
+        end
+      end
+
+      # 重複するラウンドIDを排除
+      matched_round_ids.uniq!
+
+      # 取得した調子の良いラウンドID群を使って、darts_data をさらに絞り込む
+      return darts_data.where(record_round_id: matched_round_ids)
+    end
+
+    # パラメーターが無い場合はそのまま返す
+    darts_data
   end
 end
