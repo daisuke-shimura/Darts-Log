@@ -257,7 +257,6 @@
               <%= number_field_tag :streak_window, 
                     params[:streak_window], 
                     class: "form-control",
-                    placeholder: "10",
                     min: 1 %>
               <span class="input-group-text px-2" style="font-size: 0.85rem;">R連続</span>
             </div>
@@ -269,7 +268,6 @@
               <%= number_field_tag :streak_rate, 
                     params[:streak_rate], 
                     class: "form-control",
-                    placeholder: "80",
                     min: 0, 
                     max: 100 %>
               <span class="input-group-text px-2" style="font-size: 0.85rem;">％以上</span>
