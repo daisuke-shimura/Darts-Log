@@ -239,110 +239,53 @@ class LogsController < ApplicationController
           "3本" => db_counts[3] || 0
         }
 
-      elsif @metric == "distance"
-        # 【グルーピング力（平均距離）の分布】
-        histogram_data = {
-          "0〜10"  => 0, "11〜20" => 0, "21〜30" => 0, "31〜40" => 0,
-          "41〜50" => 0, "51〜60" => 0, "61〜70" => 0, "71〜80" => 0,
-          "81〜90" => 0, "91〜100" => 0, "101以上" => 0
+      elsif ["distance", "gravity_r", "variance_x", "variance_y"].include?(@metric)
+        default_widths = {
+          "distance"   => 10,
+          "gravity_r"  => 10,
+          "variance_x" => 100,
+          "variance_y" => 100
         }
 
-        @recent_rounds.each do |round|
-          # nilの場合は0として扱う（エラー防止）
-          dist = round.gravity_distance_ave.to_f
+        step = params[:bin_width].presence&.to_i || default_widths[@metric]
+        histogram_data = {}
+
+        values = @recent_rounds.filter_map do |round|
+          case @metric
+          when "distance"   then round.gravity_distance_ave&.to_f
+          when "gravity_r"
+            if round.gravity_center_x && round.gravity_center_y
+              Math.sqrt(round.gravity_center_x ** 2 + round.gravity_center_y ** 2)
+            end
+          when "variance_x" then round.variance_x&.to_f
+          when "variance_y" then round.variance_y&.to_f
+          end
+        end
+
+        if values.present?
+          # ② 実際のデータの「最大値」を取得
+          actual_max = values.max
           
-          case dist
-          when 0..10   then histogram_data["0〜10"] += 1
-          when 11..20  then histogram_data["11〜20"] += 1
-          when 21..30  then histogram_data["21〜30"] += 1
-          when 31..40  then histogram_data["31〜40"] += 1
-          when 41..50  then histogram_data["41〜50"] += 1
-          when 51..60  then histogram_data["51〜60"] += 1
-          when 61..70  then histogram_data["61〜70"] += 1
-          when 71..80  then histogram_data["71〜80"] += 1
-          when 81..90  then histogram_data["81〜90"] += 1
-          when 91..100 then histogram_data["91〜100"] += 1
-          else              histogram_data["101以上"] += 1
+          max_bin_start = (actual_max / step).floor * step
+          
+          limit_bins = 50
+          if (max_bin_start / step) > limit_bins
+            max_bin_start = step * limit_bins
           end
-        end
 
-      elsif @metric == "gravity_r"
-        # 【狙いからのズレ（重心のR）の分布】
-        histogram_data = {
-          "0〜10"  => 0, "11〜20" => 0, "21〜30" => 0, "31〜40" => 0,
-          "41〜50" => 0, "51〜60" => 0, "61〜70" => 0, "71〜80" => 0,
-          "81〜90" => 0, "91〜100" => 0, "101以上" => 0
-        }
-        
-        @recent_rounds.each do |round|
-          # 重心データが存在しない場合（エラー防止）はスキップ
-          next unless round.gravity_center_x && round.gravity_center_y
-
-          r = Math.sqrt(round.gravity_center_x ** 2 + round.gravity_center_y ** 2)
-          case r
-          when 0..10   then histogram_data["0〜10"] += 1
-          when 11..20  then histogram_data["11〜20"] += 1
-          when 21..30  then histogram_data["21〜30"] += 1
-          when 31..40  then histogram_data["31〜40"] += 1
-          when 41..50  then histogram_data["41〜50"] += 1
-          when 51..60  then histogram_data["51〜60"] += 1
-          when 61..70  then histogram_data["61〜70"] += 1
-          when 71..80  then histogram_data["71〜80"] += 1
-          when 81..90  then histogram_data["81〜90"] += 1
-          when 91..100 then histogram_data["91〜100"] += 1
-          else              histogram_data["101以上"] += 1
+          (0..max_bin_start).step(step) do |s|
+            label = s >= max_bin_start ? "#{max_bin_start}以上" : "#{s}〜#{s + step - 1}"
+            histogram_data[label] = 0
           end
-        end
 
-      elsif @metric == "variance_x"
-        # 【X分散（横ブレ）の分布】
-        # 0〜3000に密集しているため、500刻みで作成し5000以上はまとめる
-        histogram_data = {
-          "0〜499" => 0, "500〜999" => 0, "1000〜1499" => 0, "1500〜1999" => 0,
-          "2000〜2499" => 0, "2500〜2999" => 0, "3000〜3499" => 0, "3500〜3999" => 0,
-          "4000〜4499" => 0, "4500〜4999" => 0, "5000以上" => 0
-        }
-        
-        @recent_rounds.each do |round|
-          vx = round.variance_x.to_f
-          case vx
-          when 0...500    then histogram_data["0〜499"] += 1
-          when 500...1000 then histogram_data["500〜999"] += 1
-          when 1000...1500 then histogram_data["1000〜1499"] += 1
-          when 1500...2000 then histogram_data["1500〜1999"] += 1
-          when 2000...2500 then histogram_data["2000〜2499"] += 1
-          when 2500...3000 then histogram_data["2500〜2999"] += 1
-          when 3000...3500 then histogram_data["3000〜3499"] += 1
-          when 3500...4000 then histogram_data["3500〜3999"] += 1
-          when 4000...4500 then histogram_data["4000〜4499"] += 1
-          when 4500...5000 then histogram_data["4500〜4999"] += 1
-          else                 histogram_data["5000以上"] += 1
-          end
-        end
-
-      elsif @metric == "variance_y"
-        # 【Y分散（縦ブレ）の分布】
-        # X分散とスケールを合わせることで、「縦ブレのほうが広い」ことをグラフで視覚的に比較できるようにする
-        histogram_data = {
-          "0〜499" => 0, "500〜999" => 0, "1000〜1499" => 0, "1500〜1999" => 0,
-          "2000〜2499" => 0, "2500〜2999" => 0, "3000〜3499" => 0, "3500〜3999" => 0,
-          "4000〜4499" => 0, "4500〜4999" => 0, "5000以上" => 0
-        }
-        
-        @recent_rounds.each do |round|
-          vy = round.variance_y.to_f
-          case vy
-          when 0...500    then histogram_data["0〜499"] += 1
-          when 500...1000 then histogram_data["500〜999"] += 1
-          when 1000...1500 then histogram_data["1000〜1499"] += 1
-          when 1500...2000 then histogram_data["1500〜1999"] += 1
-          when 2000...2500 then histogram_data["2000〜2499"] += 1
-          when 2500...3000 then histogram_data["2500〜2999"] += 1
-          when 3000...3500 then histogram_data["3000〜3499"] += 1
-          when 3500...4000 then histogram_data["3500〜3999"] += 1
-          when 4000...4500 then histogram_data["4000〜4499"] += 1
-          when 4500...5000 then histogram_data["4500〜4999"] += 1
-          else                 histogram_data["5000以上"] += 1
+          values.each do |val|
+            bin = (val / step).floor * step
+            
+            # 上限を超えたハズレ値は一番最後の帯（〇〇以上）に入れる
+            bin = max_bin_start if bin >= max_bin_start
+            
+            label = bin >= max_bin_start ? "#{max_bin_start}以上" : "#{bin}〜#{bin + step - 1}"
+            histogram_data[label] += 1
           end
         end
       end

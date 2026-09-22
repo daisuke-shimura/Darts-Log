@@ -104,14 +104,23 @@
             <div class="mt-2 ms-2">
               <%= select_tag :metric,
                   options_for_select([
-                    ["BULL数 (安定感)", "hit"], 
-                    ["平均距離 (グルーピング力)", "distance"], 
-                    ["重心のズレ (コントロール力)", "gravity_r"],
+                    ["BULL数", "hit"], 
+                    ["平均距離 (グルーピング)", "distance"], 
+                    ["重心のズレ", "gravity_r"],
                     ["X分散 (横ブレの大きさ)", "variance_x"],
                     ["Y分散 (縦ブレの大きさ)", "variance_y"] 
                   ], params[:metric] || "hit"), 
                   class: "form-select form-select-sm" 
               %>
+
+              <div class="input-group input-group-sm w-75">
+                <span class="input-group-text text-secondary">階層幅</span>
+                <%= number_field_tag :bin_width, 
+                      params[:bin_width], 
+                      class: "form-control", 
+                      placeholder: "自動（デフォルト）",
+                      min: 1 %>
+              </div>
             </div>
           </div>
 
