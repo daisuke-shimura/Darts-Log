@@ -268,10 +268,10 @@ class LogsController < ApplicationController
           
           max_bin_start = (actual_max / step).floor * step
           
-          limit_bins = 50
-          if (max_bin_start / step) > limit_bins
-            max_bin_start = step * limit_bins
-          end
+          # limit_bins = 100
+          # if (max_bin_start / step) > limit_bins
+          #   max_bin_start = step * limit_bins
+          # end
 
           (0..max_bin_start).step(step) do |s|
             label = s >= max_bin_start ? "#{max_bin_start}以上" : "#{s}〜#{s + step - 1}"
