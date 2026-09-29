@@ -278,6 +278,15 @@
       </div>
     </div>
 
+    <div class="input-group input-group-sm mb-3 w-auto">
+      <%= label_tag :user_id, "User", class: "input-group-text text-secondary" %>
+      <%= select_tag :user_id, 
+            options_from_collection_for_select(@users, :id, :name, params[:user_id]), 
+            include_blank: "全員", 
+            onchange: "this.form.submit();", 
+            class: "form-select" %>
+    </div>
+
     <div class="d-flex justify-content-end gap-2">
       <%= link_to "リセット", logs_path, class: "btn btn-light border text-secondary" %>
       <%= submit_tag "絞り込み", class: "btn btn-primary", name: nil %>

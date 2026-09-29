@@ -1,10 +1,11 @@
 class LogsController < ApplicationController
   layout "logs"
+  before_action :set_base_scopes
   before_action :set_r_values, only: [:histogram, :cumulative, :rayleigh]
   before_action :load_calendar, only: [:index]
 
   def index
-    @darts_all = Dart.all
+    @darts_all = @base_darts
     @target_bull = @darts_all.where(target: "bull")
     @target_20 = @darts_all.where(target: "t20")
     @record_darts = @darts_all.where(game_round_id: nil)
@@ -46,7 +47,7 @@ class LogsController < ApplicationController
     record_data = Dart.none
   
     if params[:kinds].present?
-      game_data = Dart
+      game_data = @base_darts
         .joins(game_round: :game)
         .where(
           games: {
@@ -56,14 +57,14 @@ class LogsController < ApplicationController
     end
   
     if params[:record] == "1"
-      record_data = Dart.joins(:record_round)
+      record_data = @base_darts.joins(:record_round)
     end
   
     if params[:kinds].blank? && params[:record].blank?
-      @darts_data = Dart.all
+      @darts_data = @base_darts
     elsif params[:kinds].present? && params[:record] == "1"
       id = game_data.ids | record_data.ids
-      @darts_data = Dart.where(id: id)
+      @darts_data = @base_darts.where(id: id)
     else
       @darts_data = game_data.presence || record_data
     end
@@ -96,7 +97,7 @@ class LogsController < ApplicationController
 
   def line_graph
     @recent_rounds = filter_by_time(
-                      RecordRound.joins(:darts)
+      @base_record_rounds.joins(:darts)
                       .where(darts: { target: "bull" })
                       .distinct
                       .order(created_at: :asc)
@@ -168,7 +169,7 @@ class LogsController < ApplicationController
       }
 
     if @data_type == "darts"
-      @darts = filter_by_time(Dart.where(target: "bull"))
+      @darts = filter_by_time(@base_darts.where(target: "bull"))
 
       mode = params[:histogram_mode] || "range"
 
@@ -342,7 +343,7 @@ class LogsController < ApplicationController
 
   def state_transition
     @recent_rounds = filter_by_time(
-      RecordRound.joins(:darts)
+      @base_record_rounds.joins(:darts)
       .where(darts: { target: "bull" })
       .distinct
       .order(created_at: :asc)
@@ -418,6 +419,20 @@ class LogsController < ApplicationController
 
 
   private
+  def set_base_scopes
+    @users = User.all
+    if params[:user_id].present?
+      # 特定のユーザーが選択されている場合
+      @base_darts = Dart.left_outer_joins(game_round: :game)
+                        .left_outer_joins(:record_round)
+                        .where("games.user_id = :user_id OR record_rounds.user_id = :user_id", user_id: params[:user_id])
+      @base_record_rounds = RecordRound.where(user_id: params[:user_id])
+    else
+      # 誰も選択されていない（全員）場合
+      @base_darts = Dart.all
+      @base_record_rounds = RecordRound.all
+    end
+  end
 
   def set_r_values
     @r_values = [
