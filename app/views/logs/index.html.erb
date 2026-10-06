@@ -22,7 +22,7 @@
 <div class="position-absolute top-0 start-0 mt-3 ms-3">
   <p>検索結果：<%= @darts_data.count %>
   </p>
-  <p>BULL合計：<%= bull_count(@darts_data) %></p>
+  <p>BULL合計：<%= bull_count(@darts_data) %>　BULL率：<%= (bull_count(@darts_data).to_f / @darts_data.count).round(2)*100 %>%</p>
   <p>
     <% if params[:targets].present? %>
       <% params[:targets].each do |target| %>

@@ -81,6 +81,27 @@
     <%= form_with url: logs_line_graph_path,
                 method: :get,
                 local: true do %>
+      
+      <div class="card border-light mb-2">
+        <div class="card-body py-2">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <span class="fw-semibold text-secondary">User</span>
+            <% if params[:user_id].present? %>
+              <span class="badge text-bg-secondary">
+                <%= @users.find { |u| u.id.to_s == params[:user_id] }&.name || "選択中" %>
+              </span>
+            <% end %>
+          </div>
+
+          <div>
+            <%= select_tag :user_id,
+                  options_from_collection_for_select(@users, :id, :name, params[:user_id]),
+                  include_blank: "全員 (指定なし)",
+                  class: "form-select form-select-sm" %>
+          </div>
+        </div>
+      </div>
+
       <div class="card border-light mb-2">
         <div class="card-body py-2">
 

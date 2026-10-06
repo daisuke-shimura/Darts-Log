@@ -224,7 +224,7 @@ class LogsController < ApplicationController
     elsif @data_type == "rounds"
       # 対象のラウンドデータを取得
       @recent_rounds = filter_by_time(
-        RecordRound.joins(:darts).where(darts: { target: "bull" }).distinct
+        @base_record_rounds.joins(:darts).where(darts: { target: "bull" }).distinct
       )
       
       # 何の指標をヒストグラムにするか (hit, distance, gravity_r)
@@ -446,7 +446,7 @@ class LogsController < ApplicationController
   end
 
   def set_cumulative_data
-    @darts = filter_by_time(Dart.where(target: "bull"))
+    @darts = filter_by_time(@base_darts.where(target: "bull"))
     # @darts = Dart.where(target: "bull")
     n = @darts.count
     cumulative = 0.0
@@ -530,7 +530,7 @@ class LogsController < ApplicationController
 
       # 時系列順に取得
       # ※ current_user 等でユーザーごとの履歴に絞る設定があればここに追記してください
-      rounds = RecordRound.order(created_at: :asc).to_a
+      rounds = @base_record_rounds.order(created_at: :asc).to_a
 
       # スライディングウィンドウで合致する区間を探す
       rounds.each_cons(window_size) do |chunk|
