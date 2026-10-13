@@ -307,6 +307,76 @@ class LogsController < ApplicationController
     @bar_data = cumulative_data.values
   end
 
+  def experience
+    @users = User.all
+  
+    @recent_rounds = filter_by_time(
+      @base_record_rounds.joins(:darts)
+                         .where(darts: { target: "bull" })
+                         .distinct
+                         .order(created_at: :asc)
+    )
+  
+    # 各指標のデータ
+    values_by_metric = [
+      {
+        label: "平均距離",
+        color: "rgb(54, 162, 235)",
+        values: @recent_rounds.filter_map do |round|
+          round.gravity_distance_ave&.to_f
+        end
+      },
+      {
+        label: "重心のR",
+        color: "rgb(153, 102, 255)",
+        values: @recent_rounds.filter_map do |round|
+          next if round.gravity_center_x.nil? || round.gravity_center_y.nil?
+  
+          Math.sqrt(
+            round.gravity_center_x**2 +
+            round.gravity_center_y**2
+          ).round(2)
+        end
+      },
+      {
+        label: "X分散",
+        color: "rgb(255, 159, 64)",
+        values: @recent_rounds.filter_map do |round|
+          round.variance_x&.to_f
+        end
+      },
+      {
+        label: "Y分散",
+        color: "rgb(75, 192, 192)",
+        values: @recent_rounds.filter_map do |round|
+          round.variance_y&.to_f
+        end
+      }
+    ]
+  
+    # 各指標の経験分布関数を計算
+    @experience_graphs = values_by_metric.map do |graph|
+      counts = graph[:values].tally.sort_by { |value, _count| value }
+      n = graph[:values].size
+      cumulative = 0
+  
+      data = counts.map do |value, count|
+        cumulative += count
+  
+        {
+          x: value,
+          y: cumulative.to_f / n
+        }
+      end
+  
+      {
+        label: graph[:label],
+        color: graph[:color],
+        data: data
+      }
+    end
+  end
+
   def rayleigh
     cumulative_data = set_cumulative_data
 

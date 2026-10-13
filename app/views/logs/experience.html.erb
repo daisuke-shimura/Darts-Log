@@ -1,0 +1,155 @@
+<div class="mb-5" style="width: 90%; margin: 0 auto;"
+  data-controller="log-logic--experience"
+  data-log-logic--experience-graph-data-value="<%= @experience_graphs.to_json %>">
+
+  <div class="d-flex justify-content-between align-items-center mb-1">
+    <p class="fw-bold fs-5">経験分布関数用ページ</p>
+
+    <div>
+      Rounds：<%= @recent_rounds.count %>回
+      <button
+        class="btn btn-outline-secondary"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#filterPanel"
+      >
+        Filter
+        <% if params[:day_from].present? || params[:day_to].present? %>
+          <span class="badge text-bg-secondary">
+            <%= date_range(params[:day_from], params[:day_to]) %>
+          </span>
+        <% end %>
+
+        <% if params[:recent].present? %>
+          <span class="badge text-bg-secondary">
+            <%= params[:recent] %> 回
+          </span>
+        <% end %>
+      </button>
+    </div>
+  </div>
+
+  <div class="d-flex gap-2 flex-wrap mb-1">
+    <% @experience_graphs.each_with_index do |graph, index| %>
+      <input
+        type="radio"
+        class="btn-check"
+        name="experience_metric"
+        id="experience_metric_<%= index %>"
+        value="<%= index %>"
+        autocomplete="off"
+        <%= "checked" if index == 0 %>
+        data-log-logic--experience-target="select"
+        data-action="change->log-logic--experience#changeGraph">
+
+      <label
+        class="btn btn-outline-primary btn-sm"
+        for="experience_metric_<%= index %>">
+        <%= graph[:label] %>
+      </label>
+    <% end %>
+  </div>
+
+  <canvas data-log-logic--experience-target="canvas"></canvas>
+</div>
+
+<div
+  class="offcanvas offcanvas-end"
+  tabindex="-1"
+  id="filterPanel"
+>
+
+  <div class="offcanvas-header">
+    <h5>Filter</h5>
+
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas">
+    </button>
+  </div>
+
+  <div class="offcanvas-body">
+    <%= form_with url: logs_experience_path,
+                method: :get,
+                local: true do %>
+      
+      <div class="card border-light mb-2">
+        <div class="card-body py-2">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <span class="fw-semibold text-secondary">User</span>
+            <% if params[:user_id].present? %>
+              <span class="badge text-bg-secondary">
+                <%= @users.find { |u| u.id.to_s == params[:user_id] }&.name || "選択中" %>
+              </span>
+            <% end %>
+          </div>
+
+          <div>
+            <%= select_tag :user_id,
+                  options_from_collection_for_select(@users, :id, :name, params[:user_id]),
+                  include_blank: "全員 (指定なし)",
+                  class: "form-select form-select-sm" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="card border-light mb-2">
+        <div class="card-body py-2">
+
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <span class="fw-semibold text-secondary">Day</span>
+
+            <div class="d-flex gap-1 flex-wrap">
+              <% if params[:day_from].present? || params[:day_to].present? %>
+                <span class="badge text-bg-secondary">
+                  <%= date_range(params[:day_from], params[:day_to]) %>
+                </span>
+              <% end %>
+
+              <% if params[:recent].present? %>
+                <span class="badge text-bg-secondary">
+                  <%= params[:recent] %> 本
+                </span>
+              <% end %>
+            </div>
+          </div>
+
+          <div class="row g-2 align-items-center">
+            <div class="col-auto">
+              <div class="d-flex align-items-center gap-1">
+                <%= date_field_tag :day_from,
+                      params[:day_from],
+                      class: "form-control form-control-sm",
+                      style: "width: 108px;" %>
+
+                <span>～</span>
+
+                <%= date_field_tag :day_to,
+                      params[:day_to],
+                      class: "form-control form-control-sm",
+                      style: "width: 108px;" %>
+              </div>
+            </div>
+
+            <div class="col-auto">
+              <div class="input-group input-group-sm">
+                <%= number_field_tag :recent,
+                      params[:recent],
+                      min: 1,
+                      class: "form-control",
+                      style: "width: 90px;" %>
+
+                <span class="input-group-text">本</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <%= link_to "リセット", logs_experience_path, class: "btn btn-light border text-secondary" %>
+        <%= submit_tag "絞り込み", class: "btn btn-primary", name: nil %>
+      </div>
+    <% end %>
+  </div>
+</div>

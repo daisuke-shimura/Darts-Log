@@ -15,6 +15,10 @@
       logs_cumulative_path(request.query_parameters),
       class: "btn #{current_page?(logs_cumulative_path) ? 'btn-dark active' : 'btn-outline-secondary'}" %>
 
+<%= link_to "経験分布関数",
+    logs_experience_path(request.query_parameters),
+    class: "btn #{current_page?(logs_experience_path) ? 'btn-dark active' : 'btn-outline-secondary'}" %>
+
   <%= link_to "レイリー",
       logs_rayleigh_path(request.query_parameters),
       class: "btn #{current_page?(logs_rayleigh_path) ? 'btn-dark active' : 'btn-outline-secondary'}" %>
