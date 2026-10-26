@@ -309,70 +309,77 @@ class LogsController < ApplicationController
 
   def experience
     @users = User.all
-  
-    @recent_rounds = filter_by_time(
-      @base_record_rounds.joins(:darts)
-                         .where(darts: { target: "bull" })
-                         .distinct
-                         .order(created_at: :asc)
-    )
-  
-    # 各指標のデータ
-    values_by_metric = [
+
+    # 1. 既存のベースとなるラウンド絞り込み（ターゲット: bull）
+    base_rounds = @base_record_rounds.joins(:darts)
+                                     .where(darts: { target: "bull" })
+                                     .distinct
+
+    # 2. 既存の日付・回数などのフィルターを全体に適用
+    filtered_base_rounds = filter_by_time(base_rounds)
+    @recent_rounds = filtered_base_rounds
+
+    # 3. フィルターで選択されたユーザーの取得（未選択または全選択の場合は全員）
+    selected_user_ids = params[:user_ids].presence || @users.pluck(:id)
+    target_users = @users.where(id: selected_user_ids)
+
+    metrics = [
       {
         label: "平均距離",
-        color: "rgb(54, 162, 235)",
-        values: @recent_rounds.filter_map do |round|
-          round.gravity_distance_ave&.to_f
-        end
+        extractor: ->(r) { r.gravity_distance_ave&.to_f }
       },
       {
         label: "重心のR",
-        color: "rgb(153, 102, 255)",
-        values: @recent_rounds.filter_map do |round|
-          next if round.gravity_center_x.nil? || round.gravity_center_y.nil?
-  
-          Math.sqrt(
-            round.gravity_center_x**2 +
-            round.gravity_center_y**2
-          ).round(2)
-        end
+        extractor: ->(r) {
+          return nil if r.gravity_center_x.nil? || r.gravity_center_y.nil?
+          Math.sqrt(r.gravity_center_x**2 + r.gravity_center_y**2).round(2)
+        }
       },
       {
         label: "X分散",
-        color: "rgb(255, 159, 64)",
-        values: @recent_rounds.filter_map do |round|
-          round.variance_x&.to_f
-        end
+        extractor: ->(r) { r.variance_x&.to_f }
       },
       {
         label: "Y分散",
-        color: "rgb(75, 192, 192)",
-        values: @recent_rounds.filter_map do |round|
-          round.variance_y&.to_f
-        end
+        extractor: ->(r) { r.variance_y&.to_f }
       }
     ]
-  
-    # 各指標の経験分布関数を計算
-    @experience_graphs = values_by_metric.map do |graph|
-      counts = graph[:values].tally.sort_by { |value, _count| value }
-      n = graph[:values].size
-      cumulative = 0
-  
-      data = counts.map do |value, count|
-        cumulative += count
-  
+
+    colors = [
+      "rgb(54, 162, 235)",   # 青
+      "rgb(255, 99, 132)",   # 赤
+      "rgb(75, 192, 192)",   # 緑
+      "rgb(255, 159, 64)",   # オレンジ
+      "rgb(153, 102, 255)",  # 紫
+      "rgb(255, 205, 86)"    # 黄色
+    ]
+
+    @experience_graphs = metrics.map do |metric|
+      # 選択されたユーザーごとにデータを集計
+      datasets = target_users.map.with_index do |user, user_index|
+        # 既存フィルター済みのデータから、さらにユーザーごとに絞り込む
+        user_rounds = filtered_base_rounds.where(user_id: user.id)
+        values = user_rounds.filter_map(&metric[:extractor])
+
+        # 経験分布関数の計算
+        counts = values.tally.sort_by { |value, _| value }
+        n = values.size
+        cumulative = 0
+        data = counts.map do |value, count|
+          cumulative += count
+          { x: value, y: n > 0 ? (cumulative.to_f / n).round(4) : 0 }
+        end
+
         {
-          x: value,
-          y: cumulative.to_f / n
+          label: user.name,
+          color: colors[user_index % colors.size],
+          data: data
         }
       end
-  
+
       {
-        label: graph[:label],
-        color: graph[:color],
-        data: data
+        label: metric[:label],
+        datasets: datasets
       }
     end
   end

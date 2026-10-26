@@ -1,155 +1,191 @@
-<div class="mb-5" style="width: 90%; margin: 0 auto;"
-  data-controller="log-logic--experience"
-  data-log-logic--experience-graph-data-value="<%= @experience_graphs.to_json %>">
+<div data-controller="log-logic--experience" data-log-logic--experience-graph-data-value="<%= @experience_graphs.to_json %>">
 
-  <div class="d-flex justify-content-between align-items-center mb-1">
-    <p class="fw-bold fs-5">経験分布関数用ページ</p>
+  <div class="mb-5" style="width: 90%; margin: 0 auto;">
+    <div class="d-flex justify-content-between align-items-center mb-1">
+      <p class="fw-bold fs-5">経験分布関数用ページ</p>
 
-    <div>
-      Rounds：<%= @recent_rounds.count %>回
+      <div>
+        Rounds：<%= @recent_rounds.count %>回
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#filterPanel"
+        >
+          Filter
+          <% if params[:day_from].present? || params[:day_to].present? %>
+            <span class="badge text-bg-secondary">
+              <%= date_range(params[:day_from], params[:day_to]) %>
+            </span>
+          <% end %>
+
+          <% if params[:recent].present? %>
+            <span class="badge text-bg-secondary">
+              <%= params[:recent] %> 回
+            </span>
+          <% end %>
+        </button>
+      </div>
+    </div>
+
+    <div class="d-flex gap-2 flex-wrap mb-1">
+      <% @experience_graphs.each_with_index do |graph, index| %>
+        <input
+          type="radio"
+          class="btn-check"
+          name="experience_metric"
+          id="experience_metric_<%= index %>"
+          value="<%= index %>"
+          autocomplete="off"
+          <%= "checked" if index == 0 %>
+          data-log-logic--experience-target="select"
+          data-action="change->log-logic--experience#changeGraph">
+
+        <label
+          class="btn btn-outline-primary btn-sm"
+          for="experience_metric_<%= index %>">
+          <%= graph[:label] %>
+        </label>
+      <% end %>
+    </div>
+
+    <canvas data-log-logic--experience-target="canvas"></canvas>
+  </div>
+
+  <div
+    class="offcanvas offcanvas-end"
+    tabindex="-1"
+    id="filterPanel"
+  >
+    <div class="offcanvas-header">
+      <h5>Filter</h5>
       <button
-        class="btn btn-outline-secondary"
-        data-bs-toggle="offcanvas"
-        data-bs-target="#filterPanel"
-      >
-        Filter
-        <% if params[:day_from].present? || params[:day_to].present? %>
-          <span class="badge text-bg-secondary">
-            <%= date_range(params[:day_from], params[:day_to]) %>
-          </span>
-        <% end %>
-
-        <% if params[:recent].present? %>
-          <span class="badge text-bg-secondary">
-            <%= params[:recent] %> 回
-          </span>
-        <% end %>
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="offcanvas">
       </button>
+    </div>
+
+    <div class="offcanvas-body">
+      <%= form_with url: logs_experience_path,
+                  method: :get,
+                  local: true do %>
+
+        <div class="card border-light mb-2">
+          <div class="card-body py-2">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <span class="fw-semibold text-secondary">User 選択</span>
+            </div>
+
+            <div class="d-flex align-items-center mb-2">
+              <select class="form-select form-select-sm w-auto" data-log-logic--experience-target="userSelect">
+                <option value="">ユーザーを選択...</option>
+                <% @users.each do |user| %>
+                  <option value="<%= user.id %>"><%= user.name %></option>
+                <% end %>
+              </select>
+
+              <button
+                type="button"
+                class="btn btn-primary btn-sm ms-2"
+                data-action="click->log-logic--experience#addUser">
+                Add
+              </button>
+            </div>
+
+            <div data-log-logic--experience-target="userListContainer" class="d-flex flex-wrap gap-1 mt-2">
+              <%
+                current_user_ids =
+                  if params[:user_ids].present?
+                    Array(params[:user_ids]).map(&:to_s)
+                  elsif params[:user_id].present?
+                    [params[:user_id].to_s]
+                  else
+                    [@users.first&.id&.to_s].compact
+                  end
+              %>
+              <% @users.each do |user| %>
+                <% is_selected = current_user_ids.include?(user.id.to_s) %>
+                <div
+                  class="badge bg-secondary d-inline-flex align-items-center gap-1 user-badge-item <%= 'd-none' unless is_selected %>"
+                  data-user-id="<%= user.id %>">
+                  <span><%= user.name %></span>
+                  <button
+                    type="button"
+                    class="btn-close btn-close-white btn-sm"
+                    style="font-size: 0.6rem;"
+                    data-action="click->log-logic--experience#removeUser">
+                  </button>
+                  <input
+                    type="hidden"
+                    name="user_ids[]"
+                    value="<%= user.id %>"
+                    <%= "disabled" unless is_selected %>
+                    data-log-logic--experience-target="userHiddenInput">
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="card border-light mb-2">
+          <div class="card-body py-2">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+              <span class="fw-semibold text-secondary">Day</span>
+
+              <div class="d-flex gap-1 flex-wrap">
+                <% if params[:day_from].present? || params[:day_to].present? %>
+                  <span class="badge text-bg-secondary">
+                    <%= date_range(params[:day_from], params[:day_to]) %>
+                  </span>
+                <% end %>
+
+                <% if params[:recent].present? %>
+                  <span class="badge text-bg-secondary">
+                    <%= params[:recent] %> 本
+                  </span>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="row g-2 align-items-center">
+              <div class="col-auto">
+                <div class="d-flex align-items-center gap-1">
+                  <%= date_field_tag :day_from,
+                        params[:day_from],
+                        class: "form-control form-control-sm",
+                        style: "width: 108px;" %>
+
+                  <span>～</span>
+
+                  <%= date_field_tag :day_to,
+                        params[:day_to],
+                        class: "form-control form-control-sm",
+                        style: "width: 108px;" %>
+                </div>
+              </div>
+
+              <div class="col-auto">
+                <div class="input-group input-group-sm">
+                  <%= number_field_tag :recent,
+                        params[:recent],
+                        min: 1,
+                        class: "form-control",
+                        style: "width: 90px;" %>
+
+                  <span class="input-group-text">本</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end gap-2">
+          <%= link_to "リセット", logs_experience_path, class: "btn btn-light border text-secondary" %>
+          <%= submit_tag "絞り込み", class: "btn btn-primary", name: nil %>
+        </div>
+      <% end %>
     </div>
   </div>
 
-  <div class="d-flex gap-2 flex-wrap mb-1">
-    <% @experience_graphs.each_with_index do |graph, index| %>
-      <input
-        type="radio"
-        class="btn-check"
-        name="experience_metric"
-        id="experience_metric_<%= index %>"
-        value="<%= index %>"
-        autocomplete="off"
-        <%= "checked" if index == 0 %>
-        data-log-logic--experience-target="select"
-        data-action="change->log-logic--experience#changeGraph">
-
-      <label
-        class="btn btn-outline-primary btn-sm"
-        for="experience_metric_<%= index %>">
-        <%= graph[:label] %>
-      </label>
-    <% end %>
-  </div>
-
-  <canvas data-log-logic--experience-target="canvas"></canvas>
-</div>
-
-<div
-  class="offcanvas offcanvas-end"
-  tabindex="-1"
-  id="filterPanel"
->
-
-  <div class="offcanvas-header">
-    <h5>Filter</h5>
-
-    <button
-      type="button"
-      class="btn-close"
-      data-bs-dismiss="offcanvas">
-    </button>
-  </div>
-
-  <div class="offcanvas-body">
-    <%= form_with url: logs_experience_path,
-                method: :get,
-                local: true do %>
-      
-      <div class="card border-light mb-2">
-        <div class="card-body py-2">
-          <div class="d-flex align-items-center justify-content-between mb-2">
-            <span class="fw-semibold text-secondary">User</span>
-            <% if params[:user_id].present? %>
-              <span class="badge text-bg-secondary">
-                <%= @users.find { |u| u.id.to_s == params[:user_id] }&.name || "選択中" %>
-              </span>
-            <% end %>
-          </div>
-
-          <div>
-            <%= select_tag :user_id,
-                  options_from_collection_for_select(@users, :id, :name, params[:user_id]),
-                  include_blank: "全員 (指定なし)",
-                  class: "form-select form-select-sm" %>
-          </div>
-        </div>
-      </div>
-
-      <div class="card border-light mb-2">
-        <div class="card-body py-2">
-
-          <div class="d-flex align-items-center justify-content-between mb-2">
-            <span class="fw-semibold text-secondary">Day</span>
-
-            <div class="d-flex gap-1 flex-wrap">
-              <% if params[:day_from].present? || params[:day_to].present? %>
-                <span class="badge text-bg-secondary">
-                  <%= date_range(params[:day_from], params[:day_to]) %>
-                </span>
-              <% end %>
-
-              <% if params[:recent].present? %>
-                <span class="badge text-bg-secondary">
-                  <%= params[:recent] %> 本
-                </span>
-              <% end %>
-            </div>
-          </div>
-
-          <div class="row g-2 align-items-center">
-            <div class="col-auto">
-              <div class="d-flex align-items-center gap-1">
-                <%= date_field_tag :day_from,
-                      params[:day_from],
-                      class: "form-control form-control-sm",
-                      style: "width: 108px;" %>
-
-                <span>～</span>
-
-                <%= date_field_tag :day_to,
-                      params[:day_to],
-                      class: "form-control form-control-sm",
-                      style: "width: 108px;" %>
-              </div>
-            </div>
-
-            <div class="col-auto">
-              <div class="input-group input-group-sm">
-                <%= number_field_tag :recent,
-                      params[:recent],
-                      min: 1,
-                      class: "form-control",
-                      style: "width: 90px;" %>
-
-                <span class="input-group-text">本</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="d-flex justify-content-end gap-2">
-        <%= link_to "リセット", logs_experience_path, class: "btn btn-light border text-secondary" %>
-        <%= submit_tag "絞り込み", class: "btn btn-primary", name: nil %>
-      </div>
-    <% end %>
-  </div>
 </div>
