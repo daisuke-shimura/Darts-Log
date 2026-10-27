@@ -153,7 +153,7 @@ export default class extends Controller {
   }
 
   handleKeydown(event) {
-    if (["INPUT", "TEXTAREA", "SELECT"].includes(event.target.tagName)) return
+    if (["TEXTAREA", "SELECT"].includes(event.target.tagName)) return
     if (!this.chart) return
 
     switch (event.key) {
