@@ -195,6 +195,12 @@
                   include_blank: "全員 (指定なし)",
                   class: "form-select form-select-sm" %>
           </div>
+          <div>
+            <%= select_tag :condition, 
+                  options_for_select(Game.conditions_i18n.invert, params[:condition]), 
+                  include_blank: "すべての条件",  
+                  class: "form-select form-select-sm" %>
+          </div>
         </div>
       </div>
 

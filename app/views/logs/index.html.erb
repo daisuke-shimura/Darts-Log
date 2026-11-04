@@ -278,12 +278,19 @@
       </div>
     </div>
 
-    <div class="input-group input-group-sm mb-3 w-auto">
+    <div class="input-group input-group-sm w-auto">
       <%= label_tag :user_id, "User", class: "input-group-text text-secondary" %>
       <%= select_tag :user_id, 
             options_from_collection_for_select(@users, :id, :name, params[:user_id]), 
-            include_blank: "全員", 
-            onchange: "this.form.submit();", 
+            include_blank: "全員",  
+            class: "form-select" %>
+    </div>
+
+    <div class="input-group input-group-sm mb-3 w-auto">
+      <%= label_tag :condition, "Condition", class: "input-group-text text-secondary" %>
+      <%= select_tag :condition, 
+            options_for_select(Game.conditions_i18n.invert, params[:condition]), 
+            include_blank: "すべての条件",  
             class: "form-select" %>
     </div>
 
