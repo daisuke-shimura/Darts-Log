@@ -13,6 +13,8 @@ class Game < ApplicationRecord
     undefined: 0,
   }
 
+  enum condition: { normal: 0, blindfold: 1, right_eye: 2, left_eye: 3 }
+
   def set_number
     self.number = user.games.maximum(:number).to_i + 1
   end

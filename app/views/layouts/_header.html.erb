@@ -34,8 +34,12 @@
         <div class="d-flex align-items-center">
           <small class="text-muted me-1">ログイン中：</small>
 
-          <div class="fw-semibold me-3">
+          <div class="fw-semibold me-1">
             <%= current_user.name %>
+          </div>
+
+          <div class="fw-light text-secondary-emphasis me-3">
+            <%= Game.conditions_i18n[current_condition] %>
           </div>
 
           <%= link_to "ログアウト",

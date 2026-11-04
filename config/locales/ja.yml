@@ -70,3 +70,16 @@ ja:
         s19: SINGLE 19
         s20: SINGLE 20
         undefined: 未定義
+
+    game:
+      condition:
+        normal: "普通投げ"
+        blindfold: "目隠し"
+        right_eye: "片目（右）"
+        left_eye: "片目（左）"
+    record_round:
+      condition:
+        normal: "普通投げ"
+        blindfold: "目隠し"
+        right_eye: "片目（右）"
+        left_eye: "片目（左）"

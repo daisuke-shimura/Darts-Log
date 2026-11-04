@@ -23,6 +23,7 @@ class RecordsController < ApplicationController
     user_id = current_user.id
     record_round = RecordRound.create!(
       user_id: user_id,
+      condition: current_condition
     )
 
     darts.each_with_index do |dart, index|
