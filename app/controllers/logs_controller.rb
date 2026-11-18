@@ -498,17 +498,26 @@ class LogsController < ApplicationController
   private
   def set_base_scopes
     @users = User.all
+
+    # 1. ユーザー選択（未選択時は全員）
     if params[:user_id].present?
-      # 特定のユーザーが選択されている場合
-      @base_darts = Dart.left_outer_joins(game_round: :game)
-                        .left_outer_joins(:record_round)
-                        .where("games.user_id = :user_id OR record_rounds.user_id = :user_id", user_id: params[:user_id])
       @base_record_rounds = RecordRound.where(user_id: params[:user_id])
+      @base_games = Game.where(user_id: params[:user_id])
     else
-      # 誰も選択されていない（全員）場合
-      @base_darts = Dart.all
       @base_record_rounds = RecordRound.all
+      @base_games = Game.all
     end
+
+    # 2. 条件（condition）の取得
+    @target_condition = params[:condition].presence || current_condition || "normal"
+
+    # 3. 取得した条件で @base_record_rounds と @base_games を絞り込む
+    if @target_condition.present? && @target_condition != ""
+      @base_record_rounds = @base_record_rounds.where(condition: @target_condition)
+      @base_games = @base_games.where(condition: @target_condition)
+    end
+    @base_darts = Dart.where(record_round_id: @base_record_rounds.select(:id))
+                      .or(Dart.where(game_round_id: GameRound.where(game_id: @base_games.select(:id))))
   end
 
   def set_r_values
@@ -585,14 +594,13 @@ class LogsController < ApplicationController
     end_day = @end_date.end_of_week(:sunday)
     @calendar_dates = (start_day..end_day).to_a
 
-    @daily_darts = Rails.cache.fetch(
-        "calendar/#{@target_month.strftime('%Y-%m')}",
-        expires_in: 1.hour
-      ) do
-        Dart.select(:created_at, :target, :segment)
-            .where(created_at: start_day.beginning_of_day..end_day.end_of_day)
-            .group_by { |dart| dart.created_at.to_date }
-      end
+    cache_key = "calendar/#{@target_month.strftime('%Y-%m')}/user_#{params[:user_id]}/cond_#{@target_condition}"
+
+    @daily_darts = Rails.cache.fetch(cache_key, expires_in: 1.hour) do
+      @base_darts.select(:created_at, :target, :segment)
+                 .where(created_at: start_day.beginning_of_day..end_day.end_of_day)
+                 .group_by { |dart| dart.created_at.to_date }
+    end
   end
 
   def bull_late_window(darts_data)

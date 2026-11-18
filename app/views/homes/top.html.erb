@@ -39,6 +39,12 @@
                       { prompt: "ユーザを選択" },
                       { class: "form-select" , required: true } %>
               </div>
+              <div class="mb-3">
+                <%= f.select :condition,
+                      Game.conditions_i18n.invert,
+                      { prompt: "プレイ条件を選択" },
+                      { class: "form-select", required: true } %>
+              </div>
                 <%= f.submit "決定", class: "btn btn-primary" %>
             <% end %>
           <% end %>

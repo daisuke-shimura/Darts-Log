@@ -12,7 +12,8 @@ class GamesController < ApplicationController
       user_id: current_user.id,
       kind: params[:kind],
       start_score: params[:start_score],
-      options: options
+      options: options,
+      condition: current_condition
     )
 
     if game.kind == "zero_one"
