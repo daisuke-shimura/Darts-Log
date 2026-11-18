@@ -75,3 +75,35 @@ end
 
 puts "CSV出力が完了しました！"
 ```
+
+```ruby
+darts = Dart.joins(:record_round)
+            .where(target: "bull")
+            .where(record_rounds: { user_id: 5 })
+
+require "csv"
+
+record_rounds = RecordRound.where(user_id: 5)
+
+date = Time.current.strftime("%Y%m%d")
+
+CSV.open("exports/record_rounds_#{date}.csv", "w") do |csv|
+  csv << [
+    "id",
+    "user_id",
+    "created_at",
+    "condition"
+  ]
+
+  record_rounds.find_each do |record_round|
+    csv << [
+      record_round.id,
+      record_round.user_id,
+      record_round.created_at,
+      record_round.condition
+    ]
+  end
+end
+
+puts "CSV出力が完了しました！"
+```
