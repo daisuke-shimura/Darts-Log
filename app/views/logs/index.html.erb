@@ -39,19 +39,49 @@
   </p>
   <hr>
   <p>ダーツの総計：<%= @darts_all.count %></p>
-  <h5>ターゲット</h5>
-  <p>BULL：<%= @target_bull.count %>　20：<%= @target_20.count %></p>
-  <h5>テーブル別</h5>
-  <p>ROUND：<%= @record_rounds %>R（<%= @record_darts.count %>本）</p>
-  <p>GAME：<%= @game %>（<%= @game_rounds %>R, <%= @game_darts.count %>本）</p>
-  <h5>ゲーム別</h5>
-  <p>01：<%= @zero_one_games %>（<%= @zero_one_darts.count %>本）　CRICKET：<%= @cricket_games %>（<%= @cricket_darts.count %>本）</p>
-  <p>COUNT-UP：<%= @count_up_games %>（<%= @count_up_darts.count %>本）</p>
-  <p>CENTER COUNT-UP：<%= @center_count_up_games %>（<%= @center_count_up_darts.count %>本）</p>
-  <p>CRICKET COUNT-UP：<%= @cricket_count_up_games %>（<%= @cricket_count_up_darts.count %>本）</p>
-  <p>SHOOT OUT：<%= @shoot_out_games %>（<%= @shoot_out_darts.count %>本）</p>
-  <h5>投擲順</h5>
-  <p>1投目：<%= @first_darts.count %>　2投目：<%= @second_darts.count %>　3投目：<%= @third_darts.count %></p>
+
+  <div class="accordion w-100 mb-2" id="otherAccordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOther">
+        <button
+          class="accordion-button collapsed"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#collapseOther"
+          aria-expanded="false"
+          aria-controls="collapseOther"
+        >
+          <div class="d-flex align-items-center w-100">
+            <span class="text-nowrap">その他の記録</span>
+          </div>
+        </button>
+      </h2>
+
+      <div
+        id="collapseOther"
+        class="accordion-collapse collapse"
+        aria-labelledby="headingOther"
+        data-bs-parent="#otherAccordion"
+      >
+
+        <div class="accordion-body w-100" style="max-height: 65vh; overflow-y: auto;">
+          <h5>ターゲット</h5>
+          <p>BULL：<%= @target_bull.count %>　20：<%= @target_20.count %></p>
+          <h5>テーブル別</h5>
+          <p>ROUND：<%= @record_rounds %>R（<%= @record_darts.count %>本）</p>
+          <p>GAME：<%= @game %>（<%= @game_rounds %>R, <%= @game_darts.count %>本）</p>
+          <h5>ゲーム別</h5>
+          <p>01：<%= @zero_one_games %>（<%= @zero_one_darts.count %>本）　CRICKET：<%= @cricket_games %>（<%= @cricket_darts.count %>本）</p>
+          <p>COUNT-UP：<%= @count_up_games %>（<%= @count_up_darts.count %>本）</p>
+          <p>CENTER COUNT-UP：<%= @center_count_up_games %>（<%= @center_count_up_darts.count %>本）</p>
+          <p>CRICKET COUNT-UP：<%= @cricket_count_up_games %>（<%= @cricket_count_up_darts.count %>本）</p>
+          <p>SHOOT OUT：<%= @shoot_out_games %>（<%= @shoot_out_darts.count %>本）</p>
+          <h5>投擲順</h5>
+          <p>1投目：<%= @first_darts.count %>　2投目：<%= @second_darts.count %>　3投目：<%= @third_darts.count %></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="position-absolute top-0 end-0 mt-3 me-3 ps-5 w-25">
@@ -71,7 +101,7 @@
             aria-controls="collapseGame"
           >
             <div class="d-flex align-items-center gap-2 flex-wrap w-100">
-              <span class="text-nowrap">▼ Game</span>
+              <span class="text-nowrap">Game</span>
 
               <% if @selected_kinds.present? %>
                 <div class="d-flex gap-1 flex-wrap">
