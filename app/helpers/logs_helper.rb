@@ -259,4 +259,15 @@ module LogsHelper
       "#{date.month}/#{date.day}"
     end
   end
+
+  # 任意のダーツの重心
+  def all_center_of_gravity(darts_data)
+    return nil if darts_data.blank?
+  
+    count = darts_data.size.to_f
+    x_avg = (darts_data.sum { |d| d.x.to_f } / count).round(2)
+    y_avg = (darts_data.sum { |d| d.y.to_f } / count).round(2)
+  
+    { x: x_avg, y: y_avg }
+  end
 end
